@@ -191,6 +191,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/affect_midi"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:src="@drawable/editer"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView5"
+
+                    app:layout_constraintStart_toEndOf="@+id/textView5"
+                    app:layout_constraintTop_toTopOf="@+id/textView5"
+                    app:tint="@color/turquoise" />
+
                 <TextView
                     android:id="@+id/textView5"
                     style="@style/TitleTextStyle"
@@ -231,6 +247,7 @@
                     app:layout_constraintTop_toTopOf="@+id/cardView2" />
 
                 <LinearLayout
+                    android:id="@+id/linearLayout3"
                     android:layout_width="209dp"
                     android:layout_height="32dp"
                     android:orientation="horizontal"
@@ -521,11 +538,14 @@
         android:id="@+id/affect_repas"
         android:layout_width="45dp"
         android:layout_height="45dp"
+        app:cardCornerRadius="8dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="50dp"
-        android:src="@drawable/plus_orange_bleucanard"
+        android:src="@drawable/editer"
+        android:background="@color/sun"
+        app:tint="@color/turquoise"
         />
 </RelativeLayout>
 

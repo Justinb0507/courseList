@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
@@ -86,7 +87,12 @@ class EditRepasFragment(
             for (day in semainierList.filter { s->s.apero == currentRepas.id } as ArrayList<SemainierModel>){
                 repoSemainier.resetApero(day)
             }
-
+            val storageRef = Firebase.storage.reference.child("image${currentRepas.id}")
+            storageRef.delete().addOnSuccessListener {
+                Toast.makeText(context, "Recette supprimée !", Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                Toast.makeText(context, "Recette non supprimée !", Toast.LENGTH_SHORT).show()
+            }
             context.loadFragment(filtreRepasFragment(context))
         }
 
@@ -124,9 +130,17 @@ class EditRepasFragment(
         view.findViewById<TextView>(R.id.recette).setOnClickListener{
             switcher("recette")
         }
+        view?.findViewById<ImageView>(R.id.affect_midi)?.visibility = View.GONE
+        view.findViewById<ImageView>(R.id.affect_repas).setOnClickListener{
+            enableEdit(view)
+        }
 
 
         return view
+    }
+
+    private fun enableEdit(view: View?){
+        view?.findViewById<ImageView>(R.id.affect_midi)?.visibility = View.VISIBLE
     }
 
     private fun add_tag(view: View?) {
@@ -183,33 +197,32 @@ class EditRepasFragment(
 
     private fun uploadImage(){
         val repo = RepasRepository()
+        val progressDialog = ProgressDialog(context)
+        progressDialog.setMessage("Uploading File...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
 
-            val progressDialog = ProgressDialog(context)
-            progressDialog.setMessage("Uploading File...")
-            progressDialog.setCancelable(false)
-            progressDialog.show()
-
-            val fileName = "image${currentRepas.id}"
-            val storageReference = FirebaseStorage.getInstance().getReference(fileName)
-            storageReference.putFile(filePath!!).addOnSuccessListener {
-                Toast.makeText(context, "Image saved to DB", Toast.LENGTH_SHORT).show()
-                if(progressDialog.isShowing) progressDialog.dismiss()
-                Firebase.storage.reference.child(fileName).downloadUrl.addOnSuccessListener {
-                    currentRepas.imageUri = it.toString()
-                    repo.updateRepas(currentRepas)
-                    if (!ingredients.filter { s->s.id_categorie == "None" }.isEmpty()){
-                        IngredientPopup(context,
-                            ingredients.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
-                    }
-                    context.loadFragment(RecetteFragment(context,currentRepas))
-                }.addOnFailureListener {
-                    Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
+        val fileName = "image${currentRepas.id}"
+        val storageReference = FirebaseStorage.getInstance().getReference(fileName)
+        storageReference.putFile(filePath!!).addOnSuccessListener {
+            Toast.makeText(context, "Image saved to DB", Toast.LENGTH_SHORT).show()
+            if(progressDialog.isShowing) progressDialog.dismiss()
+            Firebase.storage.reference.child(fileName).downloadUrl.addOnSuccessListener {
+                currentRepas.imageUri = it.toString()
+                repo.updateRepas(currentRepas)
+                if (!ingredients.filter { s->s.id_categorie == "None" }.isEmpty()){
+                    IngredientPopup(context,
+                        ingredients.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
                 }
-
-            }.addOnFailureListener{
-                if(progressDialog.isShowing) progressDialog.dismiss()
-                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+                context.loadFragment(RecetteFragment(context,currentRepas))
+            }.addOnFailureListener {
+                Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
             }
+
+        }.addOnFailureListener{
+            if(progressDialog.isShowing) progressDialog.dismiss()
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
 
 
 

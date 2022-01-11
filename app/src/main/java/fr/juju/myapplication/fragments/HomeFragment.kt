@@ -31,6 +31,7 @@ import fr.juju.myapplication.adapter.TagsAdapter
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.Arrays.toString
 import kotlin.collections.ArrayList
 
 
@@ -60,14 +61,10 @@ class HomeFragment
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
             view?.findViewById<TextView>(R.id.nomMidi)?.text  = currentRepasMidi.name
             view?.findViewById<TextView>(R.id.descriptionMidi)?.text  = currentRepasMidi.duree
-            val imageref = Firebase.storage.reference.child(currentRepasMidi.imageUri)
-            imageref.downloadUrl.addOnSuccessListener {Uri->
-                val imageURL = Uri.toString()
-                val imagetest = view.findViewById<ImageView>(R.id.image_item2)
-                Glide.with(context)
-                    .load(imageURL)
-                    .into(imagetest)
-            }
+            Glide.with(context)
+                .load(Uri.parse(currentRepasMidi.imageUri))
+                .into(view.findViewById<ImageView>(R.id.image_item2))
+
             val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tagListMidi)
             collectionRecyclerView.adapter = TagsAdapter(context, currentRepasMidi.tags, R.layout.item_tags_horizontal)
         }else {
@@ -85,14 +82,10 @@ class HomeFragment
             view?.findViewById<TextView>(R.id.nomSoir)?.text  = currentRepasSoir.name
             view?.findViewById<TextView>(R.id.descriptionSoir)?.text  = currentRepasSoir.duree
 
-            val imageref = Firebase.storage.reference.child(currentRepasSoir.imageUri)
-            imageref.downloadUrl.addOnSuccessListener {Uri->
-                val imageURL = Uri.toString()
-                val imagetest = view.findViewById<ImageView>(R.id.image_item3)
-                Glide.with(context)
-                    .load(imageURL)
-                    .into(imagetest)
-            }
+
+            Glide.with(context)
+                .load(currentRepasSoir.imageUri)
+                .into(view.findViewById<ImageView>(R.id.image_item3))
 
 
 

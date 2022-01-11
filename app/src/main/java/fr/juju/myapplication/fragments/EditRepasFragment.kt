@@ -1,5 +1,4 @@
 package fr.juju.myapplication.fragments
-
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
@@ -15,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import fr.juju.myapplication.*
 import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
 import fr.juju.myapplication.adapter.EditIngredientAdapter
@@ -112,7 +113,8 @@ class EditRepasFragment(
 
 
     private fun uploadImage(){
-        if(filePath != null){
+        val repo = RepasRepository()
+
             val progressDialog = ProgressDialog(context)
             progressDialog.setMessage("Uploading File...")
             progressDialog.setCancelable(false)
@@ -123,12 +125,21 @@ class EditRepasFragment(
             storageReference.putFile(filePath!!).addOnSuccessListener {
                 Toast.makeText(context, "Saved to DB", Toast.LENGTH_SHORT).show()
                 if(progressDialog.isShowing) progressDialog.dismiss()
+                Firebase.storage.reference.child(fileName).downloadUrl.addOnSuccessListener {
+                    currentRepas.imageUri = it.toString()
+                    repo.updateRepas(currentRepas)
+                    context.loadFragment(RecetteFragment(context,currentRepas))
+                }.addOnFailureListener {
+                    Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
+                }
+
             }.addOnFailureListener{
                 if(progressDialog.isShowing) progressDialog.dismiss()
                 Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
             }
 
-        }
+
+
     }
 
     private fun addIngredient(view : View){
@@ -154,7 +165,6 @@ class EditRepasFragment(
     }
 
     private fun updateRepas(view : View) {
-        val repo = RepasRepository()
         val repo2 = IngredientRepository()
         val name = view.findViewById<EditText>(R.id.name_input).text.toString()
         val description = view.findViewById<EditText>(R.id.description_input).text.toString()
@@ -185,7 +195,6 @@ class EditRepasFragment(
         }
 
         if (filePath != null){
-            currentRepas.imageUri = "image${currentRepas.id}"
             uploadImage()
         }
 
@@ -200,13 +209,13 @@ class EditRepasFragment(
                 repo2.insertIngredient(ingredient)
             }
         }
-        repo.updateRepas(currentRepas)
+
         Toast.makeText(context, "Repas modifié !", Toast.LENGTH_SHORT).show()
         if (!ingredients.filter { s->s.id_categorie == "None" }.isEmpty()){
             IngredientPopup(context,
                 ingredients.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
         }
 
-        context.loadFragment(RecetteFragment(context,currentRepas))
+
     }
 }

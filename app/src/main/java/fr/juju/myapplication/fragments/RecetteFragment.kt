@@ -44,14 +44,10 @@ class RecetteFragment (
             context.loadFragment(EditRepasFragment(context,currentRepas, ingredientList.filter { s->s.id_repas == currentRepas.id }))
         }
 
-        val imageref = Firebase.storage.reference.child(currentRepas.imageUri)
-        imageref.downloadUrl.addOnSuccessListener {Uri->
-            val imageURL = Uri.toString()
-            val imagetest = view.findViewById<ImageView>(R.id.image_item)
-            Glide.with(context)
-                .load(imageURL)
-                .into(imagetest)
-        }
+        Glide.with(context)
+            .load(currentRepas.imageUri)
+            .into(view.findViewById<ImageView>(R.id.image_item))
+
 
         val repo = IngredientRepository()
         val listIngredientView = view.findViewById<RecyclerView>(R.id.list_ingredient)

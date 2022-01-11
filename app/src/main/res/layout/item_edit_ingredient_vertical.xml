@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/text_item"
+        style="@style/DefaultTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/item_plant_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_corner"
+        />
+
+    <TextView
+        android:id="@+id/quantity_item"
+        style="@style/DefaultTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner"
+        android:text="quanitty"
+        app:layout_constraintStart_toEndOf="@+id/text_item"
+        app:layout_constraintTop_toTopOf="@+id/text_item" />
+
+    <Button
+        android:id="@+id/delete_ingredient"
+        android:layout_width="30dp"
+        android:layout_height="26dp"
+        android:background="@color/white"
+        android:text="-"
+        android:textColor="#F00"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/quantity_item"
+        app:layout_constraintStart_toEndOf="@+id/quantity_item"
+        app:layout_constraintTop_toTopOf="@+id/quantity_item" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

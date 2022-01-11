@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:id="@+id/research_input"
+            android:layout_width="234dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:fontFamily="@font/montserratalternateslight"
+            android:hint="De quoi as-tu envie ?"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/turquoise"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/searchbar"
+            app:layout_constraintStart_toStartOf="@+id/searchbar" />
+
+        <Button
+            android:id="@+id/research"
+            android:layout_width="38dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="12dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/searchbar"
+            app:layout_constraintEnd_toEndOf="@+id/searchbar"
+            app:layout_constraintTop_toTopOf="@+id/searchbar" />
+
+        <ImageView
+            android:id="@+id/searchbar"
+            android:layout_width="305dp"
+            android:layout_height="44dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/searchbar"
+            android:layout_marginLeft="@dimen/default_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/param_research"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:src="@drawable/param_research"
+            app:layout_constraintBottom_toBottomOf="@+id/searchbar"
+            app:layout_constraintStart_toEndOf="@+id/research"
+            app:layout_constraintTop_toTopOf="@+id/searchbar" />
+
+
+        <ImageView
+            android:id="@+id/plat"
+            android:layout_width="161dp"
+            android:layout_height="260dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:scaleType="centerCrop"
+            android:src="@drawable/plat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchbar" />
+
+        <ImageView
+            android:id="@+id/dessert"
+            android:layout_width="161dp"
+            android:layout_height="260dp"
+            android:layout_marginRight="@dimen/default_margin"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dessert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/plat" />
+
+        <ImageView
+            android:id="@+id/soupe"
+            android:layout_width="161dp"
+            android:layout_height="260dp"
+            android:layout_marginTop="50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/soupe"
+            app:layout_constraintStart_toStartOf="@+id/plat"
+            app:layout_constraintTop_toBottomOf="@+id/plat" />
+
+        <ImageView
+            android:id="@+id/apero"
+            android:layout_width="161dp"
+            android:layout_height="260dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/apero"
+            app:layout_constraintEnd_toEndOf="@+id/dessert"
+            app:layout_constraintTop_toTopOf="@+id/soupe" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/add_recette"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/plus_orange_bleucanard"
+        />
+
+</RelativeLayout>
+
+
+
+
+

@@ -1,0 +1,54 @@
+package fr.juju.myapplication
+
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
+import fr.juju.myapplication.CategorieRepository.Singleton.databaseRef
+import java.util.*
+
+class CategorieRepository {
+    object Singleton{
+
+        private val BUCKET_URL: String = "gs://naturecollection-c9efc.appspot.com"
+
+        //se connecter à notre espace de stockage
+        val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BUCKET_URL)
+        //se co à la ref plante
+        val databaseRef = FirebaseDatabase.getInstance().getReference("categorie")
+        //Créer une liste qui va contenir les plantes
+        val categorieList = arrayListOf<CategorieModel>()
+    }
+
+    fun updateData(callback:()-> Unit){
+        databaseRef.addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                categorieList.clear()
+                for(ds in snapshot.children){
+                    val categorie = ds.getValue(CategorieModel::class.java)
+                    if (categorie != null){
+                        categorieList.add(categorie)
+                    }
+                }
+                callback()
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+    }
+    private fun formattage(string: String): String {
+        var returnValue : String
+        returnValue = string.lowercase(Locale.getDefault())
+        returnValue = returnValue.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
+        }
+        return returnValue
+    }
+
+}

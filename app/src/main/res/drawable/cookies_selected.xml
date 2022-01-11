@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:drawable="@drawable/icookies" android:state_checked="false"
+        tools:ignore="MenuTitle" android:color="@color/white" app:itemIconSize="@dimen/design_bottom_navigation_icon_size"
+        />
+    <item android:drawable="@drawable/icookies_full" android:state_checked="true"
+        tools:ignore="MenuTitle"  android:color="@color/white"/>
+</selector>

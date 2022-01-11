@@ -1,0 +1,41 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.CourseList" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+
+        <item name="android:spinnerItemStyle">@style/DefaultTextStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/DefaultTextStyle</item>
+    </style>
+
+    <style name="SplashscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Primary brand color. -->
+    <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+
+
+
+
+    <!-- Créer le composant titre par défaut -->
+    <style name="DefaultTextStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/montserratalternateslight</item>
+    </style>
+    <!-- Créer le composant sous titre par défaut -->
+    <style name="SubstitleTextStyle" parent="DefaultTextStyle">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <!-- Créer le composant titre par défaut -->
+    <style name="TitleTextStyle" parent="DefaultTextStyle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+</resources>

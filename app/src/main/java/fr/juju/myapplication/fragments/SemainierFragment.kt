@@ -58,7 +58,6 @@ class SemainierFragment (
             view?.findViewById<ImageView>(R.id.Vendredi_img)?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_to_come))
             view?.findViewById<ImageView>(R.id.Samedi_img)?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_to_come))
             view?.findViewById<ImageView>(R.id.Dimanche_img)?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_to_come))
-
             view.findViewById<TextView>(R.id.Mardi)?.setTypeface(null,Typeface.BOLD)
             view.findViewById<ImageView>(R.id.Mardi_img).setImageDrawable(this.getContext()
                 ?.getDrawable(R.drawable.radio_uncheck))
@@ -165,14 +164,10 @@ class SemainierFragment (
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
             view?.findViewById<TextView>(R.id.nomMidi)?.text  = currentRepasMidi.name
             view?.findViewById<TextView>(R.id.descriptionMidi)?.text  = currentRepasMidi.duree
-            val imageref = Firebase.storage.reference.child(currentRepasMidi.imageUri)
-            imageref.downloadUrl.addOnSuccessListener {Uri->
-                val imageURL = Uri.toString()
-                val imagetest = view.findViewById<ImageView>(R.id.image_item2)
-                Glide.with(context)
-                    .load(imageURL)
-                    .into(imagetest)
-            }
+            Glide.with(context)
+                 .load(currentRepasMidi.imageUri)
+                 .into(view.findViewById<ImageView>(R.id.image_item2))
+
 
             val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tagListMidi)
             collectionRecyclerView.adapter = TagsAdapter(context, currentRepasMidi.tags, R.layout.item_tags_horizontal)
@@ -190,14 +185,10 @@ class SemainierFragment (
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
             view?.findViewById<TextView>(R.id.nomSoir)?.text  = currentRepasSoir.name
             view?.findViewById<TextView>(R.id.descriptionSoir)?.text  = currentRepasSoir.duree
-            val imageref = Firebase.storage.reference.child(currentRepasSoir.imageUri)
-            imageref.downloadUrl.addOnSuccessListener {Uri->
-                val imageURL = Uri.toString()
-                val imagetest = view.findViewById<ImageView>(R.id.image_item3)
-                Glide.with(context)
-                    .load(imageURL)
-                    .into(imagetest)
-            }
+            Glide.with(context)
+                 .load(currentRepasSoir.imageUri)
+                 .into(view.findViewById<ImageView>(R.id.image_item3))
+
             val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tagListSoir)
             collectionRecyclerView.adapter = TagsAdapter(context, currentRepasSoir.tags, R.layout.item_tags_horizontal)
 
@@ -214,14 +205,10 @@ class SemainierFragment (
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
             view?.findViewById<TextView>(R.id.nomApero)?.text  = currentRepasApero.name
             view?.findViewById<TextView>(R.id.descriptionApero)?.text  = currentRepasApero.duree
-            val imageref = Firebase.storage.reference.child(currentRepasApero.imageUri)
-            imageref.downloadUrl.addOnSuccessListener {Uri->
-                val imageURL = Uri.toString()
-                val imagetest = view.findViewById<ImageView>(R.id.image_item4)
-                Glide.with(context)
-                    .load(imageURL)
-                    .into(imagetest)
-            }
+            Glide.with(context)
+                 .load(currentRepasApero.imageUri)
+                 .into(view.findViewById<ImageView>(R.id.image_item4))
+
 
             val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tagListApero)
             collectionRecyclerView.adapter = TagsAdapter(context, currentRepasApero.tags, R.layout.item_tags_horizontal)

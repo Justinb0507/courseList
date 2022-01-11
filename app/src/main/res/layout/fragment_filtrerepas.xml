@@ -60,9 +60,9 @@
 
         <ImageView
             android:id="@+id/plat"
-            android:layout_width="161dp"
-            android:layout_height="260dp"
-            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_width="149dp"
+            android:layout_height="231dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="@dimen/default_margin"
             android:scaleType="centerCrop"
             android:src="@drawable/plat"
@@ -71,9 +71,9 @@
 
         <ImageView
             android:id="@+id/dessert"
-            android:layout_width="161dp"
-            android:layout_height="260dp"
-            android:layout_marginRight="@dimen/default_margin"
+            android:layout_width="149dp"
+            android:layout_height="231dp"
+            android:layout_marginRight="30dp"
             android:scaleType="centerCrop"
             android:src="@drawable/dessert"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,9 +81,9 @@
 
         <ImageView
             android:id="@+id/soupe"
-            android:layout_width="161dp"
-            android:layout_height="260dp"
-            android:layout_marginTop="50dp"
+            android:layout_width="149dp"
+            android:layout_height="231dp"
+            android:layout_marginTop="30dp"
             android:scaleType="centerCrop"
             android:src="@drawable/soupe"
             app:layout_constraintStart_toStartOf="@+id/plat"
@@ -91,8 +91,8 @@
 
         <ImageView
             android:id="@+id/apero"
-            android:layout_width="161dp"
-            android:layout_height="260dp"
+            android:layout_width="149dp"
+            android:layout_height="231dp"
             android:scaleType="centerCrop"
             android:src="@drawable/apero"
             app:layout_constraintEnd_toEndOf="@+id/dessert"
@@ -107,8 +107,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="50dp"
-        android:src="@drawable/plus_orange_bleucanard"
-        />
+        android:src="@drawable/plus_orange_bleucanard" />
 
 </RelativeLayout>
 

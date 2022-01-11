@@ -4,11 +4,13 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,11 +21,15 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import fr.juju.myapplication.*
 import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
+import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
 import fr.juju.myapplication.adapter.EditIngredientAdapter
+import fr.juju.myapplication.adapter.EditTagsAdapter
 import fr.juju.myapplication.adapter.IngredientAdapter
+import fr.juju.myapplication.adapter.TagsAdapter
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.log
 
 class EditRepasFragment(
     private val context: MainActivity,
@@ -52,12 +58,11 @@ class EditRepasFragment(
         listIngredientView.adapter = EditIngredientAdapter(context,ingredients, R.layout.item_edit_ingredient_vertical)
         listIngredientView.layoutManager = LinearLayoutManager(context)
 
-        view.findViewById<EditText>(R.id.name_input).hint = currentRepas.name
-        view.findViewById<EditText>(R.id.description_input).hint = currentRepas.description
-        view.findViewById<EditText>(R.id.lien_input).hint = currentRepas.lien
-        view.findViewById<EditText>(R.id.recette_input).hint = currentRepas.recette
-        view.findViewById<EditText>(R.id.duree).hint = currentRepas.duree
-        view.findViewById<TextView>(R.id.tags).hint = currentRepas.tags.toString()
+        view.findViewById<EditText>(R.id.name_input).setText(currentRepas.name)
+        view.findViewById<EditText>(R.id.description_input).setText(currentRepas.description)
+        view.findViewById<EditText>(R.id.lien_input).setText(currentRepas.lien)
+        view.findViewById<EditText>(R.id.recette_input).setText(currentRepas.recette)
+        view.findViewById<EditText>(R.id.duree).setText(currentRepas.duree)
 
         uploadedImage = view.findViewById<ImageView>(R.id.image_item)
         Glide.with(context).load(Uri.parse(currentRepas.imageUri)).into(view.findViewById<ImageView>(R.id.image_item))
@@ -66,25 +71,90 @@ class EditRepasFragment(
         view.findViewById<ImageView>(R.id.valid).setOnClickListener{
             updateRepas(view)
         }
+        val repoSemainier = SemainierRepository()
         view.findViewById<ImageView>(R.id.trash).setOnClickListener{
             repo.deleteRepas(currentRepas)
             for (ingredient in ingredientList.filter { s->s.id_repas == currentRepas.id } as ArrayList<IngredientModel>){
                 repo2.deleteIngredient(ingredient)
             }
+            for (day in semainierList.filter { s->s.midi == currentRepas.id } as ArrayList<SemainierModel>){
+                repoSemainier.resetMidi(day)
+            }
+            for (day in semainierList.filter { s->s.soir == currentRepas.id } as ArrayList<SemainierModel>){
+                repoSemainier.resetSoir(day)
+            }
+            for (day in semainierList.filter { s->s.apero == currentRepas.id } as ArrayList<SemainierModel>){
+                repoSemainier.resetApero(day)
+            }
+
             context.loadFragment(filtreRepasFragment(context))
         }
+
+
         val addIngredientButton = view.findViewById<Button>(R.id.add_ingredient)
         addIngredientButton.setOnClickListener{
             addIngredient(view)
             listIngredientView.adapter = EditIngredientAdapter(context,ingredients, R.layout.item_edit_ingredient_vertical)
             view.findViewById<EditText>(R.id.ingredient).setText("")
+            view.findViewById<EditText>(R.id.quantite).setText("")
+            listIngredientView.scrollToPosition(1500)
+        }
+        val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tags)
+        collectionRecyclerView.adapter = EditTagsAdapter(context, currentRepas.tags, R.layout.item_edit_tags_horizontal)
+        collectionRecyclerView.scrollToPosition(300)
+        val add_tagButton = view.findViewById<Button>(R.id.add_tag)
+        add_tagButton.setOnClickListener{
+            add_tag(view)
+            collectionRecyclerView.adapter = EditTagsAdapter(context, currentRepas.tags, R.layout.item_edit_tags_horizontal)
+            view.findViewById<EditText>(R.id.tag_input).setText("")
         }
 
         view.findViewById<CardView>(R.id.cardView).setOnClickListener{
             launchGallery()
         }
 
+        //Set to linerarlayout to ingredients
+        view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.GONE
+        view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.INVISIBLE
+
+
+        view.findViewById<TextView>(R.id.ingredients).setOnClickListener{
+            switcher("ingredient")
+        }
+        view.findViewById<TextView>(R.id.recette).setOnClickListener{
+            switcher("recette")
+        }
+
+
         return view
+    }
+
+    private fun add_tag(view: View?) {
+        var tag_input =  view?.findViewById<EditText>(R.id.tag_input)?.text.toString()
+        tag_input = tag_input.lowercase(Locale.getDefault())
+        tag_input = tag_input.replaceFirstChar { if (it.isLowerCase()) it.titlecase(
+            Locale.getDefault()) else it.toString() }
+
+        if(currentRepas.tags.filter{s-> s == tag_input}.isEmpty() && tag_input != "" && tag_input != " "&& tag_input != "  "){
+            currentRepas.tags.add(tag_input)
+        }
+    }
+
+    private fun switcher(switch: String){
+        if(switch == "ingredient"){
+            view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.GONE
+            view?.findViewById<ConstraintLayout>(R.id.ingredientCard)?.visibility = View.VISIBLE
+            view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.INVISIBLE
+            view?.findViewById<View>(R.id.ingredient_soulignage)?.visibility = View.VISIBLE
+
+
+        }
+        else if(switch == "recette"){
+            view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.VISIBLE
+            view?.findViewById<ConstraintLayout>(R.id.ingredientCard)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.VISIBLE
+            view?.findViewById<View>(R.id.ingredient_soulignage)?.visibility = View.INVISIBLE
+        }
     }
 
 
@@ -111,7 +181,6 @@ class EditRepasFragment(
         }
     }
 
-
     private fun uploadImage(){
         val repo = RepasRepository()
 
@@ -123,11 +192,15 @@ class EditRepasFragment(
             val fileName = "image${currentRepas.id}"
             val storageReference = FirebaseStorage.getInstance().getReference(fileName)
             storageReference.putFile(filePath!!).addOnSuccessListener {
-                Toast.makeText(context, "Saved to DB", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Image saved to DB", Toast.LENGTH_SHORT).show()
                 if(progressDialog.isShowing) progressDialog.dismiss()
                 Firebase.storage.reference.child(fileName).downloadUrl.addOnSuccessListener {
                     currentRepas.imageUri = it.toString()
                     repo.updateRepas(currentRepas)
+                    if (!ingredients.filter { s->s.id_categorie == "None" }.isEmpty()){
+                        IngredientPopup(context,
+                            ingredients.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
+                    }
                     context.loadFragment(RecetteFragment(context,currentRepas))
                 }.addOnFailureListener {
                     Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
@@ -165,13 +238,15 @@ class EditRepasFragment(
     }
 
     private fun updateRepas(view : View) {
+        val repo = RepasRepository()
+
         val repo2 = IngredientRepository()
         val name = view.findViewById<EditText>(R.id.name_input).text.toString()
         val description = view.findViewById<EditText>(R.id.description_input).text.toString()
         val lien = view.findViewById<EditText>(R.id.lien_input).text.toString()
         val recette = view.findViewById<EditText>(R.id.recette_input).text.toString()
         val duree = view.findViewById<EditText>(R.id.duree).text.toString()
-        val tags = view.findViewById<EditText>(R.id.tags).text.toString()
+//        val tags = view.findViewById<EditText>(R.id.tags).text.toString()
 
         if (!name.isBlank()){
             currentRepas.name = name
@@ -188,14 +263,17 @@ class EditRepasFragment(
         if (!duree.isBlank()){
             currentRepas.duree = duree
         }
-        if (!tags.isBlank()){
-            for (tag in tags.split(" ")){
-                currentRepas.tags.add(tag)
-            }
-        }
 
         if (filePath != null){
             uploadImage()
+        }
+        else {
+            repo.updateRepas(currentRepas)
+            if (!ingredients.filter { s->s.id_categorie == "None" }.isEmpty()){
+                IngredientPopup(context,
+                    ingredients.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
+            }
+            context.loadFragment(RecetteFragment(context,currentRepas))
         }
 
         for(ingredientRepo in ingredientList.filter { s->s.id_repas == currentRepas.id }){
@@ -211,11 +289,5 @@ class EditRepasFragment(
         }
 
         Toast.makeText(context, "Repas modifié !", Toast.LENGTH_SHORT).show()
-        if (!ingredients.filter { s->s.id_categorie == "None" }.isEmpty()){
-            IngredientPopup(context,
-                ingredients.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
-        }
-
-
     }
 }

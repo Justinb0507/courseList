@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.juju.myapplication.IngredientModel
@@ -14,7 +15,7 @@ class EditIngredientAdapter (val context: MainActivity, private val ingredientLi
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val name: TextView? = view.findViewById(R.id.text_item)
-        val button: Button? = view.findViewById(R.id.delete_ingredient)
+        val img: ImageView? = view.findViewById(R.id.delete_ingredient)
         val quantite: TextView? = view.findViewById(R.id.quantity_item)
     }
 
@@ -27,7 +28,7 @@ class EditIngredientAdapter (val context: MainActivity, private val ingredientLi
         val currentIngredient = ingredientList[position]
         holder.name?.text = currentIngredient.name
         holder.quantite?.text = currentIngredient.quantite
-        holder.button?.setOnClickListener{
+        holder.img?.setOnClickListener{
             ingredientList.remove(currentIngredient)
             notifyDataSetChanged()
         }

@@ -32,14 +32,10 @@ class RepasAdapter(val context: MainActivity, private val repasList: List<RepasM
         //recuper les informations du repas
         val currentRepas = repasList[position]
         //Recup l'image depuis l'INTERNET
-        val imageref = Firebase.storage.reference.child(currentRepas.imageUri)
-        imageref.downloadUrl.addOnSuccessListener {Uri->
-            val imageURL = Uri.toString()
-            val imagetest = holder.imageUri
-            Glide.with(context)
-                .load(imageURL)
-                .into(imagetest)
-        }
+        Glide.with(context)
+            .load(currentRepas.imageUri)
+            .into(holder.imageUri)
+
         holder.name?.text = currentRepas.name
         holder.description?.text = currentRepas.description
 

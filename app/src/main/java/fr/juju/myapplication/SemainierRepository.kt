@@ -43,4 +43,18 @@ class SemainierRepository {
             }
 
         })    }
+
+    fun resetMidi(day: SemainierModel) {
+        day.midi = "None"
+        databaseRef.child(day.id_semainier).setValue(day)
+    }
+    fun resetSoir(day: SemainierModel) {
+        day.soir = "None"
+        databaseRef.child(day.id_semainier).setValue(day)
+    }
+    fun resetApero(day: SemainierModel) {
+        day.apero = "None"
+        databaseRef.child(day.id_semainier).setValue(day)
+    }
+
 }

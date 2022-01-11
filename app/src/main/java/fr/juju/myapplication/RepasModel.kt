@@ -9,7 +9,7 @@ import com.google.firebase.storage.ktx.storage
 import java.net.URI
 
 class RepasModel(
-    val id:String = "Repas0",
+    var id:String = "Repas0",
     var name:String = "NomPlat",
     var description:String = "Vla la description",
     var imageUri: String = "https://cdn.pixabay.com/photo/2015/11/19/10/38/food-1050813_960_720.jpg",

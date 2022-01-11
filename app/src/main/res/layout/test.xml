@@ -1,14 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/background">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="fill_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        android:layout_marginLeft="@dimen/default_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:id="@+id/view_separation"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="@+id/cardView" />
+
+    <EditText
+        android:id="@+id/name_input"
+        style="@style/TitleTextStyle"
+        android:layout_width="161dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="@dimen/item_margin"
+        android:hint="Nom du plat"
+        android:singleLine="true"
+        android:textColorHint="@color/turquoise"
+        app:layout_constraintBottom_toTopOf="@+id/view_separation"
+        app:layout_constraintStart_toEndOf="@+id/cardView" />
+
+    <EditText
+        android:id="@+id/description_input"
+        style="@style/DefaultTextStyle"
+        android:layout_width="171dp"
+        android:layout_height="45dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColorHint="@color/turquoise"
+        app:layout_constraintStart_toStartOf="@+id/name_input"
+        app:layout_constraintTop_toBottomOf="@+id/view_separation" />
+
+    <ImageView
+        android:id="@+id/valid"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/check"
+        app:tint="@color/white"
+        android:layout_marginRight="@dimen/default_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/trash"
+        app:layout_constraintEnd_toStartOf="@+id/trash"
+        app:layout_constraintTop_toTopOf="@+id/trash" />
+
+    <ImageView
+        android:id="@+id/trash"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_trash"
+        app:tint="@color/white"
+        android:layout_marginRight="@dimen/default_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/view_separation"
+        app:layout_constraintEnd_toEndOf="@+id/view_separation"
+        app:layout_constraintTop_toTopOf="@+id/view_separation" />
+
+    <ImageView
+        android:id="@+id/clock"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        android:src="@drawable/clock"
+        />
+
+    <EditText
+        android:id="@+id/duree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/DefaultTextStyle"
+        android:textColorHint="@color/turquoise"
+        android:hint="45min"
+        app:layout_constraintBottom_toBottomOf="@+id/clock"
+        app:layout_constraintStart_toEndOf="@+id/clock"
+        app:layout_constraintTop_toTopOf="@+id/clock"
+        android:layout_marginLeft="5dp"/>
+
+    <EditText
+        android:id="@+id/tags"
+        style="@style/DefaultTextStyle"
+        android:layout_width="220dp"
+        android:textColorHint="@color/turquoise"
+        android:layout_height="50dp"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:maxLines="1"
+        app:layout_constraintBottom_toBottomOf="@+id/clock"
+        app:layout_constraintStart_toEndOf="@+id/duree"
+        app:layout_constraintTop_toTopOf="@+id/clock" />
+
+    <TextView
+        android:id="@+id/ingredients"
+        style="@style/TitleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingrédients"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/clock" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:scrollbars="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:id="@+id/list_ingredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/ingredients"
+        app:layout_constraintTop_toBottomOf="@+id/ingredients" />
 
-</LinearLayout>
+    <EditText
+        android:id="@+id/ingredient"
+        style="@style/DefaultTextStyle"
+        android:textColorHint="@color/turquoise"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:hint="Ingrédients"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/default_margin"
+        app:layout_constraintStart_toStartOf="@+id/list_ingredient"
+        app:layout_constraintTop_toBottomOf="@+id/list_ingredient" />
+
+    <EditText
+        android:id="@+id/quantite"
+        style="@style/DefaultTextStyle"
+        android:layout_width="100dp"
+        android:textColorHint="@color/turquoise"
+        android:layout_height="80dp"
+        android:hint="40g"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/default_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/ingredient"
+        app:layout_constraintStart_toEndOf="@+id/ingredient"
+        app:layout_constraintTop_toTopOf="@+id/ingredient" />
+
+
+    <Button
+        android:id="@+id/add_ingredient"
+        android:layout_width="50dp"
+        android:layout_height="52dp"
+        android:background="@color/darkGray"
+        android:text="+"
+        android:textColor="@color/white"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/quantite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/quantite"
+        app:layout_constraintTop_toTopOf="@+id/quantite" />
+
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/TitleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lien utile"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintStart_toStartOf="@+id/list_ingredient"
+        app:layout_constraintTop_toBottomOf="@+id/ingredient" />
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/TitleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Recette du plat"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/lien_input" />
+
+    <EditText
+        android:id="@+id/lien_input"
+        style="@style/DefaultTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/turquoise"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:hint="www.supersite.com"
+        android:maxLines="1"
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/recette_input"
+        style="@style/DefaultTextStyle"
+        android:hint="Voila la super recette"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:textColorHint="@color/turquoise"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -3,6 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/fragment_edit_repas.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/fragment_filtrerepas.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/fragment_recette.xml" value="0.22" />
+        <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/fragment_semainier.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/item_edit_ingredient_categorie.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/item_edit_ingredient_vertical.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/item_edit_tags_horizontal.xml" value="0.5" />
+        <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/item_tags_horizontal.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/test.xml" value="0.22" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable-anydpi/ic_plus.xml" value="0.12368421052631579" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable-anydpi/ic_star.xml" value="0.14786324786324787" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable-anydpi/ic_trash.xml" value="0.14786324786324787" />

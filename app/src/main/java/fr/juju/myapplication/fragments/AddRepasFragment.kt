@@ -16,7 +16,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import fr.juju.myapplication.*
 import fr.juju.myapplication.adapter.*
 import java.io.IOException
@@ -33,6 +35,7 @@ class AddRepasFragment(
     private var filePath: Uri? = null
     private val randomId = UUID.randomUUID().toString()
     val listItem = arrayListOf<IngredientModel>()
+    var repas = RepasModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -102,28 +105,18 @@ class AddRepasFragment(
         for (tag in tags.split(" ")){
             tagsList.add(tag)
         }
-        val repas = RepasModel(
-            randomId,
-            repasName,
-            repasDescription,
-            filePath.toString(),
-            repasLien,
-            repasRecette,
-            tagsList,
-            duree
-        )
+        repas.id = randomId
+        repas.description = repasDescription
+        repas.name = repasName
+        repas.lien = repasLien
+        repas.recette = repasRecette
+        repas.tags = tagsList
+        repas.duree = duree
 
         uploadImage()
 
         for (ingredient in listItem) {
             repo2.insertIngredient(ingredient)
-        }
-        repo.insertRepas(repas)
-        context.loadFragment(RecetteFragment(context, repas))
-        Toast.makeText(context, "Repas ajouté !", Toast.LENGTH_SHORT).show();
-        if (!listItem.filter { s->s.id_categorie == "None" }.isEmpty()){
-            IngredientPopup(context,
-                listItem.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
         }
     }
 
@@ -151,22 +144,36 @@ class AddRepasFragment(
     }
 
     private fun uploadImage(){
-        if(filePath != null){
-            val progressDialog = ProgressDialog(context)
-            progressDialog.setMessage("Uploading File...")
-            progressDialog.setCancelable(false)
-            progressDialog.show()
+        val repo = RepasRepository()
 
-            val fileName = "image$randomId"
-            val storageReference = FirebaseStorage.getInstance().getReference(fileName)
-            storageReference.putFile(filePath!!).addOnSuccessListener {
-                Toast.makeText(context, "Saved to DB", Toast.LENGTH_SHORT).show()
-                if(progressDialog.isShowing) progressDialog.dismiss()
-            }.addOnFailureListener{
-                if(progressDialog.isShowing) progressDialog.dismiss()
-                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        val progressDialog = ProgressDialog(context)
+        progressDialog.setMessage("Uploading File...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+
+        val fileName = "image${repas.id}"
+        val storageReference = FirebaseStorage.getInstance().getReference(fileName)
+        storageReference.putFile(filePath!!).addOnSuccessListener {
+            Toast.makeText(context, "Saved to DB", Toast.LENGTH_SHORT).show()
+            if(progressDialog.isShowing) progressDialog.dismiss()
+            Firebase.storage.reference.child(fileName).downloadUrl.addOnSuccessListener {
+                repas.imageUri = it.toString()
+                repo.insertRepas(repas)
+                if (!listItem.filter { s->s.id_categorie == "None" }.isEmpty()){
+                    IngredientPopup(context,
+                        listItem.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
+                }
+                context.loadFragment(RecetteFragment(context,repas))
+            }.addOnFailureListener {
+                Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
             }
 
+        }.addOnFailureListener{
+            if(progressDialog.isShowing) progressDialog.dismiss()
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
+
+
+
     }
 }

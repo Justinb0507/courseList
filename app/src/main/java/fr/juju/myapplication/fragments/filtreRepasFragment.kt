@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import fr.juju.myapplication.MainActivity
 import fr.juju.myapplication.R
@@ -42,6 +44,9 @@ override fun onCreateView(
     view.findViewById<Button>(R.id.research).setOnClickListener{
         context.loadFragment(ResultResearchFragment(context, view.findViewById<EditText>(R.id.research_input).text.toString(), "nope"))
     }
+
+    val translate = AnimationUtils.loadAnimation(context, R.anim.translate_anim)
+    view.findViewById<ConstraintLayout>(R.id.constraint).startAnimation(translate)
 
     return view
 }

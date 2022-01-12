@@ -130,17 +130,8 @@ class EditRepasFragment(
         view.findViewById<TextView>(R.id.recette).setOnClickListener{
             switcher("recette")
         }
-        view?.findViewById<ImageView>(R.id.affect_midi)?.visibility = View.GONE
-        view.findViewById<ImageView>(R.id.affect_repas).setOnClickListener{
-            enableEdit(view)
-        }
-
 
         return view
-    }
-
-    private fun enableEdit(view: View?){
-        view?.findViewById<ImageView>(R.id.affect_midi)?.visibility = View.VISIBLE
     }
 
     private fun add_tag(view: View?) {

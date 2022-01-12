@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -125,6 +126,9 @@ class HomeFragment
         if(currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None"){
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
         }
+
+        val translate = AnimationUtils.loadAnimation(context, R.anim.translate_anim)
+        view.findViewById<ConstraintLayout>(R.id.constraint).startAnimation(translate)
 
 
         return view

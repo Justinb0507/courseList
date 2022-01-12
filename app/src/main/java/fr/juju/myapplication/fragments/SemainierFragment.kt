@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import fr.juju.myapplication.*
 import fr.juju.myapplication.adapter.TagsAdapter
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -278,11 +280,23 @@ class SemainierFragment (
         }
 
         view.findViewById<ImageView>(R.id.affect_repas).setOnClickListener{
-        //SAISIR ICI LA REDIRECTION
+            enableEdit(view)
         }
+        val translate = AnimationUtils.loadAnimation(context, R.anim.translate_anim)
+        view.findViewById<ConstraintLayout>(R.id.Midi).startAnimation(translate)
+        view.findViewById<ConstraintLayout>(R.id.Soir).startAnimation(translate)
+        view.findViewById<ConstraintLayout>(R.id.Apero).startAnimation(translate)
+        view.findViewById<ConstraintLayout>(R.id.NoRepas).startAnimation(translate)
+        view.findViewById<TextView>(R.id.substyle).startAnimation(translate)
+        view.findViewById<ImageView>(R.id.imageView5).startAnimation(translate)
+
 
 
         return view
+    }
+
+    private fun enableEdit(view: View?) {
+
     }
 
 

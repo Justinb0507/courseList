@@ -144,6 +144,104 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Apero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_margin">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView4"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="@dimen/default_margin"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:layout_constraintStart_toStartOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+                <ImageView
+                    android:id="@+id/image_item4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:text="Apéro"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_separation4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cardView4" />
+
+            <TextView
+                android:id="@+id/nomApero"
+                style="@style/SubstitleTextStyle"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:text="Nom du plat"
+                app:layout_constraintStart_toEndOf="@+id/cardView4"
+                app:layout_constraintTop_toTopOf="@+id/cardView4" />
+
+
+            <LinearLayout
+                android:layout_width="209dp"
+                android:layout_height="32dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/view_separation4"
+                app:layout_constraintStart_toStartOf="@+id/nomApero"
+                app:layout_constraintTop_toTopOf="@+id/view_separation4">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tagListApero"
+                    android:layout_width="209dp"
+                    android:layout_height="32dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/clock3"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:src="@drawable/clock"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView4"
+                app:layout_constraintStart_toEndOf="@+id/cardView4"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/descriptionApero"
+                style="@style/DefaultTextStyle"
+                android:layout_width="176dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Description du plat"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView4"
+                app:layout_constraintStart_toEndOf="@+id/clock3"
+                app:layout_constraintTop_toTopOf="@+id/clock3" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/Soir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -241,103 +339,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/Apero"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/default_margin">
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView4"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="@dimen/default_margin"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/textView4">
-
-                <ImageView
-                    android:id="@+id/image_item4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                     />
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/textView4"
-                style="@style/TitleTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:layout_marginTop="@dimen/default_margin"
-                android:text="Apéro"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/view_separation4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/cardView4" />
-
-            <TextView
-                android:id="@+id/nomApero"
-                style="@style/SubstitleTextStyle"
-                android:layout_width="210dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:text="Nom du plat"
-                app:layout_constraintStart_toEndOf="@+id/cardView4"
-                app:layout_constraintTop_toTopOf="@+id/cardView4" />
-
-
-            <LinearLayout
-                android:layout_width="209dp"
-                android:layout_height="32dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/view_separation4"
-                app:layout_constraintStart_toStartOf="@+id/nomApero"
-                app:layout_constraintTop_toTopOf="@+id/view_separation4">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/tagListApero"
-                    android:layout_width="209dp"
-                    android:layout_height="32dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/clock3"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:src="@drawable/clock"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView4"
-                app:layout_constraintStart_toEndOf="@+id/cardView4"
-                app:tint="@color/white" />
-
-            <TextView
-                android:id="@+id/descriptionApero"
-                style="@style/DefaultTextStyle"
-                android:layout_width="176dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Description du plat"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView4"
-                app:layout_constraintStart_toEndOf="@+id/clock3"
-                app:layout_constraintTop_toTopOf="@+id/clock3" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/NoRepas"

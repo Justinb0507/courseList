@@ -22,6 +22,8 @@ class ResultResearchFragment(
     private val context:MainActivity,
     private val parameter: String,
     private val categorie: String,
+    private val time: String,
+    private val selectedDay: String
 ) : Fragment()  {
 
     override fun onCreateView(
@@ -136,7 +138,7 @@ class ResultResearchFragment(
             }
         }
 
-        collectionRecyclerView.adapter = RepasAdapter(context, resultResearch, R.layout.item_repas_vertical)
+        collectionRecyclerView.adapter = RepasAdapter(context, resultResearch, R.layout.item_repas_vertical, time,selectedDay)
         collectionRecyclerView.layoutManager = LinearLayoutManager(context)
         collectionRecyclerView.addItemDecoration(RepasItemDecoration())
 

@@ -163,7 +163,7 @@ class AddRepasFragment(
                     IngredientPopup(context,
                         listItem.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
                 }
-                context.loadFragment(RecetteFragment(context,repas))
+                context.loadFragment(RecetteFragment(context,repas, "None", "None"))
             }.addOnFailureListener {
                 Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
             }

@@ -44,17 +44,35 @@ class SemainierRepository {
 
         })    }
 
-    fun resetMidi(day: SemainierModel) {
+    fun resetMidi(day_name: String) {
+        var day = semainierList.filter { s->s.id_semainier == day_name }[0]
         day.midi = "None"
         databaseRef.child(day.id_semainier).setValue(day)
     }
-    fun resetSoir(day: SemainierModel) {
-        day.soir = "None"
+    fun resetSoir(day_name: String) {
+        var day = semainierList.filter { s->s.id_semainier == day_name }[0]
+        day.soir= "None"
         databaseRef.child(day.id_semainier).setValue(day)
     }
-    fun resetApero(day: SemainierModel) {
+    fun resetApero(day_name: String) {
+        var day = semainierList.filter { s->s.id_semainier == day_name }[0]
         day.apero = "None"
         databaseRef.child(day.id_semainier).setValue(day)
+    }
+    fun setMidi(time: String, selectedDay: String, id_repas: String){
+        var day = semainierList.filter { s->s.id_semainier == selectedDay }[0]
+        day.midi = id_repas
+        databaseRef.child(selectedDay).setValue(day)
+    }
+    fun setSoir(time: String, selectedDay: String, id_repas: String){
+        var day = semainierList.filter { s->s.id_semainier == selectedDay }[0]
+        day.soir = id_repas
+        databaseRef.child(selectedDay).setValue(day)
+    }
+    fun setApero(time: String, selectedDay: String, id_repas: String){
+        var day = semainierList.filter { s->s.id_semainier == selectedDay }[0]
+        day.apero = id_repas
+        databaseRef.child(selectedDay).setValue(day)
     }
 
 }

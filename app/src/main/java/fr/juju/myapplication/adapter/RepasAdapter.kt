@@ -15,7 +15,13 @@ import fr.juju.myapplication.*
 import fr.juju.myapplication.fragments.RecetteFragment
 
 
-class RepasAdapter(val context: MainActivity, private val repasList: List<RepasModel>, private val layoutId:Int) : RecyclerView.Adapter<RepasAdapter.ViewHolder>() {
+class RepasAdapter(
+    val context: MainActivity,
+    private val repasList: List<RepasModel>,
+    private val layoutId:Int,
+    private val time: String,
+    private val selectedDay: String
+    ) : RecyclerView.Adapter<RepasAdapter.ViewHolder>() {
 
     class ViewHolder(view:View): RecyclerView.ViewHolder(view){
         val imageUri: ImageView = view.findViewById<ImageView>(R.id.image_item)
@@ -40,7 +46,7 @@ class RepasAdapter(val context: MainActivity, private val repasList: List<RepasM
         holder.description?.text = currentRepas.description
 
         holder.itemView.setOnClickListener {
-            context.loadFragment(RecetteFragment(context, currentRepas))
+            context.loadFragment(RecetteFragment(context, currentRepas, time, selectedDay))
         }
 
     }

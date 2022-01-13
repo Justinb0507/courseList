@@ -16,13 +16,16 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import fr.juju.myapplication.*
 import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
+import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
 import fr.juju.myapplication.adapter.IngredientAdapter
 import fr.juju.myapplication.adapter.TagsAdapter
 
 
 class RecetteFragment (
     private val context: MainActivity,
-    private val currentRepas: RepasModel
+    private val currentRepas: RepasModel,
+    private val time: String,
+    private val selectedDay: String
 ) : Fragment() {
 
     override fun onCreateView(
@@ -30,6 +33,8 @@ class RecetteFragment (
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val repo2 = SemainierRepository()
 
         val view = inflater?.inflate(R.layout.fragment_recette, container, false)
         view.findViewById<TextView>(R.id.name).text = currentRepas.name
@@ -60,7 +65,37 @@ class RecetteFragment (
         view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.INVISIBLE
 
 
+        view.findViewById<ImageView>(R.id.affect_repas).setOnClickListener{
+            if (time == "midi" && selectedDay != "None"){
+                context.unprintSoir()
+                context.unprintApero()
+                context.unprintMidi()
+                repo2.setMidi(time, selectedDay, currentRepas.id)
+                Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
+                context.loadFragment(SemainierFragment(context, selectedDay))
+            }
+            if (time == "soir" && selectedDay != "None"){
+                context.unprintSoir()
+                context.unprintApero()
+                context.unprintMidi()
+                repo2.setSoir(time, selectedDay, currentRepas.id)
+                Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
+                context.loadFragment(SemainierFragment(context, selectedDay))
+            }
+            if (time == "apero" && selectedDay != "None"){
+                context.unprintSoir()
+                context.unprintApero()
+                context.unprintMidi()
+                repo2.setApero(time, selectedDay, currentRepas.id)
+                Toast.makeText(context, "Repas ajouté pour l\'$time du $selectedDay !", Toast.LENGTH_SHORT).show()
+                context.loadFragment(SemainierFragment(context, selectedDay))
+            }
+            if (time == "None" && selectedDay == "None"){
+                Toast.makeText(context, "Rdv dans le semainier pour l'ajouter !", Toast.LENGTH_SHORT).show()
+            }
 
+
+        }
 
         view.findViewById<TextView>(R.id.ingredients).setOnClickListener{
             switcher("ingredient")
@@ -68,6 +103,7 @@ class RecetteFragment (
         view.findViewById<TextView>(R.id.recette).setOnClickListener{
             switcher("recette")
         }
+
 
         return view
     }

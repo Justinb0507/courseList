@@ -57,7 +57,7 @@ class HomeFragment
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.visibility = View.VISIBLE
             var currentRepasMidi = repasList.filter { s->s.id == currentDays.midi }[0]
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.setOnClickListener{
-                context.loadFragment(RecetteFragment(context, currentRepasMidi))
+                context.loadFragment(RecetteFragment(context, currentRepasMidi, "None", "None"))
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
             view?.findViewById<TextView>(R.id.nomMidi)?.text  = currentRepasMidi.name
@@ -77,7 +77,7 @@ class HomeFragment
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.visibility = View.VISIBLE
             var currentRepasSoir = repasList.filter { s->s.id == currentDays.soir }[0]
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.setOnClickListener{
-                context.loadFragment(RecetteFragment(context, currentRepasSoir))
+                context.loadFragment(RecetteFragment(context, currentRepasSoir, "None", "None"))
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
             view?.findViewById<TextView>(R.id.nomSoir)?.text  = currentRepasSoir.name
@@ -101,7 +101,7 @@ class HomeFragment
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.visibility = View.VISIBLE
             var currentRepasApero = repasList.filter { s->s.id == currentDays.apero }[0]
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.setOnClickListener{
-                context.loadFragment(RecetteFragment(context, currentRepasApero))
+                context.loadFragment(RecetteFragment(context, currentRepasApero, "None", "None"))
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
             view?.findViewById<TextView>(R.id.nomApero)?.text  = currentRepasApero.name

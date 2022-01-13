@@ -18,6 +18,7 @@
             android:layout_width="234dp"
             android:layout_height="42dp"
             android:layout_marginLeft="@dimen/default_margin"
+            android:background="@null"
             android:fontFamily="@font/montserratalternateslight"
             android:hint="De quoi as-tu envie ?"
             android:maxLines="1"
@@ -49,21 +50,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/param_research"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/add_recette"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="@dimen/default_margin"
-            android:src="@drawable/param_research"
+            android:src="@drawable/plus"
             app:layout_constraintBottom_toBottomOf="@+id/searchbar"
             app:layout_constraintStart_toEndOf="@+id/research"
-            app:layout_constraintTop_toTopOf="@+id/searchbar" />
+            app:layout_constraintTop_toTopOf="@+id/searchbar"
+            app:tint="@color/sun" />
 
 
         <ImageView
             android:id="@+id/plat"
-            android:layout_width="149dp"
-            android:layout_height="231dp"
-            android:layout_marginLeft="30dp"
+            android:layout_width="172dp"
+            android:layout_height="255dp"
+            android:layout_marginLeft="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
             android:scaleType="centerCrop"
             android:src="@drawable/plat"
@@ -72,9 +74,9 @@
 
         <ImageView
             android:id="@+id/dessert"
-            android:layout_width="149dp"
-            android:layout_height="231dp"
-            android:layout_marginRight="30dp"
+            android:layout_width="172dp"
+            android:layout_height="255dp"
+            android:layout_marginRight="@dimen/default_margin"
             android:scaleType="centerCrop"
             android:src="@drawable/dessert"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,9 +84,9 @@
 
         <ImageView
             android:id="@+id/soupe"
-            android:layout_width="149dp"
-            android:layout_height="231dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="172dp"
+            android:layout_height="255dp"
+            android:layout_marginTop="40dp"
             android:scaleType="centerCrop"
             android:src="@drawable/soupe"
             app:layout_constraintStart_toStartOf="@+id/plat"
@@ -92,23 +94,15 @@
 
         <ImageView
             android:id="@+id/apero"
-            android:layout_width="149dp"
-            android:layout_height="231dp"
+            android:layout_width="172dp"
+            android:layout_height="255dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/apero"
+            android:src="@drawable/aperoimg"
             app:layout_constraintEnd_toEndOf="@+id/dessert"
             app:layout_constraintTop_toTopOf="@+id/soupe" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/add_recette"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
-        android:src="@drawable/plus_orange_bleucanard" />
+
 
 </RelativeLayout>
 

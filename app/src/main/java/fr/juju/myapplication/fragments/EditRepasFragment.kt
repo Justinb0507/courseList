@@ -4,10 +4,8 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
@@ -16,21 +14,16 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import fr.juju.myapplication.*
-import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
 import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
 import fr.juju.myapplication.adapter.EditIngredientAdapter
 import fr.juju.myapplication.adapter.EditTagsAdapter
-import fr.juju.myapplication.adapter.IngredientAdapter
-import fr.juju.myapplication.adapter.TagsAdapter
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.log
 
 class EditRepasFragment(
     private val context: MainActivity,
@@ -79,13 +72,13 @@ class EditRepasFragment(
                 repo2.deleteIngredient(ingredient)
             }
             for (day in semainierList.filter { s->s.midi == currentRepas.id } as ArrayList<SemainierModel>){
-                repoSemainier.resetMidi(day)
+                repoSemainier.resetMidi(day.id_semainier)
             }
             for (day in semainierList.filter { s->s.soir == currentRepas.id } as ArrayList<SemainierModel>){
-                repoSemainier.resetSoir(day)
+                repoSemainier.resetSoir(day.id_semainier)
             }
             for (day in semainierList.filter { s->s.apero == currentRepas.id } as ArrayList<SemainierModel>){
-                repoSemainier.resetApero(day)
+                repoSemainier.resetApero(day.id_semainier)
             }
             val storageRef = Firebase.storage.reference.child("image${currentRepas.id}")
             storageRef.delete().addOnSuccessListener {
@@ -93,7 +86,7 @@ class EditRepasFragment(
             }.addOnFailureListener {
                 Toast.makeText(context, "Recette non supprimée !", Toast.LENGTH_SHORT).show()
             }
-            context.loadFragment(filtreRepasFragment(context))
+            context.loadFragment(FiltreRepasFragment(context, "None", "None"))
         }
 
 
@@ -205,7 +198,7 @@ class EditRepasFragment(
                     IngredientPopup(context,
                         ingredients.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
                 }
-                context.loadFragment(RecetteFragment(context,currentRepas))
+                context.loadFragment(RecetteFragment(context,currentRepas, "None", "None"))
             }.addOnFailureListener {
                 Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
             }
@@ -250,7 +243,6 @@ class EditRepasFragment(
         val lien = view.findViewById<EditText>(R.id.lien_input).text.toString()
         val recette = view.findViewById<EditText>(R.id.recette_input).text.toString()
         val duree = view.findViewById<EditText>(R.id.duree).text.toString()
-//        val tags = view.findViewById<EditText>(R.id.tags).text.toString()
 
         if (!name.isBlank()){
             currentRepas.name = name
@@ -277,7 +269,7 @@ class EditRepasFragment(
                 IngredientPopup(context,
                     ingredients.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
             }
-            context.loadFragment(RecetteFragment(context,currentRepas))
+            context.loadFragment(RecetteFragment(context,currentRepas, "None", "None"))
         }
 
         for(ingredientRepo in ingredientList.filter { s->s.id_repas == currentRepas.id }){

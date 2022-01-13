@@ -16,12 +16,12 @@ import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.adapter.RepasAdapter
 import fr.juju.myapplication.adapter.RepasItemDecoration
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ResultResearchFragment(
     private val context:MainActivity,
-    private val parameter: String,
-    private val categorie: String,
+    val resultResearch: ArrayList<RepasModel> = arrayListOf<RepasModel>(),
     private val time: String,
     private val selectedDay: String
 ) : Fragment()  {
@@ -34,110 +34,6 @@ class ResultResearchFragment(
 
         val view = inflater?.inflate(R.layout.fragment_resultresearch, container, false)
         val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.repas_list)
-        val resultResearch = arrayListOf<RepasModel>()
-        var listResearch = arrayListOf<String>()
-
-        if (parameter.isNotEmpty()){
-            for (item in parameter.split(" ")){
-                var temp = item.lowercase(Locale.getDefault())
-                listResearch.add(temp)
-                temp = temp.replaceFirstChar {
-                    if (it.isLowerCase()) it.titlecase(
-                        Locale.getDefault()
-                    ) else it.toString()
-                }
-                listResearch.add(temp)
-            }
-        }
-
-        if(categorie == "categorie"){
-            for (tag in listResearch) {
-                if (!repasList.filter { se -> se.tags.contains(tag) }.isEmpty()) {
-                    for (repas in repasList.filter { se -> se.tags.contains(tag) }
-                        .sortedBy { s -> s.name }) {
-                        if (!resultResearch.contains(repas)) {
-                            resultResearch.add(repas)
-                        }
-                    }
-                }
-            }
-        }
-
-        else {
-            if (listResearch.isNotEmpty()) for (tag in listResearch) {
-
-                if (!repasList.filter { se -> se.name == tag }.isEmpty()) {
-                    for (repas in repasList.filter { se -> se.name == tag }
-                        .sortedBy { s -> s.name }) {
-                        if (!resultResearch.contains(repas)) {
-                            resultResearch.add(repas)
-                        }
-                    }
-                }
-
-                if (!repasList.filter { se -> se.tags.contains(tag) }.isEmpty()) {
-                    for (repas in repasList.filter { se -> se.tags.contains(tag) }
-                        .sortedBy { s -> s.name }) {
-                        if (!resultResearch.contains(repas)) {
-                            resultResearch.add(repas)
-                        }
-                    }
-                }
-
-                if (!ingredientList.filter { se -> se.name == tag }.isEmpty()) {
-                    for (ingredient in ingredientList.filter { se -> se.name == tag }) {
-                        for (repas in repasList.filter { se -> se.id == ingredient.id_repas }) {
-                            if (!resultResearch.contains(repas)) {
-                                resultResearch.add(repas)
-                            }
-                        }
-                    }
-                }
-
-                if (!categorieList.filter { se -> se.name == tag }.isEmpty()) {
-                    for (categorie in categorieList.filter { se -> se.name == tag }) {
-                        for (ingredient in ingredientList.filter { se -> se.id_categorie == categorie.id }) {
-                            for (repas in repasList.filter { se -> se.id == ingredient.id_repas }) {
-                                if (!resultResearch.contains(repas)) {
-                                    resultResearch.add(repas)
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (!repasList.filter { se -> se.name.contains(tag) }.isEmpty()) {
-                    for (repas in repasList.filter { se -> se.name.contains(tag) }
-                        .sortedBy { s -> s.name }) {
-                        if (!resultResearch.contains(repas)) {
-                            resultResearch.add(repas)
-                        }
-                    }
-                }
-                if (!ingredientList.filter { se -> se.name.contains(tag) }.isEmpty()) {
-                    for (ingredient in ingredientList.filter { se -> se.name.contains(tag) }) {
-                        for (repas in repasList.filter { se -> se.id == ingredient.id_repas }) {
-                            if (!resultResearch.contains(repas)) {
-                                resultResearch.add(repas)
-                            }
-                        }
-                    }
-                }
-
-                if (!categorieList.filter { se -> se.name.contains(tag) }.isEmpty()) {
-                    for (categorie in categorieList.filter { se -> se.name.contains(tag) }) {
-                        for (ingredient in ingredientList.filter { se -> se.id_categorie == categorie.id }) {
-                            for (repas in repasList.filter { se -> se.id == ingredient.id_repas }) {
-                                if (!resultResearch.contains(repas)) {
-                                    resultResearch.add(repas)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         collectionRecyclerView.adapter = RepasAdapter(context, resultResearch, R.layout.item_repas_vertical, time,selectedDay)
         collectionRecyclerView.layoutManager = LinearLayoutManager(context)
         collectionRecyclerView.addItemDecoration(RepasItemDecoration())

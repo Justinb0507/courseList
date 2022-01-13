@@ -1,5 +1,6 @@
 package fr.juju.myapplication.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.opengl.Visibility
 import android.os.Bundle
@@ -7,6 +8,8 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -29,6 +32,7 @@ class FiltreRepasFragment(
     val selectedDay: String
 ) : Fragment(){
 
+@SuppressLint("ResourceAsColor")
 override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -40,35 +44,204 @@ override fun onCreateView(
         context.unprintSoir()
         context.loadFragment(AddRepasFragment(context))
     }
+    view.findViewById<ImageView>(R.id.dessert_rouge).alpha = 0F
+    view.findViewById<ImageView>(R.id.plat_rouge).alpha = 0F
+    view.findViewById<ImageView>(R.id.soupe_rouge).alpha = 0F
+    view.findViewById<ImageView>(R.id.apero_rouge).alpha = 0F
+
     view.findViewById<ImageView>(R.id.plat).setOnClickListener{
-        context.loadFragment(ResultResearchFragment(context, "Plat", "categorie", time, selectedDay))
+        context.hideKeyboard()
+        if (categorieFiltre("Plat").isNotEmpty()){
+            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Plat"), time, selectedDay))
+        }
+        else {
+            view.findViewById<ImageView>(R.id.plat_rouge).alpha = 0.5F
+            view.findViewById<ImageView>(R.id.plat_rouge).animate().apply {
+                duration = 30
+                translationY(10F)
+                rotation(4F)
+            }.withEndAction {
+                view.findViewById<ImageView>(R.id.plat_rouge).animate().apply {
+                    duration = 30
+                    translationY(0F)
+                    rotation(0F)
+                }
+            }.start()
+
+            view.findViewById<ImageView>(R.id.plat).animate().apply {
+                duration = 30
+                translationY(10F)
+                rotation(4F)
+            }.withEndAction {
+                view.findViewById<ImageView>(R.id.plat).animate().apply {
+                    duration = 30
+                    translationY(0F)
+                    rotation(0F)
+                }
+            }.start()
+
+        }
+
     }
+
     view.findViewById<ImageView>(R.id.dessert).setOnClickListener{
-        context.loadFragment(ResultResearchFragment(context, "Dessert", "categorie", time, selectedDay))
+        context.hideKeyboard()
+        if (categorieFiltre("Dessert").isNotEmpty()){
+            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Dessert"), time, selectedDay))
+        }
+        else {
+            view.findViewById<ImageView>(R.id.dessert_rouge).alpha = 0.5F
+            view.findViewById<ImageView>(R.id.dessert_rouge).animate().apply {
+                duration = 30
+                translationY(10F)
+                rotation(4F)
+            }.withEndAction {
+                view.findViewById<ImageView>(R.id.dessert_rouge).animate().apply {
+                    duration = 30
+                    translationY(0F)
+                    rotation(0F)
+                }
+            }.start()
+
+            view.findViewById<ImageView>(R.id.dessert).animate().apply {
+                duration = 30
+                translationY(10F)
+                rotation(4F)
+            }.withEndAction {
+                view.findViewById<ImageView>(R.id.dessert).animate().apply {
+                    duration = 30
+                    translationY(0F)
+                    rotation(0F)
+                }
+            }.start()
+
+        }
+
     }
     view.findViewById<ImageView>(R.id.soupe).setOnClickListener{
-        context.loadFragment(ResultResearchFragment(context, "Soupe", "categorie", time, selectedDay))
+        context.hideKeyboard()
+
+        if (categorieFiltre("Soupe").isNotEmpty()){
+            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Soupe"), time, selectedDay))
+        }
+        else {
+            view.findViewById<ImageView>(R.id.soupe_rouge).alpha = 0.5F
+            view.findViewById<ImageView>(R.id.soupe_rouge).animate().apply {
+                duration = 30
+                translationY(10F)
+                rotation(4F)
+            }.withEndAction {
+                view.findViewById<ImageView>(R.id.soupe_rouge).animate().apply {
+                    duration = 30
+                    translationY(0F)
+                    rotation(0F)
+                }
+            }.start()
+
+            view.findViewById<ImageView>(R.id.soupe).animate().apply {
+                duration = 30
+                translationY(10F)
+                rotation(4F)
+            }.withEndAction {
+                view.findViewById<ImageView>(R.id.soupe).animate().apply {
+                    duration = 30
+                    translationY(0F)
+                    rotation(0F)
+                }
+            }.start()
+
+        }
     }
     view.findViewById<ImageView>(R.id.apero).setOnClickListener{
-        context.loadFragment(ResultResearchFragment(context, "Apero", "categorie", time, selectedDay))
+        context.hideKeyboard()
+
+        if (categorieFiltre("Apero").isNotEmpty()){
+            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Apero"), time, selectedDay))
+        }
+        else {
+            view.findViewById<ImageView>(R.id.apero_rouge).alpha = 0.5F
+            view.findViewById<ImageView>(R.id.apero_rouge).animate().apply {
+                duration = 30
+                translationY(10F)
+                rotation(4F)
+            }.withEndAction {
+                view.findViewById<ImageView>(R.id.apero_rouge).animate().apply {
+                    duration = 30
+                    translationY(0F)
+                    rotation(0F)
+                }
+            }.start()
+
+            view.findViewById<ImageView>(R.id.apero).animate().apply {
+                duration = 30
+                translationY(10F)
+                rotation(4F)
+            }.withEndAction {
+                view.findViewById<ImageView>(R.id.apero).animate().apply {
+                    duration = 30
+                    translationY(0F)
+                    rotation(0F)
+                }
+            }.start()
+
+        }
     }
 
     view.findViewById<Button>(R.id.research).setOnClickListener{
-        context.loadFragment(ResultResearchFragment(context, view.findViewById<EditText>(R.id.research_input).text.toString(), "nope", time, selectedDay))
+        if(research(view.findViewById<EditText>(R.id.research_input).text.toString()).isNotEmpty()){
+            context.loadFragment(ResultResearchFragment(context, research(view.findViewById<EditText>(R.id.research_input).text.toString()), time, selectedDay))
+        }
+        else {
+            view.findViewById<ImageView>(R.id.searchbar).animate().alpha(0F).setDuration(10)
+            view.findViewById<ImageView>(R.id.searchbar_red).animate().alpha(1F).setDuration(1)
+
+            view.findViewById<ImageView>(R.id.searchbar_red).animate().apply {
+                duration = 30
+                translationY(10F)
+                rotation(4F)
+            }.withEndAction {
+                view.findViewById<ImageView>(R.id.searchbar_red).animate().apply {
+                    duration = 30
+                    translationY(0F)
+                    rotation(0F)
+                }}.start()
+        }
     }
     view.findViewById<EditText>(R.id.research_input).setOnKeyListener(
         View.OnKeyListener { v, keyCode, event ->
         if (keyCode == KeyEvent.KEYCODE_ENTER) {
             context.hideKeyboard()
-            if(research(view.findViewById<EditText>(R.id.research_input).text.toString()).isNotEmpty() == true){
-                context.loadFragment(ResultResearchFragment(context, view.findViewById<EditText>(R.id.research_input).text.toString(), "nope", time, selectedDay))
+            if(research(view.findViewById<EditText>(R.id.research_input).text.toString()).isNotEmpty()){
+                context.loadFragment(ResultResearchFragment(context, research(view.findViewById<EditText>(R.id.research_input).text.toString()), time, selectedDay))
             }
-            else view.findViewById<ImageView>(R.id.searchbar).animate().scaleY(10F).scaleY(0F)
+            else {
+                view.findViewById<ImageView>(R.id.searchbar).animate().alpha(0F).setDuration(10)
+                view.findViewById<ImageView>(R.id.searchbar_red).animate().alpha(1F).setDuration(1)
+
+                view.findViewById<ImageView>(R.id.searchbar_red).animate().apply {
+                    duration = 30
+                    translationY(10F)
+                    rotation(4F)
+                }.withEndAction {
+                    view.findViewById<ImageView>(R.id.searchbar_red).animate().apply {
+                        duration = 30
+                        translationY(0F)
+                        rotation(0F)
+                    }}.start()
+            }
             return@OnKeyListener true
+        }
+            else {
+            view.findViewById<ImageView>(R.id.searchbar_red).animate().alpha(0F).setDuration(10)
+            view.findViewById<ImageView>(R.id.searchbar).animate().alpha(1F).setDuration(1)
         }
             return@OnKeyListener false
         })
 
+    view.findViewById<EditText>(R.id.research_input).setOnClickListener{
+        view.findViewById<ImageView>(R.id.searchbar_red).animate().alpha(0F).setDuration(10)
+        view.findViewById<ImageView>(R.id.searchbar).animate().alpha(1F).setDuration(1)
+    }
 
     val translate = AnimationUtils.loadAnimation(context, R.anim.translate_anim)
     view.findViewById<ConstraintLayout>(R.id.constraint).startAnimation(translate)
@@ -169,6 +342,37 @@ override fun onCreateView(
 
         return resultResearch
 
+    }
+
+    private fun categorieFiltre(parameter: String): ArrayList<RepasModel> {
+
+        val resultResearch = arrayListOf<RepasModel>()
+        var listResearch = arrayListOf<String>()
+
+        if (parameter.isNotEmpty()){
+            for (item in parameter.split(" ")){
+                var temp = item.lowercase(Locale.getDefault())
+                listResearch.add(temp)
+                temp = temp.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(
+                        Locale.getDefault()
+                    ) else it.toString()
+                }
+                listResearch.add(temp)
+            }
+        }
+
+            for (tag in listResearch) {
+                if (!repasList.filter { se -> se.tags.contains(tag) }.isEmpty()) {
+                    for (repas in repasList.filter { se -> se.tags.contains(tag) }
+                        .sortedBy { s -> s.name }) {
+                        if (!resultResearch.contains(repas)) {
+                            resultResearch.add(repas)
+                        }
+                    }
+                }
+            }
+        return resultResearch
     }
 
 }

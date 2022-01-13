@@ -23,8 +23,8 @@ class SplashActivity : AppCompatActivity() {
 
         findViewById<ImageView>(R.id.logo).alpha = 0f
         findViewById<TextView>(R.id.designedBy).alpha = 0f
-        findViewById<TextView>(R.id.designedBy).animate().setDuration(3000).alpha(1f)
-        findViewById<ImageView>(R.id.logo).animate().setDuration(3000).alpha(1f).withEndAction{
+        findViewById<TextView>(R.id.designedBy).animate().setDuration(2000).alpha(1f)
+        findViewById<ImageView>(R.id.logo).animate().setDuration(2000).alpha(1f).withEndAction{
 
                 val i = Intent(this, MainActivity::class.java)
                 startActivity(i)

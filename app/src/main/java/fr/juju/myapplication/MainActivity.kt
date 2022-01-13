@@ -1,12 +1,16 @@
 package fr.juju.myapplication
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.juju.myapplication.fragments.*
+import io.grpc.Context
 import java.util.logging.Logger.global
 
 class MainActivity : AppCompatActivity() {
@@ -54,6 +58,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    fun hideKeyboard(){
+        val view = this.currentFocus
+        if(view != null){
+            val hideMe = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            hideMe.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
     fun loadFragment(fragment: Fragment) {
 
         //injecter le fragment dans notre boite fragment container

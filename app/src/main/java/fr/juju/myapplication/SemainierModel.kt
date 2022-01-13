@@ -1,9 +1,9 @@
 package fr.juju.myapplication
 
 class SemainierModel (
-    var midi:String = "dfjodsjf",
-    var soir:String = "NameCafdfqsdftegorie",
-    var apero:String = "NameCafdsfqdsftegorie",
-    val id_semainier:String = "Testeur"
+    var midi:String = "None",
+    var soir:String = "None",
+    var apero:String = "None",
+    val id_semainier:String = "lundi"
 
 )

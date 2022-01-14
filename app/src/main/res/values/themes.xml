@@ -19,7 +19,8 @@
     </style>
 
 
-
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+    </style>
 
 
     <!-- Créer le composant titre par défaut -->
@@ -36,6 +37,19 @@
     <style name="TitleTextStyle" parent="DefaultTextStyle">
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="SCBSwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">#F29A2E</item>
+
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">#020E1F
+        </item>
+
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">#989CA0
+        </item>
     </style>
 
 </resources>

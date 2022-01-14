@@ -2,25 +2,34 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/name"
         style="@style/DefaultTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test ingredient"
+        android:padding="5dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:maxLines="1"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="Test ingredient"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinner_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:entries="@array/add_plant_page_grow_spinner_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Spinner
+            android:id="@+id/spinner_description"
+            android:layout_width="105dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="@dimen/default_margin"
+            android:background="@color/background"
+            android:entries="@array/add_plant_page_grow_spinner_input"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -124,6 +124,7 @@
             android:layout_height="46dp"
             android:layout_marginLeft="5dp"
             android:hint="tag"
+            android:singleLine="true"
             android:maxLines="1"
             android:paddingLeft="@dimen/default_margin"
             android:textColorHint="@color/turquoise"

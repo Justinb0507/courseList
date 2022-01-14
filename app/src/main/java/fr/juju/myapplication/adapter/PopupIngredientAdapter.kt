@@ -34,7 +34,9 @@ class PopupIngredientAdapter(val context: MainActivity, private val ingredients:
         for(cat in categorieList.sortedBy { s-> s.name }){
             spinnerList.add(cat.name)
         }
-        holder.spinner?.adapter = ArrayAdapter(context,android.R.layout.simple_list_item_1, spinnerList)
+        var adapter =  ArrayAdapter(context,R.layout.item_spinner_adapter, spinnerList)
+        adapter.setDropDownViewResource(R.layout.dropdown_spinner_theme)
+        holder.spinner?.adapter = adapter
         holder.spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 if (spinnerList[p2] != "None"){

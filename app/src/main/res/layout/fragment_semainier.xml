@@ -205,10 +205,10 @@
 
                     <ImageView
                         android:id="@+id/delete_midi"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_marginRight="@dimen/default_margin"
-                        android:src="@drawable/ic_trash"
+                        android:src="@drawable/ic_close"
                         app:layout_constraintBottom_toBottomOf="@+id/textView5"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView5"
@@ -332,10 +332,10 @@
                         app:layout_constraintTop_toTopOf="parent" />
                     <ImageView
                         android:id="@+id/delete_apero"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_marginRight="@dimen/default_margin"
-                        android:src="@drawable/ic_trash"
+                        android:src="@drawable/ic_close"
                         app:layout_constraintBottom_toBottomOf="@+id/textView4"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView4"
@@ -439,10 +439,10 @@
 
                     <ImageView
                         android:id="@+id/delete_soir"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_marginRight="@dimen/default_margin"
-                        android:src="@drawable/ic_trash"
+                        android:src="@drawable/ic_close"
                         app:layout_constraintBottom_toBottomOf="@+id/textView3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView3"

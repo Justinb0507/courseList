@@ -1,0 +1,176 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    >
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/constraint"
+        >
+
+        <Switch
+            android:id="@+id/toggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/default_margin"
+            android:scaleX="1.25"
+            android:scaleY="1.25"
+            android:theme="@style/SCBSwitch"
+            app:layout_constraintBottom_toBottomOf="@+id/currentDays"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/currentDays" />
+
+
+        <TextView
+            android:id="@+id/currentDays"
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Mes courses"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toggleButton">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/Midi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    style="@style/TitleTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:text="Midi"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView2"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="@dimen/default_margin"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp"
+                    app:layout_constraintStart_toStartOf="@+id/textView5"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+                    <ImageView
+                        android:id="@+id/image_item2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+                </androidx.cardview.widget.CardView>
+
+
+                <View
+                    android:id="@+id/view_separation2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+                    app:layout_constraintTop_toTopOf="@+id/cardView2" />
+
+                <LinearLayout
+                    android:layout_width="209dp"
+                    android:layout_height="32dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@+id/descriptionMidi"
+                    app:layout_constraintStart_toStartOf="@+id/nomMidi"
+                    app:layout_constraintTop_toBottomOf="@+id/nomMidi">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/tagListMidi"
+                        android:layout_width="209dp"
+                        android:layout_height="32dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/nomMidi"
+                    style="@style/SubstitleTextStyle"
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:maxLines="1"
+                    android:text="Nom du plat"
+                    app:layout_constraintStart_toEndOf="@+id/cardView2"
+                    app:layout_constraintTop_toTopOf="@+id/cardView2" />
+
+                <ImageView
+                    android:id="@+id/clock"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:src="@drawable/clock"
+                    app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+                    app:layout_constraintStart_toEndOf="@+id/cardView2"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/descriptionMidi"
+                    style="@style/DefaultTextStyle"
+                    android:layout_width="176dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="10dp"
+                    android:maxLines="1"
+                    android:text="Description du plat"
+                    app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+                    app:layout_constraintStart_toEndOf="@+id/clock"
+                    app:layout_constraintTop_toTopOf="@+id/clock" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/NoRepas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="315dp"
+                    android:layout_height="136dp"
+                    android:src="@drawable/nocourse"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/SubstitleTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:fontFamily="@font/montserratalternateslight"
+                    android:text="Rien de prévu pour le moment !"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

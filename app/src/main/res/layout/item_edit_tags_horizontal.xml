@@ -11,6 +11,8 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+
         android:background="@drawable/rounded_corner"
         android:text="@string/item_plant_name"
         android:textColor="@color/white"

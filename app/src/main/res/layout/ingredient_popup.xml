@@ -4,7 +4,8 @@
     android:layout_width="360dp"
     android:layout_height="500dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="15dp">
+    android:padding="15dp"
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/popup_ingredient_name"
@@ -77,6 +78,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/check"
+        app:tint="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/view_separation"
         app:layout_constraintStart_toStartOf="@+id/view_separation"
         app:layout_constraintTop_toBottomOf="@+id/view_separation" />

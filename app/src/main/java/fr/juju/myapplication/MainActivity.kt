@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                     unprintSoir()
                     unprintApero()
                     unprintMidi()
-                    loadFragment(AddRepasFragment(this))
+                    loadFragment(CourseListeFragment(this))
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> false

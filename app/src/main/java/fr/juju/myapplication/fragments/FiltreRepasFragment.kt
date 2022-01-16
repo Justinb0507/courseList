@@ -1,5 +1,7 @@
 package fr.juju.myapplication.fragments
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.opengl.Visibility
@@ -195,16 +197,19 @@ override fun onCreateView(
             view.findViewById<ImageView>(R.id.searchbar).animate().alpha(0F).setDuration(10)
             view.findViewById<ImageView>(R.id.searchbar_red).animate().alpha(1F).setDuration(1)
 
-            view.findViewById<ImageView>(R.id.searchbar_red).animate().apply {
-                duration = 30
-                translationY(10F)
-                rotation(4F)
-            }.withEndAction {
-                view.findViewById<ImageView>(R.id.searchbar_red).animate().apply {
-                    duration = 30
-                    translationY(0F)
-                    rotation(0F)
-                }}.start()
+            val scaleX = ObjectAnimator.ofFloat(view.findViewById<ImageView>(R.id.searchbar_red), View.SCALE_X, 1.0f, 1.1f).setDuration(200)
+            val scaleY = ObjectAnimator.ofFloat(view.findViewById<ImageView>(R.id.searchbar_red), View.SCALE_Y, 1.0f, 1.1f).setDuration(200)
+            val downscaleX = ObjectAnimator.ofFloat(view.findViewById<ImageView>(R.id.searchbar_red), View.SCALE_X, 1.1f, 1.0f).setDuration(200)
+            val downscaleY = ObjectAnimator.ofFloat(view.findViewById<ImageView>(R.id.searchbar_red), View.SCALE_Y, 1.1f, 1.0f).setDuration(200)
+
+            val set = AnimatorSet()
+            set.playTogether(scaleX, scaleY)
+            set.play(downscaleX).after(scaleX)
+            set.playTogether(downscaleX, downscaleY)
+            set.playTogether(scaleX, scaleY)
+            set.play(downscaleX).after(scaleX)
+            set.playTogether(downscaleX, downscaleY)
+            set.start()
         }
     }
     view.findViewById<EditText>(R.id.research_input).setOnKeyListener(
@@ -218,16 +223,19 @@ override fun onCreateView(
                 view.findViewById<ImageView>(R.id.searchbar).animate().alpha(0F).setDuration(10)
                 view.findViewById<ImageView>(R.id.searchbar_red).animate().alpha(1F).setDuration(1)
 
-                view.findViewById<ImageView>(R.id.searchbar_red).animate().apply {
-                    duration = 30
-                    translationY(10F)
-                    rotation(4F)
-                }.withEndAction {
-                    view.findViewById<ImageView>(R.id.searchbar_red).animate().apply {
-                        duration = 30
-                        translationY(0F)
-                        rotation(0F)
-                    }}.start()
+                val scaleX = ObjectAnimator.ofFloat(view.findViewById<ImageView>(R.id.searchbar_red), View.SCALE_X, 1.0f, 1.1f).setDuration(200)
+                val scaleY = ObjectAnimator.ofFloat(view.findViewById<ImageView>(R.id.searchbar_red), View.SCALE_Y, 1.0f, 1.1f).setDuration(200)
+                val downscaleX = ObjectAnimator.ofFloat(view.findViewById<ImageView>(R.id.searchbar_red), View.SCALE_X, 1.1f, 1.0f).setDuration(200)
+                val downscaleY = ObjectAnimator.ofFloat(view.findViewById<ImageView>(R.id.searchbar_red), View.SCALE_Y, 1.1f, 1.0f).setDuration(200)
+
+                val set = AnimatorSet()
+                set.playTogether(scaleX, scaleY)
+                set.play(downscaleX).after(scaleX)
+                set.playTogether(downscaleX, downscaleY)
+                set.playTogether(scaleX, scaleY)
+                set.play(downscaleX).after(scaleX)
+                set.playTogether(downscaleX, downscaleY)
+                set.start()
             }
             return@OnKeyListener true
         }

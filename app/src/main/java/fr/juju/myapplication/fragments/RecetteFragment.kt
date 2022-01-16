@@ -1,5 +1,7 @@
 package fr.juju.myapplication.fragments
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -66,7 +68,7 @@ class RecetteFragment (
 
 
         view.findViewById<ImageView>(R.id.affect_repas).setOnClickListener{
-            if (time == "midi" && selectedDay != "None"){
+            /*if (time == "midi" && selectedDay != "None"){
                 context.unprintSoir()
                 context.unprintApero()
                 context.unprintMidi()
@@ -92,8 +94,9 @@ class RecetteFragment (
             }
             if (time == "None" && selectedDay == "None"){
                 Toast.makeText(context, "Rdv dans le semainier pour l'ajouter !", Toast.LENGTH_SHORT).show()
-            }
-
+            }*/
+            context.animationSoir()
+            view.findViewById<ConstraintLayout>(R.id.planning).animate().alpha(1F).setDuration(150)
 
         }
 

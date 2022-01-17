@@ -59,7 +59,7 @@ class EditRepasFragment(
         view.findViewById<EditText>(R.id.duree).setText(currentRepas.duree)
 
         uploadedImage = view.findViewById<ImageView>(R.id.image_item)
-        Glide.with(context).load(Uri.parse(currentRepas.imageUri)).into(view.findViewById<ImageView>(R.id.image_item))
+        Glide.with(context).load(Uri.parse(currentRepas.imageUri)).into(view.findViewById<ImageView>(R.id.image))
 
 
         view.findViewById<ImageView>(R.id.valid).setOnClickListener{
@@ -108,7 +108,10 @@ class EditRepasFragment(
             view.findViewById<EditText>(R.id.tag_input).setText("")
         }
 
-        view.findViewById<CardView>(R.id.cardView).setOnClickListener{
+        view.findViewById<ImageView>(R.id.image).setOnClickListener{
+            launchGallery()
+        }
+        view.findViewById<ImageView>(R.id.image_refresh).setOnClickListener{
             launchGallery()
         }
 

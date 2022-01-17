@@ -25,8 +25,9 @@ class RepasAdapter(
 
     class ViewHolder(view:View): RecyclerView.ViewHolder(view){
         val imageUri: ImageView = view.findViewById<ImageView>(R.id.image_item)
-        val name: TextView? = view.findViewById(R.id.name_item)
-        val description: TextView?  =  view.findViewById(R.id.description_item)
+        val name: TextView? = view.findViewById(R.id.name)
+        val time: TextView?  =  view.findViewById(R.id.time)
+        val recycler: RecyclerView = view.findViewById(R.id.tagList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,7 +44,8 @@ class RepasAdapter(
             .into(holder.imageUri)
 
         holder.name?.text = currentRepas.name
-        holder.description?.text = currentRepas.description
+        holder.time?.text = currentRepas.duree
+        holder.recycler?.adapter = TagsAdapter(context, currentRepas.tags, R.layout.item_tags_horizontal)
 
         holder.itemView.setOnClickListener {
             context.loadFragment(RecetteFragment(context, currentRepas, time, selectedDay))

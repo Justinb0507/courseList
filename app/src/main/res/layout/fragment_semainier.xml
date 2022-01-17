@@ -208,11 +208,11 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="@dimen/default_margin"
-                        android:src="@drawable/ic_close"
+                        android:src="@drawable/delete_sun"
                         app:layout_constraintBottom_toBottomOf="@+id/textView5"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView5"
-                        app:tint="@color/white" />
+                        />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView2"
@@ -335,11 +335,11 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="@dimen/default_margin"
-                        android:src="@drawable/ic_close"
+                        android:src="@drawable/delete_sun"
                         app:layout_constraintBottom_toBottomOf="@+id/textView4"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView4"
-                        app:tint="@color/white" />
+                        />
                     <View
                         android:id="@+id/view_separation4"
                         android:layout_width="match_parent"
@@ -442,11 +442,11 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="@dimen/default_margin"
-                        android:src="@drawable/ic_close"
+                        android:src="@drawable/delete_sun"
                         app:layout_constraintBottom_toBottomOf="@+id/textView3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView3"
-                        app:tint="@color/white" />
+                        app:tint="@color/sun" />
 
                     <View
                         android:id="@+id/view_separation3"

@@ -34,7 +34,7 @@ class RepasRepository {
                 repasList.clear()
                 //recup la liste
                 for(ds in snapshot.children){
-                    //construire un object Plant
+                    //construire un object Repas
                     val repas = ds.getValue(RepasModel::class.java)
                     if (repas != null){
                         repasList.add(repas)

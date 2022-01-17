@@ -9,17 +9,18 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.view.ViewTreeObserver
+import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import fr.juju.myapplication.*
+import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
 import fr.juju.myapplication.adapter.*
 import java.io.IOException
 import java.util.*
@@ -47,29 +48,98 @@ class AddRepasFragment(
 
         listIngredientView.adapter = EditIngredientAdapter(context,listItem, R.layout.item_edit_ingredient_vertical)
         listIngredientView.layoutManager = LinearLayoutManager(context)
-
+        repas.id = randomId
         //recup uploadilmage pour lui associer son composant
         uploadedImage = view.findViewById(R.id.preview_image)
         //recup le bouton pour charger l'image
-        val pickupImageButton = view.findViewById<Button>(R.id.upload_button)
-        pickupImageButton.setOnClickListener{
+        val pickupImage = view.findViewById<ImageView>(R.id.preview_image)
+        pickupImage.setOnClickListener{
             launchGallery()
         }
 
-        val confirmButton = view.findViewById<Button>(R.id.confirm_button)
-        confirmButton.setOnClickListener{
+
+        view.findViewById<ImageView>(R.id.valid).setOnClickListener{
             sendform(view)
         }
 
-        val addIngredientButton = view.findViewById<Button>(R.id.add_ingredient)
+        var temp = false
+
+        val addIngredientButton = view.findViewById<ImageView>(R.id.add_ingredient)
         addIngredientButton.setOnClickListener{
-            addIngredient(view)
-            listIngredientView.adapter = EditIngredientAdapter(context,listItem, R.layout.item_edit_ingredient_vertical)
-            view.findViewById<EditText>(R.id.ingredient).setText("")
-            view.findViewById<EditText>(R.id.quantite).setText("")
+            if(view.findViewById<EditText>(R.id.ingredient).text.isNotEmpty()) {
+                addIngredient(view)
+                view.findViewById<EditText>(R.id.ingredient).setText("")
+                view.findViewById<EditText>(R.id.quantite).setText("")
+                listIngredientView.adapter = EditIngredientAdapter(context,listItem, R.layout.item_edit_ingredient_vertical)
+                listIngredientView.scrollToPosition(1500)
+                temp = false
+            }
+            view.findViewById<EditText>(R.id.ingredient).visibility = View.VISIBLE
+            view.findViewById<EditText>(R.id.quantite).visibility = View.VISIBLE
+            addIngredientButton.animate().translationX(+790F).setDuration(150)
+            var temp = false
+
+
+        }
+        val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tags)
+        collectionRecyclerView.adapter = EditTagsAdapter(context, repas.tags, R.layout.item_edit_tags_horizontal)
+        collectionRecyclerView.scrollToPosition(300)
+        val add_tagButton = view.findViewById<ImageView>(R.id.add_tag)
+        add_tagButton.setOnClickListener{
+            if(view.findViewById<EditText>(R.id.tag_input).text.isNotEmpty()){
+                add_tag(view)
+                collectionRecyclerView.adapter = EditTagsAdapter(context, repas.tags, R.layout.item_edit_tags_horizontal)
+                view.findViewById<EditText>(R.id.tag_input).setText("")
+                collectionRecyclerView.scrollY = 1500
+                collectionRecyclerView.scrollX = 1500
+            }
+            add_tagButton.animate().translationX(+250F).setDuration(150)
+            view.findViewById<EditText>(R.id.tag_input).visibility = View.VISIBLE
         }
 
+
+        //Set to linerarlayout to ingredients
+        view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.GONE
+        view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.INVISIBLE
+
+
+        view.findViewById<TextView>(R.id.ingredients).setOnClickListener{
+            switcher("ingredient")
+        }
+        view.findViewById<TextView>(R.id.recette).setOnClickListener{
+            switcher("recette")
+        }
+
+        var scrollView = view.findViewById<ScrollView>(R.id.scrollView)
+        scrollView.getViewTreeObserver()
+            .addOnScrollChangedListener(ViewTreeObserver.OnScrollChangedListener {
+                if (scrollView.getChildAt(0).getBottom()
+                    <= scrollView.getHeight() + scrollView.getScrollY()
+                ) {
+                    temp = true
+                    view?.findViewById<ImageView>(R.id.valid)?.animate()?.alpha(0F)
+                        ?.translationY(+1000F)?.setDuration(100)
+
+                } else {
+                    if (temp == true) {
+                        view?.findViewById<ImageView>(R.id.valid)?.animate()?.alpha(1F)
+                            ?.translationY(-5F)?.setDuration(100)
+                    }
+
+                }
+            })
         return view
+    }
+
+    private fun add_tag(view: View?) {
+        var tag_input =  view?.findViewById<EditText>(R.id.tag_input)?.text.toString()
+        tag_input = tag_input.lowercase(Locale.getDefault())
+        tag_input = tag_input.replaceFirstChar { if (it.isLowerCase()) it.titlecase(
+            Locale.getDefault()) else it.toString() }
+
+        if(repas.tags.filter{s-> s == tag_input}.isEmpty() && tag_input != "" && tag_input != " "&& tag_input != "  "){
+            repas.tags.add(tag_input)
+        }
     }
 
     private fun addIngredient(view : View){
@@ -90,34 +160,69 @@ class AddRepasFragment(
 
     }
 
+    private fun switcher(switch: String){
+        if(switch == "ingredient"){
+            view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.GONE
+            view?.findViewById<ConstraintLayout>(R.id.ingredientCard)?.visibility = View.VISIBLE
+            view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.INVISIBLE
+            view?.findViewById<View>(R.id.ingredient_soulignage)?.visibility = View.VISIBLE
+
+
+        }
+        else if(switch == "recette"){
+            view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.VISIBLE
+            view?.findViewById<ConstraintLayout>(R.id.ingredientCard)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.VISIBLE
+            view?.findViewById<View>(R.id.ingredient_soulignage)?.visibility = View.INVISIBLE
+        }
+    }
+
     private fun sendform(view : View) {
-        //hebergement bucket
         val repo = RepasRepository()
         val repo2 = IngredientRepository()
-        val repasName = view.findViewById<EditText>(R.id.name_input).text.toString()
-        val repasDescription = view.findViewById<EditText>(R.id.description_input).text.toString()
-        val repasLien =  view.findViewById<EditText>(R.id.lien).text.toString()
-        val repasRecette =  view.findViewById<EditText>(R.id.recette).text.toString()
-        val tags = view.findViewById<EditText>(R.id.tags).text.toString()
+        val name = view.findViewById<EditText>(R.id.name_input).text.toString()
+        val description = view.findViewById<EditText>(R.id.description_input).text.toString()
+        val lien = view.findViewById<EditText>(R.id.lien_input).text.toString()
+        val recette = view.findViewById<EditText>(R.id.recette_input).text.toString()
         val duree = view.findViewById<EditText>(R.id.duree).text.toString()
 
-        val tagsList = arrayListOf<String>()
-        for (tag in tags.split(" ")){
-            tagsList.add(tag)
+        if (!name.isBlank()){
+            repas.name = name
         }
-        repas.id = randomId
-        repas.description = repasDescription
-        repas.name = repasName
-        repas.lien = repasLien
-        repas.recette = repasRecette
-        repas.tags = tagsList
-        repas.duree = duree
+        if (!description.isBlank()){
+            repas.description = description
+        }
+        if (!lien.isBlank()){
+            repas.lien = lien
+        }
+        if (!recette.isBlank()){
+            repas.recette = recette
+        }
+        if (!duree.isBlank()){
+            repas.duree = duree
+        }
 
-        uploadImage()
+        if (filePath != null){
+            uploadImage()
+        }
+        else {
+            repas.imageUri = "https://cdn.pixabay.com/photo/2017/01/26/02/06/platter-2009590_1280.jpg"
+            repo.insertRepas(repas)
+            if (!listItem.filter { s->s.id_categorie == "None" }.isEmpty()){
+                IngredientPopup(context,
+                    listItem.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
+            }
+            context.loadFragment(RecetteFragment(context,repas, "None", "None"))
+        }
 
         for (ingredient in listItem) {
-            repo2.insertIngredient(ingredient)
+            if(!ingredientList.contains(ingredient)){
+                repo2.insertIngredient(ingredient)
+            }
         }
+
+
+        Toast.makeText(context, "Repas ajouté !", Toast.LENGTH_SHORT).show()
     }
 
     private fun launchGallery() {
@@ -158,12 +263,6 @@ class AddRepasFragment(
             if(progressDialog.isShowing) progressDialog.dismiss()
             Firebase.storage.reference.child(fileName).downloadUrl.addOnSuccessListener {
                 repas.imageUri = it.toString()
-                repo.insertRepas(repas)
-                if (!listItem.filter { s->s.id_categorie == "None" }.isEmpty()){
-                    IngredientPopup(context,
-                        listItem.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
-                }
-                context.loadFragment(RecetteFragment(context,repas, "None", "None"))
             }.addOnFailureListener {
                 Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
             }
@@ -172,8 +271,8 @@ class AddRepasFragment(
             if(progressDialog.isShowing) progressDialog.dismiss()
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
-
-
-
     }
+
+
+
 }

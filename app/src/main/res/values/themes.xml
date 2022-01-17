@@ -26,16 +26,18 @@
     <!-- Créer le composant titre par défaut -->
     <style name="DefaultTextStyle">
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/montserratalternateslight</item>
     </style>
     <!-- Créer le composant sous titre par défaut -->
     <style name="SubstitleTextStyle" parent="DefaultTextStyle">
         <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">19sp</item>
     </style>
     <!-- Créer le composant titre par défaut -->
     <style name="TitleTextStyle" parent="DefaultTextStyle">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
     </style>
 

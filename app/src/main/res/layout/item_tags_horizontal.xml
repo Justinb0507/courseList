@@ -14,7 +14,8 @@
         android:background="@drawable/rounded_corner"
         android:text="@string/item_plant_name"
         android:singleLine="true"
-
+        android:textSize="16dp"
+        android:padding="6dp"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

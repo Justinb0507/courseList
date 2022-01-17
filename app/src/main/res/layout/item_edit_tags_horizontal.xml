@@ -8,15 +8,17 @@
     <TextView
         android:id="@+id/text_item"
         style="@style/DefaultTextStyle"
-        android:textSize="16dp"
-        android:padding="6dp"
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:layout_marginRight="10dp"
         android:background="@drawable/rounded_corner"
+        android:orientation="horizontal"
+        android:padding="6dp"
+        android:singleLine="true"
         android:text="@string/item_plant_name"
         android:textColor="@color/white"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

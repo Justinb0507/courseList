@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/background"
+    android:layout_marginRight="@dimen/default_margin"
     android:layout_marginTop="@dimen/default_margin">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="150dp"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +42,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tagList"
-                android:layout_width="209dp"
+                android:layout_width="200dp"
                 android:layout_height="32dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -52,11 +53,12 @@
         <TextView
             android:id="@+id/name"
             style="@style/TitleTextStyle"
-            android:layout_width="210dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
             android:maxLines="2"
-            android:text="Nom du plat"
+            android:ellipsize="end"
+            android:text="Nom du platdddddd sddsfds sdf "
             app:layout_constraintStart_toEndOf="@+id/cardView2"
             app:layout_constraintTop_toTopOf="@+id/cardView2" />
 
@@ -73,11 +75,12 @@
         <TextView
             android:id="@+id/time"
             style="@style/DefaultTextStyle"
-            android:layout_width="176dp"
+            android:layout_width="170dp"
             android:layout_height="24dp"
             android:layout_marginLeft="10dp"
             android:maxLines="1"
             android:text="Temps de préparation"
+            android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="@+id/cardView2"
             app:layout_constraintStart_toEndOf="@+id/clock"
             app:layout_constraintTop_toTopOf="@+id/clock" />

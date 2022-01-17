@@ -65,39 +65,58 @@ class RecetteFragment (
         //Set to linerarlayout to ingredients
         view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.GONE
         view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.INVISIBLE
+        view?.findViewById<ConstraintLayout>(R.id.planning)?.visibility = View.GONE
+        view?.findViewById<ImageView>(R.id.icone_soir)?.visibility = View.GONE
+        view?.findViewById<ImageView>(R.id.icone_midi)?.visibility = View.GONE
+        view?.findViewById<ImageView>(R.id.icone_apero)?.visibility = View.GONE
 
-
-        view.findViewById<ImageView>(R.id.affect_repas).setOnClickListener{
-            /*if (time == "midi" && selectedDay != "None"){
-                context.unprintSoir()
-                context.unprintApero()
-                context.unprintMidi()
+        if (time == "midi" && selectedDay != "None"){
+            view?.findViewById<ImageView>(R.id.icone_midi)?.visibility = View.VISIBLE
+            view?.findViewById<ConstraintLayout>(R.id.planning)?.visibility = View.VISIBLE
+            context.animationMidi()
+            context.unprintMidi()
+            context.nonAnimationMidi()
+            view.findViewById<ConstraintLayout>(R.id.planning).animate().alpha(1F).setDuration(150)
+            context.unprintApero()
+            context.unprintSoir()
+            view.findViewById<ConstraintLayout>(R.id.planning).setOnClickListener{
                 repo2.setMidi(time, selectedDay, currentRepas.id)
                 Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
                 context.loadFragment(SemainierFragment(context, selectedDay))
+                view?.findViewById<ImageView>(R.id.icone_midi)?.visibility = View.GONE
             }
-            if (time == "soir" && selectedDay != "None"){
-                context.unprintSoir()
-                context.unprintApero()
-                context.unprintMidi()
+        }
+        if (time == "soir" && selectedDay != "None"){
+            view?.findViewById<ImageView>(R.id.icone_soir)?.visibility = View.VISIBLE
+            view?.findViewById<ConstraintLayout>(R.id.planning)?.visibility = View.VISIBLE
+            context.animationSoir()
+            context.unprintSoir()
+            context.nonAnimationSoir()
+            view.findViewById<ConstraintLayout>(R.id.planning).animate().alpha(1F).setDuration(150)
+            context.unprintApero()
+            context.unprintMidi()
+            view.findViewById<ConstraintLayout>(R.id.planning).setOnClickListener{
                 repo2.setSoir(time, selectedDay, currentRepas.id)
                 Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
                 context.loadFragment(SemainierFragment(context, selectedDay))
+                view?.findViewById<ImageView>(R.id.icone_soir)?.visibility = View.GONE
             }
-            if (time == "apero" && selectedDay != "None"){
-                context.unprintSoir()
-                context.unprintApero()
-                context.unprintMidi()
+        }
+        if (time == "apero" && selectedDay != "None"){
+            view?.findViewById<ImageView>(R.id.icone_apero)?.visibility = View.VISIBLE
+            view?.findViewById<ConstraintLayout>(R.id.planning)?.visibility = View.VISIBLE
+            context.animationApero()
+            context.unprintApero()
+            context.nonAnimationApero()
+            view.findViewById<ConstraintLayout>(R.id.planning).animate().alpha(1F).setDuration(150)
+            context.unprintSoir()
+            context.unprintMidi()
+            view.findViewById<ConstraintLayout>(R.id.planning).setOnClickListener{
                 repo2.setApero(time, selectedDay, currentRepas.id)
                 Toast.makeText(context, "Repas ajouté pour l\'$time du $selectedDay !", Toast.LENGTH_SHORT).show()
                 context.loadFragment(SemainierFragment(context, selectedDay))
+                view?.findViewById<ImageView>(R.id.icone_apero)?.visibility = View.GONE
             }
-            if (time == "None" && selectedDay == "None"){
-                Toast.makeText(context, "Rdv dans le semainier pour l'ajouter !", Toast.LENGTH_SHORT).show()
-            }*/
-            context.animationSoir()
-            view.findViewById<ConstraintLayout>(R.id.planning).animate().alpha(1F).setDuration(150)
-
         }
 
         view.findViewById<TextView>(R.id.ingredients).setOnClickListener{

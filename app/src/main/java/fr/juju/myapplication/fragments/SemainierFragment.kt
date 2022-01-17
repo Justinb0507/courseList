@@ -43,7 +43,7 @@ class SemainierFragment (
     ): View? {
 
         val view = inflater?.inflate(R.layout.fragment_semainier, container, false)
-
+        view.clearAnimation()
         if (selectedDayInput == "None"){
             selectedDay = currentDay
         }

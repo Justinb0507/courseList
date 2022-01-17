@@ -3,11 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/fragment_add_repas.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/fragment_edit_repas.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/fragment_filtrerepas.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/fragment_recette.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/fragment_recette.xml" value="0.22" />
         <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/fragment_semainier.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/item_edit_ingredient_categorie.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Justin/AndroidStudioProjects/app/src/main/res/layout/item_edit_ingredient_vertical.xml" value="0.3333333333333333" />
@@ -30,40 +29,49 @@
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/plus_orange.xml" value="0.1606837606837607" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/radio_button_semainier.xml" value="0.12368421052631579" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/rounded_corner.xml" value="0.11381578947368422" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/rounded_corner_affect.xml" value="0.1" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/toggle_selector.xml" value="0.1606837606837607" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/activity_gallery.xml" value="0.25" />
-        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/activity_main.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/activity_splash.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/course_liste_fragment.xml" value="0.22" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/dropdown_spinner_theme.xml" value="0.25" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_add_plant.xml" value="0.12" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_add_recette.xml" value="0.22" />
-        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_add_repas.xml" value="0.22" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_add_repas.xml" value="0.102803738317757" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_advanced_research.xml" value="0.14743589743589744" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_collection.xml" value="0.1346153846153846" />
-        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_edit_repas.xml" value="0.22" />
-        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_filtrerepas.xml" value="0.22" />
-        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_home.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_recette.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_edit_repas.xml" value="0.1" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_filtrerepas.xml" value="0.1" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_home.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_recette.xml" value="0.22" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_repas.xml" value="0.1" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_resultResearch.xml" value="0.1" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_resultresearch.xml" value="0.1" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_searchmenu.xml" value="0.12" />
-        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_semainier.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_semainier.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/ingredient_popup.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_add_ingredient_vertical.xml" value="0.11348684210526316" />
-        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_edit_ingredient_categorie.xml" value="0.14666666666666667" />
-        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_edit_ingredient_vertical.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_edit_ingredient_categorie.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_edit_ingredient_vertical.xml" value="0.22" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_edit_tags_horizontal.xml" value="0.14743589743589744" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_horizontal_plant.xml" value="0.12" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_horizontal_repas.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_ingredient_vertical.xml" value="0.22" />
-        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_repas_vertical.xml" value="0.11348684210526316" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_repas_vertical.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_spinner_adapter.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_tags_horizontal.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_vertical_plant.xml" value="0.27060653188180406" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/item_vertical_repas.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/loading_fragment.xml" value="0.1" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/popup_plants_details.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/test.xml" value="0.11348684210526316" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/test.xml" value="0.7333333333333334" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.12871287128712872" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/menu/calendar_selected.xml" value="0.11348684210526316" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.12368421052631579" />
+        <entry key="..\:/Users/jboulang/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_dropdown_item_1line.xml" value="0.14743589743589744" />
+        <entry key="..\:/Users/jboulang/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.14743589743589744" />
+        <entry key="..\:/Users/jboulang/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.14743589743589744" />
       </map>
     </option>
   </component>

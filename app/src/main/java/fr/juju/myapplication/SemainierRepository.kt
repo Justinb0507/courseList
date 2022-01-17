@@ -31,9 +31,9 @@ class SemainierRepository {
                 //recup la liste
                 for(ds in snapshot.children){
                     //construire un object Plant
-                    val repas = ds.getValue(SemainierModel::class.java)
-                    if (repas != null){
-                        semainierList.add(repas)
+                    val day = ds.getValue(SemainierModel::class.java)
+                    if (day != null){
+                        semainierList.add(day)
                     }
                 }
                 //actionner le callback

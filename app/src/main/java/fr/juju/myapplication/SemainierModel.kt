@@ -5,5 +5,4 @@ class SemainierModel (
     var soir:String = "None",
     var apero:String = "None",
     val id_semainier:String = "lundi"
-
 )

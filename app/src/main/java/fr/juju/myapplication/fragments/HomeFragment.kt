@@ -1,8 +1,6 @@
 package fr.juju.myapplication.fragments
 
 import android.annotation.SuppressLint
-import android.graphics.Color
-import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,30 +9,19 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import fr.juju.myapplication.*
 
-import fr.juju.myapplication.MainActivity
-import fr.juju.myapplication.R
-import fr.juju.myapplication.RepasModel
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
-import fr.juju.myapplication.SemainierModel
 import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
-import fr.juju.myapplication.adapter.RepasAdapter
-import fr.juju.myapplication.adapter.RepasItemDecoration
 import fr.juju.myapplication.adapter.TagsAdapter
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.Arrays.toString
-import kotlin.collections.ArrayList
 
 
 class HomeFragment
@@ -51,9 +38,10 @@ class HomeFragment
     ): View? {
 
         val view = inflater?.inflate(R.layout.fragment_home, container, false)
-        //var currentDays = semainierList.filter{s->s.id_semainier == currentDay}[0]
+        var currentDays = semainierList.filter{s->s.id_semainier == currentDay}[0]
 
-        var currentDays= SemainierModel()
+        //var currentDays= SemainierModel()
+
 
         if (currentDays.midi != "None"){
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.visibility = View.VISIBLE

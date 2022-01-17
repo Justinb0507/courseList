@@ -10,12 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.juju.myapplication.IngredientModel
 import fr.juju.myapplication.MainActivity
 import fr.juju.myapplication.R
+import android.view.View.OnLongClickListener
+
+
+
 
 class EditTagsAdapter(val context: MainActivity, private val tags: ArrayList<String>, private val layoutId:Int): RecyclerView.Adapter<EditTagsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val name: TextView? = view.findViewById(R.id.text_item)
-        val img: ImageView? = view.findViewById(R.id.trash_item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EditTagsAdapter.ViewHolder {
@@ -26,10 +29,11 @@ class EditTagsAdapter(val context: MainActivity, private val tags: ArrayList<Str
     override fun onBindViewHolder(holder: EditTagsAdapter.ViewHolder, position: Int) {
         val currentTag = tags[position]
         holder.name?.text = currentTag
-        holder.img?.setOnClickListener{
+        holder.name?.setOnLongClickListener(OnLongClickListener {
             tags.remove(currentTag)
             notifyDataSetChanged()
-        }
+                true
+        })
     }
 
     override fun getItemCount(): Int {

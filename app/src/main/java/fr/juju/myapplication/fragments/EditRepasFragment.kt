@@ -24,6 +24,9 @@ import fr.juju.myapplication.adapter.EditTagsAdapter
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
+import android.view.ViewTreeObserver
+import android.view.ViewTreeObserver.OnScrollChangedListener
+
 
 class EditRepasFragment(
     private val context: MainActivity,
@@ -89,23 +92,39 @@ class EditRepasFragment(
             context.loadFragment(FiltreRepasFragment(context, "None", "None"))
         }
 
+        var temp = false
 
-        val addIngredientButton = view.findViewById<Button>(R.id.add_ingredient)
+        val addIngredientButton = view.findViewById<ImageView>(R.id.add_ingredient)
         addIngredientButton.setOnClickListener{
-            addIngredient(view)
-            listIngredientView.adapter = EditIngredientAdapter(context,ingredients, R.layout.item_edit_ingredient_vertical)
-            view.findViewById<EditText>(R.id.ingredient).setText("")
-            view.findViewById<EditText>(R.id.quantite).setText("")
-            listIngredientView.scrollToPosition(1500)
+            if(view.findViewById<EditText>(R.id.ingredient).text.isNotEmpty()) {
+                addIngredient(view)
+                view.findViewById<EditText>(R.id.ingredient).setText("")
+                view.findViewById<EditText>(R.id.quantite).setText("")
+                listIngredientView.adapter = EditIngredientAdapter(context,ingredients, R.layout.item_edit_ingredient_vertical)
+                listIngredientView.scrollToPosition(1500)
+                temp = false
+            }
+            view.findViewById<EditText>(R.id.ingredient).visibility = View.VISIBLE
+            view.findViewById<EditText>(R.id.quantite).visibility = View.VISIBLE
+            addIngredientButton.animate().translationX(+790F).setDuration(150)
+            var temp = false
+
+
         }
         val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tags)
         collectionRecyclerView.adapter = EditTagsAdapter(context, currentRepas.tags, R.layout.item_edit_tags_horizontal)
         collectionRecyclerView.scrollToPosition(300)
-        val add_tagButton = view.findViewById<Button>(R.id.add_tag)
+        val add_tagButton = view.findViewById<ImageView>(R.id.add_tag)
         add_tagButton.setOnClickListener{
-            add_tag(view)
-            collectionRecyclerView.adapter = EditTagsAdapter(context, currentRepas.tags, R.layout.item_edit_tags_horizontal)
-            view.findViewById<EditText>(R.id.tag_input).setText("")
+            if(view.findViewById<EditText>(R.id.tag_input).text.isNotEmpty()){
+                add_tag(view)
+                collectionRecyclerView.adapter = EditTagsAdapter(context, currentRepas.tags, R.layout.item_edit_tags_horizontal)
+                view.findViewById<EditText>(R.id.tag_input).setText("")
+                collectionRecyclerView.scrollY = 1500
+                collectionRecyclerView.scrollX = 1500
+            }
+            add_tagButton.animate().translationX(+250F).setDuration(150)
+            view.findViewById<EditText>(R.id.tag_input).visibility = View.VISIBLE
         }
 
         view.findViewById<ImageView>(R.id.image).setOnClickListener{
@@ -126,6 +145,23 @@ class EditRepasFragment(
         view.findViewById<TextView>(R.id.recette).setOnClickListener{
             switcher("recette")
         }
+
+        var scrollView = view.findViewById<ScrollView>(R.id.scrollView)
+        scrollView.getViewTreeObserver()
+            .addOnScrollChangedListener(OnScrollChangedListener {
+                if (scrollView.getChildAt(0).getBottom()
+                    <= scrollView.getHeight() + scrollView.getScrollY()
+                ) {
+                    temp = true
+                    view?.findViewById<ImageView>(R.id.valid)?.animate()?.alpha(0F)?.translationY(+1000F)?.setDuration(100)
+
+                } else {
+                    if(temp == true){
+                        view?.findViewById<ImageView>(R.id.valid)?.animate()?.alpha(1F)?.translationY(-5F)?.setDuration(100)
+                    }
+
+                }
+            })
 
         return view
     }

@@ -10,6 +10,7 @@
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:id="@+id/scrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -74,8 +75,8 @@
 
             <ImageView
                 android:id="@+id/trash"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginRight="@dimen/default_margin"
                 android:src="@drawable/ic_trash"
                 app:layout_constraintBottom_toBottomOf="@+id/clock"
@@ -86,8 +87,8 @@
 
             <ImageView
                 android:id="@+id/clock"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginTop="@dimen/default_margin"
                 android:src="@drawable/clock"
                 app:layout_constraintStart_toStartOf="@+id/imageView7"
@@ -106,7 +107,8 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
+                app:layout_constraintWidth_max="200dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="@dimen/default_margin"
                 android:orientation="horizontal"
@@ -115,7 +117,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tags"
-                    android:layout_width="200dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -130,6 +132,8 @@
                 android:layout_height="46dp"
                 android:layout_marginLeft="5dp"
                 android:hint="tag"
+                android:visibility="gone"
+                android:background="@null"
                 android:maxLines="1"
                 android:paddingLeft="@dimen/default_margin"
                 android:singleLine="true"
@@ -138,20 +142,15 @@
                 app:layout_constraintStart_toEndOf="@+id/linearLayout2"
                 app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
 
-
-            <Button
+            <ImageView
                 android:id="@+id/add_tag"
-                android:layout_width="50dp"
-                android:layout_height="52dp"
-                android:layout_marginLeft="5dp"
-                android:background="@color/bleu_canard"
-                android:text="+"
-                android:textColor="@color/white"
-                android:textSize="24dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:src="@drawable/plus_bleu_canard"
                 app:layout_constraintBottom_toBottomOf="@+id/tag_input"
-                app:layout_constraintEnd_toEndOf="@+id/description_input"
-                app:layout_constraintStart_toEndOf="@+id/tag_input"
-                app:layout_constraintTop_toTopOf="@+id/tag_input" />
+                app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+                app:layout_constraintTop_toTopOf="@+id/tag_input"/>
 
 
             <TextView
@@ -232,10 +231,10 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/ingredientCard"
-                    android:layout_width="match_parent"
+                    android:layout_width="350dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
-                    android:layout_marginRight="30dp">
+                    android:layout_marginRight="@dimen/default_margin">
 
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -253,6 +252,7 @@
                         android:layout_width="200dp"
                         android:layout_height="80dp"
                         android:hint="Ingrédients"
+                        android:visibility="gone"
                         android:maxLines="1"
                         android:paddingLeft="@dimen/default_margin"
                         android:singleLine="true"
@@ -267,6 +267,7 @@
                         android:layout_height="80dp"
                         android:hint="40g"
                         android:maxLines="1"
+                        android:visibility="gone"
                         android:paddingLeft="@dimen/default_margin"
                         android:textColorHint="@color/turquoise"
                         app:layout_constraintBottom_toBottomOf="@+id/ingredient"
@@ -274,18 +275,16 @@
                         app:layout_constraintTop_toTopOf="@+id/ingredient" />
 
 
-                    <Button
+                    <ImageView
                         android:id="@+id/add_ingredient"
-                        android:layout_width="50dp"
-                        android:layout_height="52dp"
-                        android:background="@color/bleu_canard"
-                        android:text="+"
-                        android:textColor="@color/white"
-                        android:textSize="24dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/quantite"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/quantite"
-                        app:layout_constraintTop_toTopOf="@+id/quantite" />
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:src="@drawable/plus_bleu_canard"
+                        app:layout_constraintStart_toStartOf="@+id/list_ingredient"
+                        app:layout_constraintTop_toBottomOf="@+id/list_ingredient"
+                        app:tint="@color/sun" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

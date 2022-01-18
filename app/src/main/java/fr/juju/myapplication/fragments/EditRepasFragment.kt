@@ -61,7 +61,7 @@ class EditRepasFragment(
         view.findViewById<EditText>(R.id.recette_input).setText(currentRepas.recette)
         view.findViewById<EditText>(R.id.duree).setText(currentRepas.duree)
 
-        uploadedImage = view.findViewById<ImageView>(R.id.image_item)
+        uploadedImage = view.findViewById<ImageView>(R.id.image)
         Glide.with(context).load(Uri.parse(currentRepas.imageUri)).into(view.findViewById<ImageView>(R.id.image))
 
 
@@ -195,6 +195,7 @@ class EditRepasFragment(
     }
 
 
+
     private fun launchGallery() {
         val intent = Intent()
         intent.type = "image/*"
@@ -213,7 +214,8 @@ class EditRepasFragment(
             try {
                 uploadedImage?.setImageURI(filePath)
             } catch (e: IOException) {
-                e.printStackTrace()
+                Toast.makeText(context, "Failed to change image", Toast.LENGTH_SHORT).show()
+
             }
         }
     }

@@ -39,10 +39,9 @@ class HomeFragment
     ): View? {
 
         val view = inflater?.inflate(R.layout.fragment_home, container, false)
-        var currentDays= SemainierModel()
-        if (semainierList.filter{s->s.id_semainier == currentDay}.isNotEmpty()){
-            var currentDays = semainierList.filter{s->s.id_semainier == currentDay}[0]
-        }
+        //var currentDays= SemainierModel()
+        var currentDays = semainierList.filter{s->s.id_semainier == currentDay}[0]
+
 
 
         if (currentDays.midi != "None"){
@@ -99,14 +98,9 @@ class HomeFragment
             view?.findViewById<TextView>(R.id.nomApero)?.text  = currentRepasApero.name
             view?.findViewById<TextView>(R.id.descriptionApero)?.text  = currentRepasApero.duree
 
-            val imageref = Firebase.storage.reference.child(currentRepasApero.imageUri)
-            imageref.downloadUrl.addOnSuccessListener {Uri->
-                val imageURL = Uri.toString()
-                val imagetest = view.findViewById<ImageView>(R.id.image_item4)
-                Glide.with(context)
-                    .load(imageURL)
-                    .into(imagetest)
-            }
+            Glide.with(context)
+                .load(currentRepasApero.imageUri)
+                .into(view.findViewById<ImageView>(R.id.image_item4))
 
             val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tagListApero)
             collectionRecyclerView.adapter = TagsAdapter(context, currentRepasApero.tags, R.layout.item_tags_horizontal)

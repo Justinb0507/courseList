@@ -19,6 +19,8 @@ import java.util.logging.Logger.global
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var navigationView: BottomNavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         unprintSoir()
         unprintApero()
         unprintMidi()
-        val navigationView = findViewById<BottomNavigationView>(R.id.navigation_view)
+        navigationView = findViewById<BottomNavigationView>(R.id.navigation_view)
         navigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home_page->{
@@ -61,6 +63,16 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    fun selectedCourse(){
+        navigationView.getMenu().getItem(3).setChecked(true)
+    }
+    fun selectedSemainier(){
+        navigationView.getMenu().getItem(2).setChecked(true)
+    }
+    fun selectedRecettes(){
+        navigationView.getMenu().getItem(1).setChecked(true)
     }
 
     fun hideKeyboard(){

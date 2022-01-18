@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -38,9 +39,10 @@ class HomeFragment
     ): View? {
 
         val view = inflater?.inflate(R.layout.fragment_home, container, false)
-        var currentDays = semainierList.filter{s->s.id_semainier == currentDay}[0]
-
-        //var currentDays= SemainierModel()
+        var currentDays= SemainierModel()
+        if (semainierList.filter{s->s.id_semainier == currentDay}.isNotEmpty()){
+            var currentDays = semainierList.filter{s->s.id_semainier == currentDay}[0]
+        }
 
 
         if (currentDays.midi != "None"){
@@ -115,6 +117,24 @@ class HomeFragment
 
         if(currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None"){
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
+            view?.findViewById<TextView>(R.id.currentDays)?.text = "Rien de prévu aujourd’hui ! :)"
+            view?.findViewById<ConstraintLayout>(R.id.vite_recette)?.setOnClickListener{
+                Toast.makeText(context, "Ben va falloir s'y mettre là hein...", Toast.LENGTH_SHORT).show()
+            }
+            view?.findViewById<TextView>(R.id.planning)?.setOnClickListener{
+                context.selectedSemainier()
+                context.loadFragment(SemainierFragment(context, "None"))
+            }
+            view?.findViewById<TextView>(R.id.course_liste)?.setOnClickListener{
+                context.selectedCourse()
+                context.loadFragment(CourseListeFragment(context))
+            }
+            view?.findViewById<TextView>(R.id.recettes)?.setOnClickListener{
+                context.selectedRecettes()
+                context.loadFragment(FiltreRepasFragment(context, "None", "None"))
+            }
+
+
         }
 
         val translate = AnimationUtils.loadAnimation(context, R.anim.translate_anim)

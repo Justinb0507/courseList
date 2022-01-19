@@ -24,8 +24,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
-                android:layout_width="411dp"
-                android:layout_height="166dp"
+                android:layout_width="401dp"
+                android:layout_height="214dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -34,7 +34,8 @@
                     android:id="@+id/image_item"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"/>
 
             </androidx.cardview.widget.CardView>
 

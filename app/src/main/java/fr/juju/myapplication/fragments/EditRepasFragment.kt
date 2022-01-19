@@ -1,12 +1,17 @@
 package fr.juju.myapplication.fragments
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.*
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -24,8 +29,9 @@ import fr.juju.myapplication.adapter.EditTagsAdapter
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
-import android.view.ViewTreeObserver
 import android.view.ViewTreeObserver.OnScrollChangedListener
+import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.addTextChangedListener
 
 
 class EditRepasFragment(
@@ -47,12 +53,14 @@ class EditRepasFragment(
         val repo = RepasRepository()
         val repo2 = IngredientRepository()
 
-        ingredients = ingredientList.filter { s->s.id_repas == currentRepas.id } as ArrayList<IngredientModel>
+        ingredients =
+            ingredientList.filter { s -> s.id_repas == currentRepas.id } as ArrayList<IngredientModel>
 
         val view = inflater?.inflate(R.layout.fragment_edit_repas, container, false)
         val listIngredientView = view.findViewById<RecyclerView>(R.id.list_ingredient)
 
-        listIngredientView.adapter = EditIngredientAdapter(context,ingredients, R.layout.item_edit_ingredient_vertical)
+        listIngredientView.adapter =
+            EditIngredientAdapter(context, ingredients, R.layout.item_edit_ingredient_vertical)
         listIngredientView.layoutManager = LinearLayoutManager(context)
 
         view.findViewById<EditText>(R.id.name_input).setText(currentRepas.name)
@@ -62,44 +70,108 @@ class EditRepasFragment(
         view.findViewById<EditText>(R.id.duree).setText(currentRepas.duree)
 
         uploadedImage = view.findViewById<ImageView>(R.id.image)
-        Glide.with(context).load(Uri.parse(currentRepas.imageUri)).into(view.findViewById<ImageView>(R.id.image))
+        Glide.with(context).load(Uri.parse(currentRepas.imageUri))
+            .into(view.findViewById<ImageView>(R.id.image))
 
 
-        view.findViewById<ImageView>(R.id.valid).setOnClickListener{
+        view.findViewById<ImageView>(R.id.valid).setOnClickListener {
             updateRepas(view)
         }
+
         val repoSemainier = SemainierRepository()
-        view.findViewById<ImageView>(R.id.trash).setOnClickListener{
-            repo.deleteRepas(currentRepas)
-            for (ingredient in ingredientList.filter { s->s.id_repas == currentRepas.id } as ArrayList<IngredientModel>){
-                repo2.deleteIngredient(ingredient)
-            }
-            for (day in semainierList.filter { s->s.midi == currentRepas.id } as ArrayList<SemainierModel>){
-                repoSemainier.resetMidi(day.id_semainier)
-            }
-            for (day in semainierList.filter { s->s.soir == currentRepas.id } as ArrayList<SemainierModel>){
-                repoSemainier.resetSoir(day.id_semainier)
-            }
-            for (day in semainierList.filter { s->s.apero == currentRepas.id } as ArrayList<SemainierModel>){
-                repoSemainier.resetApero(day.id_semainier)
-            }
-            val storageRef = Firebase.storage.reference.child("image${currentRepas.id}")
-            storageRef.delete().addOnSuccessListener {
-                Toast.makeText(context, "Recette supprimée !", Toast.LENGTH_SHORT).show()
-            }.addOnFailureListener {
-                Toast.makeText(context, "Recette non supprimée !", Toast.LENGTH_SHORT).show()
-            }
-            context.loadFragment(FiltreRepasFragment(context, "None", "None"))
+        view.findViewById<ImageView>(R.id.trash).setOnClickListener {
+            var builder = AlertDialog.Builder(context)
+            builder.setTitle("Oulaaaaaa !")
+            builder.setMessage("Tu veux vraiment supprimer la recette ?")
+            builder.setPositiveButton("Oui", DialogInterface.OnClickListener { dialog, id ->
+
+                repo.deleteRepas(currentRepas)
+                for (ingredient in ingredientList.filter { s -> s.id_repas == currentRepas.id } as ArrayList<IngredientModel>) {
+                    repo2.deleteIngredient(ingredient)
+                }
+                for (day in semainierList.filter { s -> s.midi == currentRepas.id } as ArrayList<SemainierModel>) {
+                    repoSemainier.resetMidi(day.id_semainier)
+                }
+                for (day in semainierList.filter { s -> s.soir == currentRepas.id } as ArrayList<SemainierModel>) {
+                    repoSemainier.resetSoir(day.id_semainier)
+                }
+                for (day in semainierList.filter { s -> s.apero == currentRepas.id } as ArrayList<SemainierModel>) {
+                    repoSemainier.resetApero(day.id_semainier)
+                }
+                val storageRef = Firebase.storage.reference.child("image${currentRepas.id}")
+                storageRef.delete().addOnSuccessListener {
+                    Toast.makeText(context, "Recette supprimée !", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener {
+                    Toast.makeText(context, "Recette non supprimée !", Toast.LENGTH_SHORT).show()
+                }
+                context.loadFragment(FiltreRepasFragment(context, "None", "None"))
+                dialog.cancel()
+            })
+            builder.setNegativeButton("Non", DialogInterface.OnClickListener { dialog, id ->
+                dialog.cancel()
+            })
+            var alert: AlertDialog = builder.create()
+            alert.show()
         }
 
         var temp = false
 
         val addIngredientButton = view.findViewById<ImageView>(R.id.add_ingredient)
+
+        view.findViewById<EditText>(R.id.quantite).addTextChangedListener(
+            object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if(s.contains("\n")) {
+                        addIngredientButton.performClick()
+                    }}
+
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Fires right before text is changing
+                }
+
+                override fun afterTextChanged(s: Editable) {
+
+
+                }
+            }
+        )
+
+        view.findViewById<EditText>(R.id.ingredient).addTextChangedListener(
+            object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if(s.contains("\n")) {
+                        view.findViewById<EditText>(R.id.ingredient).setText(s.toString().replace("\n",""))
+                        view.findViewById<EditText>(R.id.quantite).requestFocus()
+                    }}
+
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Fires right before text is changing
+                }
+
+                override fun afterTextChanged(s: Editable) {
+
+
+                }
+            }
+        )
+
+
         addIngredientButton.setOnClickListener{
-            if(view.findViewById<EditText>(R.id.ingredient).text.isNotEmpty()) {
+            if(view.findViewById<EditText>(R.id.ingredient).text.isNotEmpty() && view.findViewById<EditText>(R.id.quantite).text.isNotEmpty()) {
                 addIngredient(view)
                 view.findViewById<EditText>(R.id.ingredient).setText("")
                 view.findViewById<EditText>(R.id.quantite).setText("")
+                view.findViewById<EditText>(R.id.ingredient).requestFocus()
                 listIngredientView.adapter = EditIngredientAdapter(context,ingredients, R.layout.item_edit_ingredient_vertical)
                 listIngredientView.scrollToPosition(1500)
                 temp = false
@@ -107,6 +179,8 @@ class EditRepasFragment(
             view.findViewById<EditText>(R.id.ingredient).visibility = View.VISIBLE
             view.findViewById<EditText>(R.id.quantite).visibility = View.VISIBLE
             addIngredientButton.animate().translationX(+790F).setDuration(150)
+            view.findViewById<EditText>(R.id.ingredient).requestFocus()
+
             var temp = false
 
 
@@ -125,6 +199,9 @@ class EditRepasFragment(
             }
             add_tagButton.animate().translationX(+250F).setDuration(150)
             view.findViewById<EditText>(R.id.tag_input).visibility = View.VISIBLE
+            view.findViewById<EditText>(R.id.tag_input).requestFocus()
+            val showMe = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.tag_input), InputMethodManager.SHOW_IMPLICIT)
         }
 
         view.findViewById<ImageView>(R.id.image).setOnClickListener{
@@ -215,7 +292,6 @@ class EditRepasFragment(
                 uploadedImage?.setImageURI(filePath)
             } catch (e: IOException) {
                 Toast.makeText(context, "Failed to change image", Toast.LENGTH_SHORT).show()
-
             }
         }
     }
@@ -260,7 +336,9 @@ class EditRepasFragment(
             Locale.getDefault()) else it.toString() }
 
         var repasIngredientquantite =  view.findViewById<EditText>(R.id.quantite).text.toString()
-
+        if(repasIngredientquantite.contains("\n")){
+            repasIngredientquantite = repasIngredientquantite.split("\n")[0]
+        }
 
         var ingredient = IngredientModel(
             UUID.randomUUID().toString(),

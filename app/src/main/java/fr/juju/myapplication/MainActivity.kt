@@ -8,14 +8,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.juju.myapplication.fragments.*
-import io.grpc.Context
-import java.util.logging.Logger.global
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,11 +21,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        navigationView = findViewById<BottomNavigationView>(R.id.navigation_view)
+
         loadFragmentHome(HomeFragment(this))
         unprintSoir()
         unprintApero()
         unprintMidi()
-        navigationView = findViewById<BottomNavigationView>(R.id.navigation_view)
         navigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home_page->{
@@ -82,6 +80,8 @@ class MainActivity : AppCompatActivity() {
             hideMe.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
+
+
 
     fun loadFragment(fragment: Fragment) {
 

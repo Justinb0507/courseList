@@ -2,15 +2,17 @@ package fr.juju.myapplication.fragments
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.inputmethod.InputMethodManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewTreeObserver
+import android.view.*
+import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +25,10 @@ import fr.juju.myapplication.adapter.*
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
+import androidx.core.content.ContextCompat.getSystemService
+
+
+
 
 class AddRepasFragment(
     private val context: MainActivity
@@ -67,6 +73,7 @@ class AddRepasFragment(
                 addIngredient(view)
                 view.findViewById<EditText>(R.id.ingredient).setText("")
                 view.findViewById<EditText>(R.id.quantite).setText("")
+                view.findViewById<EditText>(R.id.ingredient).requestFocus()
                 listIngredientView.adapter = EditIngredientAdapter(context,listItem, R.layout.item_edit_ingredient_vertical)
                 listIngredientView.scrollToPosition(1500)
                 temp = false
@@ -87,11 +94,14 @@ class AddRepasFragment(
                 add_tag(view)
                 collectionRecyclerView.adapter = EditTagsAdapter(context, repas.tags, R.layout.item_edit_tags_horizontal)
                 view.findViewById<EditText>(R.id.tag_input).setText("")
-                collectionRecyclerView.scrollY = 1500
-                collectionRecyclerView.scrollX = 1500
+                collectionRecyclerView.scrollToPosition(1500)
             }
             add_tagButton.animate().translationX(+250F).setDuration(150)
             view.findViewById<EditText>(R.id.tag_input).visibility = View.VISIBLE
+            view.findViewById<EditText>(R.id.tag_input).requestFocus()
+            val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.tag_input), InputMethodManager.SHOW_IMPLICIT)
+
         }
 
 
@@ -122,9 +132,11 @@ class AddRepasFragment(
                         view?.findViewById<ImageView>(R.id.valid)?.animate()?.alpha(1F)
                             ?.translationY(-5F)?.setDuration(100)
                     }
-
                 }
             })
+
+
+
         return view
     }
 

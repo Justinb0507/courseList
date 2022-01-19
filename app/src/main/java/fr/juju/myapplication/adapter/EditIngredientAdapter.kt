@@ -1,11 +1,10 @@
 package fr.juju.myapplication.adapter
 
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import fr.juju.myapplication.IngredientModel
 import fr.juju.myapplication.MainActivity

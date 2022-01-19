@@ -50,7 +50,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/Midi"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin">
 
             <TextView
                 android:id="@+id/textView5"
@@ -91,7 +92,7 @@
                 app:layout_constraintTop_toTopOf="@+id/cardView2" />
 
             <LinearLayout
-                android:layout_width="209dp"
+                android:layout_width="200dp"
                 android:layout_height="32dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/descriptionMidi"
@@ -100,7 +101,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tagListMidi"
-                    android:layout_width="209dp"
+                    android:layout_width="200dp"
                     android:layout_height="32dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -111,10 +112,11 @@
             <TextView
                 android:id="@+id/nomMidi"
                 style="@style/SubstitleTextStyle"
-                android:layout_width="210dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/default_margin"
-                android:maxLines="1"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:text="Nom du plat"
                 app:layout_constraintStart_toEndOf="@+id/cardView2"
                 app:layout_constraintTop_toTopOf="@+id/cardView2" />
@@ -132,10 +134,11 @@
             <TextView
                 android:id="@+id/descriptionMidi"
                 style="@style/DefaultTextStyle"
-                android:layout_width="176dp"
+                android:layout_width="168dp"
                 android:layout_height="24dp"
                 android:layout_marginLeft="10dp"
-                android:maxLines="1"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:text="Description du plat"
                 app:layout_constraintBottom_toBottomOf="@+id/cardView2"
                 app:layout_constraintStart_toEndOf="@+id/clock"
@@ -192,7 +195,9 @@
             <TextView
                 android:id="@+id/nomApero"
                 style="@style/SubstitleTextStyle"
-                android:layout_width="210dp"
+                android:layout_width="200dp"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/default_margin"
                 android:text="Nom du plat"
@@ -201,7 +206,7 @@
 
 
             <LinearLayout
-                android:layout_width="209dp"
+                android:layout_width="200dp"
                 android:layout_height="32dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="@+id/view_separation4"
@@ -210,7 +215,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tagListApero"
-                    android:layout_width="209dp"
+                    android:layout_width="200dp"
                     android:layout_height="32dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -230,7 +235,9 @@
             <TextView
                 android:id="@+id/descriptionApero"
                 style="@style/DefaultTextStyle"
-                android:layout_width="176dp"
+                android:layout_width="169dp"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="Description du plat"
@@ -289,15 +296,17 @@
             <TextView
                 android:id="@+id/nomSoir"
                 style="@style/SubstitleTextStyle"
-                android:layout_width="210dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/default_margin"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="Nom du plat"
                 app:layout_constraintStart_toEndOf="@+id/cardView3"
                 app:layout_constraintTop_toTopOf="@+id/cardView3" />
 
             <LinearLayout
-                android:layout_width="209dp"
+                android:layout_width="200dp"
                 android:layout_height="32dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="@+id/view_separation3"
@@ -306,7 +315,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tagListSoir"
-                    android:layout_width="209dp"
+                    android:layout_width="200dp"
                     android:layout_height="32dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -326,7 +335,7 @@
             <TextView
                 android:id="@+id/descriptionSoir"
                 style="@style/DefaultTextStyle"
-                android:layout_width="176dp"
+                android:layout_width="169dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="Description du plat"

@@ -12,12 +12,12 @@ import kotlin.collections.ArrayList
 
 class RepasModel(
     var id:String = UUID.randomUUID().toString(),
-    var name:String = "Coucou",
-    var description:String = "Potite description",
-    var imageUri: String = "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image4750b61d-efca-4735-8453-aa691b78a988?alt=media&token=099556a0-a465-4c5b-9238-22dbfc4e8497",
-    var lien:String = "www.google.fr",
-    var recette:String = "cuisinez",
-    var tags: ArrayList<String> = arrayListOf("test", "test1"),
-    var duree: String = "10"
+    var name:String = "",
+    var description:String = "",
+    var imageUri: String = "",
+    var lien:String = "",
+    var recette:String = "",
+    var tags: ArrayList<String> = arrayListOf(),
+    var duree: String = ""
 )
 

@@ -36,7 +36,6 @@ class ResultResearchFragment(
         val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.repas_list)
         collectionRecyclerView.adapter = RepasAdapter(context, resultResearch, R.layout.item_repas_vertical, time,selectedDay)
         collectionRecyclerView.layoutManager = LinearLayoutManager(context)
-        collectionRecyclerView.addItemDecoration(RepasItemDecoration())
 
         return view
     }

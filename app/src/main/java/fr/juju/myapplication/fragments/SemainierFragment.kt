@@ -1,6 +1,8 @@
 package fr.juju.myapplication.fragments
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -378,6 +380,7 @@ class SemainierFragment (
 
         view.findViewById<ImageView>(R.id.delete_midi).setOnClickListener{
             repo.resetMidi(selectedDay)
+            Toast.makeText(context, "Repas du $selectedDay midi supprimé", Toast.LENGTH_SHORT).show()
             if(selectedDay == "lundi"){
                 var boutton = view.findViewById<TextView>(R.id.Lundi)
                 var image = view.findViewById<ImageView>(R.id.Lundi_img)
@@ -422,6 +425,7 @@ class SemainierFragment (
         }
         view.findViewById<ImageView>(R.id.delete_apero).setOnClickListener{
             repo.resetApero(selectedDay)
+            Toast.makeText(context, "Apéro du $selectedDay supprimé (sniff)", Toast.LENGTH_SHORT).show()
             if(selectedDay == "lundi"){
                 var boutton = view.findViewById<TextView>(R.id.Lundi)
                 var image = view.findViewById<ImageView>(R.id.Lundi_img)
@@ -466,6 +470,7 @@ class SemainierFragment (
         }
         view.findViewById<ImageView>(R.id.delete_soir).setOnClickListener{
             repo.resetSoir(selectedDay)
+            Toast.makeText(context, "Repas du $selectedDay soir supprimé", Toast.LENGTH_SHORT).show()
             if(selectedDay == "lundi"){
                 var boutton = view.findViewById<TextView>(R.id.Lundi)
                 var image = view.findViewById<ImageView>(R.id.Lundi_img)

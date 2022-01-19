@@ -122,7 +122,6 @@ override fun onCreateView(
     }
     view.findViewById<ImageView>(R.id.soupe).setOnClickListener{
         context.hideKeyboard()
-
         if (categorieFiltre("Soupe").isNotEmpty()){
             context.loadFragment(ResultResearchFragment(context, categorieFiltre("Soupe"), time, selectedDay))
         }
@@ -194,6 +193,7 @@ override fun onCreateView(
             context.loadFragment(ResultResearchFragment(context, research(view.findViewById<EditText>(R.id.research_input).text.toString()), time, selectedDay))
         }
         else {
+            context.hideKeyboard()
             view.findViewById<ImageView>(R.id.searchbar).animate().alpha(0F).setDuration(10)
             view.findViewById<ImageView>(R.id.searchbar_red).animate().alpha(1F).setDuration(1)
 

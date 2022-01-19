@@ -1,0 +1,369 @@
+{
+  "categorie" : {
+    "categorie1" : {
+      "id" : "categorie1",
+      "name" : "Légumes"
+    },
+    "categorie2" : {
+      "id" : "categorie2",
+      "name" : "Testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    }
+  },
+  "ingredients" : {
+    "145c2672-f549-4df3-be50-8c47536f576a" : {
+      "id" : "145c2672-f549-4df3-be50-8c47536f576a",
+      "id_categorie" : "None",
+      "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
+      "name" : "Poivron ",
+      "quantite" : "1"
+    },
+    "14ab3316-09c1-4347-ae23-59fa4a59eacf" : {
+      "id" : "14ab3316-09c1-4347-ae23-59fa4a59eacf",
+      "id_categorie" : "None",
+      "id_repas" : "f82e4ed6-6404-4bc1-95b7-831a71e100cc",
+      "name" : "Rhum negrita",
+      "quantite" : "au jugé"
+    },
+    "18ce4126-cad8-49d2-b161-9713ab16ac66" : {
+      "id" : "18ce4126-cad8-49d2-b161-9713ab16ac66",
+      "id_categorie" : "None",
+      "id_repas" : "7863c28f-5186-460d-95a6-f46fbfd1b6ba",
+      "name" : "Sucre de canne",
+      "quantite" : "10g"
+    },
+    "259b2079-4e14-4e7c-8ade-b366cc268886" : {
+      "id" : "259b2079-4e14-4e7c-8ade-b366cc268886",
+      "id_categorie" : "None",
+      "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
+      "name" : "Chapelure",
+      "quantite" : "1"
+    },
+    "2a38d26f-8b57-47fe-a794-f24e7263f3db" : {
+      "id" : "2a38d26f-8b57-47fe-a794-f24e7263f3db",
+      "id_categorie" : "None",
+      "id_repas" : "3cd6f535-6bdd-48cf-9b1f-6d343347473a",
+      "name" : "Riz",
+      "quantite" : "au jugé"
+    },
+    "2e79b098-b8c5-4baa-8de4-786f39df8047" : {
+      "id" : "2e79b098-b8c5-4baa-8de4-786f39df8047",
+      "id_categorie" : "None",
+      "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
+      "name" : "Avocat",
+      "quantite" : "1"
+    },
+    "37847370-6c84-4977-a34e-54bbe8d8c3e4" : {
+      "id" : "37847370-6c84-4977-a34e-54bbe8d8c3e4",
+      "id_categorie" : "None",
+      "id_repas" : "3cd6f535-6bdd-48cf-9b1f-6d343347473a",
+      "name" : "Champignon",
+      "quantite" : "4"
+    },
+    "38fb8877-9d02-48a3-8a99-e3c4f389da2e" : {
+      "id" : "38fb8877-9d02-48a3-8a99-e3c4f389da2e",
+      "id_categorie" : "None",
+      "id_repas" : "7863c28f-5186-460d-95a6-f46fbfd1b6ba",
+      "name" : "Limonade",
+      "quantite" : "1"
+    },
+    "3afac380-be93-40d6-9b76-39b179f1ed6a" : {
+      "id" : "3afac380-be93-40d6-9b76-39b179f1ed6a",
+      "id_categorie" : "None",
+      "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
+      "name" : "Poulet (optionnel)",
+      "quantite" : "120g"
+    },
+    "4457226d-700c-44d7-8e18-f6fa357816d7" : {
+      "id" : "4457226d-700c-44d7-8e18-f6fa357816d7",
+      "id_categorie" : "None",
+      "id_repas" : "3cd6f535-6bdd-48cf-9b1f-6d343347473a",
+      "name" : "Crevettes",
+      "quantite" : "1 boîte"
+    },
+    "57472d2d-c50d-4e13-bca1-802908972c43" : {
+      "id" : "57472d2d-c50d-4e13-bca1-802908972c43",
+      "id_categorie" : "None",
+      "id_repas" : "f82e4ed6-6404-4bc1-95b7-831a71e100cc",
+      "name" : "Farine",
+      "quantite" : "200g"
+    },
+    "5bd03959-5e73-454c-b8af-2c44aa10d4f7" : {
+      "id" : "5bd03959-5e73-454c-b8af-2c44aa10d4f7",
+      "id_categorie" : "None",
+      "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
+      "name" : "Brocoli",
+      "quantite" : "1"
+    },
+    "60245a07-4a01-45c0-8096-dc36682cb957" : {
+      "id" : "60245a07-4a01-45c0-8096-dc36682cb957",
+      "id_categorie" : "None",
+      "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
+      "name" : "Sauce soja",
+      "quantite" : "1"
+    },
+    "65e148a0-44f7-4b94-af98-5513aadbe851" : {
+      "id" : "65e148a0-44f7-4b94-af98-5513aadbe851",
+      "id_categorie" : "None",
+      "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
+      "name" : "Tomates",
+      "quantite" : "1"
+    },
+    "6b4a7e96-079f-434a-90cc-19ccd44b2751" : {
+      "id" : "6b4a7e96-079f-434a-90cc-19ccd44b2751",
+      "id_categorie" : "None",
+      "id_repas" : "7863c28f-5186-460d-95a6-f46fbfd1b6ba",
+      "name" : "Citron vert",
+      "quantite" : "2"
+    },
+    "71658a91-b690-4eec-bfe1-3f9e1263dec4" : {
+      "id" : "71658a91-b690-4eec-bfe1-3f9e1263dec4",
+      "id_categorie" : "None",
+      "id_repas" : "7863c28f-5186-460d-95a6-f46fbfd1b6ba",
+      "name" : "Sirop de canne (optionnel)",
+      "quantite" : "1"
+    },
+    "735da47c-2052-4a8c-a4ad-0ef417d28778" : {
+      "id" : "735da47c-2052-4a8c-a4ad-0ef417d28778",
+      "id_categorie" : "None",
+      "id_repas" : "f82e4ed6-6404-4bc1-95b7-831a71e100cc",
+      "name" : "Lait",
+      "quantite" : "40cl"
+    },
+    "7495e278-4ec1-4455-b78f-5a7fdab33e71" : {
+      "id" : "7495e278-4ec1-4455-b78f-5a7fdab33e71",
+      "id_categorie" : "None",
+      "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
+      "name" : "Seitan (optionnel)",
+      "quantite" : "1"
+    },
+    "79e289fd-9b40-4927-87b9-c2a231242d04" : {
+      "id" : "79e289fd-9b40-4927-87b9-c2a231242d04",
+      "id_categorie" : "None",
+      "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
+      "name" : "Carottes",
+      "quantite" : "2"
+    },
+    "809e812e-6364-46da-8a76-7e732b058865" : {
+      "id" : "809e812e-6364-46da-8a76-7e732b058865",
+      "id_categorie" : "None",
+      "id_repas" : "3cd6f535-6bdd-48cf-9b1f-6d343347473a",
+      "name" : "Petites tomates",
+      "quantite" : "1"
+    },
+    "81432730-5c35-4558-a0d6-ac7b89ff9b07" : {
+      "id" : "81432730-5c35-4558-a0d6-ac7b89ff9b07",
+      "id_categorie" : "None",
+      "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
+      "name" : "Farine",
+      "quantite" : "50g"
+    },
+    "81c4acd0-5a8c-465c-9ed0-854842d24976" : {
+      "id" : "81c4acd0-5a8c-465c-9ed0-854842d24976",
+      "id_categorie" : "None",
+      "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
+      "name" : "Pousse de soja (optionnel)",
+      "quantite" : "1"
+    },
+    "869c4496-9653-4548-a4ea-45ba34317929" : {
+      "id" : "869c4496-9653-4548-a4ea-45ba34317929",
+      "id_categorie" : "None",
+      "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
+      "name" : "Nouilles chinoises",
+      "quantite" : "1"
+    },
+    "887743e2-61fd-4752-92b2-f5fdd71f3ba3" : {
+      "id" : "887743e2-61fd-4752-92b2-f5fdd71f3ba3",
+      "id_categorie" : "None",
+      "id_repas" : "3cd6f535-6bdd-48cf-9b1f-6d343347473a",
+      "name" : "Crème fraîche",
+      "quantite" : "1 petit pot"
+    },
+    "912313d6-a918-4a7b-9214-a1f8d93701fb" : {
+      "id" : "912313d6-a918-4a7b-9214-a1f8d93701fb",
+      "id_categorie" : "None",
+      "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
+      "name" : "Salade",
+      "quantite" : "1"
+    },
+    "93626aa0-a3b0-47cf-94df-2e52bdd1447d" : {
+      "id" : "93626aa0-a3b0-47cf-94df-2e52bdd1447d",
+      "id_categorie" : "None",
+      "id_repas" : "f82e4ed6-6404-4bc1-95b7-831a71e100cc",
+      "name" : "Œufs",
+      "quantite" : "2"
+    },
+    "a099d632-0023-4b1f-9341-57840fd905cc" : {
+      "id" : "a099d632-0023-4b1f-9341-57840fd905cc",
+      "id_categorie" : "None",
+      "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
+      "name" : "Sirop d'érable (optionnel)",
+      "quantite" : "1"
+    },
+    "a92ca291-60e8-4399-b1c3-d29506bec122" : {
+      "id" : "a92ca291-60e8-4399-b1c3-d29506bec122",
+      "id_categorie" : "None",
+      "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
+      "name" : "Maïs",
+      "quantite" : "1"
+    },
+    "b0bfaf2d-e8c5-49b3-9f65-c95a797931c2" : {
+      "id" : "b0bfaf2d-e8c5-49b3-9f65-c95a797931c2",
+      "id_categorie" : "None",
+      "id_repas" : "f82e4ed6-6404-4bc1-95b7-831a71e100cc",
+      "name" : "Beurre",
+      "quantite" : "40g"
+    },
+    "b8b40ade-1136-4c14-94d5-5d1689d94377" : {
+      "id" : "b8b40ade-1136-4c14-94d5-5d1689d94377",
+      "id_categorie" : "None",
+      "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
+      "name" : "Oeuf",
+      "quantite" : "2"
+    },
+    "bc5e3ce2-817a-4f61-a6b1-7caecf97217d" : {
+      "id" : "bc5e3ce2-817a-4f61-a6b1-7caecf97217d",
+      "id_categorie" : "None",
+      "id_repas" : "7863c28f-5186-460d-95a6-f46fbfd1b6ba",
+      "name" : "Rhum blanc",
+      "quantite" : "1"
+    },
+    "cae8c59b-5d83-48ba-a7ce-27668603e981" : {
+      "id" : "cae8c59b-5d83-48ba-a7ce-27668603e981",
+      "id_categorie" : "None",
+      "id_repas" : "7863c28f-5186-460d-95a6-f46fbfd1b6ba",
+      "name" : "Menthe",
+      "quantite" : "1"
+    },
+    "d1780a4e-65ea-482d-84d5-24bc30ec159b" : {
+      "id" : "d1780a4e-65ea-482d-84d5-24bc30ec159b",
+      "id_categorie" : "None",
+      "id_repas" : "f82e4ed6-6404-4bc1-95b7-831a71e100cc",
+      "name" : "Sucre",
+      "quantite" : "40g"
+    },
+    "d92250bf-e6ce-4ac0-8f19-716a0be820a6" : {
+      "id" : "d92250bf-e6ce-4ac0-8f19-716a0be820a6",
+      "id_categorie" : "None",
+      "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
+      "name" : "Wraps",
+      "quantite" : "4"
+    },
+    "e00d11cf-6c9c-488c-8d2e-a4bbe5c68655" : {
+      "id" : "e00d11cf-6c9c-488c-8d2e-a4bbe5c68655",
+      "id_categorie" : "None",
+      "id_repas" : "3cd6f535-6bdd-48cf-9b1f-6d343347473a",
+      "name" : "Cube kubor",
+      "quantite" : "1"
+    },
+    "e9837318-19ce-4702-bf1b-d5e39ce33b90" : {
+      "id" : "e9837318-19ce-4702-bf1b-d5e39ce33b90",
+      "id_categorie" : "None",
+      "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
+      "name" : "Champignon",
+      "quantite" : "4"
+    },
+    "fe515cb8-54c9-4a0e-815a-64c10cf76130" : {
+      "id" : "fe515cb8-54c9-4a0e-815a-64c10cf76130",
+      "id_categorie" : "None",
+      "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
+      "name" : "Poulet",
+      "quantite" : "120g"
+    }
+  },
+  "repas" : {
+    "3cd6f535-6bdd-48cf-9b1f-6d343347473a" : {
+      "description" : "Le plat de la flemme",
+      "duree" : "25min",
+      "id" : "3cd6f535-6bdd-48cf-9b1f-6d343347473a",
+      "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image3cd6f535-6bdd-48cf-9b1f-6d343347473a?alt=media&token=4b1b375c-997e-4371-917f-dc05c6009ebf",
+      "lien" : "www.google.fr",
+      "name" : "Risotto crevettes",
+      "recette" : "Tout mettre dans l'autocuiseur et ne rien faire :)",
+      "tags" : [ "Plat", "Facile" ]
+    },
+    "7863c28f-5186-460d-95a6-f46fbfd1b6ba" : {
+      "description" : "La base",
+      "duree" : "5 min",
+      "id" : "7863c28f-5186-460d-95a6-f46fbfd1b6ba",
+      "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image7863c28f-5186-460d-95a6-f46fbfd1b6ba?alt=media&token=314b817b-02e5-42b4-b3ef-87a2a84c7b0b",
+      "lien" : "www.google.fr",
+      "name" : "Mojito",
+      "recette" : "Fais toi plaiz tu sais faire :)",
+      "tags" : [ "Cocktail", "Apero" ]
+    },
+    "90a01e21-4491-453b-b003-370e6722dc4f" : {
+      "description" : "Nouilles sautées aux légumes",
+      "duree" : "25 min",
+      "id" : "90a01e21-4491-453b-b003-370e6722dc4f",
+      "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image90a01e21-4491-453b-b003-370e6722dc4f?alt=media&token=6b343a37-ea06-4231-8597-a731607a4a53",
+      "lien" : "www.google.fr",
+      "name" : "Wok",
+      "recette" : "(si nouilles au seitan : faire la marinade (2 c.s de soja + 1c.s de sirop d'érable), couper le seitan en petit cube, faire tremper.)\n\ncouper les légumes : \n- les poivrons en lamelles\n- les brocolis en petites branches\n- les champignons en lamelles\n- râper les carottes en lamelles\n(- les pousses de soja sont ok à mettre comme ça)\n\nfaites revenir dans une poêle, recouvrir pour cuire à la vapeur.\n\n(dans une autre poêle, faites cuire le poulet ou le seitan).\n\nune fois les légumes cuits, ajouter de la sauce soja (et la viande). laissez cuire 3-4min.\n\najoutez les nouilles, rajoutez de la sauce, couvrez pour cuire à la vapeur. laissez cuire 5min.\n\nmiam\n\n",
+      "tags" : [ "Plat", "Asiatique" ]
+    },
+    "b51f01ef-8e7e-4731-8dce-02d527c1479f" : {
+      "description" : "Le plat qui met tout le monde d'accord",
+      "duree" : "45min",
+      "id" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
+      "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/imageb51f01ef-8e7e-4731-8dce-02d527c1479f?alt=media&token=b3aab37d-139f-4e66-9e32-973c595e0012",
+      "lien" : "www.google.fr",
+      "name" : "Wraps poulet pané",
+      "recette" : "Pané le poulet : farine oeuf chapelure.\ntout couper\nchauffer les wraps\net puis miam hein !",
+      "tags" : [ "Plat", "Soirée", "Groupe" ]
+    },
+    "f82e4ed6-6404-4bc1-95b7-831a71e100cc" : {
+      "description" : "Les crêpes de maman !",
+      "duree" : "15min",
+      "id" : "f82e4ed6-6404-4bc1-95b7-831a71e100cc",
+      "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/imagef82e4ed6-6404-4bc1-95b7-831a71e100cc?alt=media&token=484b6ad0-47c3-40fe-a7d9-a93be26b6738",
+      "lien" : "www.google.fr",
+      "name" : "Crêpes",
+      "recette" : "Pour 10 crêpes\n\ndans un saladier :\n- versez les oeufs (battus jusqu'à devenir blanc)\n- faites fondre le beurre et versez le\n- ajoutez le sucre\najoutez alternativement lait et farine dans le saladier\n- versez autant de rhum que nécessaire",
+      "tags" : [ "Brunch", "Dessert", "Goûter" ]
+    }
+  },
+  "semainier" : {
+    "dimanche" : {
+      "apero" : "None",
+      "id_semainier" : "dimanche",
+      "midi" : "None",
+      "soir" : "None"
+    },
+    "jeudi" : {
+      "apero" : "None",
+      "id_semainier" : "jeudi",
+      "midi" : "None",
+      "soir" : "None"
+    },
+    "lundi" : {
+      "apero" : "None",
+      "id_semainier" : "lundi",
+      "midi" : "None",
+      "soir" : "None"
+    },
+    "mardi" : {
+      "apero" : "None",
+      "id_semainier" : "mardi",
+      "midi" : "None",
+      "soir" : "None"
+    },
+    "mercredi" : {
+      "apero" : "None",
+      "id_semainier" : "mercredi",
+      "midi" : "None",
+      "soir" : "None"
+    },
+    "samedi" : {
+      "apero" : "None",
+      "id_semainier" : "samedi",
+      "midi" : "None",
+      "soir" : "None"
+    },
+    "vendredi" : {
+      "apero" : "None",
+      "id_semainier" : "vendredi",
+      "midi" : "None",
+      "soir" : "None"
+    }
+  }
+}

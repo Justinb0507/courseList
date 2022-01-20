@@ -44,6 +44,8 @@ override fun onCreateView(
     val view = inflater?.inflate(R.layout.fragment_filtrerepas, container, false)
     view.findViewById<ImageView>(R.id.add_recette).setOnClickListener{
         context.unprintSoir()
+        context.unprintMidi()
+        context.unprintApero()
         context.loadFragment(AddRepasFragment(context))
     }
     view.findViewById<ImageView>(R.id.dessert_rouge).alpha = 0F
@@ -53,8 +55,8 @@ override fun onCreateView(
 
     view.findViewById<ImageView>(R.id.plat).setOnClickListener{
         context.hideKeyboard()
-        if (categorieFiltre("Plat").isNotEmpty()){
-            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Plat"), time, selectedDay))
+        if (categorieFiltre("Plat Plats").isNotEmpty()){
+            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Plat Plats"), time, selectedDay))
         }
         else {
             view.findViewById<ImageView>(R.id.plat_rouge).alpha = 0.5F
@@ -88,8 +90,8 @@ override fun onCreateView(
 
     view.findViewById<ImageView>(R.id.dessert).setOnClickListener{
         context.hideKeyboard()
-        if (categorieFiltre("Dessert").isNotEmpty()){
-            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Dessert"), time, selectedDay))
+        if (categorieFiltre("Dessert Desserts").isNotEmpty()){
+            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Dessert Desserts"), time, selectedDay))
         }
         else {
             view.findViewById<ImageView>(R.id.dessert_rouge).alpha = 0.5F
@@ -122,8 +124,8 @@ override fun onCreateView(
     }
     view.findViewById<ImageView>(R.id.soupe).setOnClickListener{
         context.hideKeyboard()
-        if (categorieFiltre("Soupe").isNotEmpty()){
-            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Soupe"), time, selectedDay))
+        if (categorieFiltre("Soupe Soupes").isNotEmpty()){
+            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Soupe Soupes"), time, selectedDay))
         }
         else {
             view.findViewById<ImageView>(R.id.soupe_rouge).alpha = 0.5F
@@ -156,8 +158,8 @@ override fun onCreateView(
     view.findViewById<ImageView>(R.id.apero).setOnClickListener{
         context.hideKeyboard()
 
-        if (categorieFiltre("Apero").isNotEmpty()){
-            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Apero"), time, selectedDay))
+        if (categorieFiltre("Apéro Apero").isNotEmpty()){
+            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Apéro Apero"), time, selectedDay))
         }
         else {
             view.findViewById<ImageView>(R.id.apero_rouge).alpha = 0.5F

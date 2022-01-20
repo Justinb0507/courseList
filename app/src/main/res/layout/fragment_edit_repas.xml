@@ -56,6 +56,8 @@
                 android:background="@null"
                 android:singleLine="true"
                 android:textAlignment="center"
+                android:hint="Titre de la recette"
+                android:textColorHint="@color/bleu_canard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
@@ -65,9 +67,10 @@
                 style="@style/SubstitleTextStyle"
                 android:layout_width="365dp"
                 android:layout_height="wrap_content"
+                android:hint="Description de la recette"
+                android:textColorHint="@color/bleu_canard"
                 android:layout_marginTop="@dimen/default_margin"
                 android:background="@null"
-
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,6 +105,8 @@
                 android:layout_marginLeft="5dp"
                 android:singleLine="true"
                 android:background="@null"
+                android:hint="20min"
+                android:textColorHint="@color/bleu_canard"
                 app:layout_constraintBottom_toBottomOf="@+id/clock"
                 app:layout_constraintStart_toEndOf="@+id/clock"
                 app:layout_constraintTop_toTopOf="@+id/clock" />
@@ -145,8 +150,8 @@
 
             <ImageView
                 android:id="@+id/add_tag"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginLeft="@dimen/default_margin"
                 android:src="@drawable/plus_bleu_canard"
                 app:layout_constraintBottom_toBottomOf="@+id/tag_input"
@@ -214,7 +219,8 @@
                 android:autoLink="web"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="Addresse du lien"
+                android:hint="Addresse du lien"
+                android:textColorHint="@color/bleu_canard"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView7"
                 app:layout_constraintStart_toEndOf="@+id/imageView7"
                 app:layout_constraintTop_toTopOf="@+id/imageView7" />
@@ -301,6 +307,8 @@
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:cursorVisible="true"
+                        android:hint="Vous avez visiblement oublié d'écrire la recette..."
+                        android:textColorHint="@color/bleu_canard"
                         android:isScrollContainer="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

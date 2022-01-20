@@ -65,7 +65,9 @@ class EditRepasFragment(
 
         view.findViewById<EditText>(R.id.name_input).setText(currentRepas.name)
         view.findViewById<EditText>(R.id.description_input).setText(currentRepas.description)
-        view.findViewById<EditText>(R.id.lien_input).setText(currentRepas.lien)
+        if(currentRepas.lien != ""){
+            view.findViewById<EditText>(R.id.lien_input).setText(currentRepas.lien)
+        }
         view.findViewById<EditText>(R.id.recette_input).setText(currentRepas.recette)
         view.findViewById<EditText>(R.id.duree).setText(currentRepas.duree)
 
@@ -180,10 +182,8 @@ class EditRepasFragment(
             view.findViewById<EditText>(R.id.quantite).visibility = View.VISIBLE
             addIngredientButton.animate().translationX(+790F).setDuration(150)
             view.findViewById<EditText>(R.id.ingredient).requestFocus()
-
-            var temp = false
-
-
+            val showMe = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.ingredient), InputMethodManager.SHOW_IMPLICIT)
         }
         val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tags)
         collectionRecyclerView.adapter = EditTagsAdapter(context, currentRepas.tags, R.layout.item_edit_tags_horizontal)

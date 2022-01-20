@@ -2,11 +2,14 @@ package fr.juju.myapplication.fragments
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.inputmethod.InputMethodManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED
 import android.widget.*
@@ -66,8 +69,57 @@ class AddRepasFragment(
         }
 
         var temp = false
-
         val addIngredientButton = view.findViewById<ImageView>(R.id.add_ingredient)
+
+        view.findViewById<EditText>(R.id.quantite).addTextChangedListener(
+            object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if(s.contains("\n")) {
+                        addIngredientButton.performClick()
+                    }}
+
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Fires right before text is changing
+                }
+
+                override fun afterTextChanged(s: Editable) {
+
+
+                }
+            }
+        )
+
+        view.findViewById<EditText>(R.id.ingredient).addTextChangedListener(
+            object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if(s.contains("\n")) {
+                        view.findViewById<EditText>(R.id.ingredient).setText(s.toString().replace("\n",""))
+                        view.findViewById<EditText>(R.id.quantite).requestFocus()
+                    }}
+
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Fires right before text is changing
+                }
+
+                override fun afterTextChanged(s: Editable) {
+
+
+                }
+            }
+        )
+
+
+
         addIngredientButton.setOnClickListener{
             if(view.findViewById<EditText>(R.id.ingredient).text.isNotEmpty()) {
                 addIngredient(view)
@@ -81,8 +133,9 @@ class AddRepasFragment(
             view.findViewById<EditText>(R.id.ingredient).visibility = View.VISIBLE
             view.findViewById<EditText>(R.id.quantite).visibility = View.VISIBLE
             addIngredientButton.animate().translationX(+790F).setDuration(150)
-            var temp = false
-
+            view.findViewById<EditText>(R.id.ingredient).requestFocus()
+            val showMe = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.ingredient), InputMethodManager.SHOW_IMPLICIT)
 
         }
         val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tags)

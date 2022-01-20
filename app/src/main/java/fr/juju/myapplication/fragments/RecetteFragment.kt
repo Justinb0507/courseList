@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -124,6 +125,16 @@ class RecetteFragment (
         }
         view.findViewById<TextView>(R.id.recette).setOnClickListener{
             switcher("recette")
+        }
+
+        if(currentRepas.lien.isEmpty()){
+            view?.findViewById<ImageView>(R.id.imageView7)?.visibility = View.GONE
+            view?.findViewById<TextView>(R.id.lien)?.visibility = View.GONE
+            view?.findViewById<ImageView>(R.id.clock)?.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                startToStart = view?.findViewById<LinearLayout>(R.id.linearLayout2)?.id!!
+                topToBottom = view?.findViewById<LinearLayout>(R.id.linearLayout2)?.id!!
+            }
+
         }
 
 

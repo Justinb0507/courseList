@@ -8,9 +8,9 @@
     android:background="@color/background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/constraint">
+        android:layout_height="wrap_content">
 
 
         <EditText
@@ -43,9 +43,9 @@
             android:id="@+id/searchbar"
             android:layout_width="305dp"
             android:layout_height="44dp"
+            android:layout_marginLeft="@dimen/default_margin"
             android:scaleType="centerCrop"
             android:src="@drawable/searchbar"
-            android:layout_marginLeft="@dimen/default_margin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,10 +53,10 @@
             android:id="@+id/searchbar_red"
             android:layout_width="305dp"
             android:layout_height="44dp"
-            android:scaleType="centerCrop"
-            android:alpha="0"
-            android:src="@drawable/searchbar"
             android:layout_marginLeft="@dimen/default_margin"
+            android:alpha="0"
+            android:scaleType="centerCrop"
+            android:src="@drawable/searchbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@android:color/holo_red_dark" />
@@ -86,16 +86,16 @@
 
         <ImageView
             android:id="@+id/plat_rouge"
-            android:alpha="0.5"
             android:layout_width="172dp"
             android:layout_height="255dp"
             android:layout_marginLeft="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
+            android:alpha="0.5"
             android:scaleType="centerCrop"
             android:src="@drawable/plat"
-            app:tint="@android:color/holo_red_dark"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchbar" />
+            app:layout_constraintTop_toBottomOf="@+id/searchbar"
+            app:tint="@android:color/holo_red_dark" />
 
 
         <ImageView
@@ -113,12 +113,12 @@
             android:layout_width="172dp"
             android:layout_height="255dp"
             android:layout_marginRight="@dimen/default_margin"
-            android:scaleType="centerCrop"
-            app:tint="@android:color/holo_red_dark"
             android:alpha="0.5"
+            android:scaleType="centerCrop"
             android:src="@drawable/dessert"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/plat" />
+            app:layout_constraintTop_toTopOf="@+id/plat"
+            app:tint="@android:color/holo_red_dark" />
 
 
         <ImageView
@@ -136,12 +136,12 @@
             android:layout_width="172dp"
             android:layout_height="255dp"
             android:layout_marginTop="40dp"
+            android:alpha="0.5"
             android:scaleType="centerCrop"
             android:src="@drawable/soupe"
-            app:tint="@android:color/holo_red_dark"
-            android:alpha="0.5"
             app:layout_constraintStart_toStartOf="@+id/plat"
-            app:layout_constraintTop_toBottomOf="@+id/plat" />
+            app:layout_constraintTop_toBottomOf="@+id/plat"
+            app:tint="@android:color/holo_red_dark" />
 
         <ImageView
             android:id="@+id/apero"
@@ -156,12 +156,12 @@
             android:id="@+id/apero_rouge"
             android:layout_width="172dp"
             android:layout_height="255dp"
+            android:alpha="0.5"
             android:scaleType="centerCrop"
             android:src="@drawable/aperoimg"
-            app:tint="@android:color/holo_red_dark"
-            android:alpha="0.5"
             app:layout_constraintEnd_toEndOf="@+id/dessert"
-            app:layout_constraintTop_toTopOf="@+id/soupe" />
+            app:layout_constraintTop_toTopOf="@+id/soupe"
+            app:tint="@android:color/holo_red_dark" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

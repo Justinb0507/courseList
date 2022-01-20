@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +37,12 @@ class ResultResearchFragment(
         val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.repas_list)
         collectionRecyclerView.adapter = RepasAdapter(context, resultResearch, R.layout.item_repas_vertical, time,selectedDay)
         collectionRecyclerView.layoutManager = LinearLayoutManager(context)
-
+        view.findViewById<ImageView>(R.id.add_recette).setOnClickListener{
+            context.unprintSoir()
+            context.unprintMidi()
+            context.unprintApero()
+            context.loadFragment(AddRepasFragment(context))
+        }
         return view
     }
 }

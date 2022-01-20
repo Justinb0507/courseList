@@ -22,13 +22,13 @@
             android:scaleX="1.25"
             android:scaleY="1.25"
             android:theme="@style/SCBSwitch"
-            app:layout_constraintBottom_toBottomOf="@+id/currentDays"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/currentDays" />
+            app:layout_constraintTop_toTopOf="@+id/title" />
 
 
         <TextView
-            android:id="@+id/currentDays"
+            android:id="@+id/title"
             style="@style/TitleTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

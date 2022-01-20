@@ -123,8 +123,8 @@
 
             <ImageView
                 android:id="@+id/add_tag"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginLeft="@dimen/default_margin"
                 android:src="@drawable/plus_bleu_canard"
                 app:layout_constraintBottom_toBottomOf="@+id/tag_input"
@@ -225,6 +225,18 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/quantite"
+                        style="@style/DefaultTextStyle"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:hint="40g"
+                        android:visibility="gone"
+                        android:paddingLeft="@dimen/default_margin"
+                        android:textColorHint="@color/turquoise"
+                        app:layout_constraintBottom_toBottomOf="@+id/ingredient"
+                        app:layout_constraintStart_toEndOf="@+id/ingredient"
+                        app:layout_constraintTop_toTopOf="@+id/ingredient" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/ingredient"
@@ -235,24 +247,9 @@
                         android:visibility="gone"
                         android:maxLines="1"
                         android:paddingLeft="@dimen/default_margin"
-                        android:singleLine="true"
                         android:textColorHint="@color/turquoise"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/list_ingredient" />
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/quantite"
-                        style="@style/DefaultTextStyle"
-                        android:layout_width="100dp"
-                        android:layout_height="80dp"
-                        android:hint="40g"
-                        android:maxLines="1"
-                        android:visibility="gone"
-                        android:paddingLeft="@dimen/default_margin"
-                        android:textColorHint="@color/turquoise"
-                        app:layout_constraintBottom_toBottomOf="@+id/ingredient"
-                        app:layout_constraintStart_toEndOf="@+id/ingredient"
-                        app:layout_constraintTop_toTopOf="@+id/ingredient" />
 
 
                     <ImageView

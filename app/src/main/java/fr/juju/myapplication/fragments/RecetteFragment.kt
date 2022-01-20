@@ -49,7 +49,7 @@ class RecetteFragment (
         collectionRecyclerView.adapter = TagsAdapter(context, currentRepas.tags, R.layout.item_tags_horizontal)
 
         view.findViewById<ImageView>(R.id.edit).setOnClickListener{
-            context.loadFragment(EditRepasFragment(context,currentRepas, ingredientList.filter { s->s.id_repas == currentRepas.id }))
+            context.loadFragment(EditRepasFragment(context,currentRepas, ingredientList.filter { s->s.id_repas == currentRepas.id }.sortedBy { s->s.rank }))
         }
 
         Glide.with(context)
@@ -60,10 +60,10 @@ class RecetteFragment (
         val repo = IngredientRepository()
         val listIngredientView = view.findViewById<RecyclerView>(R.id.list_ingredient)
         repo.updateData {
-            listIngredientView.adapter = IngredientAdapter(context,ingredientList.filter { s->s.id_repas == currentRepas.id }, R.layout.item_ingredient_vertical)
+            listIngredientView.adapter = IngredientAdapter(context,ingredientList.filter { s->s.id_repas == currentRepas.id }.sortedBy { s->s.rank }, R.layout.item_ingredient_vertical)
             listIngredientView.layoutManager = LinearLayoutManager(context)
         }
-        //Set to linerarlayout to ingredients
+
         view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.GONE
         view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.INVISIBLE
         view?.findViewById<ConstraintLayout>(R.id.planning)?.visibility = View.GONE

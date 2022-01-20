@@ -13,6 +13,7 @@ import fr.juju.myapplication.R
 class CourseListeFragment (val context: MainActivity
 ) : Fragment()  {
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,6 +27,10 @@ class CourseListeFragment (val context: MainActivity
             else view.findViewById<ConstraintLayout>(R.id.Midi).visibility = View.VISIBLE
 
         }
+
+
+
+
         return view
     }
 }

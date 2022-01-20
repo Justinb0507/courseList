@@ -29,8 +29,7 @@ import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 import androidx.core.content.ContextCompat.getSystemService
-
-
+import androidx.recyclerview.widget.ItemTouchHelper
 
 
 class AddRepasFragment(
@@ -55,6 +54,31 @@ class AddRepasFragment(
 
         listIngredientView.adapter = EditIngredientAdapter(context,listItem, R.layout.item_edit_ingredient_vertical)
         listIngredientView.layoutManager = LinearLayoutManager(context)
+
+        var simpleCallback = object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or(ItemTouchHelper.DOWN), 0){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                var startPosition = viewHolder.adapterPosition
+                var endPosition = target.adapterPosition
+                Collections.swap(listItem, startPosition, endPosition)
+                listIngredientView.adapter?.notifyItemMoved(startPosition, endPosition)
+
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            }
+
+        }
+
+        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        itemTouchHelper.attachToRecyclerView(listIngredientView)
+
+
+
         //recup uploadilmage pour lui associer son composant
         uploadedImage = view.findViewById(R.id.preview_image)
         //recup le bouton pour charger l'image
@@ -289,6 +313,12 @@ class AddRepasFragment(
                 repo2.insertIngredient(ingredient)
             }
         }
+
+        listItem.forEachIndexed { index, ingredient ->
+            ingredient.rank = index
+            repo2.updateIngredient(ingredient)
+        }
+
 
         Toast.makeText(context, "Repas ajouté !", Toast.LENGTH_SHORT).show()
     }

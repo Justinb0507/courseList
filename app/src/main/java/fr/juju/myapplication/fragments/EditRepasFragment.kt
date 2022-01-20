@@ -32,6 +32,7 @@ import kotlin.collections.ArrayList
 import android.view.ViewTreeObserver.OnScrollChangedListener
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
+import androidx.recyclerview.widget.ItemTouchHelper
 
 
 class EditRepasFragment(
@@ -53,15 +54,36 @@ class EditRepasFragment(
         val repo = RepasRepository()
         val repo2 = IngredientRepository()
 
-        ingredients =
-            ingredientList.filter { s -> s.id_repas == currentRepas.id } as ArrayList<IngredientModel>
+        ingredients = ingredientList.filter { s -> s.id_repas == currentRepas.id } as ArrayList<IngredientModel>
 
         val view = inflater?.inflate(R.layout.fragment_edit_repas, container, false)
         val listIngredientView = view.findViewById<RecyclerView>(R.id.list_ingredient)
-
         listIngredientView.adapter =
             EditIngredientAdapter(context, ingredients, R.layout.item_edit_ingredient_vertical)
         listIngredientView.layoutManager = LinearLayoutManager(context)
+
+
+        var simpleCallback = object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or(ItemTouchHelper.DOWN), 0){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                var startPosition = viewHolder.adapterPosition
+                var endPosition = target.adapterPosition
+                Collections.swap(ingredients, startPosition, endPosition)
+                listIngredientView.adapter?.notifyItemMoved(startPosition, endPosition)
+
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            }
+
+        }
+
+        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        itemTouchHelper.attachToRecyclerView(listIngredientView)
 
         view.findViewById<EditText>(R.id.name_input).setText(currentRepas.name)
         view.findViewById<EditText>(R.id.description_input).setText(currentRepas.description)
@@ -240,6 +262,7 @@ class EditRepasFragment(
                 }
             })
 
+
         return view
     }
 
@@ -345,7 +368,8 @@ class EditRepasFragment(
             repasIngredient,
             currentRepas.id,
             "None",
-            repasIngredientquantite
+            repasIngredientquantite,
+            0
         )
         if(ingredients.filter{s-> s.name == ingredient.name}.isEmpty() && repasIngredient != "" && repasIngredient != " "&& repasIngredient != "  " && ingredient.quantite.isNotEmpty()){
             ingredients.add(ingredient)
@@ -355,7 +379,6 @@ class EditRepasFragment(
 
     private fun updateRepas(view : View) {
         val repo = RepasRepository()
-
         val repo2 = IngredientRepository()
         val name = view.findViewById<EditText>(R.id.name_input).text.toString()
         val description = view.findViewById<EditText>(R.id.description_input).text.toString()
@@ -396,11 +419,14 @@ class EditRepasFragment(
                 repo2.deleteIngredient(ingredientRepo)
             }
         }
-
         for (ingredient in ingredients) {
             if(!ingredientList.contains(ingredient)){
                 repo2.insertIngredient(ingredient)
             }
+        }
+        ingredients.forEachIndexed { index, ingredient ->
+            ingredient.rank = index
+            repo2.updateIngredient(ingredient)
         }
 
         Toast.makeText(context, "Repas modifié !", Toast.LENGTH_SHORT).show()

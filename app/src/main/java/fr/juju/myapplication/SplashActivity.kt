@@ -16,10 +16,12 @@ class SplashActivity : AppCompatActivity() {
         val repo2 = RepasRepository()
         val repo3 = IngredientRepository()
         val repo4 = CategorieRepository()
+        val repo5 = CourseRepository()
         repo.updateData  {  }
         repo2.updateData { }
         repo3.updateData {  }
         repo4.updateData {  }
+        repo5.updateData {  }
 
         findViewById<ImageView>(R.id.logo).alpha = 0f
         findViewById<TextView>(R.id.designedBy).alpha = 0f

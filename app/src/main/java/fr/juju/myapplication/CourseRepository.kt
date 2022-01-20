@@ -7,6 +7,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import fr.juju.myapplication.CourseRepository.Singleton.courseList
 import fr.juju.myapplication.CourseRepository.Singleton.databaseRef
+import java.util.*
 
 class CourseRepository {
     object Singleton{
@@ -36,4 +37,28 @@ class CourseRepository {
 
         })
     }
+
+    private fun formattage(string: String): String {
+        var returnValue : String
+        returnValue = string.lowercase(Locale.getDefault())
+        returnValue = returnValue.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
+        }
+        return returnValue
+    }
+
+    fun deleteCourseItem(courseModel: CourseModel){
+      databaseRef.child(courseModel.id).removeValue()
+    }
+
+    fun updateCourseItem(courseModel: CourseModel) {
+        databaseRef.child(courseModel.id).setValue(courseModel)
+    }
+
+    fun insertCourseItem(courseModel: CourseModel) {
+        databaseRef.child(courseModel.id).setValue(courseModel)
+    }
+
 }

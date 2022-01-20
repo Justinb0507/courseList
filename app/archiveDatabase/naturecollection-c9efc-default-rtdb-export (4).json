@@ -4,270 +4,452 @@
       "id" : "categorie1",
       "name" : "Légumes"
     },
+    "categorie10" : {
+      "id" : "categorie10",
+      "name" : "Surgelés"
+    },
+    "categorie11" : {
+      "id" : "categorie11",
+      "name" : "Pâtisseries"
+    },
+    "categorie12" : {
+      "id" : "categorie12",
+      "name" : "Epices et condiments"
+    },
+    "categorie13" : {
+      "id" : "categorie13",
+      "name" : "Alcool"
+    },
+    "categorie14" : {
+      "id" : "categorie14",
+      "name" : "Boisson"
+    },
+    "categorie15" : {
+      "id" : "categorie15",
+      "name" : "Ménage"
+    },
+    "categorie16" : {
+      "id" : "categorie16",
+      "name" : "Hygiène"
+    },
+    "categorie17" : {
+      "id" : "categorie17",
+      "name" : "Autres"
+    },
+    "categorie18" : {
+      "id" : "categorie18",
+      "name" : "Apéro"
+    },
     "categorie2" : {
       "id" : "categorie2",
-      "name" : "Testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      "name" : "Fruits"
+    },
+    "categorie3" : {
+      "id" : "categorie3",
+      "name" : "Produits laitier"
+    },
+    "categorie4" : {
+      "id" : "categorie4",
+      "name" : "Viandes"
+    },
+    "categorie5" : {
+      "id" : "categorie5",
+      "name" : "Poisson"
+    },
+    "categorie6" : {
+      "id" : "categorie6",
+      "name" : "Protéines végétales"
+    },
+    "categorie7" : {
+      "id" : "categorie7",
+      "name" : "Féculents"
+    },
+    "categorie8" : {
+      "id" : "categorie8",
+      "name" : "Conserves"
+    },
+    "categorie9" : {
+      "id" : "categorie9",
+      "name" : "Graines"
+    }
+  },
+  "course" : {
+    "ingredient1" : {
+      "categorie" : "Legumes",
+      "id" : "ingredient1",
+      "name" : "ingredient1",
+      "ok" : false,
+      "quantite" : "45 grammes"
     }
   },
   "ingredients" : {
+    "12afb28a-c1ff-4957-aee9-bbd07ca6b6ee" : {
+      "id" : "12afb28a-c1ff-4957-aee9-bbd07ca6b6ee",
+      "id_categorie" : "None",
+      "id_repas" : "d2f7d037-4aee-40f6-8be0-75f9c9a7167e",
+      "name" : "Fdsf",
+      "quantite" : "fdsfds",
+      "rank" : 1
+    },
     "145c2672-f549-4df3-be50-8c47536f576a" : {
       "id" : "145c2672-f549-4df3-be50-8c47536f576a",
       "id_categorie" : "None",
       "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
       "name" : "Poivron ",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "14ab3316-09c1-4347-ae23-59fa4a59eacf" : {
       "id" : "14ab3316-09c1-4347-ae23-59fa4a59eacf",
       "id_categorie" : "None",
       "id_repas" : "f82e4ed6-6404-4bc1-95b7-831a71e100cc",
       "name" : "Rhum negrita",
-      "quantite" : "au jugé"
+      "quantite" : "au jugé",
+      "rank" : 0
     },
     "18ce4126-cad8-49d2-b161-9713ab16ac66" : {
       "id" : "18ce4126-cad8-49d2-b161-9713ab16ac66",
       "id_categorie" : "None",
       "id_repas" : "7863c28f-5186-460d-95a6-f46fbfd1b6ba",
       "name" : "Sucre de canne",
-      "quantite" : "10g"
+      "quantite" : "10g",
+      "rank" : 0
     },
     "259b2079-4e14-4e7c-8ade-b366cc268886" : {
       "id" : "259b2079-4e14-4e7c-8ade-b366cc268886",
       "id_categorie" : "None",
       "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
       "name" : "Chapelure",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
+    },
+    "296f4414-6e26-43dc-879a-47c5ec334888" : {
+      "id" : "296f4414-6e26-43dc-879a-47c5ec334888",
+      "id_categorie" : "None",
+      "id_repas" : "791978e3-839a-4bb6-b134-dcddf7200d99",
+      "name" : "Semoule",
+      "quantite" : "125",
+      "rank" : 0
     },
     "2a38d26f-8b57-47fe-a794-f24e7263f3db" : {
       "id" : "2a38d26f-8b57-47fe-a794-f24e7263f3db",
       "id_categorie" : "None",
       "id_repas" : "3cd6f535-6bdd-48cf-9b1f-6d343347473a",
       "name" : "Riz",
-      "quantite" : "au jugé"
+      "quantite" : "au jugé",
+      "rank" : 0
     },
     "2e79b098-b8c5-4baa-8de4-786f39df8047" : {
       "id" : "2e79b098-b8c5-4baa-8de4-786f39df8047",
       "id_categorie" : "None",
       "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
       "name" : "Avocat",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "37847370-6c84-4977-a34e-54bbe8d8c3e4" : {
       "id" : "37847370-6c84-4977-a34e-54bbe8d8c3e4",
       "id_categorie" : "None",
       "id_repas" : "3cd6f535-6bdd-48cf-9b1f-6d343347473a",
       "name" : "Champignon",
-      "quantite" : "4"
+      "quantite" : "4",
+      "rank" : 3
     },
     "38fb8877-9d02-48a3-8a99-e3c4f389da2e" : {
       "id" : "38fb8877-9d02-48a3-8a99-e3c4f389da2e",
       "id_categorie" : "None",
       "id_repas" : "7863c28f-5186-460d-95a6-f46fbfd1b6ba",
       "name" : "Limonade",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "3afac380-be93-40d6-9b76-39b179f1ed6a" : {
       "id" : "3afac380-be93-40d6-9b76-39b179f1ed6a",
       "id_categorie" : "None",
       "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
       "name" : "Poulet (optionnel)",
-      "quantite" : "120g"
+      "quantite" : "120g",
+      "rank" : 0
     },
     "4457226d-700c-44d7-8e18-f6fa357816d7" : {
       "id" : "4457226d-700c-44d7-8e18-f6fa357816d7",
-      "id_categorie" : "None",
+      "id_categorie" : "categorie5",
       "id_repas" : "3cd6f535-6bdd-48cf-9b1f-6d343347473a",
       "name" : "Crevettes",
-      "quantite" : "1 boîte"
+      "quantite" : "1 boîte",
+      "rank" : 1
+    },
+    "487bca57-4475-43ff-be47-b6cb3b3b9f00" : {
+      "id" : "487bca57-4475-43ff-be47-b6cb3b3b9f00",
+      "id_categorie" : "None",
+      "id_repas" : "d2f7d037-4aee-40f6-8be0-75f9c9a7167e",
+      "name" : "Ggjn",
+      "quantite" : "j",
+      "rank" : 5
+    },
+    "4e628de0-82bf-463c-8fd4-21a3d6c2362a" : {
+      "id" : "4e628de0-82bf-463c-8fd4-21a3d6c2362a",
+      "id_categorie" : "None",
+      "id_repas" : "d2f7d037-4aee-40f6-8be0-75f9c9a7167e",
+      "name" : "Fds",
+      "quantite" : "f",
+      "rank" : 2
+    },
+    "525d10c0-055c-416e-b7e1-e0ac2e642f03" : {
+      "id" : "525d10c0-055c-416e-b7e1-e0ac2e642f03",
+      "id_categorie" : "None",
+      "id_repas" : "d2f7d037-4aee-40f6-8be0-75f9c9a7167e",
+      "name" : "Fdsfsd",
+      "quantite" : "f",
+      "rank" : 4
     },
     "57472d2d-c50d-4e13-bca1-802908972c43" : {
       "id" : "57472d2d-c50d-4e13-bca1-802908972c43",
       "id_categorie" : "None",
       "id_repas" : "f82e4ed6-6404-4bc1-95b7-831a71e100cc",
       "name" : "Farine",
-      "quantite" : "200g"
+      "quantite" : "200g",
+      "rank" : 0
     },
     "5bd03959-5e73-454c-b8af-2c44aa10d4f7" : {
       "id" : "5bd03959-5e73-454c-b8af-2c44aa10d4f7",
       "id_categorie" : "None",
       "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
       "name" : "Brocoli",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "60245a07-4a01-45c0-8096-dc36682cb957" : {
       "id" : "60245a07-4a01-45c0-8096-dc36682cb957",
       "id_categorie" : "None",
       "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
       "name" : "Sauce soja",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "65e148a0-44f7-4b94-af98-5513aadbe851" : {
       "id" : "65e148a0-44f7-4b94-af98-5513aadbe851",
       "id_categorie" : "None",
       "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
       "name" : "Tomates",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "6b4a7e96-079f-434a-90cc-19ccd44b2751" : {
       "id" : "6b4a7e96-079f-434a-90cc-19ccd44b2751",
       "id_categorie" : "None",
       "id_repas" : "7863c28f-5186-460d-95a6-f46fbfd1b6ba",
       "name" : "Citron vert",
-      "quantite" : "2"
+      "quantite" : "2",
+      "rank" : 0
     },
     "71658a91-b690-4eec-bfe1-3f9e1263dec4" : {
       "id" : "71658a91-b690-4eec-bfe1-3f9e1263dec4",
       "id_categorie" : "None",
       "id_repas" : "7863c28f-5186-460d-95a6-f46fbfd1b6ba",
       "name" : "Sirop de canne (optionnel)",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "735da47c-2052-4a8c-a4ad-0ef417d28778" : {
       "id" : "735da47c-2052-4a8c-a4ad-0ef417d28778",
       "id_categorie" : "None",
       "id_repas" : "f82e4ed6-6404-4bc1-95b7-831a71e100cc",
       "name" : "Lait",
-      "quantite" : "40cl"
+      "quantite" : "40cl",
+      "rank" : 0
     },
     "7495e278-4ec1-4455-b78f-5a7fdab33e71" : {
       "id" : "7495e278-4ec1-4455-b78f-5a7fdab33e71",
       "id_categorie" : "None",
       "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
       "name" : "Seitan (optionnel)",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "79e289fd-9b40-4927-87b9-c2a231242d04" : {
       "id" : "79e289fd-9b40-4927-87b9-c2a231242d04",
       "id_categorie" : "None",
       "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
       "name" : "Carottes",
-      "quantite" : "2"
+      "quantite" : "2",
+      "rank" : 0
     },
     "809e812e-6364-46da-8a76-7e732b058865" : {
       "id" : "809e812e-6364-46da-8a76-7e732b058865",
-      "id_categorie" : "None",
+      "id_categorie" : "categorie1",
       "id_repas" : "3cd6f535-6bdd-48cf-9b1f-6d343347473a",
       "name" : "Petites tomates",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 4
     },
     "81432730-5c35-4558-a0d6-ac7b89ff9b07" : {
       "id" : "81432730-5c35-4558-a0d6-ac7b89ff9b07",
       "id_categorie" : "None",
       "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
       "name" : "Farine",
-      "quantite" : "50g"
+      "quantite" : "50g",
+      "rank" : 0
     },
     "81c4acd0-5a8c-465c-9ed0-854842d24976" : {
       "id" : "81c4acd0-5a8c-465c-9ed0-854842d24976",
       "id_categorie" : "None",
       "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
       "name" : "Pousse de soja (optionnel)",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "869c4496-9653-4548-a4ea-45ba34317929" : {
       "id" : "869c4496-9653-4548-a4ea-45ba34317929",
       "id_categorie" : "None",
       "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
       "name" : "Nouilles chinoises",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "887743e2-61fd-4752-92b2-f5fdd71f3ba3" : {
       "id" : "887743e2-61fd-4752-92b2-f5fdd71f3ba3",
       "id_categorie" : "None",
       "id_repas" : "3cd6f535-6bdd-48cf-9b1f-6d343347473a",
       "name" : "Crème fraîche",
-      "quantite" : "1 petit pot"
+      "quantite" : "1 petit pot",
+      "rank" : 2
     },
     "912313d6-a918-4a7b-9214-a1f8d93701fb" : {
       "id" : "912313d6-a918-4a7b-9214-a1f8d93701fb",
       "id_categorie" : "None",
       "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
       "name" : "Salade",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "93626aa0-a3b0-47cf-94df-2e52bdd1447d" : {
       "id" : "93626aa0-a3b0-47cf-94df-2e52bdd1447d",
       "id_categorie" : "None",
       "id_repas" : "f82e4ed6-6404-4bc1-95b7-831a71e100cc",
       "name" : "Œufs",
-      "quantite" : "2"
+      "quantite" : "2",
+      "rank" : 0
     },
     "a099d632-0023-4b1f-9341-57840fd905cc" : {
       "id" : "a099d632-0023-4b1f-9341-57840fd905cc",
       "id_categorie" : "None",
       "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
       "name" : "Sirop d'érable (optionnel)",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "a92ca291-60e8-4399-b1c3-d29506bec122" : {
       "id" : "a92ca291-60e8-4399-b1c3-d29506bec122",
       "id_categorie" : "None",
       "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
       "name" : "Maïs",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "b0bfaf2d-e8c5-49b3-9f65-c95a797931c2" : {
       "id" : "b0bfaf2d-e8c5-49b3-9f65-c95a797931c2",
       "id_categorie" : "None",
       "id_repas" : "f82e4ed6-6404-4bc1-95b7-831a71e100cc",
       "name" : "Beurre",
-      "quantite" : "40g"
+      "quantite" : "40g",
+      "rank" : 0
+    },
+    "b1769283-974b-4dae-8125-6f3eb06998df" : {
+      "id" : "b1769283-974b-4dae-8125-6f3eb06998df",
+      "id_categorie" : "None",
+      "id_repas" : "d2f7d037-4aee-40f6-8be0-75f9c9a7167e",
+      "name" : "Hhhb",
+      "quantite" : "hhh",
+      "rank" : 0
+    },
+    "b821e02d-4049-4c04-bfd8-c83c34b11f7d" : {
+      "id" : "b821e02d-4049-4c04-bfd8-c83c34b11f7d",
+      "id_categorie" : "None",
+      "id_repas" : "791978e3-839a-4bb6-b134-dcddf7200d99",
+      "name" : "Lentilles",
+      "quantite" : "1",
+      "rank" : 0
     },
     "b8b40ade-1136-4c14-94d5-5d1689d94377" : {
       "id" : "b8b40ade-1136-4c14-94d5-5d1689d94377",
       "id_categorie" : "None",
       "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
       "name" : "Oeuf",
-      "quantite" : "2"
+      "quantite" : "2",
+      "rank" : 0
     },
     "bc5e3ce2-817a-4f61-a6b1-7caecf97217d" : {
       "id" : "bc5e3ce2-817a-4f61-a6b1-7caecf97217d",
       "id_categorie" : "None",
       "id_repas" : "7863c28f-5186-460d-95a6-f46fbfd1b6ba",
       "name" : "Rhum blanc",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "cae8c59b-5d83-48ba-a7ce-27668603e981" : {
       "id" : "cae8c59b-5d83-48ba-a7ce-27668603e981",
       "id_categorie" : "None",
       "id_repas" : "7863c28f-5186-460d-95a6-f46fbfd1b6ba",
       "name" : "Menthe",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 0
     },
     "d1780a4e-65ea-482d-84d5-24bc30ec159b" : {
       "id" : "d1780a4e-65ea-482d-84d5-24bc30ec159b",
       "id_categorie" : "None",
       "id_repas" : "f82e4ed6-6404-4bc1-95b7-831a71e100cc",
       "name" : "Sucre",
-      "quantite" : "40g"
+      "quantite" : "40g",
+      "rank" : 0
+    },
+    "d82bea41-deb7-45d1-9148-83dfbdb01fc0" : {
+      "id" : "d82bea41-deb7-45d1-9148-83dfbdb01fc0",
+      "id_categorie" : "None",
+      "id_repas" : "791978e3-839a-4bb6-b134-dcddf7200d99",
+      "name" : "Raisins secs (optionnel)",
+      "quantite" : "25g",
+      "rank" : 0
     },
     "d92250bf-e6ce-4ac0-8f19-716a0be820a6" : {
       "id" : "d92250bf-e6ce-4ac0-8f19-716a0be820a6",
       "id_categorie" : "None",
       "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
       "name" : "Wraps",
-      "quantite" : "4"
+      "quantite" : "4",
+      "rank" : 0
     },
     "e00d11cf-6c9c-488c-8d2e-a4bbe5c68655" : {
       "id" : "e00d11cf-6c9c-488c-8d2e-a4bbe5c68655",
       "id_categorie" : "None",
       "id_repas" : "3cd6f535-6bdd-48cf-9b1f-6d343347473a",
       "name" : "Cube kubor",
-      "quantite" : "1"
+      "quantite" : "1",
+      "rank" : 5
     },
     "e9837318-19ce-4702-bf1b-d5e39ce33b90" : {
       "id" : "e9837318-19ce-4702-bf1b-d5e39ce33b90",
       "id_categorie" : "None",
       "id_repas" : "90a01e21-4491-453b-b003-370e6722dc4f",
       "name" : "Champignon",
-      "quantite" : "4"
+      "quantite" : "4",
+      "rank" : 0
+    },
+    "f0aa3579-45a8-4788-91eb-a84b8a5e731e" : {
+      "id" : "f0aa3579-45a8-4788-91eb-a84b8a5e731e",
+      "id_categorie" : "None",
+      "id_repas" : "d2f7d037-4aee-40f6-8be0-75f9c9a7167e",
+      "name" : "Hyyy",
+      "quantite" : "k",
+      "rank" : 3
     },
     "fe515cb8-54c9-4a0e-815a-64c10cf76130" : {
       "id" : "fe515cb8-54c9-4a0e-815a-64c10cf76130",
       "id_categorie" : "None",
       "id_repas" : "b51f01ef-8e7e-4731-8dce-02d527c1479f",
       "name" : "Poulet",
-      "quantite" : "120g"
+      "quantite" : "120g",
+      "rank" : 0
     }
   },
   "repas" : {
@@ -291,6 +473,16 @@
       "recette" : "Fais toi plaiz tu sais faire :)",
       "tags" : [ "Cocktail", "Apero" ]
     },
+    "791978e3-839a-4bb6-b134-dcddf7200d99" : {
+      "description" : "Le repas de la hess",
+      "duree" : "5 min",
+      "id" : "791978e3-839a-4bb6-b134-dcddf7200d99",
+      "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image791978e3-839a-4bb6-b134-dcddf7200d99?alt=media&token=07a25abf-d40a-4946-a228-343566e71416",
+      "lien" : "",
+      "name" : "Semoule lentilles",
+      "recette" : "Faire cuire la semoule et les lentilles, mélanger miam",
+      "tags" : [ "Rapide", "Plat" ]
+    },
     "90a01e21-4491-453b-b003-370e6722dc4f" : {
       "description" : "Nouilles sautées aux légumes",
       "duree" : "25 min",
@@ -311,6 +503,16 @@
       "recette" : "Pané le poulet : farine oeuf chapelure.\ntout couper\nchauffer les wraps\net puis miam hein !",
       "tags" : [ "Plat", "Soirée", "Groupe" ]
     },
+    "d2f7d037-4aee-40f6-8be0-75f9c9a7167e" : {
+      "description" : "Fdsfds",
+      "duree" : "1",
+      "id" : "d2f7d037-4aee-40f6-8be0-75f9c9a7167e",
+      "imageUri" : "",
+      "lien" : "ff",
+      "name" : "Fdsfds",
+      "recette" : "I jfdjfjsodfdsfdsfredsfqgdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss i have to go to the store and get some rest and feel better soon and that is why i am asking for a friend to talk to you about it when i get home i will send you the link to the video of the video of the video of the video of the video of the video of the video of the video of the videodfdsfdfxdfxdfddxfdxfdxfedxfxfsfsdswdswdswdsdwsdswdfdfedxfswfxfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "tags" : [ "Plats", "Desserts", "Apéro", "Soupes" ]
+    },
     "f82e4ed6-6404-4bc1-95b7-831a71e100cc" : {
       "description" : "Les crêpes de maman !",
       "duree" : "15min",
@@ -330,7 +532,7 @@
       "soir" : "None"
     },
     "jeudi" : {
-      "apero" : "None",
+      "apero" : "90a01e21-4491-453b-b003-370e6722dc4f",
       "id_semainier" : "jeudi",
       "midi" : "None",
       "soir" : "None"
@@ -338,7 +540,7 @@
     "lundi" : {
       "apero" : "None",
       "id_semainier" : "lundi",
-      "midi" : "None",
+      "midi" : "791978e3-839a-4bb6-b134-dcddf7200d99",
       "soir" : "None"
     },
     "mardi" : {

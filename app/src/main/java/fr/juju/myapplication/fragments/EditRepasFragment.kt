@@ -58,8 +58,7 @@ class EditRepasFragment(
 
         val view = inflater?.inflate(R.layout.fragment_edit_repas, container, false)
         val listIngredientView = view.findViewById<RecyclerView>(R.id.list_ingredient)
-        listIngredientView.adapter =
-            EditIngredientAdapter(context, ingredients, R.layout.item_edit_ingredient_vertical)
+        listIngredientView.adapter = EditIngredientAdapter(context, ingredients, R.layout.item_edit_ingredient_vertical)
         listIngredientView.layoutManager = LinearLayoutManager(context)
 
 
@@ -334,10 +333,7 @@ class EditRepasFragment(
             Firebase.storage.reference.child(fileName).downloadUrl.addOnSuccessListener {
                 currentRepas.imageUri = it.toString()
                 repo.updateRepas(currentRepas)
-                if (!ingredients.filter { s->s.id_categorie == "None" }.isEmpty()){
-                    IngredientPopup(context,
-                        ingredients.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
-                }
+                IngredientPopup(context,ingredients as ArrayList<IngredientModel>).show()
                 context.loadFragment(RecetteFragment(context,currentRepas, "None", "None"))
             }.addOnFailureListener {
                 Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
@@ -407,10 +403,7 @@ class EditRepasFragment(
         }
         else {
             repo.updateRepas(currentRepas)
-            if (!ingredients.filter { s->s.id_categorie == "None" }.isEmpty()){
-                IngredientPopup(context,
-                    ingredients.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
-            }
+            IngredientPopup(context,ingredients as ArrayList<IngredientModel>).show()
             context.loadFragment(RecetteFragment(context,currentRepas, "None", "None"))
         }
 

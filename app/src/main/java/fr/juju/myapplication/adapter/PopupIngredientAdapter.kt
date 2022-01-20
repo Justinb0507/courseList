@@ -36,13 +36,18 @@ class PopupIngredientAdapter(val context: MainActivity, private val ingredients:
         }
         var adapter =  ArrayAdapter(context,R.layout.item_spinner_adapter, spinnerList)
         adapter.setDropDownViewResource(R.layout.dropdown_spinner_theme)
+
         holder.spinner?.adapter = adapter
+        if (currentIngredient.id_categorie != "None"){
+            holder.spinner?.setSelection(spinnerList.indexOf(categorieList.filter{ t->t.id == currentIngredient.id_categorie}[0].name))
+        }
         holder.spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 if (spinnerList[p2] != "None"){
                     currentIngredient.id_categorie = categorieList.filter { s->s.name == spinnerList[p2] }[0].id
                     repo.updateIngredient(currentIngredient)
                 }
+                else currentIngredient.id_categorie = "None"
 
             }
 

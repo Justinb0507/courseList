@@ -20,7 +20,8 @@ class RepasAdapter(
     private val repasList: List<RepasModel>,
     private val layoutId:Int,
     private val time: String,
-    private val selectedDay: String
+    private val selectedDay: String,
+    private val currentSemaine: String
     ) : RecyclerView.Adapter<RepasAdapter.ViewHolder>() {
 
     class ViewHolder(view:View): RecyclerView.ViewHolder(view){
@@ -48,7 +49,7 @@ class RepasAdapter(
         holder.recycler?.adapter = TagsAdapter(context, currentRepas.tags, R.layout.item_tags_horizontal)
 
         holder.itemView.setOnClickListener {
-            context.loadFragment(RecetteFragment(context, currentRepas, time, selectedDay))
+            context.loadFragment(RecetteFragment(context, currentRepas, time, selectedDay, currentSemaine))
         }
 
     }

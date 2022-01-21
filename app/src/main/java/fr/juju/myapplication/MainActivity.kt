@@ -41,14 +41,14 @@ class MainActivity : AppCompatActivity() {
                     unprintSoir()
                     unprintApero()
                     unprintMidi()
-                    loadFragment(FiltreRepasFragment(this, "None", "None"))
+                    loadFragment(FiltreRepasFragment(this, "None", "None", "None"))
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.calendar->{
                     unprintSoir()
                     unprintApero()
                     unprintMidi()
-                    loadFragment(SemainierFragment(this, "None"))
+                    loadFragment(SemainierFragment(this, "None", "None"))
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.course->{

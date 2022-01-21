@@ -127,7 +127,7 @@ class EditRepasFragment(
                 }.addOnFailureListener {
                     Toast.makeText(context, "Recette non supprimée !", Toast.LENGTH_SHORT).show()
                 }
-                context.loadFragment(FiltreRepasFragment(context, "None", "None"))
+                context.loadFragment(FiltreRepasFragment(context, "None", "None", "None"))
                 dialog.cancel()
             })
             builder.setNegativeButton("Non", DialogInterface.OnClickListener { dialog, id ->
@@ -334,7 +334,7 @@ class EditRepasFragment(
                 currentRepas.imageUri = it.toString()
                 repo.updateRepas(currentRepas)
                 IngredientPopup(context,ingredients as ArrayList<IngredientModel>).show()
-                context.loadFragment(RecetteFragment(context,currentRepas, "None", "None"))
+                context.loadFragment(RecetteFragment(context,currentRepas, "None", "None", "None"))
             }.addOnFailureListener {
                 Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
             }
@@ -404,7 +404,7 @@ class EditRepasFragment(
         else {
             repo.updateRepas(currentRepas)
             IngredientPopup(context,ingredients as ArrayList<IngredientModel>).show()
-            context.loadFragment(RecetteFragment(context,currentRepas, "None", "None"))
+            context.loadFragment(RecetteFragment(context,currentRepas, "None", "None", "None"))
         }
 
         for(ingredientRepo in ingredientList.filter { s->s.id_repas == currentRepas.id }){

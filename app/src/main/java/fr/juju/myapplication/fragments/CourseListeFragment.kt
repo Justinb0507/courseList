@@ -1,7 +1,6 @@
 package fr.juju.myapplication.fragments
 
 import android.os.Bundle
-import android.text.TextUtils.substring
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,6 +49,7 @@ class CourseListeFragment (val context: MainActivity
 
     private fun generateCourse(){
         var repo = CourseRepository()
+        var course = courseList
 
         for (days in semainierList){
             if(days.midi != "None"){
@@ -62,27 +62,70 @@ class CourseListeFragment (val context: MainActivity
                         if (ingredient.id_categorie!="None") categorieList.filter { s->s.id == ingredient.id_categorie }[0].name else "Autres",
                         "false"
                     )
-                    if(courseList.filter { s->s.name == ingredient.name }.isNotEmpty()){
-                        var oldItem = courseList.filter { s->s.name == ingredient.name }[0]
+                    if(course.filter { s->s.name == ingredient.name }.isNotEmpty()){
+                        var value = 0
+                        var oldItem = course.filter { s->s.name == ingredient.name }[0]
 
-                        if (oldItem.quantite.contains("cl"))
-                        {
-                            var value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("cl")).replace(" ", "").toInt()
-                            var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("cl")).replace(" ", "").toInt()
-                            oldItem.quantite = ((value + newValue).toString()) + " cl"
-                            repo.updateCourseItem(oldItem)
+                        if (oldItem.quantite.contains("cl")){
+                            value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("cl")).replace(" ", "").toInt()
+                        }
+                        else if (oldItem.quantite.contains("l") && !oldItem.quantite.contains("cl")){
+                            value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("l")).replace(" ", "").toInt()*100
+                        }
+                        else if (oldItem.quantite.contains("g")  && !oldItem.quantite.contains("kg") && !oldItem.quantite.contains("au jugé")){
+                            value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("g")).replace(" ", "").toInt()
+                        }
+                        else if (oldItem.quantite.contains("kg")){
+                            value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("kg")).replace(" ", "").toInt()*1000
                         }
 
 
+                        if (ingredient.quantite.contains("cl"))
+                        {
+                            var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("cl")).replace(" ", "").toInt()
+                            oldItem.quantite = ((value + newValue).toString()) + " cl"
+                        }
+                        else if (ingredient.quantite.contains("l") && !ingredient.quantite.contains("cl"))
+                        {
+                            var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("l")).replace(" ", "").toInt()*100
+                            oldItem.quantite = ((value + newValue).toString()) + " cl"
+                        }
+                        else if (ingredient.quantite.contains("kg"))
+                        {
+                            var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("kg")).replace(" ", "").toInt()*1000
+                            oldItem.quantite = ((value + newValue).toString()) + " g"
+                        }
+                        else if (ingredient.quantite.contains("g") && !ingredient.quantite.contains("kg") && !ingredient.quantite.contains("au jugé"))
+                        {
+                            var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("g")).replace(" ", "").toInt()
+                            oldItem.quantite = ((value + newValue).toString()) + " g"
+                        }
+                        else if (ingredient.quantite.contains("au jugé")){
+                            if(oldItem.quantite.contains(" *")){
+                                value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" *")).replace(" ", "").toInt()+1
+                                oldItem.quantite = value.toString() + " *" + " au jugé"
+                            }else
+                                oldItem.quantite = "2 * " + oldItem.quantite
+                        }
+                        else if (ingredient.quantite.contains("boites")){
+                            if(oldItem.quantite.contains(" boites")){
+                                value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" boites")).replace(" ", "").toInt()+1
+                                oldItem.quantite = value.toString() + " boites"
+                            }else
+                                oldItem.quantite = "2 boites"
+                        }
+                        
 
                     }
 
                     else {
-                        courseList.add(courseItem)
-                        repo.insertCourseItem(courseItem)
+                        course.add(courseItem)
                     }
                 }
             }
+        }
+        for (item in course){
+            repo.insertCourseItem(item)
         }
     }
 

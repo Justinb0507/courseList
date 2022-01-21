@@ -299,7 +299,7 @@ class AddRepasFragment(
                 IngredientPopup(context,
                     listItem.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
             }
-            context.loadFragment(RecetteFragment(context,repas, "None", "None"))
+            context.loadFragment(RecetteFragment(context,repas, "None", "None", "None"))
         }
 
         for(ingredientRepo in ingredientList.filter { s->s.id_repas == repas.id }){
@@ -366,7 +366,7 @@ class AddRepasFragment(
                     IngredientPopup(context,
                         listItem.filter { s->s.id_categorie == "None" } as ArrayList<IngredientModel>).show()
                 }
-                context.loadFragment(RecetteFragment(context,repas, "None", "None"))
+                context.loadFragment(RecetteFragment(context,repas, "None", "None", "None"))
             }.addOnFailureListener {
                 Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
             }

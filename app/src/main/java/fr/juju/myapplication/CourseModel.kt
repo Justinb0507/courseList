@@ -7,5 +7,6 @@ class CourseModel(
     var name:String = "",
     var quantite:String = "",
     var categorie:String = "Autre",
-    var ok: String = "false"
+    var ok: String = "false",
+    var ajoutExterieur: String = "false"
 )

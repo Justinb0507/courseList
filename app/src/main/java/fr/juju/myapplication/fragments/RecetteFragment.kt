@@ -28,7 +28,8 @@ class RecetteFragment (
     private val context: MainActivity,
     private val currentRepas: RepasModel,
     private val time: String,
-    private val selectedDay: String
+    private val selectedDay: String,
+    private val currentSemaine: String
 ) : Fragment() {
 
     override fun onCreateView(
@@ -38,6 +39,7 @@ class RecetteFragment (
     ): View? {
 
         val repo2 = SemainierRepository()
+        val repoSuivant = SemainierSuivantRepository()
 
         val view = inflater?.inflate(R.layout.fragment_recette, container, false)
         view.findViewById<TextView>(R.id.name).text = currentRepas.name
@@ -81,10 +83,19 @@ class RecetteFragment (
             context.unprintApero()
             context.unprintSoir()
             view.findViewById<ConstraintLayout>(R.id.planning).setOnClickListener{
-                repo2.setMidi(time, selectedDay, currentRepas.id)
-                Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
-                context.loadFragment(SemainierFragment(context, selectedDay))
-                view?.findViewById<ImageView>(R.id.icone_midi)?.visibility = View.GONE
+                if (currentSemaine == "suivant"){
+                    repoSuivant.setMidi(time, selectedDay, currentRepas.id)
+                    Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
+                    context.loadFragment(SemainierFragment(context, selectedDay,"suivant" ))
+                    view?.findViewById<ImageView>(R.id.icone_midi)?.visibility = View.GONE
+
+                }else {
+                    repo2.setMidi(time, selectedDay, currentRepas.id)
+                    Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
+                    context.loadFragment(SemainierFragment(context, selectedDay,"courant"))
+                    view?.findViewById<ImageView>(R.id.icone_midi)?.visibility = View.GONE
+                }
+
             }
         }
         if (time == "soir" && selectedDay != "None"){
@@ -97,10 +108,18 @@ class RecetteFragment (
             context.unprintApero()
             context.unprintMidi()
             view.findViewById<ConstraintLayout>(R.id.planning).setOnClickListener{
-                repo2.setSoir(time, selectedDay, currentRepas.id)
-                Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
-                context.loadFragment(SemainierFragment(context, selectedDay))
-                view?.findViewById<ImageView>(R.id.icone_soir)?.visibility = View.GONE
+                if (currentSemaine == "suivant"){
+                    repoSuivant.setSoir(time, selectedDay, currentRepas.id)
+                    Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
+                    context.loadFragment(SemainierFragment(context, selectedDay, "suivant"))
+                    view?.findViewById<ImageView>(R.id.icone_soir)?.visibility = View.GONE
+                }else {
+                    repo2.setSoir(time, selectedDay, currentRepas.id)
+                    Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
+                    context.loadFragment(SemainierFragment(context, selectedDay, "courant"))
+                    view?.findViewById<ImageView>(R.id.icone_soir)?.visibility = View.GONE
+                }
+
             }
         }
         if (time == "apero" && selectedDay != "None"){
@@ -113,10 +132,18 @@ class RecetteFragment (
             context.unprintSoir()
             context.unprintMidi()
             view.findViewById<ConstraintLayout>(R.id.planning).setOnClickListener{
-                repo2.setApero(time, selectedDay, currentRepas.id)
-                Toast.makeText(context, "Repas ajouté pour l\'$time du $selectedDay !", Toast.LENGTH_SHORT).show()
-                context.loadFragment(SemainierFragment(context, selectedDay))
-                view?.findViewById<ImageView>(R.id.icone_apero)?.visibility = View.GONE
+                if (currentSemaine == "suivant"){
+                    repoSuivant.setApero(time, selectedDay, currentRepas.id)
+                    Toast.makeText(context, "Repas ajouté pour l\'$time du $selectedDay !", Toast.LENGTH_SHORT).show()
+                    context.loadFragment(SemainierFragment(context, selectedDay, "suivant"))
+                    view?.findViewById<ImageView>(R.id.icone_apero)?.visibility = View.GONE
+                }else {
+                    repo2.setApero(time, selectedDay, currentRepas.id)
+                    Toast.makeText(context, "Repas ajouté pour l\'$time du $selectedDay !", Toast.LENGTH_SHORT).show()
+                    context.loadFragment(SemainierFragment(context, selectedDay, "courant"))
+                    view?.findViewById<ImageView>(R.id.icone_apero)?.visibility = View.GONE
+                }
+
             }
         }
 

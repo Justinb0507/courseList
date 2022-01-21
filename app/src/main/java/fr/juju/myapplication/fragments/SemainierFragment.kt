@@ -1,8 +1,6 @@
 package fr.juju.myapplication.fragments
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -10,10 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.ScrollView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +16,7 @@ import com.bumptech.glide.Glide
 import fr.juju.myapplication.*
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
+import fr.juju.myapplication.SemainierSuivantRepository.Singleton.semainierSuivantList
 import fr.juju.myapplication.adapter.TagsAdapter
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,14 +24,17 @@ import kotlin.collections.ArrayList
 
 class SemainierFragment (
     private val context: MainActivity,
-    private val selectedDayInput: String
+    private val selectedDayInput: String,
+    private val currentSemaineInput: String
+
 ) : Fragment() {
 
     val currentDay = SimpleDateFormat("EEEE", Locale.FRANCE).format(Date())
     val pastDay: ArrayList<String> = arrayListOf<String>()
     var enable: Boolean = false
     lateinit var selectedDay: String
-
+    var currentSemaine = arrayListOf<SemainierModel>()
+    var suivant = false
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateView(
@@ -49,9 +48,85 @@ class SemainierFragment (
         if (selectedDayInput == "None"){
             selectedDay = currentDay
         }
-        else selectedDay = selectedDayInput
+        else {selectedDay = selectedDayInput}
 
-        val currentDays = semainierList.filter{ s->s.id_semainier == selectedDay}[0]
+        if (currentSemaineInput == "suivant"){
+            currentSemaine = semainierSuivantList
+            suivant = true
+            view.findViewById<Switch>(R.id.toggleButton).isChecked = true
+        }
+        else {
+            currentSemaine = semainierList
+            suivant = false
+            view.findViewById<Switch>(R.id.toggleButton).isChecked = false
+        }
+
+        view.findViewById<Switch>(R.id.toggleButton).setOnClickListener{
+            if( view.findViewById<Switch>(R.id.toggleButton).isChecked){
+                currentSemaine = semainierSuivantList
+                suivant = true
+                if(selectedDay == "lundi"){
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Lundi), view.findViewById<ImageView>(R.id.Lundi_img))
+                }
+                else if(selectedDay == "mardi"){
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Mardi), view.findViewById<ImageView>(R.id.Mardi_img))
+
+                }
+                else if(selectedDay == "mercredi"){
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Mercredi),  view.findViewById<ImageView>(R.id.Mercredi_img))
+
+                }
+                else if(selectedDay == "jeudi"){
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Jeudi), view.findViewById<ImageView>(R.id.Jeudi_img))
+
+                }
+                else if(selectedDay == "vendredi"){
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Vendredi), view.findViewById<ImageView>(R.id.Vendredi_img))
+
+                }
+                else if(selectedDay == "samedi"){
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Samedi), view.findViewById<ImageView>(R.id.Samedi_img))
+
+                }
+                else if(selectedDay == "dimanche") {
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Dimanche), view.findViewById<ImageView>(R.id.Dimanche_img))
+                }
+            }
+            else  {
+                currentSemaine = semainierList
+                suivant = false
+                if(selectedDay == "lundi"){
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Lundi), view.findViewById<ImageView>(R.id.Lundi_img))
+                }
+                else if(selectedDay == "mardi"){
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Mardi), view.findViewById<ImageView>(R.id.Mardi_img))
+
+                }
+                else if(selectedDay == "mercredi"){
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Mercredi),  view.findViewById<ImageView>(R.id.Mercredi_img))
+
+                }
+                else if(selectedDay == "jeudi"){
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Jeudi), view.findViewById<ImageView>(R.id.Jeudi_img))
+
+                }
+                else if(selectedDay == "vendredi"){
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Vendredi), view.findViewById<ImageView>(R.id.Vendredi_img))
+
+                }
+                else if(selectedDay == "samedi"){
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Samedi), view.findViewById<ImageView>(R.id.Samedi_img))
+
+                }
+                else if(selectedDay == "dimanche") {
+                    switch(selectedDay, view.findViewById<TextView>(R.id.Dimanche), view.findViewById<ImageView>(R.id.Dimanche_img))
+                }
+            }
+
+        }
+
+
+        val currentDays = currentSemaine.filter{ s->s.id_semainier == selectedDay}[0]
         if(currentDay == "lundi"){
             view?.findViewById<ImageView>(R.id.Lundi_img)?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_to_come))
             view?.findViewById<ImageView>(R.id.Mardi_img)?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_to_come))
@@ -140,8 +215,6 @@ class SemainierFragment (
         reinitialisation()
 
         if(selectedDay == "lundi"){
-            var boutton = view.findViewById<TextView>(R.id.Lundi)
-            var image = view.findViewById<ImageView>(R.id.Lundi_img)
             view.findViewById<TextView>(R.id.Lundi)?.setTypeface(null,Typeface.BOLD)
             if(selectedDay in pastDay){
                 view.findViewById<ImageView>(R.id.Lundi_img)?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.check_check))
@@ -150,8 +223,7 @@ class SemainierFragment (
             }
         }
         else if(selectedDay == "mardi"){
-            var boutton = view.findViewById<TextView>(R.id.Mardi)
-            var image = view.findViewById<ImageView>(R.id.Mardi_img)
+
             view.findViewById<TextView>(R.id.Mardi)?.setTypeface(null,Typeface.BOLD)
             if(selectedDay in pastDay){
                 view.findViewById<ImageView>(R.id.Mardi_img)?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.check_check))
@@ -160,8 +232,6 @@ class SemainierFragment (
             }
         }
         else if(selectedDay == "mercredi"){
-            var boutton = view.findViewById<TextView>(R.id.Mercredi)
-            var image = view.findViewById<ImageView>(R.id.Mercredi_img)
             view.findViewById<TextView>(R.id.Mercredi)?.setTypeface(null,Typeface.BOLD)
             if(selectedDay in pastDay){
                 view.findViewById<ImageView>(R.id.Mercredi_img)?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.check_check))
@@ -170,8 +240,6 @@ class SemainierFragment (
             }
         }
         else if(selectedDay == "jeudi"){
-            var boutton = view.findViewById<TextView>(R.id.Jeudi)
-            var image = view.findViewById<ImageView>(R.id.Jeudi_img)
             view.findViewById<TextView>(R.id.Jeudi)?.setTypeface(null,Typeface.BOLD)
             if(selectedDay in pastDay){
                 view.findViewById<ImageView>(R.id.Jeudi_img)?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.check_check))
@@ -180,8 +248,6 @@ class SemainierFragment (
             }
         }
         else if(selectedDay == "vendredi"){
-            var boutton = view.findViewById<TextView>(R.id.Vendredi)
-            var image = view.findViewById<ImageView>(R.id.Vendredi_img)
             view.findViewById<TextView>(R.id.Vendredi)?.setTypeface(null,Typeface.BOLD)
             if(selectedDay in pastDay){
                 view.findViewById<ImageView>(R.id.Vendredi_img)?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.check_check))
@@ -190,8 +256,6 @@ class SemainierFragment (
             }
         }
         else if(selectedDay == "samedi"){
-            var boutton = view.findViewById<TextView>(R.id.Samedi)
-            var image = view.findViewById<ImageView>(R.id.Samedi_img)
             view.findViewById<TextView>(R.id.Samedi)?.setTypeface(null,Typeface.BOLD)
             if(selectedDay in pastDay){
                 view.findViewById<ImageView>(R.id.Samedi_img)?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.check_check))
@@ -200,8 +264,6 @@ class SemainierFragment (
             }
         }
         else if(selectedDay == "dimanche"){
-            var boutton = view.findViewById<TextView>(R.id.Dimanche)
-            var image = view.findViewById<ImageView>(R.id.Dimanche_img)
             view.findViewById<TextView>(R.id.Dimanche)?.setTypeface(null,Typeface.BOLD)
             if(selectedDay in pastDay){
                 view.findViewById<ImageView>(R.id.Dimanche_img)?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.check_check))
@@ -214,7 +276,7 @@ class SemainierFragment (
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.visibility = View.VISIBLE
             var currentRepasMidi = repasList.filter { s->s.id == currentDays.midi }[0]
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.setOnClickListener{
-                context.loadFragment(RecetteFragment(context, currentRepasMidi, "None", "None"))
+                context.loadFragment(RecetteFragment(context, currentRepasMidi, "None", "None", "None"))
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
             view?.findViewById<TextView>(R.id.nomMidi)?.text  = currentRepasMidi.name
@@ -222,7 +284,6 @@ class SemainierFragment (
             Glide.with(context)
                  .load(currentRepasMidi.imageUri)
                  .into(view.findViewById<ImageView>(R.id.image_item2))
-
 
             val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tagListMidi)
             collectionRecyclerView.adapter = TagsAdapter(context, currentRepasMidi.tags, R.layout.item_tags_horizontal)
@@ -235,7 +296,7 @@ class SemainierFragment (
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.visibility = View.VISIBLE
             var currentRepasSoir = repasList.filter { s->s.id == currentDays.soir }[0]
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.setOnClickListener{
-                context.loadFragment(RecetteFragment(context, currentRepasSoir, "None", "None"))
+                context.loadFragment(RecetteFragment(context, currentRepasSoir, "None", "None", "None"))
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
             view?.findViewById<TextView>(R.id.nomSoir)?.text  = currentRepasSoir.name
@@ -255,7 +316,7 @@ class SemainierFragment (
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.visibility = View.VISIBLE
             var currentRepasApero = repasList.filter { s->s.id == currentDays.apero }[0]
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.setOnClickListener{
-                context.loadFragment(RecetteFragment(context, currentRepasApero, "None", "None"))
+                context.loadFragment(RecetteFragment(context, currentRepasApero, "None", "None", "None"))
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
             view?.findViewById<TextView>(R.id.nomApero)?.text  = currentRepasApero.name
@@ -357,15 +418,22 @@ class SemainierFragment (
 
         view.findViewById<ConstraintLayout>(R.id.affect_repas_soir).setOnClickListener{
             context.printSoir()
-            context.loadFragment(FiltreRepasFragment(context, "soir",selectedDay ))
+            if(suivant){
+                context.loadFragment(FiltreRepasFragment(context, "soir",selectedDay, "suivant"))
+            }else context.loadFragment(FiltreRepasFragment(context, "soir",selectedDay, "courant"))
         }
         view.findViewById<ConstraintLayout>(R.id.affect_repas_apero).setOnClickListener{
             context.printApero()
-            context.loadFragment(FiltreRepasFragment(context, "apero", selectedDay))
+            if(suivant){
+                context.loadFragment(FiltreRepasFragment(context, "apero",selectedDay, "suivant"))
+            }else context.loadFragment(FiltreRepasFragment(context, "apero",selectedDay, "courant"))
+
         }
         view.findViewById<ConstraintLayout>(R.id.affect_repas_midi).setOnClickListener{
             context.printMidi()
-            context.loadFragment(FiltreRepasFragment(context, "midi", selectedDay))
+            if(suivant){
+                context.loadFragment(FiltreRepasFragment(context, "midi",selectedDay, "suivant"))
+            }else context.loadFragment(FiltreRepasFragment(context, "midi",selectedDay, "courant"))
         }
 
         val translate = AnimationUtils.loadAnimation(context, R.anim.translate_anim)
@@ -377,140 +445,103 @@ class SemainierFragment (
         view.findViewById<ImageView>(R.id.imageView5).startAnimation(translate)
 
         val repo = SemainierRepository()
-
+        val repoSuivant = SemainierSuivantRepository()
         view.findViewById<ImageView>(R.id.delete_midi).setOnClickListener{
-            repo.resetMidi(selectedDay)
+            if (suivant){
+                repoSuivant.resetMidi(selectedDay)
+            } else repo.resetMidi(selectedDay)
+
             Toast.makeText(context, "Repas du $selectedDay midi supprimé", Toast.LENGTH_SHORT).show()
             if(selectedDay == "lundi"){
-                var boutton = view.findViewById<TextView>(R.id.Lundi)
-                var image = view.findViewById<ImageView>(R.id.Lundi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Lundi), view.findViewById<ImageView>(R.id.Lundi_img))
             }
             else if(selectedDay == "mardi"){
-                var boutton = view.findViewById<TextView>(R.id.Mardi)
-                var image = view.findViewById<ImageView>(R.id.Mardi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Mardi), view.findViewById<ImageView>(R.id.Mardi_img))
 
             }
             else if(selectedDay == "mercredi"){
-                var boutton = view.findViewById<TextView>(R.id.Mercredi)
-                var image = view.findViewById<ImageView>(R.id.Mercredi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Mercredi),  view.findViewById<ImageView>(R.id.Mercredi_img))
 
             }
             else if(selectedDay == "jeudi"){
-                var boutton = view.findViewById<TextView>(R.id.Jeudi)
-                var image = view.findViewById<ImageView>(R.id.Jeudi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Jeudi), view.findViewById<ImageView>(R.id.Jeudi_img))
 
             }
             else if(selectedDay == "vendredi"){
-                var boutton = view.findViewById<TextView>(R.id.Vendredi)
-                var image = view.findViewById<ImageView>(R.id.Vendredi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Vendredi), view.findViewById<ImageView>(R.id.Vendredi_img))
 
             }
             else if(selectedDay == "samedi"){
-                var boutton = view.findViewById<TextView>(R.id.Samedi)
-                var image = view.findViewById<ImageView>(R.id.Samedi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Samedi), view.findViewById<ImageView>(R.id.Samedi_img))
 
             }
-            else if(selectedDay == "dimanche"){
-                var boutton = view.findViewById<TextView>(R.id.Dimanche)
-                var image = view.findViewById<ImageView>(R.id.Dimanche_img)
-                switch(selectedDay, boutton, image)
-
+            else if(selectedDay == "dimanche") {
+                switch(selectedDay, view.findViewById<TextView>(R.id.Dimanche), view.findViewById<ImageView>(R.id.Dimanche_img))
             }
         }
         view.findViewById<ImageView>(R.id.delete_apero).setOnClickListener{
-            repo.resetApero(selectedDay)
+            if (suivant){
+                repoSuivant.resetApero(selectedDay)
+            } else repo.resetApero(selectedDay)
+
             Toast.makeText(context, "Apéro du $selectedDay supprimé (sniff)", Toast.LENGTH_SHORT).show()
             if(selectedDay == "lundi"){
-                var boutton = view.findViewById<TextView>(R.id.Lundi)
-                var image = view.findViewById<ImageView>(R.id.Lundi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Lundi), view.findViewById<ImageView>(R.id.Lundi_img))
             }
             else if(selectedDay == "mardi"){
-                var boutton = view.findViewById<TextView>(R.id.Mardi)
-                var image = view.findViewById<ImageView>(R.id.Mardi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Mardi), view.findViewById<ImageView>(R.id.Mardi_img))
 
             }
             else if(selectedDay == "mercredi"){
-                var boutton = view.findViewById<TextView>(R.id.Mercredi)
-                var image = view.findViewById<ImageView>(R.id.Mercredi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Mercredi),  view.findViewById<ImageView>(R.id.Mercredi_img))
 
             }
             else if(selectedDay == "jeudi"){
-                var boutton = view.findViewById<TextView>(R.id.Jeudi)
-                var image = view.findViewById<ImageView>(R.id.Jeudi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Jeudi), view.findViewById<ImageView>(R.id.Jeudi_img))
 
             }
             else if(selectedDay == "vendredi"){
-                var boutton = view.findViewById<TextView>(R.id.Vendredi)
-                var image = view.findViewById<ImageView>(R.id.Vendredi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Vendredi), view.findViewById<ImageView>(R.id.Vendredi_img))
 
             }
             else if(selectedDay == "samedi"){
-                var boutton = view.findViewById<TextView>(R.id.Samedi)
-                var image = view.findViewById<ImageView>(R.id.Samedi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Samedi), view.findViewById<ImageView>(R.id.Samedi_img))
 
             }
-            else if(selectedDay == "dimanche"){
-                var boutton = view.findViewById<TextView>(R.id.Dimanche)
-                var image = view.findViewById<ImageView>(R.id.Dimanche_img)
-                switch(selectedDay, boutton, image)
-
+            else if(selectedDay == "dimanche") {
+                switch(selectedDay, view.findViewById<TextView>(R.id.Dimanche), view.findViewById<ImageView>(R.id.Dimanche_img))
             }
         }
         view.findViewById<ImageView>(R.id.delete_soir).setOnClickListener{
-            repo.resetSoir(selectedDay)
+            if (suivant){
+                repoSuivant.resetSoir(selectedDay)
+            } else repo.resetSoir(selectedDay)
             Toast.makeText(context, "Repas du $selectedDay soir supprimé", Toast.LENGTH_SHORT).show()
             if(selectedDay == "lundi"){
-                var boutton = view.findViewById<TextView>(R.id.Lundi)
-                var image = view.findViewById<ImageView>(R.id.Lundi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Lundi), view.findViewById<ImageView>(R.id.Lundi_img))
             }
             else if(selectedDay == "mardi"){
-                var boutton = view.findViewById<TextView>(R.id.Mardi)
-                var image = view.findViewById<ImageView>(R.id.Mardi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Mardi), view.findViewById<ImageView>(R.id.Mardi_img))
 
             }
             else if(selectedDay == "mercredi"){
-                var boutton = view.findViewById<TextView>(R.id.Mercredi)
-                var image = view.findViewById<ImageView>(R.id.Mercredi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Mercredi),  view.findViewById<ImageView>(R.id.Mercredi_img))
 
             }
             else if(selectedDay == "jeudi"){
-                var boutton = view.findViewById<TextView>(R.id.Jeudi)
-                var image = view.findViewById<ImageView>(R.id.Jeudi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Jeudi), view.findViewById<ImageView>(R.id.Jeudi_img))
 
             }
             else if(selectedDay == "vendredi"){
-                var boutton = view.findViewById<TextView>(R.id.Vendredi)
-                var image = view.findViewById<ImageView>(R.id.Vendredi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Vendredi), view.findViewById<ImageView>(R.id.Vendredi_img))
 
             }
             else if(selectedDay == "samedi"){
-                var boutton = view.findViewById<TextView>(R.id.Samedi)
-                var image = view.findViewById<ImageView>(R.id.Samedi_img)
-                switch(selectedDay, boutton, image)
+                switch(selectedDay, view.findViewById<TextView>(R.id.Samedi), view.findViewById<ImageView>(R.id.Samedi_img))
 
             }
-            else if(selectedDay == "dimanche"){
-                var boutton = view.findViewById<TextView>(R.id.Dimanche)
-                var image = view.findViewById<ImageView>(R.id.Dimanche_img)
-                switch(selectedDay, boutton, image)
-
+            else if(selectedDay == "dimanche") {
+                switch(selectedDay, view.findViewById<TextView>(R.id.Dimanche), view.findViewById<ImageView>(R.id.Dimanche_img))
             }
         }
 
@@ -662,7 +693,7 @@ class SemainierFragment (
 
     private fun switch(day: String, button: TextView?, img: ImageView?){
 
-        val currentDays = semainierList.filter{ s->s.id_semainier == day}[0]
+        val currentDays = currentSemaine.filter{ s->s.id_semainier == day}[0]
         button?.setTypeface(null,Typeface.BOLD)
         if(day in pastDay){
             img?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.check_check))
@@ -674,7 +705,7 @@ class SemainierFragment (
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.visibility = View.VISIBLE
             var currentRepasMidi = repasList.filter { s->s.id == currentDays.midi }[0]
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.setOnClickListener{
-                context.loadFragment(RecetteFragment(context, currentRepasMidi, "None", "None"))
+                context.loadFragment(RecetteFragment(context, currentRepasMidi, "None", "None", "None"))
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
             view?.findViewById<TextView>(R.id.nomMidi)?.text  = currentRepasMidi.name
@@ -684,7 +715,7 @@ class SemainierFragment (
             val collectionRecyclerView1 = view?.findViewById<RecyclerView>(R.id.tagListMidi)
             collectionRecyclerView1?.adapter = TagsAdapter(context, currentRepasMidi.tags, R.layout.item_tags_horizontal)
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.setOnClickListener{
-                context.loadFragment(RecetteFragment(context, currentRepasMidi, "None", "None"))
+                context.loadFragment(RecetteFragment(context, currentRepasMidi, "None", "None", "None"))
             }
         }else {
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.visibility = View.GONE
@@ -694,7 +725,7 @@ class SemainierFragment (
             var currentRepasSoir = repasList.filter { s->s.id == currentDays.soir }[0]
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.visibility = View.VISIBLE
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.setOnClickListener{
-                context.loadFragment(RecetteFragment(context, currentRepasSoir, "None", "None"))
+                context.loadFragment(RecetteFragment(context, currentRepasSoir, "None", "None", "None"))
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
             view?.findViewById<TextView>(R.id.nomSoir)?.text  = currentRepasSoir.name
@@ -704,7 +735,7 @@ class SemainierFragment (
             val collectionRecyclerView2 = view?.findViewById<RecyclerView>(R.id.tagListSoir)
             collectionRecyclerView2?.adapter = TagsAdapter(context,currentRepasSoir.tags, R.layout.item_tags_horizontal)
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.setOnClickListener{
-                context.loadFragment(RecetteFragment(context, currentRepasSoir, "None", "None"))
+                context.loadFragment(RecetteFragment(context, currentRepasSoir, "None", "None", "None"))
             }
         }else {
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.visibility = View.GONE
@@ -714,7 +745,7 @@ class SemainierFragment (
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.visibility = View.VISIBLE
             var currentRepasApero = repasList.filter { s->s.id == currentDays.apero }[0]
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.setOnClickListener{
-                context.loadFragment(RecetteFragment(context, currentRepasApero, "None", "None"))
+                context.loadFragment(RecetteFragment(context, currentRepasApero, "None", "None", "None"))
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
             view?.findViewById<TextView>(R.id.nomApero)?.text  = currentRepasApero.name
@@ -723,7 +754,7 @@ class SemainierFragment (
             val collectionRecyclerView3 = view?.findViewById<RecyclerView>(R.id.tagListApero)
             collectionRecyclerView3?.adapter = TagsAdapter(context, currentRepasApero.tags, R.layout.item_tags_horizontal)
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.setOnClickListener{
-                context.loadFragment(RecetteFragment(context, currentRepasApero, "None", "None"))
+                context.loadFragment(RecetteFragment(context, currentRepasApero, "None", "None", "None"))
             }
         }else {
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.visibility = View.GONE

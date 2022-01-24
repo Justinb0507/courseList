@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Switch
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +16,6 @@ import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
 import fr.juju.myapplication.adapter.CourseCategoryAdapter
 import java.util.*
-import kotlin.collections.ArrayList
 
 class CourseListeFragment (val context: MainActivity
 ) : Fragment()  {
@@ -39,34 +36,31 @@ class CourseListeFragment (val context: MainActivity
 
         var recyclerCourseList = view.findViewById<RecyclerView>(R.id.course_liste)
         var repo = CourseRepository()
-        val categorieList: ArrayList<String> = arrayListOf()
-        for (item in courseList){
-            if(!categorieList.contains(item.categorie)){
-                categorieList.add(item.categorie)
+        var categoryList: ArrayList<String> = arrayListOf()
+        repo.updateData {
+            categoryList.clear()
+            for(item in courseList){
+                if (!categoryList.contains(item.categorie)){
+                    categoryList.add(item.categorie)
+                }
             }
+            recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, R.layout.item_course_vertical)
+            recyclerCourseList.layoutManager = LinearLayoutManager(context)
         }
 
         view.findViewById<ImageView>(R.id.generateCourse).setOnClickListener{
             generateCourse()
-            repo.updateData {
-                recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categorieList, R.layout.item_course_vertical)
-                recyclerCourseList.layoutManager = LinearLayoutManager(context)
-            }
-
         }
+
         view.findViewById<ImageView>(R.id.clearCourse).setOnClickListener{
             clearCourse()
         }
-
-
-
 
         return view
     }
 
     private fun generateCourse(){
         var repo = CourseRepository()
-        var course = courseList
 
         for (days in semainierList){
             if(days.midi != "None"){
@@ -79,9 +73,9 @@ class CourseListeFragment (val context: MainActivity
                         if (ingredient.id_categorie!="None") categorieList.filter { s->s.id == ingredient.id_categorie }[0].name else "Autres",
                         "false"
                     )
-                    if(course.filter { s->s.name == ingredient.name }.isNotEmpty()){
+                    if(courseList.filter { s->s.name == ingredient.name }.isNotEmpty()){
                         var value = 0
-                        var oldItem = course.filter { s->s.name == ingredient.name }[0]
+                        var oldItem = courseList.filter { s->s.name == ingredient.name }[0]
 
                         if (oldItem.quantite.contains("cl")){
                             value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("cl")).replace(" ", "").toInt()
@@ -136,7 +130,7 @@ class CourseListeFragment (val context: MainActivity
                     }
 
                     else {
-                        course.add(courseItem)
+                        courseList.add(courseItem)
                     }
                 }
             }
@@ -150,9 +144,9 @@ class CourseListeFragment (val context: MainActivity
                         if (ingredient.id_categorie!="None") categorieList.filter { s->s.id == ingredient.id_categorie }[0].name else "Autres",
                         "false"
                     )
-                    if(course.filter { s->s.name == ingredient.name }.isNotEmpty()){
+                    if(courseList.filter { s->s.name == ingredient.name }.isNotEmpty()){
                         var value = 0
-                        var oldItem = course.filter { s->s.name == ingredient.name }[0]
+                        var oldItem = courseList.filter { s->s.name == ingredient.name }[0]
 
                         if (oldItem.quantite.contains("cl")){
                             value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("cl")).replace(" ", "").toInt()
@@ -207,7 +201,7 @@ class CourseListeFragment (val context: MainActivity
                     }
 
                     else {
-                        course.add(courseItem)
+                        courseList.add(courseItem)
                     }
                 }
             }
@@ -221,9 +215,9 @@ class CourseListeFragment (val context: MainActivity
                         if (ingredient.id_categorie!="None") categorieList.filter { s->s.id == ingredient.id_categorie }[0].name else "Autres",
                         "false"
                     )
-                    if(course.filter { s->s.name == ingredient.name }.isNotEmpty()){
+                    if(courseList.filter { s->s.name == ingredient.name }.isNotEmpty()){
                         var value = 0
-                        var oldItem = course.filter { s->s.name == ingredient.name }[0]
+                        var oldItem = courseList.filter { s->s.name == ingredient.name }[0]
 
                         if (oldItem.quantite.contains("cl")){
                             value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("cl")).replace(" ", "").toInt()
@@ -278,12 +272,12 @@ class CourseListeFragment (val context: MainActivity
                     }
 
                     else {
-                        course.add(courseItem)
+                        courseList.add(courseItem)
                     }
                 }
             }
         }
-        for (item in course){
+        for (item in courseList){
             repo.insertCourseItem(item)
         }
     }

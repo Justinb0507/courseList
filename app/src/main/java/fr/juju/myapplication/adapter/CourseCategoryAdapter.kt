@@ -11,8 +11,9 @@ import fr.juju.myapplication.*
 class CourseCategoryAdapter(
     val context: MainActivity,
     private val courseList: ArrayList<CourseModel>,
-    private val categoryList: ArrayList<String>,
-    private val layoutId:Int)
+    private val category: ArrayList<String>,
+    private val layoutId: Int
+)
     : RecyclerView.Adapter<CourseCategoryAdapter.ViewHolder>()  {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
@@ -26,13 +27,16 @@ class CourseCategoryAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentCategory = categoryList[position]
-        holder.name?.text = currentCategory
-        holder.recycler?.adapter = CourseItemAdapter(context, courseList.filter { s->s.categorie == currentCategory } as ArrayList<CourseModel>,R.layout.item_course_in_category_vertical)
-        holder.recycler?.layoutManager = LinearLayoutManager(context)
+        val currentCat = category[position]
+        holder.name?.text = currentCat
+        var repo = CourseRepository()
+        repo.updateData {
+            holder.recycler?.adapter = CourseItemAdapter(context, courseList.filter { s->s.categorie ==  currentCat } as ArrayList<CourseModel>,R.layout.item_course_in_category_vertical)
+            holder.recycler?.layoutManager = LinearLayoutManager(context)
+        }
     }
 
     override fun getItemCount(): Int {
-        return categoryList.size
+        return category.size
     }
 }

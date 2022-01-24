@@ -1,35 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/background">
 
+    <CheckBox
+        android:id="@+id/radioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:buttonTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/text_item"
         style="@style/DefaultTextStyle"
-        android:layout_width="220dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_width="190dp"
         android:layout_height="35dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="Nom de l'ingrédient"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/radioButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/quantity_item"
+        android:gravity="center"
         style="@style/DefaultTextStyle"
         android:layout_width="105dp"
         android:layout_height="30dp"
+        android:layout_marginRight="@dimen/default_margin"
         android:ellipsize="end"
-        android:gravity="right"
         android:singleLine="true"
         android:text="Quantité"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/trash"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/trash"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@drawable/delete_sun"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_item" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="@dimen/default_margin"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

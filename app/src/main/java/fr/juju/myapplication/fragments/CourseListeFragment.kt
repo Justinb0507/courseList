@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Switch
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +17,7 @@ import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
 import fr.juju.myapplication.adapter.CourseCategoryAdapter
+import fr.juju.myapplication.adapter.CourseItemAdapter
 import java.util.*
 
 class CourseListeFragment (val context: MainActivity
@@ -27,25 +30,34 @@ class CourseListeFragment (val context: MainActivity
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater?.inflate(R.layout.course_liste_fragment, container, false)
-        /*view.findViewById<Switch>(R.id.toggleButton).setOnClickListener{
-            if( view.findViewById<Switch>(R.id.toggleButton).isChecked){
-                //view.findViewById<ConstraintLayout>(R.id.Midi).visibility = View.GONE
-            }
-            else view.findViewById<ConstraintLayout>(R.id.Midi).visibility = View.VISIBLE
-        }*/
-
         var recyclerCourseList = view.findViewById<RecyclerView>(R.id.course_liste)
-        var repo = CourseRepository()
         var categoryList: ArrayList<String> = arrayListOf()
-        repo.updateData {
+        view.findViewById<Switch>(R.id.toggleButton).isChecked = false
+        recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
+        recyclerCourseList.layoutManager = LinearLayoutManager(context)
+
             categoryList.clear()
             for(item in courseList){
                 if (!categoryList.contains(item.categorie)){
                     categoryList.add(item.categorie)
                 }
             }
-            recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, R.layout.item_course_vertical)
-            recyclerCourseList.layoutManager = LinearLayoutManager(context)
+
+            if(courseList.isEmpty()){
+                view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.VISIBLE
+            }
+            else view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.GONE
+
+
+        view.findViewById<Switch>(R.id.toggleButton).setOnClickListener{
+            if(view.findViewById<Switch>(R.id.toggleButton).isChecked){
+                recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, true, R.layout.item_course_vertical)
+                recyclerCourseList.layoutManager = LinearLayoutManager(context)
+            }
+            else {
+                recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
+                recyclerCourseList.layoutManager = LinearLayoutManager(context)
+            }
         }
 
         view.findViewById<ImageView>(R.id.generateCourse).setOnClickListener{
@@ -286,7 +298,10 @@ class CourseListeFragment (val context: MainActivity
     private fun clearCourse(){
         var repo = CourseRepository()
         for(courseItem in courseList){
-            repo.deleteCourseItem(courseItem)
+            if(courseItem.ajoutExterieur == "false"){
+                repo.deleteCourseItem(courseItem)
+            }
+
         }
     }
 

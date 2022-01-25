@@ -8,10 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Switch
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +21,6 @@ import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
 import fr.juju.myapplication.adapter.CourseCategoryAdapter
-import fr.juju.myapplication.adapter.EditIngredientAdapter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -52,14 +50,30 @@ class CourseListeFragment (val context: MainActivity
         recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
         recyclerCourseList.layoutManager = LinearLayoutManager(context)
 
+        if(courseList.isEmpty()){
+            view.findViewById<Switch>(R.id.toggleButton).visibility = View.GONE
+        }else view.findViewById<Switch>(R.id.toggleButton).visibility = View.VISIBLE
+
         view.findViewById<Switch>(R.id.toggleButton).setOnClickListener{
             if(view.findViewById<Switch>(R.id.toggleButton).isChecked){
+                val margins = (view.findViewById<LinearLayout>(R.id.linearLayout7).layoutParams as ConstraintLayout.LayoutParams).apply {
+                    topMargin = 50
+                }
+                view.findViewById<LinearLayout>(R.id.linearLayout7).layoutParams = margins
+                context.hideKeyboard()
+                view.findViewById<ImageView>(R.id.commencer).visibility = View.VISIBLE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
                 recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, true, R.layout.item_course_vertical)
                 recyclerCourseList.layoutManager = LinearLayoutManager(context)
             }
             else {
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.VISIBLE
+                val margins = (view.findViewById<LinearLayout>(R.id.linearLayout7).layoutParams as ConstraintLayout.LayoutParams).apply {
+                    startToStart = R.id.parent
+                    topToBottom = R.id.add_item
+                    topMargin = 90
+                }
+                view.findViewById<LinearLayout>(R.id.linearLayout7).layoutParams = margins
                 recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
                 recyclerCourseList.layoutManager = LinearLayoutManager(context)
             }
@@ -82,7 +96,6 @@ class CourseListeFragment (val context: MainActivity
                 }
             }
             categoryList = ArrayList(categoryList.sorted())
-
             if(view.findViewById<Switch>(R.id.toggleButton).isChecked){
                 recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, true, R.layout.item_course_vertical)
                 recyclerCourseList.layoutManager = LinearLayoutManager(context)
@@ -92,22 +105,46 @@ class CourseListeFragment (val context: MainActivity
                 recyclerCourseList.layoutManager = LinearLayoutManager(context)
             }
             if(courseList.isEmpty()){
+                view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
+                view.findViewById<Switch>(R.id.toggleButton).visibility = View.GONE
                 view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.VISIBLE
             }
-            else view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.GONE
+            else {
+                view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.VISIBLE
+                view.findViewById<Switch>(R.id.toggleButton).visibility = View.VISIBLE
+                view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.GONE
+            }
         }
+
+        view.findViewById<ImageView>(R.id.commencer).setOnClickListener{
+            if(view.findViewById<Switch>(R.id.toggleButton).isChecked){
+                view.findViewById<Switch>(R.id.toggleButton).isChecked = false
+                view.findViewById<ImageView>(R.id.commencer).visibility = View.GONE
+            }
+            view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.VISIBLE
+            view.findViewById<ImageView>(R.id.commencer).visibility = View.GONE
+            view.findViewById<ImageView>(R.id.add_item_button).performClick()
+
+        }
+
         var temp = false
+
+        var categorieInput = view.findViewById<AutoCompleteTextView>(R.id.categorie)
+        var adapter : ArrayAdapter<String> = ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, arrayListOf("test","Légumes","Legumes","test1","test2","test3","jofdjsfo"))
+        categorieInput.setAdapter(adapter)
 
         view.findViewById<ImageView>(R.id.add_item_button).setOnClickListener{
             if(view.findViewById<EditText>(R.id.item).text.isNotEmpty()) {
                 addItem(view)
                 view.findViewById<EditText>(R.id.item).setText("")
                 view.findViewById<EditText>(R.id.quantite).setText("")
+                view.findViewById<AutoCompleteTextView>(R.id.categorie).setText("")
                 view.findViewById<EditText>(R.id.item).requestFocus()
                 temp = false
             }
             view.findViewById<EditText>(R.id.item).visibility = View.VISIBLE
             view.findViewById<EditText>(R.id.quantite).visibility = View.VISIBLE
+            view.findViewById<EditText>(R.id.categorie).visibility = View.VISIBLE
             view.findViewById<ImageView>(R.id.add_item_button).animate().translationX(+870F).setDuration(150)
             view.findViewById<EditText>(R.id.item).requestFocus()
             val showMe = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -115,11 +152,35 @@ class CourseListeFragment (val context: MainActivity
 
         }
 
+        view.findViewById<AutoCompleteTextView>(R.id.categorie).addTextChangedListener(
+            object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if(s.contains("\n")) {
+                        view.findViewById<AutoCompleteTextView>(R.id.categorie).setText(s.toString().replace("\n",""))
+                        view.findViewById<ImageView>(R.id.add_item_button).performClick()
+                    }}
+
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Fires right before text is changing
+                }
+
+                override fun afterTextChanged(s: Editable) {
+
+
+                }
+            }
+        )
         view.findViewById<EditText>(R.id.quantite).addTextChangedListener(
             object : TextWatcher {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                     if(s.contains("\n")) {
-                        view.findViewById<ImageView>(R.id.add_item_button).performClick()
+                        view.findViewById<EditText>(R.id.quantite).setText(s.toString().replace("\n",""))
+                        view.findViewById<AutoCompleteTextView>(R.id.categorie).requestFocus()
                     }}
 
                 override fun beforeTextChanged(
@@ -169,17 +230,22 @@ class CourseListeFragment (val context: MainActivity
         var repo = CourseRepository()
         var itemName =  view.findViewById<EditText>(R.id.item).text.toString()
         var quantite = view.findViewById<EditText>(R.id.quantite).text.toString()
+        var categorie = view.findViewById<AutoCompleteTextView>(R.id.categorie).text.toString()
         itemName = itemName.lowercase(Locale.getDefault())
         itemName = itemName.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+
+        categorie = categorie.lowercase(Locale.getDefault())
+        categorie = categorie.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+
         var itemCourse = CourseModel(
             UUID.randomUUID().toString(),
             itemName,
             quantite,
-            "Autres",
+            categorie,
             "false",
             "true"
         )
-        if(courseList.filter{ s-> s.name == itemCourse.name}.isEmpty() && itemName != "" && itemName != " "&& itemName != "  " && quantite.isNotEmpty()){
+        if(courseList.filter{ s-> s.name == itemCourse.name}.isEmpty() && itemName != "" && itemName != " "&& itemName != "  " && quantite.isNotEmpty() && categorie.isNotEmpty()){
             repo.insertCourseItem(itemCourse)
         }
 

@@ -1,13 +1,17 @@
 package fr.juju.myapplication.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.juju.myapplication.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CourseCategoryAdapter(
     val context: MainActivity,
@@ -47,9 +51,6 @@ class CourseCategoryAdapter(
             holder.fleche_up?.visibility = View.GONE
             holder.fleche_down?.visibility = View.VISIBLE
         }
-
-
-
     }
 
     override fun getItemCount(): Int {

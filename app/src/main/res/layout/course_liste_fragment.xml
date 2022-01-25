@@ -1,18 +1,22 @@
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
+    android:id="@+id/parent"
         >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/constraint"
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Switch
             android:id="@+id/toggleButton"
@@ -32,64 +36,125 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
+            android:adjustViewBounds="true"
+            android:src="@drawable/check"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/title"
-            android:src="@drawable/check"
-            app:tint="@color/sun"
-            android:adjustViewBounds="true"
-            />
+            app:tint="@color/sun" />
 
         <ImageView
             android:id="@+id/clearCourse"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_baseline_close_24"
-            app:tint="@color/sun"
-            android:adjustViewBounds="true"
             android:layout_marginLeft="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_baseline_close_24"
+            app:layout_constraintBottom_toBottomOf="@+id/generateCourse"
             app:layout_constraintStart_toEndOf="@+id/generateCourse"
-            app:layout_constraintTop_toTopOf="@+id/title" />
+            app:layout_constraintTop_toTopOf="@+id/generateCourse"
+            app:tint="@color/sun" />
 
 
         <TextView
             android:id="@+id/title"
             style="@style/TitleTextStyle"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="Mes courses"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:background="@color/background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/quantite"
+                style="@style/DefaultTextStyle"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:ellipsize="end"
+                android:hint="Quantité"
+                android:maxLines="1"
+                android:textColorHint="@color/turquoise"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/item"
+                app:layout_constraintStart_toEndOf="@+id/item"
+                app:layout_constraintTop_toTopOf="@+id/item" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/item"
+                style="@style/DefaultTextStyle"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:ellipsize="end"
+                android:hint="Nom du produit"
+                android:maxLines="1"
+                android:textColorHint="@color/turquoise"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <AutoCompleteTextView
+                android:id="@+id/categorie"
+                style="@style/DefaultTextStyle"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:ellipsize="end"
+                android:hint="Categorie"
+                android:maxLines="1"
+                android:textColorHint="@color/turquoise"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/quantite"
+                app:layout_constraintTop_toTopOf="@+id/quantite" />
+
+            <ImageView
+                android:id="@+id/add_item_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/plus_bleu_canard"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/sun" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         <LinearLayout
             android:id="@+id/linearLayout7"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="90dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toggleButton">
+            app:layout_constraintTop_toBottomOf="@+id/add_item">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/course_liste"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/course_liste"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/NoRepas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:visibility="gone">
+                android:layout_marginTop="130dp"
+                android:visibility="visible">
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -101,6 +166,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/textView8"
                     style="@style/SubstitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,57 +178,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
+                <ImageView
+                    android:id="@+id/commencer"
+                    android:layout_width="333dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="120dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_commencer_une_liste"
+                    app:layout_constraintEnd_toEndOf="@+id/textView8"
+                    app:layout_constraintStart_toStartOf="@+id/textView8"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/add_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/background"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintStart_toStartOf="@+id/generateCourse"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/quantite"
-                style="@style/DefaultTextStyle"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:hint="Quantité"
-                android:maxLines="1"
-                android:paddingLeft="@dimen/default_margin"
-                android:textColorHint="@color/turquoise"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/item"
-                app:layout_constraintStart_toEndOf="@+id/item"
-                app:layout_constraintTop_toTopOf="@+id/item" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/item"
-                style="@style/DefaultTextStyle"
-                android:layout_width="200dp"
-                android:layout_height="80dp"
-                android:hint="Nom du produit"
-                android:maxLines="1"
-                android:paddingLeft="@dimen/default_margin"
-                android:textColorHint="@color/turquoise"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <ImageView
-                android:id="@+id/add_item_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/plus_bleu_canard"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/sun" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

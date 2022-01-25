@@ -44,7 +44,7 @@
             android:id="@+id/clearCourse"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/delete_sun"
+            android:src="@drawable/ic_baseline_close_24"
             app:tint="@color/sun"
             android:adjustViewBounds="true"
             android:layout_marginLeft="10dp"

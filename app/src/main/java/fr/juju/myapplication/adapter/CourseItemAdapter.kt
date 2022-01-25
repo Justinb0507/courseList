@@ -32,7 +32,7 @@ class CourseItemAdapter(
         return ViewHolder(view)
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentIngredient = courseList[position]
         var repo = CourseRepository()
@@ -59,10 +59,9 @@ class CourseItemAdapter(
             repo.updateCourseItem(currentIngredient)
         }
         holder.trash?.setOnClickListener{
-            courseList.remove(currentIngredient)
+
             repo.deleteCourseItem(currentIngredient)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, position)
+
         }
 
         if(printToggle){

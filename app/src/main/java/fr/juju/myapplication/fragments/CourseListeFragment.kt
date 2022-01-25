@@ -17,8 +17,8 @@ import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
 import fr.juju.myapplication.adapter.CourseCategoryAdapter
-import fr.juju.myapplication.adapter.CourseItemAdapter
 import java.util.*
+import kotlin.collections.ArrayList
 
 class CourseListeFragment (val context: MainActivity
 ) : Fragment()  {
@@ -33,8 +33,7 @@ class CourseListeFragment (val context: MainActivity
         var recyclerCourseList = view.findViewById<RecyclerView>(R.id.course_liste)
         var categoryList: ArrayList<String> = arrayListOf()
         view.findViewById<Switch>(R.id.toggleButton).isChecked = false
-        recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
-        recyclerCourseList.layoutManager = LinearLayoutManager(context)
+
 
             categoryList.clear()
             for(item in courseList){
@@ -42,12 +41,10 @@ class CourseListeFragment (val context: MainActivity
                     categoryList.add(item.categorie)
                 }
             }
+        categoryList = ArrayList(categoryList.sorted())
 
-            if(courseList.isEmpty()){
-                view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.VISIBLE
-            }
-            else view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.GONE
-
+        recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
+        recyclerCourseList.layoutManager = LinearLayoutManager(context)
 
         view.findViewById<Switch>(R.id.toggleButton).setOnClickListener{
             if(view.findViewById<Switch>(R.id.toggleButton).isChecked){
@@ -68,12 +65,35 @@ class CourseListeFragment (val context: MainActivity
             clearCourse()
         }
 
+        var repo = CourseRepository()
+        repo.updateData {
+            categoryList.clear()
+            for(item in courseList){
+                if (!categoryList.contains(item.categorie)){
+                    categoryList.add(item.categorie)
+                }
+            }
+            categoryList = ArrayList(categoryList.sorted())
+
+            if(view.findViewById<Switch>(R.id.toggleButton).isChecked){
+                recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, true, R.layout.item_course_vertical)
+                recyclerCourseList.layoutManager = LinearLayoutManager(context)
+            }
+            else {
+                recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
+                recyclerCourseList.layoutManager = LinearLayoutManager(context)
+            }
+            if(courseList.isEmpty()){
+                view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.VISIBLE
+            }
+            else view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.GONE
+        }
+
         return view
     }
 
     private fun generateCourse(){
         var repo = CourseRepository()
-
         for (days in semainierList){
             if(days.midi != "None"){
                 var ingredients = ingredientList.filter { s->s.id_repas == repasList.filter { s->s.id == days.midi }[0].id }

@@ -1,6 +1,5 @@
 package fr.juju.myapplication.adapter
 
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import fr.juju.myapplication.*
 class CourseCategoryAdapter(
     val context: MainActivity,
     private val courseList: ArrayList<CourseModel>,
-    private val category: ArrayList<String>,
+    private val category: java.util.ArrayList<String>,
     private val printToggle: Boolean,
     private val layoutId: Int
 )
@@ -33,8 +32,8 @@ class CourseCategoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentCat = category[position]
-        holder.name?.text = currentCat
 
+        holder.name?.text = currentCat
         holder.recycler?.adapter = CourseItemAdapter(context, courseList.filter { s->s.categorie ==  currentCat } as ArrayList<CourseModel>, printToggle, R.layout.item_course_in_category_vertical)
         holder.recycler?.layoutManager = LinearLayoutManager(context)
 
@@ -48,6 +47,7 @@ class CourseCategoryAdapter(
             holder.fleche_up?.visibility = View.GONE
             holder.fleche_down?.visibility = View.VISIBLE
         }
+
 
 
     }

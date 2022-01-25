@@ -260,6 +260,7 @@
                         android:layout_height="80dp"
                         android:hint="40g"
                         android:visibility="gone"
+                        android:maxLines="1"
                         android:paddingLeft="@dimen/default_margin"
                         android:textColorHint="@color/turquoise"
                         app:layout_constraintBottom_toBottomOf="@+id/ingredient"

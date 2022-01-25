@@ -1,9 +1,14 @@
 package fr.juju.myapplication.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Switch
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +22,7 @@ import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
 import fr.juju.myapplication.adapter.CourseCategoryAdapter
+import fr.juju.myapplication.adapter.EditIngredientAdapter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -48,10 +54,12 @@ class CourseListeFragment (val context: MainActivity
 
         view.findViewById<Switch>(R.id.toggleButton).setOnClickListener{
             if(view.findViewById<Switch>(R.id.toggleButton).isChecked){
+                view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
                 recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, true, R.layout.item_course_vertical)
                 recyclerCourseList.layoutManager = LinearLayoutManager(context)
             }
             else {
+                view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.VISIBLE
                 recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
                 recyclerCourseList.layoutManager = LinearLayoutManager(context)
             }
@@ -88,8 +96,93 @@ class CourseListeFragment (val context: MainActivity
             }
             else view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.GONE
         }
+        var temp = false
+
+        view.findViewById<ImageView>(R.id.add_item_button).setOnClickListener{
+            if(view.findViewById<EditText>(R.id.item).text.isNotEmpty()) {
+                addItem(view)
+                view.findViewById<EditText>(R.id.item).setText("")
+                view.findViewById<EditText>(R.id.quantite).setText("")
+                view.findViewById<EditText>(R.id.item).requestFocus()
+                temp = false
+            }
+            view.findViewById<EditText>(R.id.item).visibility = View.VISIBLE
+            view.findViewById<EditText>(R.id.quantite).visibility = View.VISIBLE
+            view.findViewById<ImageView>(R.id.add_item_button).animate().translationX(+870F).setDuration(150)
+            view.findViewById<EditText>(R.id.item).requestFocus()
+            val showMe = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.item), InputMethodManager.SHOW_IMPLICIT)
+
+        }
+
+        view.findViewById<EditText>(R.id.quantite).addTextChangedListener(
+            object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if(s.contains("\n")) {
+                        view.findViewById<ImageView>(R.id.add_item_button).performClick()
+                    }}
+
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Fires right before text is changing
+                }
+
+                override fun afterTextChanged(s: Editable) {
+
+
+                }
+            }
+        )
+
+        view.findViewById<EditText>(R.id.item).addTextChangedListener(
+            object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if(s.contains("\n")) {
+                        view.findViewById<EditText>(R.id.item).setText(s.toString().replace("\n",""))
+                        view.findViewById<EditText>(R.id.quantite).requestFocus()
+                    }}
+
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Fires right before text is changing
+                }
+
+                override fun afterTextChanged(s: Editable) {
+
+
+                }
+            }
+        )
 
         return view
+    }
+
+    private fun addItem(view : View){
+        var repo = CourseRepository()
+        var itemName =  view.findViewById<EditText>(R.id.item).text.toString()
+        var quantite = view.findViewById<EditText>(R.id.quantite).text.toString()
+        itemName = itemName.lowercase(Locale.getDefault())
+        itemName = itemName.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+        var itemCourse = CourseModel(
+            UUID.randomUUID().toString(),
+            itemName,
+            quantite,
+            "Autres",
+            "false",
+            "true"
+        )
+        if(courseList.filter{ s-> s.name == itemCourse.name}.isEmpty() && itemName != "" && itemName != " "&& itemName != "  " && quantite.isNotEmpty()){
+            repo.insertCourseItem(itemCourse)
+        }
+
     }
 
     private fun generateCourse(){

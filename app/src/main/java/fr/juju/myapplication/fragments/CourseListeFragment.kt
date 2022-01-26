@@ -38,7 +38,6 @@ class CourseListeFragment (val context: MainActivity
         var categoryList: ArrayList<String> = arrayListOf()
         view.findViewById<Switch>(R.id.toggleButton).isChecked = false
 
-
             categoryList.clear()
             for(item in courseList){
                 if (!categoryList.contains(item.categorie)){
@@ -46,7 +45,6 @@ class CourseListeFragment (val context: MainActivity
                 }
             }
         categoryList = ArrayList(categoryList.sorted())
-
         recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
         recyclerCourseList.layoutManager = LinearLayoutManager(context)
 
@@ -56,10 +54,6 @@ class CourseListeFragment (val context: MainActivity
 
         view.findViewById<Switch>(R.id.toggleButton).setOnClickListener{
             if(view.findViewById<Switch>(R.id.toggleButton).isChecked){
-                val margins = (view.findViewById<LinearLayout>(R.id.linearLayout7).layoutParams as ConstraintLayout.LayoutParams).apply {
-                    topMargin = 50
-                }
-                view.findViewById<LinearLayout>(R.id.linearLayout7).layoutParams = margins
                 context.hideKeyboard()
                 view.findViewById<ImageView>(R.id.commencer).visibility = View.VISIBLE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
@@ -68,23 +62,9 @@ class CourseListeFragment (val context: MainActivity
             }
             else {
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.VISIBLE
-                val margins = (view.findViewById<LinearLayout>(R.id.linearLayout7).layoutParams as ConstraintLayout.LayoutParams).apply {
-                    startToStart = R.id.parent
-                    topToBottom = R.id.add_item
-                    topMargin = 90
-                }
-                view.findViewById<LinearLayout>(R.id.linearLayout7).layoutParams = margins
                 recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
                 recyclerCourseList.layoutManager = LinearLayoutManager(context)
             }
-        }
-
-        view.findViewById<ImageView>(R.id.generateCourse).setOnClickListener{
-            generateCourse()
-        }
-
-        view.findViewById<ImageView>(R.id.clearCourse).setOnClickListener{
-            clearCourse()
         }
 
         var repo = CourseRepository()
@@ -96,14 +76,7 @@ class CourseListeFragment (val context: MainActivity
                 }
             }
             categoryList = ArrayList(categoryList.sorted())
-            if(view.findViewById<Switch>(R.id.toggleButton).isChecked){
-                recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, true, R.layout.item_course_vertical)
-                recyclerCourseList.layoutManager = LinearLayoutManager(context)
-            }
-            else {
-                recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
-                recyclerCourseList.layoutManager = LinearLayoutManager(context)
-            }
+
             if(courseList.isEmpty()){
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
                 view.findViewById<Switch>(R.id.toggleButton).visibility = View.GONE
@@ -113,6 +86,19 @@ class CourseListeFragment (val context: MainActivity
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.VISIBLE
                 view.findViewById<Switch>(R.id.toggleButton).visibility = View.VISIBLE
                 view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.GONE
+            }
+
+            if(view.findViewById<Switch>(R.id.toggleButton).isChecked && view.findViewById<Switch>(R.id.toggleButton).visibility == View.VISIBLE){
+                context.hideKeyboard()
+                view.findViewById<ImageView>(R.id.commencer).visibility = View.VISIBLE
+                view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
+                recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, true, R.layout.item_course_vertical)
+                recyclerCourseList.layoutManager = LinearLayoutManager(context)
+            }
+            else if (!view.findViewById<Switch>(R.id.toggleButton).isChecked && view.findViewById<Switch>(R.id.toggleButton).visibility == View.VISIBLE) {
+                view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.VISIBLE
+                recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
+                recyclerCourseList.layoutManager = LinearLayoutManager(context)
             }
         }
 
@@ -128,9 +114,19 @@ class CourseListeFragment (val context: MainActivity
         }
 
         var temp = false
+        view.findViewById<ImageView>(R.id.generateCourse).setOnClickListener{
+            generateCourse()
+        }
 
+        view.findViewById<ImageView>(R.id.clearCourse).setOnClickListener{
+            clearCourse()
+        }
         var categorieInput = view.findViewById<AutoCompleteTextView>(R.id.categorie)
-        var adapter : ArrayAdapter<String> = ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, arrayListOf("test","Légumes","Legumes","test1","test2","test3","jofdjsfo"))
+        var categorieInputList = arrayListOf<String>()
+        for(item in categorieList){
+            categorieInputList.add(item.name)
+        }
+        var adapter : ArrayAdapter<String> = ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, categorieInputList)
         categorieInput.setAdapter(adapter)
 
         view.findViewById<ImageView>(R.id.add_item_button).setOnClickListener{

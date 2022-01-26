@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Encore un petit instant !"
+        android:text="Quelle recette voulez-\nvous faire ? "
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,9 +29,12 @@
         android:id="@+id/textView9"
         android:layout_marginTop="@dimen/default_margin"
         style="@style/DefaultTextStyle"
-        android:layout_width="wrap_content"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Indiquez les catégories de ces ingrédients"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:text="Vous avez choisi une recette avec des ingrédients optionnels, sélectionnez ceux dont vous avez besoin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/popup_ingredient_name" />
@@ -46,40 +49,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/popup_ingredient_name" />
 
-    <TextView
-        android:id="@+id/popup_ingredient"
-        style="@style/TitleTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Ingrédient"
-        android:textColor="@color/sun"
-        app:layout_constraintEnd_toStartOf="@+id/view_separation"
-        app:layout_constraintStart_toStartOf="@+id/recycler"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-    <TextView
-        android:id="@+id/popup_categorie"
-        style="@style/TitleTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Catégorie"
-        android:textColor="@color/sun"
-        app:layout_constraintEnd_toEndOf="@+id/recycler"
-        app:layout_constraintStart_toEndOf="@+id/view_separation"
-        app:layout_constraintTop_toTopOf="@+id/popup_ingredient" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_height="228dp"
         android:layout_marginLeft="@dimen/default_margin"
         android:layout_marginRight="@dimen/default_margin"
-        android:layout_width="match_parent"
-        android:layout_height="228dp"
-        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popup_ingredient" />
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <View
         android:id="@+id/view_separation"

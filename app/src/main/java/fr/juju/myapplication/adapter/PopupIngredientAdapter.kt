@@ -30,7 +30,7 @@ class PopupIngredientAdapter(val context: MainActivity, private val ingredients:
         val repo = IngredientRepository()
         val currentIngredient = ingredients[position]
         holder.name?.text = currentIngredient.name
-        var spinnerList = arrayListOf<String>("None")
+        var spinnerList = arrayListOf<String>("?")
         for(cat in categorieList.sortedBy { s-> s.name }){
             spinnerList.add(cat.name)
         }
@@ -43,12 +43,11 @@ class PopupIngredientAdapter(val context: MainActivity, private val ingredients:
         }
         holder.spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                if (spinnerList[p2] != "None"){
+                if (spinnerList[p2] != "?"){
                     currentIngredient.id_categorie = categorieList.filter { s->s.name == spinnerList[p2] }[0].id
-                    repo.updateIngredient(currentIngredient)
                 }
                 else currentIngredient.id_categorie = "None"
-
+                repo.updateIngredient(currentIngredient)
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {

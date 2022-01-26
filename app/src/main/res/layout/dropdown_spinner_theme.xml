@@ -2,7 +2,7 @@
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
-    android:background="@color/bleu_canard"
+    android:background="@color/background"
     style="@style/DefaultTextStyle"
     android:layout_marginLeft="@dimen/default_margin"
     android:layout_marginRight="@dimen/default_margin"

@@ -4,7 +4,6 @@
     android:id="@android:id/text1"
     android:layout_width="150dp"
     android:layout_height="50dp"
-    android:background="@color/background"
     android:text="BLEBLrrrrrrrrrrrrrrE"
     android:singleLine="true"
     android:padding="10dp"

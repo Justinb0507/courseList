@@ -6,7 +6,7 @@
         android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-    android:orientation="vertical"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,13 +67,14 @@
             android:id="@+id/add_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/default_margin"
             android:layout_marginLeft="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
-            android:background="@color/background"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/rounded_corner_course"
             app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title">
+            app:layout_constraintTop_toBottomOf="@+id/add_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/quantite"
@@ -85,7 +86,6 @@
                 android:hint="Quantité"
                 android:maxLines="1"
                 android:textColorHint="@color/turquoise"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/item"
                 app:layout_constraintStart_toEndOf="@+id/item"
                 app:layout_constraintTop_toTopOf="@+id/item" />
@@ -99,7 +99,6 @@
                 android:hint="Nom du produit"
                 android:maxLines="1"
                 android:textColorHint="@color/turquoise"
-                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -113,7 +112,6 @@
                 android:hint="Categorie"
                 android:maxLines="1"
                 android:textColorHint="@color/turquoise"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/quantite"
                 app:layout_constraintTop_toTopOf="@+id/quantite" />
@@ -124,17 +122,40 @@
                 android:layout_height="30dp"
                 android:src="@drawable/plus_bleu_canard"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/categorie"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/sun" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/add_text"
+            style="@style/DefaultTextStyle"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ajouter un produit !"
+            android:textColor="@color/bleu_canard"
+            app:layout_constraintEnd_toEndOf="@+id/title"
+            app:layout_constraintStart_toStartOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <ImageView
+            android:id="@+id/open"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+            app:layout_constraintEnd_toEndOf="@+id/add_item"
+            app:layout_constraintStart_toStartOf="@+id/add_item"
+            app:layout_constraintTop_toBottomOf="@+id/add_item"
+            app:tint="@color/bleu_canard" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout7"
-            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"

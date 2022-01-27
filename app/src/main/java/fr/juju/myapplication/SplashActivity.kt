@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import fr.juju.myapplication.CourseRepository.Singleton.courseList
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
 

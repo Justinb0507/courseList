@@ -193,6 +193,7 @@ class CourseListeFragment (val context: MainActivity
             clearCourse()
             context.hideKeyboard()
         }
+
         var categorieInput = view.findViewById<AutoCompleteTextView>(R.id.categorie)
         var categorieInputList = arrayListOf<String>()
         for(item in categorieList){

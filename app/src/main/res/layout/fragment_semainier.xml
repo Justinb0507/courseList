@@ -18,6 +18,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/eye"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/default_margin"
+                android:src="@drawable/eye"
+                android:adjustViewBounds="true"
+                app:layout_constraintBottom_toBottomOf="@+id/toggleButton"
+                app:layout_constraintEnd_toStartOf="@+id/toggleButton"
+                app:layout_constraintTop_toTopOf="@+id/toggleButton" />
+
+            <ImageView
+                android:id="@+id/calendar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/default_margin"
+                android:src="@drawable/calendar"
+                app:tint="@color/sun"
+                android:adjustViewBounds="true"
+                app:layout_constraintBottom_toBottomOf="@+id/toggleButton"
+                app:layout_constraintEnd_toStartOf="@+id/toggleButton"
+                app:layout_constraintTop_toTopOf="@+id/toggleButton"
+                />
+
             <Switch
                 android:id="@+id/toggleButton"
                 android:layout_width="wrap_content"

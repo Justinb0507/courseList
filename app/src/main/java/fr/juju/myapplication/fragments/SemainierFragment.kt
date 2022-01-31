@@ -56,15 +56,21 @@ class SemainierFragment (
             currentSemaine = semainierSuivantList
             suivant = true
             view.findViewById<Switch>(R.id.toggleButton).isChecked = true
+            view.findViewById<ImageView>(R.id.eye).visibility = View.GONE
+            view.findViewById<ImageView>(R.id.calendar).visibility = View.VISIBLE
         }
         else {
             currentSemaine = semainierList
             suivant = false
             view.findViewById<Switch>(R.id.toggleButton).isChecked = false
+            view.findViewById<ImageView>(R.id.eye).visibility = View.VISIBLE
+            view.findViewById<ImageView>(R.id.calendar).visibility = View.GONE
         }
 
         view.findViewById<Switch>(R.id.toggleButton).setOnClickListener{
             if( view.findViewById<Switch>(R.id.toggleButton).isChecked){
+                view.findViewById<ImageView>(R.id.eye).visibility = View.GONE
+                view.findViewById<ImageView>(R.id.calendar).visibility = View.VISIBLE
                 currentSemaine = semainierSuivantList
                 suivant = true
                 if(selectedDay == "lundi"){
@@ -95,6 +101,8 @@ class SemainierFragment (
                 }
             }
             else  {
+                view.findViewById<ImageView>(R.id.eye).visibility = View.VISIBLE
+                view.findViewById<ImageView>(R.id.calendar).visibility = View.GONE
                 currentSemaine = semainierList
                 suivant = false
                 if(selectedDay == "lundi"){

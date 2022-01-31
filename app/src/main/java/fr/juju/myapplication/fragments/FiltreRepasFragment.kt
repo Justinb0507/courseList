@@ -6,6 +6,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.opengl.Visibility
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -193,6 +195,7 @@ override fun onCreateView(
 
     view.findViewById<Button>(R.id.research).setOnClickListener{
         if(research(view.findViewById<EditText>(R.id.research_input).text.toString()).isNotEmpty()){
+            context.hideKeyboard()
             context.loadFragment(ResultResearchFragment(context, research(view.findViewById<EditText>(R.id.research_input).text.toString()), time, selectedDay, currentSemaine))
         }
         else {
@@ -215,39 +218,33 @@ override fun onCreateView(
             set.start()
         }
     }
-    view.findViewById<EditText>(R.id.research_input).setOnKeyListener(
-        View.OnKeyListener { v, keyCode, event ->
-        if (keyCode == KeyEvent.KEYCODE_ENTER) {
-            context.hideKeyboard()
-            if(research(view.findViewById<EditText>(R.id.research_input).text.toString()).isNotEmpty()){
-                context.loadFragment(ResultResearchFragment(context, research(view.findViewById<EditText>(R.id.research_input).text.toString()), time, selectedDay, currentSemaine))
-            }
-            else {
-                view.findViewById<ImageView>(R.id.searchbar).animate().alpha(0F).setDuration(10)
-                view.findViewById<ImageView>(R.id.searchbar_red).animate().alpha(1F).setDuration(1)
 
-                val scaleX = ObjectAnimator.ofFloat(view.findViewById<ImageView>(R.id.searchbar_red), View.SCALE_X, 1.0f, 1.1f).setDuration(200)
-                val scaleY = ObjectAnimator.ofFloat(view.findViewById<ImageView>(R.id.searchbar_red), View.SCALE_Y, 1.0f, 1.1f).setDuration(200)
-                val downscaleX = ObjectAnimator.ofFloat(view.findViewById<ImageView>(R.id.searchbar_red), View.SCALE_X, 1.1f, 1.0f).setDuration(200)
-                val downscaleY = ObjectAnimator.ofFloat(view.findViewById<ImageView>(R.id.searchbar_red), View.SCALE_Y, 1.1f, 1.0f).setDuration(200)
 
-                val set = AnimatorSet()
-                set.playTogether(scaleX, scaleY)
-                set.play(downscaleX).after(scaleX)
-                set.playTogether(downscaleX, downscaleY)
-                set.playTogether(scaleX, scaleY)
-                set.play(downscaleX).after(scaleX)
-                set.playTogether(downscaleX, downscaleY)
-                set.start()
+    view.findViewById<EditText>(R.id.research_input).addTextChangedListener(
+        object : TextWatcher {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(s.contains("\n")) {
+                    view.findViewById<EditText>(R.id.research_input).setText(s.toString().replace("\n",""))
+                    view.findViewById<EditText>(R.id.research_input).setSelection(s.length-1)
+                    view.findViewById<Button>(R.id.research).performClick()
+                }
             }
-            return@OnKeyListener true
+
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+                // Fires right before text is changing
+            }
+
+            override fun afterTextChanged(s: Editable) {
+
+
+            }
         }
-            else {
-            view.findViewById<ImageView>(R.id.searchbar_red).animate().alpha(0F).setDuration(10)
-            view.findViewById<ImageView>(R.id.searchbar).animate().alpha(1F).setDuration(1)
-        }
-            return@OnKeyListener false
-        })
+    )
 
     view.findViewById<EditText>(R.id.research_input).setOnClickListener{
         view.findViewById<ImageView>(R.id.searchbar_red).animate().alpha(0F).setDuration(10)

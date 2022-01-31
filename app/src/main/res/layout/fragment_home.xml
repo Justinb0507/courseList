@@ -426,7 +426,6 @@
                 android:fontFamily="@font/montserratalternateslight"
                 android:hint="De quoi as-tu envie ?"
                 android:maxLines="1"
-                android:singleLine="true"
                 android:textColor="@color/white"
                 android:textColorHint="@color/turquoise"
                 android:textSize="15dp"

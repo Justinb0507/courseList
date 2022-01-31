@@ -118,6 +118,7 @@ class CourseListeFragment (val context: MainActivity
             }
         }
 
+
         var repo = CourseRepository()
         repo.updateData {
 
@@ -156,12 +157,16 @@ class CourseListeFragment (val context: MainActivity
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
                 view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
                 view.findViewById<ImageView>(R.id.open).visibility = View.GONE
+                var saveState = (recyclerCourseList.layoutManager as LinearLayoutManager).onSaveInstanceState()
                 recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, true, R.layout.item_course_vertical)
                 recyclerCourseList.layoutManager = LinearLayoutManager(context)
+                (recyclerCourseList.layoutManager as LinearLayoutManager).onRestoreInstanceState(saveState)
             }
             else if (!view.findViewById<Switch>(R.id.toggleButton).isChecked && view.findViewById<Switch>(R.id.toggleButton).visibility == View.VISIBLE) {
+                var saveState = (recyclerCourseList.layoutManager as LinearLayoutManager).onSaveInstanceState()
                 recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
                 recyclerCourseList.layoutManager = LinearLayoutManager(context)
+                (recyclerCourseList.layoutManager as LinearLayoutManager).onRestoreInstanceState(saveState)
             }
         }
 

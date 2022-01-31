@@ -164,28 +164,43 @@ class AddRepasFragment(
         }
         val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tags)
         collectionRecyclerView.adapter = EditTagsAdapter(context, repas.tags, R.layout.item_edit_tags_horizontal)
-        collectionRecyclerView.scrollToPosition(300)
         val add_tagButton = view.findViewById<ImageView>(R.id.add_tag)
         add_tagButton.setOnClickListener{
             if(view.findViewById<EditText>(R.id.tag_input).text.isNotEmpty()){
                 add_tag(view)
                 collectionRecyclerView.adapter = EditTagsAdapter(context, repas.tags, R.layout.item_edit_tags_horizontal)
                 view.findViewById<EditText>(R.id.tag_input).setText("")
-                collectionRecyclerView.scrollToPosition(1500)
+                view.findViewById<EditText>(R.id.tag_input).requestFocus()
             }
-            add_tagButton.animate().translationX(+250F).setDuration(150)
-            view.findViewById<EditText>(R.id.tag_input).visibility = View.VISIBLE
-            view.findViewById<EditText>(R.id.tag_input).requestFocus()
-            val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            showMe.showSoftInput(view.findViewById<EditText>(R.id.tag_input), InputMethodManager.SHOW_IMPLICIT)
-
         }
+        view.findViewById<EditText>(R.id.tag_input).addTextChangedListener(
+            object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if(s.contains("\n")) {
+                        view.findViewById<EditText>(R.id.tag_input).setText(s.toString().replace("\n",""))
+                        add_tagButton.performClick()
+                    }}
+
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Fires right before text is changing
+                }
+
+                override fun afterTextChanged(s: Editable) {
+
+
+                }
+            }
+        )
 
 
         //Set to linerarlayout to ingredients
         view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.GONE
         view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.INVISIBLE
-
 
         view.findViewById<TextView>(R.id.ingredients).setOnClickListener{
             switcher("ingredient")
@@ -211,8 +226,6 @@ class AddRepasFragment(
                     }
                 }
             })
-
-
 
         return view
     }

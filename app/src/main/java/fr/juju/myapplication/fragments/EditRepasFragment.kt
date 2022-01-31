@@ -224,6 +224,29 @@ class EditRepasFragment(
             val showMe = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             showMe.showSoftInput(view.findViewById<EditText>(R.id.tag_input), InputMethodManager.SHOW_IMPLICIT)
         }
+        view.findViewById<EditText>(R.id.tag_input).addTextChangedListener(
+            object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if(s.contains("\n")) {
+                        view.findViewById<EditText>(R.id.tag_input).setText(s.toString().replace("\n",""))
+                        add_tagButton.performClick()
+                    }}
+
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Fires right before text is changing
+                }
+
+                override fun afterTextChanged(s: Editable) {
+
+
+                }
+            }
+        )
 
         view.findViewById<ImageView>(R.id.image).setOnClickListener{
             launchGallery()

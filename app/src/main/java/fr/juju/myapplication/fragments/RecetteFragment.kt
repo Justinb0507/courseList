@@ -114,10 +114,18 @@ class RecetteFragment (
             context.unprintMidi()
             view.findViewById<ConstraintLayout>(R.id.planning).setOnClickListener{
                 if (currentSemaine == "suivant"){
-                    repoSuivant.setSoir(time, selectedDay, currentRepas.id)
-                    Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
-                    context.loadFragment(SemainierFragment(context, selectedDay, "suivant"))
-                    view?.findViewById<ImageView>(R.id.icone_soir)?.visibility = View.GONE
+                    if(ingredientList.filter { s->s.id_repas == currentRepas.id }.filter{ s->s.name.contains("optionnel") }.isNotEmpty()){
+                        IngredientOptionnelPopup(context,ingredientList.filter { s->s.id_repas == currentRepas.id }.filter{ s->s.name.contains("optionnel") } as ArrayList<IngredientModel>, currentRepas, time, selectedDay).show()
+                    }else{
+                        addIngredientCourse(ingredientList.filter { s->s.id_repas == currentRepas.id } as ArrayList<IngredientModel>)
+                        if(semainierSuivantList.filter{s->s.id_semainier == selectedDay}[0].soir != "None"){
+                            deleteIngredientCourse(ingredientList.filter { s->s.id_repas == semainierSuivantList.filter{s->s.id_semainier == selectedDay}[0].soir } as ArrayList<IngredientModel>)
+                        }
+                        repoSuivant.setSoir(time, selectedDay, currentRepas.id)
+                        Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
+                        context.loadFragment(SemainierFragment(context, selectedDay,"suivant" ))
+                        view?.findViewById<ImageView>(R.id.icone_soir)?.visibility = View.GONE
+                    }
                 }else {
                     repo2.setSoir(time, selectedDay, currentRepas.id)
                     Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
@@ -138,10 +146,18 @@ class RecetteFragment (
             context.unprintMidi()
             view.findViewById<ConstraintLayout>(R.id.planning).setOnClickListener{
                 if (currentSemaine == "suivant"){
-                    repoSuivant.setApero(time, selectedDay, currentRepas.id)
-                    Toast.makeText(context, "Repas ajouté pour l\'$time du $selectedDay !", Toast.LENGTH_SHORT).show()
-                    context.loadFragment(SemainierFragment(context, selectedDay, "suivant"))
-                    view?.findViewById<ImageView>(R.id.icone_apero)?.visibility = View.GONE
+                    if(ingredientList.filter { s->s.id_repas == currentRepas.id }.filter{ s->s.name.contains("optionnel") }.isNotEmpty()){
+                        IngredientOptionnelPopup(context,ingredientList.filter { s->s.id_repas == currentRepas.id }.filter{ s->s.name.contains("optionnel") } as ArrayList<IngredientModel>, currentRepas, time, selectedDay).show()
+                    }else{
+                        addIngredientCourse(ingredientList.filter { s->s.id_repas == currentRepas.id } as ArrayList<IngredientModel>)
+                        if(semainierSuivantList.filter{s->s.id_semainier == selectedDay}[0].apero != "None"){
+                            deleteIngredientCourse(ingredientList.filter { s->s.id_repas == semainierSuivantList.filter{s->s.id_semainier == selectedDay}[0].apero } as ArrayList<IngredientModel>)
+                        }
+                        repoSuivant.setApero(time, selectedDay, currentRepas.id)
+                        Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
+                        context.loadFragment(SemainierFragment(context, selectedDay,"suivant" ))
+                        view?.findViewById<ImageView>(R.id.icone_apero)?.visibility = View.GONE
+                    }
                 }else {
                     repo2.setApero(time, selectedDay, currentRepas.id)
                     Toast.makeText(context, "Repas ajouté pour l\'$time du $selectedDay !", Toast.LENGTH_SHORT).show()
@@ -379,7 +395,7 @@ class RecetteFragment (
                                     value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" *")).replace(" ", "").toInt()-1
                                     oldItem.quantite = value.toString() + " *" + " au jugé"
                                 }else if (oldItem.quantite.contains("au jugé")){
-                                    oldItem.quantite = "2 * au jugé"
+                                    oldItem.quantite = "0 * au jugé"
                                 }
                             }
                             else if (ingredient.quantite.contains("boites")){

@@ -18,14 +18,13 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="317dp"
-        android:layout_height="170dp"
-        android:layout_marginTop="@dimen/default_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:src="@drawable/home_image"
+        android:src="@drawable/homepage_illustration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentDays" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/currentDays"
@@ -33,10 +32,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/default_margin"
-        android:text="C’est l’heure de se \n mettre en cuisine ! :)"
+        android:gravity="center"
+        android:text="C’est l’heure de se mettre en cuisine ! :)"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <LinearLayout
         android:id="@+id/linearLayout6"
@@ -45,34 +47,56 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+        app:layout_constraintTop_toBottomOf="@+id/currentDays">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/Midi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin">
+            android:layout_marginTop="@dimen/default_margin"
+            >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_height="2dp"
+                android:background="@color/sun"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@+id/nomMidi"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/midi"
+                android:layout_marginRight="@dimen/default_margin"
+                app:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                app:layout_constraintEnd_toStartOf="@+id/textView5"
+                app:layout_constraintTop_toTopOf="@+id/textView5" />
 
             <TextView
                 android:id="@+id/textView5"
                 style="@style/TitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_margin"
-                android:layout_marginTop="@dimen/default_margin"
                 android:text="Midi"
                 android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="230dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="@dimen/default_margin"
                 android:layout_marginTop="@dimen/default_margin"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp"
-                app:layout_constraintStart_toStartOf="@+id/textView5"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5">
 
                 <ImageView
@@ -92,34 +116,33 @@
                 app:layout_constraintTop_toTopOf="@+id/cardView2" />
 
             <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="32dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/descriptionMidi"
-                app:layout_constraintStart_toStartOf="@+id/nomMidi"
-                app:layout_constraintTop_toBottomOf="@+id/nomMidi">
+                android:layout_width="100dp"
+                android:layout_height="118dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                app:layout_constraintStart_toEndOf="@+id/cardView2"
+                app:layout_constraintTop_toTopOf="@+id/cardView2">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tagListMidi"
-                    android:layout_width="200dp"
-                    android:layout_height="32dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:layout_width="100dp"
+                    android:layout_height="118dp"
+                     />
 
             </LinearLayout>
 
 
             <TextView
                 android:id="@+id/nomMidi"
-                style="@style/SubstitleTextStyle"
-                android:layout_width="200dp"
+                style="@style/TitleTextStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_margin"
-                android:singleLine="true"
-                android:ellipsize="end"
+                android:layout_marginTop="@dimen/default_margin"
+                android:gravity="center"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginLeft="@dimen/default_margin"
                 android:text="Nom du plat"
-                app:layout_constraintStart_toEndOf="@+id/cardView2"
-                app:layout_constraintTop_toTopOf="@+id/cardView2" />
+                app:layout_constraintStart_toStartOf="@+id/cardView2"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
             <ImageView
                 android:id="@+id/clock"
@@ -134,11 +157,11 @@
             <TextView
                 android:id="@+id/descriptionMidi"
                 style="@style/DefaultTextStyle"
-                android:layout_width="168dp"
-                android:layout_height="24dp"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:singleLine="true"
                 android:ellipsize="end"
+                android:singleLine="true"
                 android:text="Description du plat"
                 app:layout_constraintBottom_toBottomOf="@+id/cardView2"
                 app:layout_constraintStart_toEndOf="@+id/clock"
@@ -151,37 +174,49 @@
             android:id="@+id/Apero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/default_margin">
+            android:layout_marginTop="@dimen/default_margin"
+            >
 
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView4"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="230dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="@dimen/default_margin"
                 android:layout_marginTop="@dimen/default_margin"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
+                app:layout_constraintStart_toStartOf="@+id/view_separation4"
                 app:layout_constraintTop_toBottomOf="@+id/textView4">
 
                 <ImageView
                     android:id="@+id/image_item4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    />
             </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/apero"
+                app:tint="@color/white"
+                android:layout_marginRight="@dimen/default_margin"
+                app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                app:layout_constraintEnd_toStartOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="@+id/textView4" />
 
             <TextView
                 android:id="@+id/textView4"
                 style="@style/TitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:layout_marginTop="@dimen/default_margin"
                 android:text="Apéro"
                 android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <View
                 android:id="@+id/view_separation4"
@@ -194,31 +229,39 @@
 
             <TextView
                 android:id="@+id/nomApero"
-                style="@style/SubstitleTextStyle"
-                android:layout_width="200dp"
-                android:ellipsize="end"
-                android:singleLine="true"
+                style="@style/TitleTextStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:gravity="center"
+                android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginLeft="@dimen/default_margin"
                 android:text="Nom du plat"
-                app:layout_constraintStart_toEndOf="@+id/cardView4"
-                app:layout_constraintTop_toTopOf="@+id/cardView4" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_height="2dp"
+                android:background="@color/sun"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@+id/nomApero"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
             <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="32dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/view_separation4"
-                app:layout_constraintStart_toStartOf="@+id/nomApero"
-                app:layout_constraintTop_toTopOf="@+id/view_separation4">
+                android:layout_width="100dp"
+                android:layout_height="118dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                app:layout_constraintStart_toEndOf="@+id/cardView4"
+                app:layout_constraintTop_toTopOf="@+id/cardView4">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tagListApero"
-                    android:layout_width="200dp"
-                    android:layout_height="32dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:layout_width="100dp"
+                    android:layout_height="118dp" />
 
             </LinearLayout>
 
@@ -235,11 +278,11 @@
             <TextView
                 android:id="@+id/descriptionApero"
                 style="@style/DefaultTextStyle"
-                android:layout_width="169dp"
-                android:ellipsize="end"
-                android:singleLine="true"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="Description du plat"
                 app:layout_constraintBottom_toBottomOf="@+id/cardView4"
                 app:layout_constraintStart_toEndOf="@+id/clock3"
@@ -251,12 +294,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/Soir"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            >
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="230dp"
+                android:layout_height="150dp"
                 android:layout_marginStart="@dimen/default_margin"
                 android:layout_marginTop="@dimen/default_margin"
                 app:cardCornerRadius="8dp"
@@ -271,16 +316,27 @@
                     android:scaleType="centerCrop" />
             </androidx.cardview.widget.CardView>
 
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/default_margin"
+                android:src="@drawable/lune"
+                app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                app:layout_constraintEnd_toStartOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="@+id/textView3"
+                app:tint="@color/white" />
+
             <TextView
                 android:id="@+id/textView3"
                 style="@style/TitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_margin"
                 android:text="Ce soir"
                 android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"  />
 
 
             <View
@@ -295,30 +351,37 @@
 
             <TextView
                 android:id="@+id/nomSoir"
-                style="@style/SubstitleTextStyle"
-                android:layout_width="200dp"
+                style="@style/TitleTextStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:gravity="center"
+                android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginLeft="@dimen/default_margin"
-                android:ellipsize="end"
-                android:singleLine="true"
                 android:text="Nom du plat"
-                app:layout_constraintStart_toEndOf="@+id/cardView3"
-                app:layout_constraintTop_toTopOf="@+id/cardView3" />
-
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="2dp"
+                android:background="@color/sun"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@+id/nomSoir"
+                app:layout_constraintStart_toStartOf="parent" />
             <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="32dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/view_separation3"
-                app:layout_constraintStart_toStartOf="@+id/nomSoir"
-                app:layout_constraintTop_toTopOf="@+id/view_separation3">
+                android:layout_width="100dp"
+                android:layout_height="118dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                app:layout_constraintStart_toEndOf="@+id/cardView3"
+                app:layout_constraintTop_toTopOf="@+id/cardView3">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tagListSoir"
-                    android:layout_width="200dp"
-                    android:layout_height="32dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:layout_width="100dp"
+                    android:layout_height="118dp" />
 
             </LinearLayout>
 
@@ -335,10 +398,12 @@
             <TextView
                 android:id="@+id/descriptionSoir"
                 style="@style/DefaultTextStyle"
-                android:layout_width="169dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="Description du plat"
+                android:ellipsize="end"
+                android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="@+id/cardView3"
                 app:layout_constraintStart_toEndOf="@+id/clock2"
                 app:layout_constraintTop_toTopOf="@+id/clock2" />
@@ -352,28 +417,78 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp">
 
+            <EditText
+                android:id="@+id/research_input"
+                android:layout_width="234dp"
+                android:layout_height="42dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:background="@null"
+                android:fontFamily="@font/montserratalternateslight"
+                android:hint="De quoi as-tu envie ?"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/turquoise"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/searchbar"
+                app:layout_constraintStart_toStartOf="@+id/searchbar"
+                app:layout_constraintTop_toTopOf="@+id/searchbar" />
+
+            <Button
+                android:id="@+id/research"
+                android:layout_width="38dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="12dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="@+id/searchbar"
+                app:layout_constraintEnd_toEndOf="@+id/searchbar"
+                app:layout_constraintTop_toTopOf="@+id/searchbar" />
+
+            <ImageView
+                android:id="@+id/searchbar"
+                android:layout_width="345dp"
+                android:layout_height="54dp"
+                android:src="@drawable/searchbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/searchbar_red"
+                android:layout_width="345dp"
+                android:layout_height="54dp"
+                android:alpha="0"
+                android:src="@drawable/searchbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@android:color/holo_red_dark" />
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/vite_recette"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="287dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:background="@drawable/rounded_corner"
+                android:backgroundTint="@color/sun"
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="Vite une recette !"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/textView10">
 
                 <ImageView
+                    android:id="@+id/imageView10"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginEnd="20dp"
                     android:rotation="-20"
+                    android:layout_marginLeft="10dp"
                     android:src="@drawable/lamp"
                     app:layout_constraintBottom_toBottomOf="@+id/vite_recette"
-                    app:layout_constraintEnd_toStartOf="@+id/textView7"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/vite_recette" />
 
@@ -382,61 +497,25 @@
                     style="@style/TitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
                     android:text="Vite une recette !"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView10"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/imageView10"
+                    app:layout_constraintTop_toTopOf="@+id/imageView10" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
             <TextView
-                android:id="@+id/planning"
+                android:id="@+id/textView10"
                 style="@style/TitleTextStyle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp"
-                android:gravity="center"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/rounded_corner_affect"
-                android:padding="8dp"
-                android:text="Planifier ma semaine"
+                android:layout_marginTop="@dimen/default_margin"
+                android:text="Pas d'idée ?"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vite_recette" />
+                app:layout_constraintTop_toBottomOf="@+id/searchbar" />
 
-            <TextView
-                android:id="@+id/course_liste"
-                style="@style/TitleTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:gravity="center"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/rounded_corner_affect"
-                android:padding="8dp"
-                android:text="Ma liste de course"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/planning" />
-
-            <TextView
-                android:id="@+id/recettes"
-                style="@style/TitleTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="65dp"
-                android:layout_marginRight="65dp"
-                android:gravity="center"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/rounded_corner_affect"
-                android:padding="8dp"
-                android:text="Les recettes"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/course_liste" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

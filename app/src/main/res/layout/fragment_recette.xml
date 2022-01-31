@@ -97,7 +97,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="364dp"
-                android:layout_height="30dp"
+                android:layout_height="46dp"
                 android:layout_marginTop="@dimen/default_margin"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@+id/description"
@@ -106,7 +106,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tags"
                     android:layout_width="364dp"
-                    android:layout_height="30dp"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="@+id/description"
@@ -263,36 +264,39 @@
 
         <ImageView
             android:id="@+id/icone_soir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginRight="10dp"
+            android:adjustViewBounds="true"
             android:src="@drawable/lune"
-            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white"/>
+            app:tint="@color/white" />
 
         <ImageView
             android:id="@+id/icone_midi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginRight="10dp"
+            android:adjustViewBounds="true"
             android:src="@drawable/midi"
-            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white"/>
+            app:tint="@color/white" />
 
         <ImageView
             android:id="@+id/icone_apero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginRight="10dp"
+            android:adjustViewBounds="true"
             android:src="@drawable/apero"
-            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white"/>
+            app:tint="@color/white" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

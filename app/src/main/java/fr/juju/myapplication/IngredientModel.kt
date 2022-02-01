@@ -5,6 +5,6 @@ class IngredientModel (
     var name:String = "NameIngredient",
     val id_repas:String = "NomPlat",
     var id_categorie:String = "categorie",
-    val quantite:String = "1",
+    var quantite:String = "1",
     var rank: Int = 0
 )

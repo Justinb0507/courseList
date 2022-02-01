@@ -145,6 +145,7 @@ class EditRepasFragment(
             object : TextWatcher {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                     if(s.contains("\n")) {
+                        view.findViewById<EditText>(R.id.quantite).setText(s.toString().replace("\n",""))
                         addIngredientButton.performClick()
                     }}
 
@@ -356,8 +357,6 @@ class EditRepasFragment(
             Firebase.storage.reference.child(fileName).downloadUrl.addOnSuccessListener {
                 currentRepas.imageUri = it.toString()
                 repo.updateRepas(currentRepas)
-                IngredientPopup(context,ingredients as ArrayList<IngredientModel>).show()
-                context.loadFragment(RecetteFragment(context,currentRepas, "None", "None", "None"))
             }.addOnFailureListener {
                 Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
             }
@@ -369,6 +368,15 @@ class EditRepasFragment(
 
 
 
+    }
+
+    fun getPositionIngredient(ingredient: IngredientModel): Int {
+        for (i in ingredientList.indices){
+            if (ingredientList[i].name == ingredient.name || ingredientList[i].name == ingredient.name+"s"){
+                return i
+            }
+        }
+        return -1
     }
 
     private fun addIngredient(view : View){
@@ -390,6 +398,12 @@ class EditRepasFragment(
             repasIngredientquantite,
             0
         )
+
+        if(getPositionIngredient(ingredient) != -1){
+            ingredient.id_categorie = ingredientList[getPositionIngredient(ingredient)].id_categorie
+            ingredient.name = ingredientList[getPositionIngredient(ingredient)].name
+        }
+
         if(ingredients.filter{s-> s.name == ingredient.name}.isEmpty() && repasIngredient != "" && repasIngredient != " "&& repasIngredient != "  " && ingredient.quantite.isNotEmpty()){
             ingredients.add(ingredient)
         }
@@ -426,9 +440,7 @@ class EditRepasFragment(
         }
         else {
             repo.updateRepas(currentRepas)
-            IngredientPopup(context,ingredients as ArrayList<IngredientModel>).show()
-            context.loadFragment(RecetteFragment(context,currentRepas, "None", "None", "None"))
-        }
+           }
 
         for(ingredientRepo in ingredientList.filter { s->s.id_repas == currentRepas.id }){
             if(!ingredients.contains(ingredientRepo)){
@@ -445,6 +457,8 @@ class EditRepasFragment(
             repo2.updateIngredient(ingredient)
         }
 
+        IngredientPopup(context,ingredients).show()
+        context.loadFragment(RecetteFragment(context,currentRepas, "None", "None", "None"))
         Toast.makeText(context, "Repas modifié !", Toast.LENGTH_SHORT).show()
     }
 }

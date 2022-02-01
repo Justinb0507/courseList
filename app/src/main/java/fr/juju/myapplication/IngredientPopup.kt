@@ -11,7 +11,7 @@ import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
 import fr.juju.myapplication.adapter.PopupIngredientAdapter
 
 
-class IngredientPopup(private val context: MainActivity, private val ingredients: ArrayList<IngredientModel>)
+class IngredientPopup(private val context: MainActivity, private val ingredientsInput: ArrayList<IngredientModel>)
     : Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +20,17 @@ class IngredientPopup(private val context: MainActivity, private val ingredients
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.ingredient_popup)
         val listIngredientView = findViewById<RecyclerView>(R.id.recycler)
+        val ingredients = arrayListOf<IngredientModel>()
+        for (item in ingredientsInput){
+            if (item.id_categorie == "None"){
+                ingredients.add(item)
+            }
+        }
+        for (item in ingredientsInput){
+            if (item.id_categorie != "None"){
+                ingredients.add(item)
+            }
+        }
 
         listIngredientView.adapter = PopupIngredientAdapter(context,ingredients, R.layout.item_edit_ingredient_categorie)
         listIngredientView.layoutManager = LinearLayoutManager(context)

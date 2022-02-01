@@ -44,15 +44,7 @@ class IngredientRepository {
     }
 
     fun insertIngredient(ingredient: IngredientModel) {
-
-        if(ingredientList.filter{s-> s.name == ingredient.name}.isEmpty()){
-            databaseRef.child(ingredient.id).setValue(ingredient)
-        }
-        if(getPosition(ingredient) != -1){
-            ingredient.id_categorie = ingredientList[getPosition(ingredient)].id_categorie
-            databaseRef.child(ingredient.id).setValue(ingredient)
-        }
-
+        databaseRef.child(ingredient.id).setValue(ingredient)
     }
 
     fun getPosition(ingredient: IngredientModel): Int {

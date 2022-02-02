@@ -1,6 +1,8 @@
 package fr.juju.myapplication.fragments
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,6 +16,8 @@ import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import fr.juju.myapplication.*
 import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
 import fr.juju.myapplication.CourseRepository.Singleton.courseList
@@ -51,6 +55,7 @@ class CourseListeFragment (val context: MainActivity
         var afficheAdd = false
 
         if(courseList.isEmpty()){
+            view.findViewById<ImageView>(R.id.clearCourse).visibility = View.GONE
             view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.VISIBLE
             view.findViewById<Switch>(R.id.toggleButton).visibility = View.GONE
             view.findViewById<ImageView>(R.id.commencer).visibility = View.VISIBLE
@@ -58,6 +63,7 @@ class CourseListeFragment (val context: MainActivity
             view.findViewById<ImageView>(R.id.open).visibility = View.GONE
             view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
         }else {
+            view.findViewById<ImageView>(R.id.clearCourse).visibility = View.VISIBLE
             view.findViewById<Switch>(R.id.toggleButton).visibility = View.VISIBLE
             view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
             view.findViewById<TextView>(R.id.add_text).visibility = View.VISIBLE
@@ -92,6 +98,7 @@ class CourseListeFragment (val context: MainActivity
         view.findViewById<Switch>(R.id.toggleButton).setOnClickListener{
             context.hideKeyboard()
             if(view.findViewById<Switch>(R.id.toggleButton).isChecked){
+                view.findViewById<ImageView>(R.id.clearCourse).visibility = View.GONE
                 view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
                 view.findViewById<ImageView>(R.id.open).visibility = View.GONE
@@ -101,6 +108,7 @@ class CourseListeFragment (val context: MainActivity
                 recyclerCourseList.layoutManager = LinearLayoutManager(context)
             }
             else {
+                view.findViewById<ImageView>(R.id.clearCourse).visibility = View.VISIBLE
                 if(afficheAdd){
                     view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
                     view.findViewById<ImageView>(R.id.open).setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
@@ -131,6 +139,7 @@ class CourseListeFragment (val context: MainActivity
             categoryList = ArrayList(categoryList.sorted())
             if(courseList.isEmpty()){
                 context.hideKeyboard()
+                view.findViewById<ImageView>(R.id.clearCourse).visibility = View.GONE
                 view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.VISIBLE
                 view.findViewById<Switch>(R.id.toggleButton).visibility = View.GONE
                 view.findViewById<ImageView>(R.id.commencer).visibility = View.VISIBLE
@@ -139,6 +148,7 @@ class CourseListeFragment (val context: MainActivity
                 view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
             }else if(courseList.isNotEmpty() && view.findViewById<ConstraintLayout>(R.id.add_item).visibility == View.GONE)
             {
+                view.findViewById<ImageView>(R.id.clearCourse).visibility = View.VISIBLE
                 view.findViewById<Switch>(R.id.toggleButton).visibility = View.VISIBLE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
                 view.findViewById<TextView>(R.id.add_text).visibility = View.VISIBLE
@@ -146,6 +156,7 @@ class CourseListeFragment (val context: MainActivity
                 view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.GONE
             }else if(courseList.isNotEmpty() && view.findViewById<ConstraintLayout>(R.id.add_item).visibility == View.VISIBLE)
             {
+                view.findViewById<ImageView>(R.id.clearCourse).visibility = View.VISIBLE
                 view.findViewById<Switch>(R.id.toggleButton).visibility = View.VISIBLE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.VISIBLE
                 view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
@@ -190,13 +201,20 @@ class CourseListeFragment (val context: MainActivity
             }
         }
 
-        view.findViewById<ImageView>(R.id.generateCourse).setOnClickListener{
-            generateCourse()
-        }
-
-        view.findViewById<ImageView>(R.id.clearCourse).setOnClickListener{
-            clearCourse()
-            context.hideKeyboard()
+        view.findViewById<ImageView>(R.id.clearCourse).setOnClickListener {
+            var builder = AlertDialog.Builder(context)
+            builder.setTitle("Oulaaaaaa !")
+            builder.setMessage("Tu veux vraiment supprimer la liste de cours là ?")
+            builder.setPositiveButton("Oui", DialogInterface.OnClickListener { dialog, id ->
+                clearCourse()
+                context.hideKeyboard()
+            dialog.cancel()
+            })
+            builder.setNegativeButton("Non", DialogInterface.OnClickListener { dialog, id ->
+                dialog.cancel()
+            })
+            var alert: AlertDialog = builder.create()
+            alert.show()
         }
 
         var categorieInput = view.findViewById<AutoCompleteTextView>(R.id.categorie)
@@ -304,330 +322,6 @@ class CourseListeFragment (val context: MainActivity
             repo.insertCourseItem(itemCourse)
         }
 
-    }
-
-    private fun generateCourse(){
-        var repo = CourseRepository()
-        for (days in semainierList){
-            if(days.midi != "None"){
-                var ingredients = ingredientList.filter { s->s.id_repas == repasList.filter { s->s.id == days.midi }[0].id }
-                for (ingredient in ingredients){
-                    var courseItem = CourseModel(
-                        UUID.randomUUID().toString(),
-                        ingredient.name,
-                        ingredient.quantite,
-                        if (ingredient.id_categorie!="None") categorieList.filter { s->s.id == ingredient.id_categorie }[0].name else "Autres",
-                        "false"
-                    )
-                    if(courseList.filter { s->s.name == ingredient.name }.isNotEmpty()){
-                        var isDigit = true
-                        var value = 0
-                        var oldItem = courseList.filter { s->s.name == ingredient.name }[0]
-                        for(lettre in oldItem.quantite){
-                            if(!lettre.isDigit()){
-                                isDigit = false
-                            }
-                        }
-
-                        if (isDigit){
-                            oldItem.quantite = (oldItem.quantite.toInt() + ingredient.quantite.toInt()).toString()
-                        }else{
-                            if (oldItem.quantite.contains("cl")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("cl")).replace(" ", "").toInt()
-                            }
-                            else if (oldItem.quantite.contains("l") && !oldItem.quantite.contains("cl")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("l")).replace(" ", "").toInt()*100
-                            }
-                            else if (oldItem.quantite.contains("g")  && !oldItem.quantite.contains("kg") && !oldItem.quantite.contains("au jugé")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("g")).replace(" ", "").toInt()
-                            }
-                            else if (oldItem.quantite.contains("kg")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("kg")).replace(" ", "").toInt()*1000
-                            }
-                            else if (oldItem.quantite.contains("petit pot")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("petit pot")).replace(" ", "").toInt()
-                            }
-                            else if (oldItem.quantite.contains("petits pots")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("petits pots")).replace(" ", "").toInt()
-                            }
-
-                            if (ingredient.quantite.contains("cl"))
-                            {
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("cl")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " cl"
-                            }
-                            else if (ingredient.quantite.contains("l") && !ingredient.quantite.contains("cl"))
-                            {
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("l")).replace(" ", "").toInt()*100
-                                oldItem.quantite = ((value + newValue).toString()) + " cl"
-                            }
-                            else if (ingredient.quantite.contains("kg"))
-                            {
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("kg")).replace(" ", "").toInt()*1000
-                                oldItem.quantite = ((value + newValue).toString()) + " g"
-                            }
-                            else if (ingredient.quantite.contains("g") && !ingredient.quantite.contains("kg") && !ingredient.quantite.contains("au jugé"))
-                            {
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("g")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " g"
-                            }
-                            else if (ingredient.quantite.contains("au jugé")){
-                                if(oldItem.quantite.contains(" *")){
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" *")).replace(" ", "").toInt()+1
-                                    oldItem.quantite = value.toString() + " *" + " au jugé"
-                                }else
-                                    oldItem.quantite = "2 * " + oldItem.quantite
-                            }
-                            else if (ingredient.quantite.contains("boites")){
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("boites")).replace(" ", "").toInt()
-                                if(oldItem.quantite.contains(" boites")){
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" boites")).replace(" ", "").toInt()
-                                    oldItem.quantite = ((value + newValue).toString()) + " boites"
-                                }else
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" boite")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " boites"
-                            }
-                            else if (ingredient.quantite.contains("petit pot")){
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("petit pot")).replace(" ", "").toInt()
-                                if(oldItem.quantite.contains(" petits pots")){
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" petits pots")).replace(" ", "").toInt()
-                                    oldItem.quantite = ((value + newValue).toString()) + " boites"
-                                }else
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" petit pot")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " petits pots"
-                            }
-                            else if (ingredient.quantite.contains("petits pots")){
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("petit pots")).replace(" ", "").toInt()
-                                if(oldItem.quantite.contains(" petits pots")){
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" petits pots")).replace(" ", "").toInt()
-                                    oldItem.quantite = ((value + newValue).toString()) + " boites"
-                                }else
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" petit pot")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " petits pots"
-                            }
-                        }
-
-                    }
-
-                    else {
-                        courseList.add(courseItem)
-                    }
-                }
-            }
-            if(days.apero != "None"){
-                var ingredients = ingredientList.filter { s->s.id_repas == repasList.filter { s->s.id == days.apero }[0].id }
-                for (ingredient in ingredients){
-                    var courseItem = CourseModel(
-                        UUID.randomUUID().toString(),
-                        ingredient.name,
-                        ingredient.quantite,
-                        if (ingredient.id_categorie!="None") categorieList.filter { s->s.id == ingredient.id_categorie }[0].name else "Autres",
-                        "false"
-                    )
-                    if(courseList.filter { s->s.name == ingredient.name }.isNotEmpty()){
-                        var isDigit = true
-                        var value = 0
-                        var oldItem = courseList.filter { s->s.name == ingredient.name }[0]
-                        for(lettre in oldItem.quantite){
-                            if(!lettre.isDigit()){
-                                isDigit = false
-                            }
-                        }
-
-                        if (isDigit){
-                            oldItem.quantite = (oldItem.quantite.toInt() + ingredient.quantite.toInt()).toString()
-                        }else{
-                            if (oldItem.quantite.contains("cl")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("cl")).replace(" ", "").toInt()
-                            }
-                            else if (oldItem.quantite.contains("l") && !oldItem.quantite.contains("cl")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("l")).replace(" ", "").toInt()*100
-                            }
-                            else if (oldItem.quantite.contains("g")  && !oldItem.quantite.contains("kg") && !oldItem.quantite.contains("au jugé")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("g")).replace(" ", "").toInt()
-                            }
-                            else if (oldItem.quantite.contains("kg")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("kg")).replace(" ", "").toInt()*1000
-                            }
-                            else if (oldItem.quantite.contains("petit pot")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("petit pot")).replace(" ", "").toInt()
-                            }
-                            else if (oldItem.quantite.contains("petits pots")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("petits pots")).replace(" ", "").toInt()
-                            }
-
-                            if (ingredient.quantite.contains("cl"))
-                            {
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("cl")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " cl"
-                            }
-                            else if (ingredient.quantite.contains("l") && !ingredient.quantite.contains("cl"))
-                            {
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("l")).replace(" ", "").toInt()*100
-                                oldItem.quantite = ((value + newValue).toString()) + " cl"
-                            }
-                            else if (ingredient.quantite.contains("kg"))
-                            {
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("kg")).replace(" ", "").toInt()*1000
-                                oldItem.quantite = ((value + newValue).toString()) + " g"
-                            }
-                            else if (ingredient.quantite.contains("g") && !ingredient.quantite.contains("kg") && !ingredient.quantite.contains("au jugé"))
-                            {
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("g")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " g"
-                            }
-                            else if (ingredient.quantite.contains("au jugé")){
-                                if(oldItem.quantite.contains(" *")){
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" *")).replace(" ", "").toInt()+1
-                                    oldItem.quantite = value.toString() + " *" + " au jugé"
-                                }else
-                                    oldItem.quantite = "2 * " + oldItem.quantite
-                            }
-                            else if (ingredient.quantite.contains("boites")){
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("boites")).replace(" ", "").toInt()
-                                if(oldItem.quantite.contains(" boites")){
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" boites")).replace(" ", "").toInt()
-                                    oldItem.quantite = ((value + newValue).toString()) + " boites"
-                                }else
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" boite")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " boites"
-                            }
-                            else if (ingredient.quantite.contains("petit pot")){
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("petit pot")).replace(" ", "").toInt()
-                                if(oldItem.quantite.contains(" petits pots")){
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" petits pots")).replace(" ", "").toInt()
-                                    oldItem.quantite = ((value + newValue).toString()) + " boites"
-                                }else
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" petit pot")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " petits pots"
-                            }
-                            else if (ingredient.quantite.contains("petits pots")){
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("petit pots")).replace(" ", "").toInt()
-                                if(oldItem.quantite.contains(" petits pots")){
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" petits pots")).replace(" ", "").toInt()
-                                    oldItem.quantite = ((value + newValue).toString()) + " boites"
-                                }else
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" petit pot")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " petits pots"
-                            }
-                        }
-
-                    }
-
-                    else {
-                        courseList.add(courseItem)
-                    }
-                }
-            }
-            if(days.soir != "None"){
-                var ingredients = ingredientList.filter { s->s.id_repas == repasList.filter { s->s.id == days.soir }[0].id }
-                for (ingredient in ingredients){
-                    var courseItem = CourseModel(
-                        UUID.randomUUID().toString(),
-                        ingredient.name,
-                        ingredient.quantite,
-                        if (ingredient.id_categorie!="None") categorieList.filter { s->s.id == ingredient.id_categorie }[0].name else "Autres",
-                        "false"
-                    )
-                    if(courseList.filter { s->s.name == ingredient.name }.isNotEmpty()){
-                        var isDigit = true
-                        var value = 0
-                        var oldItem = courseList.filter { s->s.name == ingredient.name }[0]
-                        for(lettre in oldItem.quantite){
-                            if(!lettre.isDigit()){
-                                isDigit = false
-                            }
-                        }
-
-                        if (isDigit){
-                            oldItem.quantite = (oldItem.quantite.toInt() + ingredient.quantite.toInt()).toString()
-                        }else{
-                            if (oldItem.quantite.contains("cl")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("cl")).replace(" ", "").toInt()
-                            }
-                            else if (oldItem.quantite.contains("l") && !oldItem.quantite.contains("cl")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("l")).replace(" ", "").toInt()*100
-                            }
-                            else if (oldItem.quantite.contains("g")  && !oldItem.quantite.contains("kg") && !oldItem.quantite.contains("au jugé")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("g")).replace(" ", "").toInt()
-                            }
-                            else if (oldItem.quantite.contains("kg")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("kg")).replace(" ", "").toInt()*1000
-                            }
-                            else if (oldItem.quantite.contains("petit pot")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("petit pot")).replace(" ", "").toInt()
-                            }
-                            else if (oldItem.quantite.contains("petits pots")){
-                                value = oldItem.quantite.substring( 0, oldItem.quantite.indexOf("petits pots")).replace(" ", "").toInt()
-                            }
-
-                            if (ingredient.quantite.contains("cl"))
-                            {
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("cl")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " cl"
-                            }
-                            else if (ingredient.quantite.contains("l") && !ingredient.quantite.contains("cl"))
-                            {
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("l")).replace(" ", "").toInt()*100
-                                oldItem.quantite = ((value + newValue).toString()) + " cl"
-                            }
-                            else if (ingredient.quantite.contains("kg"))
-                            {
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("kg")).replace(" ", "").toInt()*1000
-                                oldItem.quantite = ((value + newValue).toString()) + " g"
-                            }
-                            else if (ingredient.quantite.contains("g") && !ingredient.quantite.contains("kg") && !ingredient.quantite.contains("au jugé"))
-                            {
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("g")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " g"
-                            }
-                            else if (ingredient.quantite.contains("au jugé")){
-                                if(oldItem.quantite.contains(" *")){
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" *")).replace(" ", "").toInt()+1
-                                    oldItem.quantite = value.toString() + " *" + " au jugé"
-                                }else
-                                    oldItem.quantite = "2 * " + oldItem.quantite
-                            }
-                            else if (ingredient.quantite.contains("boites")){
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("boites")).replace(" ", "").toInt()
-                                if(oldItem.quantite.contains(" boites")){
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" boites")).replace(" ", "").toInt()
-                                    oldItem.quantite = ((value + newValue).toString()) + " boites"
-                                }else
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" boite")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " boites"
-                            }
-                            else if (ingredient.quantite.contains("petit pot")){
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("petit pot")).replace(" ", "").toInt()
-                                if(oldItem.quantite.contains(" petits pots")){
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" petits pots")).replace(" ", "").toInt()
-                                    oldItem.quantite = ((value + newValue).toString()) + " boites"
-                                }else
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" petit pot")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " petits pots"
-                            }
-                            else if (ingredient.quantite.contains("petits pots")){
-                                var newValue = ingredient.quantite.substring( 0, ingredient.quantite.indexOf("petit pots")).replace(" ", "").toInt()
-                                if(oldItem.quantite.contains(" petits pots")){
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" petits pots")).replace(" ", "").toInt()
-                                    oldItem.quantite = ((value + newValue).toString()) + " boites"
-                                }else
-                                    value = oldItem.quantite.substring( 0,  oldItem.quantite.indexOf(" petit pot")).replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " petits pots"
-                            }
-                        }
-
-                    }
-
-                    else {
-                        courseList.add(courseItem)
-                    }
-                }
-            }
-        }
-        for (item in courseList){
-            repo.insertCourseItem(item)
-        }
     }
 
 

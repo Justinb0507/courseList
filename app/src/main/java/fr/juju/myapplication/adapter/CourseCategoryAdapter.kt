@@ -36,9 +36,13 @@ class CourseCategoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentCat = category[position]
-
         holder.name?.text = currentCat
-        holder.recycler?.adapter = CourseItemAdapter(context, courseList.filter { s->s.categorie ==  currentCat } as ArrayList<CourseModel>, printToggle, R.layout.item_course_in_category_vertical)
+        var listItem = arrayListOf<CourseModel>()
+        for (item in  courseList.filter { s->s.categorie ==  currentCat }){
+            listItem.add(item)
+        }
+        listItem.sortBy { s->s.name }
+        holder.recycler?.adapter = CourseItemAdapter(context, listItem, printToggle, R.layout.item_course_in_category_vertical)
         holder.recycler?.layoutManager = LinearLayoutManager(context)
 
         holder.fleche_down?.setOnClickListener{

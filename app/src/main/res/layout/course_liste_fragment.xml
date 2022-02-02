@@ -28,28 +28,16 @@
             app:layout_constraintTop_toTopOf="@+id/title"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <ImageView
-            android:id="@+id/generateCourse"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/check"
-            app:layout_constraintBottom_toBottomOf="@+id/title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/title"
-            app:tint="@color/sun" />
 
         <ImageView
             android:id="@+id/clearCourse"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
             android:adjustViewBounds="true"
             android:src="@drawable/ic_baseline_close_24"
-            app:layout_constraintBottom_toBottomOf="@+id/generateCourse"
-            app:layout_constraintStart_toEndOf="@+id/generateCourse"
-            app:layout_constraintTop_toTopOf="@+id/generateCourse"
+            app:layout_constraintEnd_toStartOf="@+id/title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/sun" />
 
 

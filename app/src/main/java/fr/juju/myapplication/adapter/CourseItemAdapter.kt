@@ -38,6 +38,7 @@ class CourseItemAdapter(
         var repo = CourseRepository()
         holder.name?.text = currentIngredient.name
         holder.quantite?.text = currentIngredient.quantite
+
         holder.button?.isChecked = currentIngredient.ok == "true"
         if(currentIngredient.ok == "true"){
             holder.name?.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG

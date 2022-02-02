@@ -345,7 +345,7 @@ class AddRepasFragment(
         context.loadFragment(RecetteFragment(context,repas, "None", "None", "None"))
 
         IngredientPopup(context, listItem).show()
-        Toast.makeText(context, "Repas ajouté !", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Recette ajoutée !", Toast.LENGTH_SHORT).show()
     }
 
     private fun launchGallery() {

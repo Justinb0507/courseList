@@ -605,7 +605,7 @@
             android:id="@+id/affect_repas"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@drawable/plus_orange_bleucanard"
+            android:src="@drawable/plus_orange_background"
             app:cardCornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -43,6 +43,7 @@ class ResultResearchFragment(
 
         val view = inflater?.inflate(R.layout.fragment_resultresearch, container, false)
         val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.repas_list)
+        resultResearch.sortBy { s->s.name }
         collectionRecyclerView.adapter = RepasAdapter(context, resultResearch, R.layout.item_repas_vertical, time,selectedDay, currentSemaine)
         collectionRecyclerView.layoutManager = LinearLayoutManager(context)
         view.findViewById<ImageView>(R.id.add_recette).setOnClickListener{

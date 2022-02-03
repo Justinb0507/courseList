@@ -18,9 +18,7 @@ import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
 import fr.juju.myapplication.SemainierSuivantRepository.Singleton.semainierSuivantList
-import fr.juju.myapplication.CourseRepository.Singleton.courseList
 import fr.juju.myapplication.adapter.TagsAdapter
-import java.lang.Math.ceil
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -63,7 +61,7 @@ class SemainierFragment(
             pastDay.add("mardi")
         }
         if (currentDay == "jeudi") {
-           pastDay.add("lundi")
+            pastDay.add("lundi")
             pastDay.add("mardi")
             pastDay.add("mercredi")
         }
@@ -89,7 +87,6 @@ class SemainierFragment(
             pastDay.add("samedi")
         }
 
-
         if (currentSemaineInput == "suivant") {
             currentSemaine = semainierSuivantList
             suivant = true
@@ -98,30 +95,6 @@ class SemainierFragment(
             view.findViewById<ImageView>(R.id.calendar).visibility = View.VISIBLE
             view.findViewById<Switch>(R.id.toggleButton).isChecked = true
             reinitialisationSuivant()
-
-
-            if (selectedDay == "lundi") {
-                view.findViewById<TextView>(R.id.Lundi)?.setTypeface(null, Typeface.BOLD)
-            }
-            else if (selectedDay == "mardi") {
-                view.findViewById<TextView>(R.id.Mardi)?.setTypeface(null, Typeface.BOLD)
-            }
-            else if (selectedDay == "mercredi") {
-                view.findViewById<TextView>(R.id.Mercredi)?.setTypeface(null, Typeface.BOLD)
-            }
-            else if (selectedDay == "jeudi") {
-                view.findViewById<TextView>(R.id.Jeudi)?.setTypeface(null, Typeface.BOLD)
-
-            }
-            else if (selectedDay == "vendredi") {
-                view.findViewById<TextView>(R.id.Vendredi)?.setTypeface(null, Typeface.BOLD)
-            }
-            else if (selectedDay == "samedi") {
-                view.findViewById<TextView>(R.id.Samedi)?.setTypeface(null, Typeface.BOLD)
-            }
-            else if (selectedDay == "dimanche") {
-                view.findViewById<TextView>(R.id.Dimanche)?.setTypeface(null, Typeface.BOLD)
-            }
 
             if (currentSemaine[2].midi != "None" && currentSemaine[2].soir == "None") {
                 view?.findViewById<ImageView>(R.id.Lundi_img)
@@ -164,11 +137,11 @@ class SemainierFragment(
 
 
             if (currentSemaine[1].midi != "None" && currentSemaine[1].soir == "None") {
-                view?.findViewById<ImageView>(R.id.Jeudi_img)
-                    ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.ellipse_top))
+                view.findViewById<ImageView>(R.id.Jeudi_img)
+                    .setImageDrawable(this.getContext()?.getDrawable(R.drawable.ellipse_top))
             } else if (currentSemaine[1].midi == "None" && currentSemaine[1].soir != "None") {
-                view?.findViewById<ImageView>(R.id.Jeudi_img)
-                    ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.ellipse_bottom))
+                view.findViewById<ImageView>(R.id.Jeudi_img)
+                    .setImageDrawable(this.getContext()?.getDrawable(R.drawable.ellipse_bottom))
 
             } else if (currentSemaine[1].midi != "None" && currentSemaine[1].soir != "None") {
                 view?.findViewById<ImageView>(R.id.Jeudi_img)
@@ -206,7 +179,8 @@ class SemainierFragment(
             if (currentSemaine[0].midi != "None" && currentSemaine[0].soir == "None") {
                 view?.findViewById<ImageView>(R.id.Dimanche_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.ellipse_top))
-            } else if (currentSemaine[0].midi == "None" && currentSemaine[0].soir != "None") {
+            }
+            else if (currentSemaine[0].midi == "None" && currentSemaine[0].soir != "None") {
                 view?.findViewById<ImageView>(R.id.Dimanche_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.ellipse_bottom))
 
@@ -216,8 +190,157 @@ class SemainierFragment(
             } else view?.findViewById<ImageView>(R.id.Dimanche_img)
                 ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_to_come))
 
-        }
-        else {
+
+            if (selectedDay == "lundi") {
+                view.findViewById<TextView>(R.id.Lundi)?.setTypeface(null, Typeface.BOLD)
+                if (currentDays.midi != "None" && currentDays.soir == "None") {
+                    view?.findViewById<ImageView>(R.id.Lundi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_top_select)
+                        )
+                } else if (currentDays.midi == "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Lundi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_bottom_select)
+                        )
+
+                } else if (currentDays.midi != "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Lundi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_combine_select)
+                        )
+                } else view?.findViewById<ImageView>(R.id.Lundi_img)
+                    ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
+
+            }
+            else if (selectedDay == "mardi") {
+                view.findViewById<TextView>(R.id.Mardi)?.setTypeface(null, Typeface.BOLD)
+                if (currentDays.midi != "None" && currentDays.soir == "None") {
+                    view?.findViewById<ImageView>(R.id.Mardi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_top_select)
+                        )
+                } else if (currentDays.midi == "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Mardi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_bottom_select)
+                        )
+
+                } else if (currentDays.midi != "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Mardi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_combine_select)
+                        )
+                } else view?.findViewById<ImageView>(R.id.Mardi_img)
+                    ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
+            }
+            else if (selectedDay == "mercredi") {
+                view.findViewById<TextView>(R.id.Mercredi)?.setTypeface(null, Typeface.BOLD)
+                if (currentDays.midi != "None" && currentDays.soir == "None") {
+                    view?.findViewById<ImageView>(R.id.Mercredi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_top_select)
+                        )
+                } else if (currentDays.midi == "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Mercredi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_bottom_select)
+                        )
+
+                } else if (currentDays.midi != "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Mercredi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_combine_select)
+                        )
+                } else view?.findViewById<ImageView>(R.id.Mercredi_img)
+                    ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
+            }
+            else if (selectedDay == "jeudi") {
+                view.findViewById<TextView>(R.id.Jeudi)?.setTypeface(null, Typeface.BOLD)
+                if (currentDays.midi != "None" && currentDays.soir == "None") {
+                    view?.findViewById<ImageView>(R.id.Jeudi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_top_select)
+                        )
+                } else if (currentDays.midi == "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Jeudi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_bottom_select)
+                        )
+
+                } else if (currentDays.midi != "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Jeudi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_combine_select)
+                        )
+                } else view?.findViewById<ImageView>(R.id.Jeudi_img)
+                    ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
+            }
+            else if (selectedDay == "vendredi") {
+                view.findViewById<TextView>(R.id.Vendredi)?.setTypeface(null, Typeface.BOLD)
+                if (currentDays.midi != "None" && currentDays.soir == "None") {
+                    view?.findViewById<ImageView>(R.id.Vendredi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_top_select)
+                        )
+                } else if (currentDays.midi == "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Vendredi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_bottom_select)
+                        )
+
+                } else if (currentDays.midi != "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Vendredi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_combine_select)
+                        )
+                } else view?.findViewById<ImageView>(R.id.Vendredi_img)
+                    ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
+            }
+            else if (selectedDay == "samedi") {
+                view.findViewById<TextView>(R.id.Samedi)?.setTypeface(null, Typeface.BOLD)
+                if (currentDays.midi != "None" && currentDays.soir == "None") {
+                    view?.findViewById<ImageView>(R.id.Samedi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_top_select)
+                        )
+                } else if (currentDays.midi == "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Samedi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_bottom_select)
+                        )
+
+                } else if (currentDays.midi != "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Samedi_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_combine_select)
+                        )
+                } else view?.findViewById<ImageView>(R.id.Samedi_img)
+                    ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
+            }
+            else if (selectedDay == "dimanche") {
+                view.findViewById<TextView>(R.id.Dimanche)?.setTypeface(null, Typeface.BOLD)
+                if (currentDays.midi != "None" && currentDays.soir == "None") {
+                    view?.findViewById<ImageView>(R.id.Dimanche_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_top_select)
+                        )
+                } else if (currentDays.midi == "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Dimanche_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_bottom_select)
+                        )
+
+                } else if (currentDays.midi != "None" && currentDays.soir != "None") {
+                    view?.findViewById<ImageView>(R.id.Dimanche_img)
+                        ?.setImageDrawable(
+                            this.getContext()?.getDrawable(R.drawable.ellipse_combine_select)
+                        )
+                } else view?.findViewById<ImageView>(R.id.Dimanche_img)
+                    ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
+            }
+
+        } else {
             currentSemaine = semainierList
             suivant = false
             currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
@@ -290,7 +413,7 @@ class SemainierFragment(
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_to_come))
                 view?.findViewById<ImageView>(R.id.Dimanche_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_to_come))
-             }
+            }
             if (currentDay == "vendredi") {
                 view?.findViewById<ImageView>(R.id.Lundi_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.check))
@@ -338,7 +461,7 @@ class SemainierFragment(
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.check))
                 view?.findViewById<ImageView>(R.id.Dimanche_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_to_come))
-              }
+            }
 
             if (selectedDay == "lundi") {
                 view.findViewById<TextView>(R.id.Lundi)?.setTypeface(null, Typeface.BOLD)
@@ -349,8 +472,7 @@ class SemainierFragment(
                     view.findViewById<ImageView>(R.id.Lundi_img)
                         ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
                 }
-            }
-            else if (selectedDay == "mardi") {
+            } else if (selectedDay == "mardi") {
 
                 view.findViewById<TextView>(R.id.Mardi)?.setTypeface(null, Typeface.BOLD)
                 if (selectedDay in pastDay) {
@@ -360,8 +482,7 @@ class SemainierFragment(
                     view.findViewById<ImageView>(R.id.Mardi_img)
                         ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
                 }
-            }
-            else if (selectedDay == "mercredi") {
+            } else if (selectedDay == "mercredi") {
                 view.findViewById<TextView>(R.id.Mercredi)?.setTypeface(null, Typeface.BOLD)
                 if (selectedDay in pastDay) {
                     view.findViewById<ImageView>(R.id.Mercredi_img)
@@ -370,8 +491,7 @@ class SemainierFragment(
                     view.findViewById<ImageView>(R.id.Mercredi_img)
                         ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
                 }
-            }
-            else if (selectedDay == "jeudi") {
+            } else if (selectedDay == "jeudi") {
                 view.findViewById<TextView>(R.id.Jeudi)?.setTypeface(null, Typeface.BOLD)
                 if (selectedDay in pastDay) {
                     view.findViewById<ImageView>(R.id.Jeudi_img)
@@ -380,8 +500,7 @@ class SemainierFragment(
                     view.findViewById<ImageView>(R.id.Jeudi_img)
                         ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
                 }
-            }
-            else if (selectedDay == "vendredi") {
+            } else if (selectedDay == "vendredi") {
                 view.findViewById<TextView>(R.id.Vendredi)?.setTypeface(null, Typeface.BOLD)
                 if (selectedDay in pastDay) {
                     view.findViewById<ImageView>(R.id.Vendredi_img)
@@ -390,8 +509,7 @@ class SemainierFragment(
                     view.findViewById<ImageView>(R.id.Vendredi_img)
                         ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
                 }
-            }
-            else if (selectedDay == "samedi") {
+            } else if (selectedDay == "samedi") {
                 view.findViewById<TextView>(R.id.Samedi)?.setTypeface(null, Typeface.BOLD)
                 if (selectedDay in pastDay) {
                     view.findViewById<ImageView>(R.id.Samedi_img)
@@ -400,8 +518,7 @@ class SemainierFragment(
                     view.findViewById<ImageView>(R.id.Samedi_img)
                         ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
                 }
-            }
-            else if (selectedDay == "dimanche") {
+            } else if (selectedDay == "dimanche") {
                 view.findViewById<TextView>(R.id.Dimanche)?.setTypeface(null, Typeface.BOLD)
                 if (selectedDay in pastDay) {
                     view.findViewById<ImageView>(R.id.Dimanche_img)
@@ -469,8 +586,7 @@ class SemainierFragment(
                         view.findViewById<ImageView>(R.id.Dimanche_img)
                     )
                 }
-            }
-            else {
+            } else {
                 view.findViewById<ImageView>(R.id.eye).visibility = View.VISIBLE
                 view.findViewById<ImageView>(R.id.calendar).visibility = View.GONE
                 currentSemaine = semainierList
@@ -1830,6 +1946,21 @@ class SemainierFragment(
 
         val currentDays = currentSemaine.filter { s -> s.id_semainier == day }[0]
         button?.setTypeface(null, Typeface.BOLD)
+        if (currentDays.midi != "None" && currentDays.soir == "None") {
+            img
+                ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.ellipse_top_select))
+        } else if (currentDays.midi == "None" && currentDays.soir != "None") {
+            img
+                ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.ellipse_bottom_select))
+
+        } else if (currentDays.midi != "None" && currentDays.soir != "None") {
+            img
+                ?.setImageDrawable(
+                    this.getContext()?.getDrawable(R.drawable.ellipse_combine_select)
+                )
+        } else img
+            ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
+
 
         if (currentDays.midi != "None") {
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.visibility = View.VISIBLE

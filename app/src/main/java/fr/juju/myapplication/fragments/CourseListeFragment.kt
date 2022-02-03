@@ -165,6 +165,7 @@ class CourseListeFragment (val context: MainActivity
             }
 
             if(view.findViewById<Switch>(R.id.toggleButton).isChecked && view.findViewById<Switch>(R.id.toggleButton).visibility == View.VISIBLE){
+                view.findViewById<ImageView>(R.id.clearCourse).visibility = View.GONE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
                 view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
                 view.findViewById<ImageView>(R.id.open).visibility = View.GONE
@@ -204,7 +205,7 @@ class CourseListeFragment (val context: MainActivity
         view.findViewById<ImageView>(R.id.clearCourse).setOnClickListener {
             var builder = AlertDialog.Builder(context)
             builder.setTitle("Oulaaaaaa !")
-            builder.setMessage("Tu veux vraiment supprimer la liste de cours là ?")
+            builder.setMessage("Tu veux vraiment supprimer la liste de course là ?")
             builder.setPositiveButton("Oui", DialogInterface.OnClickListener { dialog, id ->
                 clearCourse()
                 context.hideKeyboard()
@@ -331,7 +332,6 @@ class CourseListeFragment (val context: MainActivity
             if(courseItem.ajoutExterieur == "false"){
                 repo.deleteCourseItem(courseItem)
             }
-
         }
     }
 

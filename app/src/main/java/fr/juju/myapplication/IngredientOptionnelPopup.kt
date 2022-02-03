@@ -46,19 +46,19 @@ class IngredientOptionnelPopup(
                 if(semainierSuivantList.filter{ s->s.id_semainier == selectedDay}[0].midi != "None"){
                     deleteIngredientCourse(ingredientList.filter { s->s.id_repas == semainierSuivantList.filter{ s->s.id_semainier == selectedDay}[0].midi } as ArrayList<IngredientModel>)
                 }
-                repoSuivant.setMidi(time, selectedDay, currentRepas.id)
+                repoSuivant.setMidi(selectedDay, currentRepas.id)
             }
             if(time == "apero"){
                 if(semainierSuivantList.filter{ s->s.id_semainier == selectedDay}[0].apero != "None"){
                     deleteIngredientCourse(ingredientList.filter { s->s.id_repas == semainierSuivantList.filter{ s->s.id_semainier == selectedDay}[0].apero } as ArrayList<IngredientModel>)
                 }
-                repoSuivant.setApero(time, selectedDay, currentRepas.id)
+                repoSuivant.setApero(selectedDay, currentRepas.id)
             }
             if(time == "soir"){
                 if(semainierSuivantList.filter{ s->s.id_semainier == selectedDay}[0].soir != "None"){
                     deleteIngredientCourse(ingredientList.filter { s->s.id_repas == semainierSuivantList.filter{ s->s.id_semainier == selectedDay}[0].soir } as ArrayList<IngredientModel>)
                 }
-                repoSuivant.setSoir(time, selectedDay, currentRepas.id)
+                repoSuivant.setSoir(selectedDay, currentRepas.id)
             }
             Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
             context.loadFragment(SemainierFragment(context, selectedDay,"suivant" ))

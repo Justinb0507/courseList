@@ -19,6 +19,16 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/echange"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/echange"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/sun" />
+
+            <ImageView
                 android:id="@+id/eye"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -31,8 +41,8 @@
 
             <ImageView
                 android:id="@+id/calendar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginRight="@dimen/default_margin"
                 android:adjustViewBounds="true"
                 android:src="@drawable/calendar"
@@ -46,11 +56,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/default_margin"
                 android:scaleX="1.25"
                 android:scaleY="1.25"
                 android:theme="@style/SCBSwitch"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout

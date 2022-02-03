@@ -58,17 +58,17 @@ class SemainierSuivantRepository {
         day.apero = "None"
         databaseRef.child(day.id_semainier).setValue(day)
     }
-    fun setMidi(time: String, selectedDay: String, id_repas: String){
+    fun setMidi(selectedDay: String, id_repas: String){
         var day = semainierSuivantList.filter { s->s.id_semainier == selectedDay }[0]
         day.midi = id_repas
         databaseRef.child(selectedDay).setValue(day)
     }
-    fun setSoir(time: String, selectedDay: String, id_repas: String){
+    fun setSoir(selectedDay: String, id_repas: String){
         var day = semainierSuivantList.filter { s->s.id_semainier == selectedDay }[0]
         day.soir = id_repas
         databaseRef.child(selectedDay).setValue(day)
     }
-    fun setApero(time: String, selectedDay: String, id_repas: String){
+    fun setApero(selectedDay: String, id_repas: String){
         var day = semainierSuivantList.filter { s->s.id_semainier == selectedDay }[0]
         day.apero = id_repas
         databaseRef.child(selectedDay).setValue(day)

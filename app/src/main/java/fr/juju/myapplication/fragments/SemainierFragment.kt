@@ -1,6 +1,8 @@
 package fr.juju.myapplication.fragments
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -91,6 +93,7 @@ class SemainierFragment(
             currentSemaine = semainierSuivantList
             suivant = true
             currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
+            view.findViewById<ImageView>(R.id.echange).visibility = View.VISIBLE
             view.findViewById<ImageView>(R.id.eye).visibility = View.GONE
             view.findViewById<ImageView>(R.id.calendar).visibility = View.VISIBLE
             view.findViewById<Switch>(R.id.toggleButton).isChecked = true
@@ -340,13 +343,15 @@ class SemainierFragment(
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
             }
 
-        } else {
+        }
+        else {
             currentSemaine = semainierList
             suivant = false
             currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
             view.findViewById<Switch>(R.id.toggleButton).isChecked = false
             view.findViewById<ImageView>(R.id.eye).visibility = View.VISIBLE
             view.findViewById<ImageView>(R.id.calendar).visibility = View.GONE
+            view.findViewById<ImageView>(R.id.echange).visibility = View.GONE
 
             reinitialisation()
 
@@ -533,6 +538,7 @@ class SemainierFragment(
 
         view.findViewById<Switch>(R.id.toggleButton).setOnClickListener {
             if (view.findViewById<Switch>(R.id.toggleButton).isChecked) {
+                view.findViewById<ImageView>(R.id.echange).visibility = View.VISIBLE
                 view.findViewById<ImageView>(R.id.eye).visibility = View.GONE
                 view.findViewById<ImageView>(R.id.calendar).visibility = View.VISIBLE
                 currentSemaine = semainierSuivantList
@@ -586,7 +592,9 @@ class SemainierFragment(
                         view.findViewById<ImageView>(R.id.Dimanche_img)
                     )
                 }
-            } else {
+            }
+            else {
+                view.findViewById<ImageView>(R.id.echange).visibility = View.GONE
                 view.findViewById<ImageView>(R.id.eye).visibility = View.VISIBLE
                 view.findViewById<ImageView>(R.id.calendar).visibility = View.GONE
                 currentSemaine = semainierList
@@ -1508,8 +1516,93 @@ class SemainierFragment(
             }
 
         }
+        view.findViewById<ImageView>(R.id.echange).setOnClickListener {
+            var builder = AlertDialog.Builder(context)
+            builder.setTitle("Oulaaaaaa !")
+            builder.setMessage("Tu veux vraiment transférer les repas d'une semaine sur l'autre et supprimer la liste de course ?")
+            builder.setPositiveButton("Oui", DialogInterface.OnClickListener { dialog, id ->
+                echange()
+                dialog.cancel()
+            })
+            builder.setNegativeButton("Non", DialogInterface.OnClickListener { dialog, id ->
+                dialog.cancel()
+            })
+            var alert: AlertDialog = builder.create()
+            alert.show()
+        }
+
 
         return view
+    }
+    private fun echange(){
+        var repo = SemainierRepository()
+        repo.setMidi("lundi",semainierSuivantList.filter { s->s.id_semainier == "lundi" }[0].midi)
+        repo.setMidi("mardi",semainierSuivantList.filter { s->s.id_semainier == "mardi" }[0].midi)
+        repo.setMidi("mercredi",semainierSuivantList.filter { s->s.id_semainier == "mercredi" }[0].midi)
+        repo.setMidi("jeudi",semainierSuivantList.filter { s->s.id_semainier == "jeudi" }[0].midi)
+        repo.setMidi("vendredi",semainierSuivantList.filter { s->s.id_semainier == "vendredi" }[0].midi)
+        repo.setMidi("samedi",semainierSuivantList.filter { s->s.id_semainier == "samedi" }[0].midi)
+        repo.setMidi("dimanche",semainierSuivantList.filter { s->s.id_semainier == "dimanche" }[0].midi)
+
+        repo.setApero("lundi",semainierSuivantList.filter { s->s.id_semainier == "lundi" }[0].apero)
+        repo.setApero("mardi",semainierSuivantList.filter { s->s.id_semainier == "mardi" }[0].apero)
+        repo.setApero("mercredi",semainierSuivantList.filter { s->s.id_semainier == "mercredi" }[0].apero)
+        repo.setApero("jeudi",semainierSuivantList.filter { s->s.id_semainier == "jeudi" }[0].apero)
+        repo.setApero("vendredi",semainierSuivantList.filter { s->s.id_semainier == "vendredi" }[0].apero)
+        repo.setApero("samedi",semainierSuivantList.filter { s->s.id_semainier == "samedi" }[0].apero)
+        repo.setApero("dimanche",semainierSuivantList.filter { s->s.id_semainier == "dimanche" }[0].apero)
+
+        repo.setSoir("lundi",semainierSuivantList.filter { s->s.id_semainier == "lundi" }[0].soir)
+        repo.setSoir("mardi",semainierSuivantList.filter { s->s.id_semainier == "mardi" }[0].soir)
+        repo.setSoir("mercredi",semainierSuivantList.filter { s->s.id_semainier == "mercredi" }[0].soir)
+        repo.setSoir("jeudi",semainierSuivantList.filter { s->s.id_semainier == "jeudi" }[0].soir)
+        repo.setSoir("vendredi",semainierSuivantList.filter { s->s.id_semainier == "vendredi" }[0].soir)
+        repo.setSoir("samedi",semainierSuivantList.filter { s->s.id_semainier == "samedi" }[0].soir)
+        repo.setSoir("dimanche",semainierSuivantList.filter { s->s.id_semainier == "dimanche" }[0].soir)
+
+        var repo2 = SemainierSuivantRepository()
+        repo2.resetMidi("lundi")
+        repo2.resetSoir("lundi")
+        repo2.resetApero("lundi")
+
+        repo2.resetMidi("mardi")
+        repo2.resetSoir("mardi")
+        repo2.resetApero("mardi")
+
+        repo2.resetMidi("mercredi")
+        repo2.resetSoir("mercredi")
+        repo2.resetApero("mercredi")
+
+        repo2.resetMidi("jeudi")
+        repo2.resetSoir("jeudi")
+        repo2.resetApero("jeudi")
+
+        repo2.resetMidi("vendredi")
+        repo2.resetSoir("vendredi")
+        repo2.resetApero("vendredi")
+
+        repo2.resetMidi("samedi")
+        repo2.resetSoir("samedi")
+        repo2.resetApero("samedi")
+
+        repo2.resetMidi("dimanche")
+        repo2.resetSoir("dimanche")
+        repo2.resetApero("dimanche")
+
+        if(suivant){
+            reinitialisationSuivant()
+        }else reinitialisation()
+        clearCourse()
+        view?.findViewById<Switch>(R.id.toggleButton)?.performClick()
+    }
+
+    private fun clearCourse(){
+        var repo = CourseRepository()
+        for(courseItem in CourseRepository.Singleton.courseList){
+            if(courseItem.ajoutExterieur == "false" && courseItem.ok == "true"){
+                repo.deleteCourseItem(courseItem)
+            }
+        }
     }
 
     @SuppressLint("CutPasteId")

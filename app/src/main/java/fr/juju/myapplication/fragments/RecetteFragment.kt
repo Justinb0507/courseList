@@ -108,7 +108,7 @@ class RecetteFragment(
                         if (semainierSuivantList.filter { s -> s.id_semainier == selectedDay }[0].midi != "None") {
                             deleteIngredientCourse(ingredientList.filter { s -> s.id_repas == semainierSuivantList.filter { s -> s.id_semainier == selectedDay }[0].midi } as ArrayList<IngredientModel>)
                         }
-                        repoSuivant.setMidi(time, selectedDay, currentRepas.id)
+                        repoSuivant.setMidi(selectedDay, currentRepas.id)
                         Toast.makeText(
                             context,
                             "Repas ajouté pour le $selectedDay $time!",
@@ -118,7 +118,7 @@ class RecetteFragment(
                         view?.findViewById<ImageView>(R.id.icone_midi)?.visibility = View.GONE
                     }
                 } else {
-                    repo2.setMidi(time, selectedDay, currentRepas.id)
+                    repo2.setMidi(selectedDay, currentRepas.id)
                     Toast.makeText(
                         context,
                         "Repas ajouté pour le $selectedDay $time!",
@@ -155,7 +155,7 @@ class RecetteFragment(
                         if (semainierSuivantList.filter { s -> s.id_semainier == selectedDay }[0].soir != "None") {
                             deleteIngredientCourse(ingredientList.filter { s -> s.id_repas == semainierSuivantList.filter { s -> s.id_semainier == selectedDay }[0].soir } as ArrayList<IngredientModel>)
                         }
-                        repoSuivant.setSoir(time, selectedDay, currentRepas.id)
+                        repoSuivant.setSoir(selectedDay, currentRepas.id)
                         Toast.makeText(
                             context,
                             "Repas ajouté pour le $selectedDay $time!",
@@ -165,7 +165,7 @@ class RecetteFragment(
                         view?.findViewById<ImageView>(R.id.icone_soir)?.visibility = View.GONE
                     }
                 } else {
-                    repo2.setSoir(time, selectedDay, currentRepas.id)
+                    repo2.setSoir(selectedDay, currentRepas.id)
                     Toast.makeText(
                         context,
                         "Repas ajouté pour le $selectedDay $time!",
@@ -202,7 +202,7 @@ class RecetteFragment(
                         if (semainierSuivantList.filter { s -> s.id_semainier == selectedDay }[0].apero != "None") {
                             deleteIngredientCourse(ingredientList.filter { s -> s.id_repas == semainierSuivantList.filter { s -> s.id_semainier == selectedDay }[0].apero } as ArrayList<IngredientModel>)
                         }
-                        repoSuivant.setApero(time, selectedDay, currentRepas.id)
+                        repoSuivant.setApero(selectedDay, currentRepas.id)
                         Toast.makeText(
                             context,
                             "Repas ajouté pour le $selectedDay $time!",
@@ -212,7 +212,7 @@ class RecetteFragment(
                         view?.findViewById<ImageView>(R.id.icone_apero)?.visibility = View.GONE
                     }
                 } else {
-                    repo2.setApero(time, selectedDay, currentRepas.id)
+                    repo2.setApero(selectedDay, currentRepas.id)
                     Toast.makeText(
                         context,
                         "Repas ajouté pour l\'$time du $selectedDay !",

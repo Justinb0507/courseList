@@ -1,5 +1,6 @@
 package fr.juju.myapplication
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -18,7 +19,8 @@ class RepasRepository {
         //se connecter à notre espace de stockage
         val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BUCKET_URL)
         //se co à la ref plante
-        val databaseRef = FirebaseDatabase.getInstance().getReference("repas")
+        val authUid =  FirebaseAuth.getInstance().uid
+        val databaseRef = FirebaseDatabase.getInstance().getReference(authUid + "/repas")
         //Créer une liste qui va contenir les plantes
         val repasList = arrayListOf<RepasModel>()
 

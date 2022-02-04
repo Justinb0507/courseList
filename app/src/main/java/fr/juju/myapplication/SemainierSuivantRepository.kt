@@ -1,5 +1,6 @@
 package fr.juju.myapplication
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -17,7 +18,8 @@ class SemainierSuivantRepository {
 
         //se connecter à notre espace de stockage
         val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BUCKET_URL)
-        val databaseRef = FirebaseDatabase.getInstance().getReference("semainierSuivant")
+        val authUid =  FirebaseAuth.getInstance().uid
+        val databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/semainierSuivant")
         //Créer une liste qui va contenir les plantes
         val semainierSuivantList = arrayListOf<SemainierModel>()
 

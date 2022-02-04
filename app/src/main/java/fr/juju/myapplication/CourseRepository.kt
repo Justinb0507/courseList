@@ -1,5 +1,6 @@
 package fr.juju.myapplication
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -16,7 +17,8 @@ class CourseRepository {
 
         private val BUCKET_URL: String = "gs://naturecollection-c9efc.appspot.com"
         val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BUCKET_URL)
-        val databaseRef = FirebaseDatabase.getInstance().getReference("course")
+        val authUid =  FirebaseAuth.getInstance().uid
+        val databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/course")
         val courseList = arrayListOf<CourseModel>()
     }
 

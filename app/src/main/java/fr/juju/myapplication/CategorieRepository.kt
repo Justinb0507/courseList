@@ -1,5 +1,6 @@
 package fr.juju.myapplication
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -16,8 +17,8 @@ class CategorieRepository {
 
         //se connecter à notre espace de stockage
         val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BUCKET_URL)
-        //se co à la ref plante
-        val databaseRef = FirebaseDatabase.getInstance().getReference("categorie")
+        val authUid =  FirebaseAuth.getInstance().uid
+        val databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/categorie")
         //Créer une liste qui va contenir les plantes
         val categorieList = arrayListOf<CategorieModel>()
     }

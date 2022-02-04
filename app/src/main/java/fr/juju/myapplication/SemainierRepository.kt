@@ -1,5 +1,6 @@
 package fr.juju.myapplication
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -14,11 +15,11 @@ class SemainierRepository {
     object Singleton{
 
         private val BUCKET_URL: String = "gs://naturecollection-c9efc.appspot.com"
-
         //se connecter à notre espace de stockage
         val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BUCKET_URL)
         //se co à la ref plante
-        val databaseRef = FirebaseDatabase.getInstance().getReference("semainier")
+        val authUid =  FirebaseAuth.getInstance().uid
+        val databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/semainier")
         //Créer une liste qui va contenir les plantes
         var semainierList = arrayListOf<SemainierModel>()
 

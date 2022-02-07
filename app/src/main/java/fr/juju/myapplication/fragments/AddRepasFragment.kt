@@ -208,6 +208,9 @@ class AddRepasFragment(
         }
         view.findViewById<TextView>(R.id.recette).setOnClickListener{
             switcher("recette")
+            view.findViewById<EditText>(R.id.recette_input).requestFocus()
+            val showMe = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.recette_input), InputMethodManager.SHOW_IMPLICIT)
         }
 
         var scrollView = view.findViewById<ScrollView>(R.id.scrollView)
@@ -281,8 +284,6 @@ class AddRepasFragment(
             view?.findViewById<ConstraintLayout>(R.id.ingredientCard)?.visibility = View.VISIBLE
             view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.INVISIBLE
             view?.findViewById<View>(R.id.ingredient_soulignage)?.visibility = View.VISIBLE
-
-
         }
         else if(switch == "recette"){
             view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.VISIBLE

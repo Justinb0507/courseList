@@ -322,6 +322,7 @@ class CourseListeFragment (val context: MainActivity
         if(courseList.filter{ s-> s.name == itemCourse.name}.isEmpty() && itemName != "" && itemName != " "&& itemName != "  " && quantite.isNotEmpty() && categorie.isNotEmpty()){
             repo.insertCourseItem(itemCourse)
         }
+        Toast.makeText(context, "Vous avez ajouté $itemName dans la catégorie $categorie", Toast.LENGTH_SHORT).show()
 
     }
 

@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/background"
-        android:text="Connexion"
+        android:text="Créer un compte"
         android:layout_marginTop="100dp"
         android:layout_marginLeft="@dimen/default_margin"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,41 +103,62 @@
         app:layout_constraintStart_toStartOf="@+id/et_password"
         app:layout_constraintTop_toTopOf="@+id/et_password" />
 
+    <com.google.android.gms.common.SignInButton
+        android:visibility="gone"
+        android:id="@+id/sign_in_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintEnd_toEndOf="@+id/imageView14"
+        app:layout_constraintStart_toStartOf="@+id/imageView14"
+        app:layout_constraintTop_toBottomOf="@+id/imageView14" />
+
     <TextView
+        android:id="@+id/textView12"
         style="@style/TitleTextStyle"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_corner_affect"
         android:gravity="center"
-        android:layout_marginTop="40dp"
         android:padding="5dp"
         android:text="Go !"
-        android:onClick="performSignUp"
+        android:layout_marginTop="@dimen/default_margin"
         app:layout_constraintEnd_toEndOf="@+id/et_password"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />
 
     <TextView
         android:id="@+id/textView11"
         style="@style/DefaultTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
         android:text="Vous souhaitez rester connecter ?"
-        android:layout_marginTop="40dp"
         android:textColor="@color/background"
         app:layout_constraintStart_toStartOf="@+id/et_password"
         app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:buttonTint="@color/background"
-                app:layout_constraintBottom_toBottomOf="@+id/textView11"
-                app:layout_constraintStart_toEndOf="@+id/textView11"
-                app:layout_constraintTop_toTopOf="@+id/textView11" />
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/imageView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ou_registered"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="@+id/et_password"
+        app:layout_constraintStart_toStartOf="@+id/et_password"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:buttonTint="@color/background"
+        app:layout_constraintBottom_toBottomOf="@+id/textView11"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toTopOf="@+id/textView11" />
 
 
     <Button
@@ -147,7 +168,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:onClick="goToSignup"
-        android:text="Pas de compte ?"
+        android:text="Déjà inscrit ?"
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"

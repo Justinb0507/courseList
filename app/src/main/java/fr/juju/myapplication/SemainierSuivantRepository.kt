@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import fr.juju.myapplication.SemainierSuivantRepository.Singleton.authUid
 import fr.juju.myapplication.SemainierSuivantRepository.Singleton.databaseRef
 import fr.juju.myapplication.SemainierSuivantRepository.Singleton.semainierSuivantList
 import javax.security.auth.callback.Callback
@@ -18,12 +19,19 @@ class SemainierSuivantRepository {
 
         //se connecter à notre espace de stockage
         val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BUCKET_URL)
-        val authUid =  FirebaseAuth.getInstance().uid
-        val databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/semainierSuivant")
+        var authUid =  FirebaseAuth.getInstance().uid
+        var databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/semainierSuivant")
         //Créer une liste qui va contenir les plantes
         val semainierSuivantList = arrayListOf<SemainierModel>()
 
     }
+
+    fun removeLink(){
+        authUid =  FirebaseAuth.getInstance().uid
+        databaseRef = FirebaseDatabase.getInstance().getReference(Singleton.authUid.toString() + "/semainierSuivant")
+        semainierSuivantList.clear()
+    }
+
     fun updateData(callback:()-> Unit){
         databaseRef.addValueEventListener(object : ValueEventListener {
 

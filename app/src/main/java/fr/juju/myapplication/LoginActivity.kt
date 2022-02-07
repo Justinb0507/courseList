@@ -33,12 +33,11 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         } else if (checkbox.equals("false")){
-            Toast.makeText(this,"Please Sign in", Toast.LENGTH_SHORT).show()
         }
 
         setContentView(R.layout.login_fragment)
         findViewById<Button>(R.id.bt_signup).setOnClickListener{
-            val intent = Intent(this, ActivityResultLauncher::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             finish()
         }

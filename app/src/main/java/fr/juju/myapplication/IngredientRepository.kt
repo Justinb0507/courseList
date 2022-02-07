@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import fr.juju.myapplication.IngredientRepository.Singleton.authUid
 import fr.juju.myapplication.IngredientRepository.Singleton.databaseRef
 import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
 import java.lang.Exception
@@ -20,11 +21,18 @@ class IngredientRepository {
 
         //se connecter à notre espace de stockage
         val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BUCKET_URL)
-        val authUid =  FirebaseAuth.getInstance().uid
-        val databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/ingredients")
+        var authUid =  FirebaseAuth.getInstance().uid
+        var databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/ingredients")
 
         //Créer une liste qui va contenir les plantes
         val ingredientList = arrayListOf<IngredientModel>()
+    }
+
+    fun removeLink()
+    {
+        authUid =  FirebaseAuth.getInstance().uid
+        databaseRef = FirebaseDatabase.getInstance().getReference(Singleton.authUid.toString() + "/ingredients")
+        ingredientList.clear()
     }
 
     fun updateData(callback:()-> Unit){

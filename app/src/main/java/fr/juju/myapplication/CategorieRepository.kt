@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import fr.juju.myapplication.CategorieRepository.Singleton.authUid
 import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
 import fr.juju.myapplication.CategorieRepository.Singleton.databaseRef
 import java.util.*
@@ -17,10 +18,16 @@ class CategorieRepository {
 
         //se connecter à notre espace de stockage
         val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BUCKET_URL)
-        val authUid =  FirebaseAuth.getInstance().uid
-        val databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/categorie")
+        var authUid =  FirebaseAuth.getInstance().uid
+        var databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/categorie")
         //Créer une liste qui va contenir les plantes
         val categorieList = arrayListOf<CategorieModel>()
+    }
+
+    fun removeLink(){
+        authUid =  FirebaseAuth.getInstance().uid
+        databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/categorie")
+        categorieList.clear()
     }
 
     fun updateData(callback:()-> Unit){

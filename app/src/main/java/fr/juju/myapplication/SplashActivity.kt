@@ -1,25 +1,31 @@
 package fr.juju.myapplication
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.widget.ImageView
 import android.widget.TextView
-import com.google.firebase.database.FirebaseDatabase
-import fr.juju.myapplication.CourseRepository.Singleton.courseList
-import fr.juju.myapplication.RepasRepository.Singleton.repasList
-import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
+
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         val repo = SemainierRepository()
+        repo.removeLink()
         val repo2 = RepasRepository()
+        repo2.removeLink()
         val repo3 = IngredientRepository()
+        repo3.removeLink()
         val repo4 = CategorieRepository()
+        repo4.removeLink()
         val repo5 = CourseRepository()
+        repo5.removeLink()
         val repo6 = SemainierSuivantRepository()
+        repo6.removeLink()
+
         repo.updateData  {  }
         repo2.updateData {  }
         repo3.updateData {  }

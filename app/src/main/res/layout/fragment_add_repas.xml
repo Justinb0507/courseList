@@ -109,7 +109,8 @@
                 android:id="@+id/tag_input"
                 style="@style/DefaultTextStyle"
                 android:layout_width="100dp"
-                android:layout_height="46dp"
+                android:layout_height="wrap_content"
+                android:maxHeight="70dp"
                 android:layout_marginLeft="5dp"
                 android:hint="tag"
                 android:background="@null"
@@ -274,6 +275,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/recette_input"
                         style="@style/DefaultTextStyle"
+                        android:inputType="textCapSentences|textMultiLine"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"

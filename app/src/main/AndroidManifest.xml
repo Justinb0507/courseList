@@ -1,41 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fr.juju.myapplication" >
+    package="fr.juju.myapplication">
 
     <uses-permission android:name="android.permission.INTERNET " />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".fragments.EnablePersistence"
         android:allowBackup="true"
         android:icon="@drawable/logo_application"
         android:label="Cook&apos;eat"
         android:roundIcon="@drawable/logo_application"
         android:supportsRtl="true"
         android:theme="@style/Theme.CourseList"
-        android:usesCleartextTraffic="true"
-        android:name=".fragments.EnablePersistence">
-
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".ActivityResultLauncher"
-            android:exported="true" >
-
-        </activity>
+            android:name=".RegisterActivity"
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:theme="@style/SplashscreenTheme" >
-
-        </activity>
+            android:theme="@style/SplashscreenTheme"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"

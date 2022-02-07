@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import fr.juju.myapplication.SemainierRepository.Singleton.authUid
 import fr.juju.myapplication.SemainierRepository.Singleton.databaseRef
 import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
 import javax.security.auth.callback.Callback
@@ -13,20 +14,26 @@ import javax.security.auth.callback.Callback
 class SemainierRepository {
 
     object Singleton{
-
         private val BUCKET_URL: String = "gs://naturecollection-c9efc.appspot.com"
         //se connecter à notre espace de stockage
         val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BUCKET_URL)
         //se co à la ref plante
-        val authUid =  FirebaseAuth.getInstance().uid
-        val databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/semainier")
+        var authUid =  FirebaseAuth.getInstance().uid
+        var databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/semainier")
         //Créer une liste qui va contenir les plantes
         var semainierList = arrayListOf<SemainierModel>()
+    }
+
+    fun removeLink()
+    {
+        authUid =  FirebaseAuth.getInstance().uid
+        databaseRef = FirebaseDatabase.getInstance().getReference(Singleton.authUid.toString() + "/semainier")
+        semainierList.clear()
 
     }
+
     fun updateData(callback:()-> Unit){
         databaseRef.addValueEventListener(object : ValueEventListener {
-
             override fun onDataChange(snapshot: DataSnapshot) {
                 semainierList.clear()
                 //recup la liste
@@ -43,7 +50,8 @@ class SemainierRepository {
             override fun onCancelled(error: DatabaseError) {
             }
 
-        })    }
+        })
+    }
 
     fun resetMidi(day_name: String) {
         var day = semainierList.filter { s->s.id_semainier == day_name }[0]

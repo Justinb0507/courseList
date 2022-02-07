@@ -680,7 +680,6 @@ class SemainierFragment(
         }
 
         if (currentDays.soir != "None") {
-
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.visibility = View.VISIBLE
             var currentRepasSoir = repasList.filter { s -> s.id == currentDays.soir }[0]
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.setOnClickListener {

@@ -7,6 +7,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
+import fr.juju.myapplication.CourseRepository.Singleton.authUid
 import fr.juju.myapplication.CourseRepository.Singleton.courseList
 import fr.juju.myapplication.CourseRepository.Singleton.databaseRef
 import java.util.*
@@ -17,9 +18,14 @@ class CourseRepository {
 
         private val BUCKET_URL: String = "gs://naturecollection-c9efc.appspot.com"
         val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BUCKET_URL)
-        val authUid =  FirebaseAuth.getInstance().uid
-        val databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/course")
+        var authUid =  FirebaseAuth.getInstance().uid
+        var databaseRef = FirebaseDatabase.getInstance().getReference(authUid.toString() + "/course")
         val courseList = arrayListOf<CourseModel>()
+    }
+    fun removeLink(){
+        authUid =  FirebaseAuth.getInstance().uid
+        databaseRef = FirebaseDatabase.getInstance().getReference(Singleton.authUid.toString() + "/course")
+        courseList.clear()
     }
 
 

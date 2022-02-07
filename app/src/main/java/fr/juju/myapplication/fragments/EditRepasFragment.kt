@@ -266,6 +266,10 @@ class EditRepasFragment(
         }
         view.findViewById<TextView>(R.id.recette).setOnClickListener{
             switcher("recette")
+            view.findViewById<EditText>(R.id.recette_input).requestFocus()
+            val showMe = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.recette_input), InputMethodManager.SHOW_IMPLICIT)
+            view.findViewById<EditText>(R.id.recette_input).setSelection(view.findViewById<EditText>(R.id.recette_input).getText().length);
         }
 
         var scrollView = view.findViewById<ScrollView>(R.id.scrollView)

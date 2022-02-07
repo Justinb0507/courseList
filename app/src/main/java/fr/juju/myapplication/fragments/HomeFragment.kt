@@ -44,8 +44,8 @@ class HomeFragment
     ): View? {
 
         val view = inflater?.inflate(R.layout.fragment_home, container, false)
-        var currentDays= SemainierModel()
-        //var currentDays = semainierList.filter{s->s.id_semainier == currentDay}[0]
+        //var currentDays= SemainierModel()
+        var currentDays = semainierList.filter{s->s.id_semainier == currentDay}[0]
 
         if (currentDays.midi != "None"){
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.visibility = View.VISIBLE

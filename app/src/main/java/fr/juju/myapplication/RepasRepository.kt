@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import fr.juju.myapplication.RepasRepository.Singleton.authUid
 import fr.juju.myapplication.RepasRepository.Singleton.databaseRef
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import java.util.*
@@ -19,13 +20,19 @@ class RepasRepository {
         //se connecter à notre espace de stockage
         val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BUCKET_URL)
         //se co à la ref plante
-        val authUid =  FirebaseAuth.getInstance().uid
-        val databaseRef = FirebaseDatabase.getInstance().getReference(authUid + "/repas")
+        var authUid =  FirebaseAuth.getInstance().uid
+        var databaseRef = FirebaseDatabase.getInstance().getReference(authUid + "/repas")
         //Créer une liste qui va contenir les plantes
         val repasList = arrayListOf<RepasModel>()
 
     }
 
+    fun removeLink()
+    {
+        authUid = FirebaseAuth.getInstance().uid
+        databaseRef = FirebaseDatabase.getInstance().getReference(authUid + "/repas")
+        repasList.clear()
+    }
 
     fun updateData(callback:()-> Unit){
         //absorber les donées depuis la db ref -> les mettre dans la liste

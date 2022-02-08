@@ -33,9 +33,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         navigationView = findViewById<BottomNavigationView>(R.id.navigation_view)
 
-       findViewById<ImageView>(R.id.imageView2).setOnClickListener{
-            var preferences : SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
-            var editor : SharedPreferences.Editor = preferences.edit()
+
+        findViewById<ImageView>(R.id.imageView2).setOnClickListener {
+            var preferences: SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
+            var editor: SharedPreferences.Editor = preferences.edit()
             editor.putString("remember", "false")
             editor.apply()
             FirebaseAuth.getInstance().signOut()
@@ -49,8 +50,8 @@ class MainActivity : AppCompatActivity() {
         unprintApero()
         unprintMidi()
         navigationView.setOnNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.home_page->{
+            when (it.itemId) {
+                R.id.home_page -> {
                     unprintSoir()
                     unprintApero()
                     unprintMidi()
@@ -58,21 +59,21 @@ class MainActivity : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.cookies->{
+                R.id.cookies -> {
                     unprintSoir()
                     unprintApero()
                     unprintMidi()
                     loadFragment(FiltreRepasFragment(this, "None", "None", "None"))
                     return@setOnNavigationItemSelectedListener true
                 }
-                R.id.calendar->{
+                R.id.calendar -> {
                     unprintSoir()
                     unprintApero()
                     unprintMidi()
                     loadFragment(SemainierFragment(this, "None", "None"))
                     return@setOnNavigationItemSelectedListener true
                 }
-                R.id.course->{
+                R.id.course -> {
                     unprintSoir()
                     unprintApero()
                     unprintMidi()
@@ -84,24 +85,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun selectedCourse(){
+    fun selectedCourse() {
         navigationView.getMenu().getItem(3).setChecked(true)
     }
-    fun selectedSemainier(){
+
+    fun selectedSemainier() {
         navigationView.getMenu().getItem(2).setChecked(true)
     }
-    fun selectedRecettes(){
+
+    fun selectedRecettes() {
         navigationView.getMenu().getItem(1).setChecked(true)
     }
+    fun selectedHome() {
+        navigationView.getMenu().getItem(0).setChecked(true)
+    }
 
-    fun hideKeyboard(){
+    fun hideKeyboard() {
         val view = this.currentFocus
-        if(view != null){
+        if (view != null) {
             val hideMe = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             hideMe.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
-
 
 
     fun loadFragment(fragment: Fragment) {
@@ -122,103 +127,205 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    fun printSoir(){
+    fun printSoir() {
         findViewById<ConstraintLayout>(R.id.toggle_soir).visibility = View.VISIBLE
         findViewById<ConstraintLayout>(R.id.toggle_soir).alpha = 1F
     }
-    fun unprintSoir(){
+
+    fun unprintSoir() {
         findViewById<ConstraintLayout>(R.id.toggle_soir).visibility = View.GONE
     }
-    fun printApero(){
+
+    fun printApero() {
         findViewById<ConstraintLayout>(R.id.toggle_apero).visibility = View.VISIBLE
         findViewById<ConstraintLayout>(R.id.toggle_apero).alpha = 1F
     }
-    fun unprintApero(){
+
+    fun unprintApero() {
         findViewById<ConstraintLayout>(R.id.toggle_apero).visibility = View.GONE
     }
-    fun printMidi(){
+
+    fun printMidi() {
         findViewById<ConstraintLayout>(R.id.toggle_midi).visibility = View.VISIBLE
         findViewById<ConstraintLayout>(R.id.toggle_midi).alpha = 1F
     }
-    fun unprintMidi(){
+
+    fun unprintMidi() {
         findViewById<ConstraintLayout>(R.id.toggle_midi).visibility = View.GONE
     }
-    fun animationSoir(){
+
+    fun animationSoir() {
         val animation = AnimationUtils.loadAnimation(this, R.anim.transformation_button_animation)
-        val scaleX = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.SCALE_X, 1.0f, 4F).setDuration(200)
-        val alpha = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.ALPHA, 0F).setDuration(150)
-        val translateX = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.TRANSLATION_X, 1.0f, -150f).setDuration(200)
-        val scaleY = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.SCALE_Y, 1.0f, 4f).setDuration(200)
+        val scaleX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.SCALE_X,
+            1.0f,
+            4F
+        ).setDuration(200)
+        val alpha =
+            ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.ALPHA, 0F)
+                .setDuration(150)
+        val translateX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.TRANSLATION_X,
+            1.0f,
+            -150f
+        ).setDuration(200)
+        val scaleY = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.SCALE_Y,
+            1.0f,
+            4f
+        ).setDuration(200)
 
         val set = AnimatorSet()
-        set.playTogether(scaleX,scaleY, translateX, alpha)
+        set.playTogether(scaleX, scaleY, translateX, alpha)
 
         set.start()
 
     }
 
-    fun nonAnimationSoir(){
+    fun nonAnimationSoir() {
         val animation = AnimationUtils.loadAnimation(this, R.anim.transformation_button_animation)
-        val scaleX = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.SCALE_X, 4.0f, 1F).setDuration(200)
-        val translateX = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.TRANSLATION_X, -150f, 1f).setDuration(200)
-        val scaleY = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.SCALE_Y,  4f,1.0F).setDuration(200)
+        val scaleX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.SCALE_X,
+            4.0f,
+            1F
+        ).setDuration(200)
+        val translateX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.TRANSLATION_X,
+            -150f,
+            1f
+        ).setDuration(200)
+        val scaleY = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.SCALE_Y,
+            4f,
+            1.0F
+        ).setDuration(200)
 
         val set = AnimatorSet()
-        set.playTogether(scaleX,scaleY, translateX)
+        set.playTogether(scaleX, scaleY, translateX)
 
         set.start()
 
     }
 
-    fun animationMidi(){
+    fun animationMidi() {
         val animation = AnimationUtils.loadAnimation(this, R.anim.transformation_button_animation)
-        val scaleX = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.SCALE_X, 1.0f, 4F).setDuration(200)
-        val alpha = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.ALPHA, 0F).setDuration(150)
-        val translateX = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.TRANSLATION_X, 1.0f, -150f).setDuration(200)
-        val scaleY = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.SCALE_Y, 1.0f, 4f).setDuration(200)
+        val scaleX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.SCALE_X,
+            1.0f,
+            4F
+        ).setDuration(200)
+        val alpha =
+            ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.ALPHA, 0F)
+                .setDuration(150)
+        val translateX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.TRANSLATION_X,
+            1.0f,
+            -150f
+        ).setDuration(200)
+        val scaleY = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.SCALE_Y,
+            1.0f,
+            4f
+        ).setDuration(200)
 
         val set = AnimatorSet()
-        set.playTogether(scaleX,scaleY, translateX, alpha)
+        set.playTogether(scaleX, scaleY, translateX, alpha)
 
         set.start()
 
     }
 
-    fun nonAnimationMidi(){
+    fun nonAnimationMidi() {
         val animation = AnimationUtils.loadAnimation(this, R.anim.transformation_button_animation)
-        val scaleX = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.SCALE_X, 4.0f, 1F).setDuration(200)
-        val translateX = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.TRANSLATION_X, -150f, 1f).setDuration(200)
-        val scaleY = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.SCALE_Y,  4f,1.0F).setDuration(200)
+        val scaleX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.SCALE_X,
+            4.0f,
+            1F
+        ).setDuration(200)
+        val translateX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.TRANSLATION_X,
+            -150f,
+            1f
+        ).setDuration(200)
+        val scaleY = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.SCALE_Y,
+            4f,
+            1.0F
+        ).setDuration(200)
 
         val set = AnimatorSet()
-        set.playTogether(scaleX,scaleY, translateX)
+        set.playTogether(scaleX, scaleY, translateX)
 
         set.start()
 
     }
 
-    fun animationApero(){
+    fun animationApero() {
         val animation = AnimationUtils.loadAnimation(this, R.anim.transformation_button_animation)
-        val scaleX = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.SCALE_X, 1.0f, 4F).setDuration(200)
-        val alpha = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.ALPHA, 0F).setDuration(150)
-        val translateX = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.TRANSLATION_X, 1.0f, -150f).setDuration(200)
-        val scaleY = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.SCALE_Y, 1.0f, 4f).setDuration(200)
+        val scaleX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.SCALE_X,
+            1.0f,
+            4F
+        ).setDuration(200)
+        val alpha =
+            ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.ALPHA, 0F)
+                .setDuration(150)
+        val translateX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.TRANSLATION_X,
+            1.0f,
+            -150f
+        ).setDuration(200)
+        val scaleY = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.SCALE_Y,
+            1.0f,
+            4f
+        ).setDuration(200)
 
         val set = AnimatorSet()
-        set.playTogether(scaleX,scaleY, translateX, alpha)
+        set.playTogether(scaleX, scaleY, translateX, alpha)
 
         set.start()
 
     }
 
-    fun nonAnimationApero(){
+    fun nonAnimationApero() {
         val animation = AnimationUtils.loadAnimation(this, R.anim.transformation_button_animation)
-        val scaleX = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.SCALE_X, 4.0f, 1F).setDuration(200)
-        val translateX = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.TRANSLATION_X, -150f, 1f).setDuration(200)
-        val scaleY = ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_soir), View.SCALE_Y,  4f,1.0F).setDuration(200)
+        val scaleX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.SCALE_X,
+            4.0f,
+            1F
+        ).setDuration(200)
+        val translateX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.TRANSLATION_X,
+            -150f,
+            1f
+        ).setDuration(200)
+        val scaleY = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.SCALE_Y,
+            4f,
+            1.0F
+        ).setDuration(200)
 
         val set = AnimatorSet()
-        set.playTogether(scaleX,scaleY, translateX)
+        set.playTogether(scaleX, scaleY, translateX)
 
         set.start()
 

@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -45,6 +46,13 @@ class HomeFragment
 
         val view = inflater?.inflate(R.layout.fragment_home, container, false)
         //var currentDays= SemainierModel()
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                context.finish()
+            }
+
+        })
+
         var currentDays = semainierList.filter{s->s.id_semainier == currentDay}[0]
 
         if (currentDays.midi != "None"){

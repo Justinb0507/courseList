@@ -33,11 +33,10 @@
         style="@style/TitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/background"
-        android:text="Créer un compte"
         android:layout_marginTop="100dp"
-        android:layout_marginLeft="@dimen/default_margin"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Créer un compte :)"
+        android:textColor="@color/background"
+        app:layout_constraintStart_toStartOf="@+id/et_email"
         app:layout_constraintTop_toTopOf="@+id/imageView12" />
 
 
@@ -64,10 +63,11 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_heading" />
 
     <ImageView
+        android:id="@+id/imageView15"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:src="@drawable/mail"
         android:layout_marginLeft="10dp"
+        android:src="@drawable/mail"
         app:layout_constraintBottom_toBottomOf="@+id/et_email"
         app:layout_constraintStart_toStartOf="@+id/et_email"
         app:layout_constraintTop_toTopOf="@+id/et_email" />

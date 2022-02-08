@@ -1598,7 +1598,7 @@ class SemainierFragment(
     private fun clearCourse(){
         var repo = CourseRepository()
         for(courseItem in CourseRepository.Singleton.courseList){
-            if(courseItem.ajoutExterieur == "false" && courseItem.ok == "true"){
+            if(courseItem.ok == "true"){
                 repo.deleteCourseItem(courseItem)
             }
         }

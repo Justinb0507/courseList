@@ -7,7 +7,7 @@ C'est donc tout l'objectif du projet, Cook’eat : faciliter l'organisation de m
 
 Bonne découverte !
 
-Je vous invite à aller voir les captures d'écran de mon application afin de voir concrétement à quoi ressemble cookeat :)
+Je vous invite à aller voir les captures d'écran de mon application (dossier ScreenApplication) afin de voir concrétement à quoi ressemble cookeat :)
 
 Pour réaliser ce projet, j'ai travaillé avec une UX designer en amont des développements afin de produire des maquettes figma cohérentes et de qualité. Une réélle phase de recherche UX a été rélisée. Cela m'a permis dans un premier temps de voir à quoi ressemblera la partie UI de l'application, mais également de mettre en évidence les points clés et les principales fonctionnalités à mettre en place.
 

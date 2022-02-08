@@ -236,6 +236,21 @@ class CourseRepository {
                                     .replace(" ", "").toInt()
                             }
 
+                            else if (oldItem.quantite.contains("pavé") && !oldItem.quantite.contains(
+                                    "pavés"
+                                )
+                            ) {
+                                value =
+                                    oldItem.quantite.substring(0, oldItem.quantite.indexOf("pavé"))
+                                        .replace(" ", "").toInt()
+                            } else if (oldItem.quantite.contains("pavés")) {
+                                value = oldItem.quantite.substring(
+                                    0,
+                                    oldItem.quantite.indexOf("pavés")
+                                )
+                                    .replace(" ", "").toInt()
+                            }
+
 
 //Traitement nouvelle valeur
 //Traitement cl l ml
@@ -449,6 +464,30 @@ class CourseRepository {
                                         .replace(" ", "").toInt()
                                 oldItem.quantite = ((value + newValue).toString()) + " bottes"
                             }
+
+
+                            else if (ingredient.quantite.contains("pavé") && !ingredient.quantite.contains(
+                                    "pavés"
+                                )
+                            ) {
+                                var newValue =
+                                    ingredient.quantite.substring(
+                                        0,
+                                        ingredient.quantite.indexOf("pavé")
+                                    )
+                                        .replace(" ", "").toInt()
+
+                                oldItem.quantite = ((value + newValue).toString()) + " pavés"
+
+                            } else if (ingredient.quantite.contains("pavés")) {
+                                var newValue =
+                                    ingredient.quantite.substring(
+                                        0,
+                                        ingredient.quantite.indexOf("pavés")
+                                    )
+                                        .replace(" ", "").toInt()
+                                oldItem.quantite = ((value + newValue).toString()) + " pavés"
+                            }
                         }
                     }
                 } else {
@@ -625,6 +664,20 @@ class CourseRepository {
                                 value = oldItem.quantite.substring(
                                     0,
                                     oldItem.quantite.indexOf("bottes")
+                                )
+                                    .replace(" ", "").toInt()
+                            }
+                            else if (oldItem.quantite.contains("pavé") && !oldItem.quantite.contains(
+                                    "pavés"
+                                )
+                            ) {
+                                value =
+                                    oldItem.quantite.substring(0, oldItem.quantite.indexOf("pavé"))
+                                        .replace(" ", "").toInt()
+                            } else if (oldItem.quantite.contains("pavés")) {
+                                value = oldItem.quantite.substring(
+                                    0,
+                                    oldItem.quantite.indexOf("pavés")
                                 )
                                     .replace(" ", "").toInt()
                             }
@@ -843,6 +896,27 @@ class CourseRepository {
                                 oldItem.quantite = ((value - newValue).toString()) + " bottes"
                             }
 
+                            else if (ingredient.quantite.contains("pavé") && !ingredient.quantite.contains(
+                                    "pavés"
+                                )
+                            ) {
+                                var newValue =
+                                    ingredient.quantite.substring(
+                                        0,
+                                        ingredient.quantite.indexOf("pavé")
+                                    )
+                                        .replace(" ", "").toInt()
+                                oldItem.quantite = ((value - newValue).toString()) + " pavés"
+                            } else if (ingredient.quantite.contains("pavés")) {
+                                var newValue =
+                                    ingredient.quantite.substring(
+                                        0,
+                                        ingredient.quantite.indexOf("pavés")
+                                    )
+                                        .replace(" ", "").toInt()
+                                oldItem.quantite = ((value - newValue).toString()) + " pavés"
+                            }
+
                             if (oldItem.quantite[0].toString() == "0") {
                                 repo.deleteCourseItem(oldItem)
                             } else repo.updateCourseItem(oldItem)
@@ -921,6 +995,11 @@ class CourseRepository {
             //sachet
             else if (uniteOld.replace(" ", "").contains("sachet")) {
                 if (uniteNew.replace(" ", "").contains("sachet"))
+                    return true
+            }
+            //pavés
+            else if (uniteOld.replace(" ", "").contains("pavé")) {
+                if (uniteNew.replace(" ", "").contains("pavé"))
                     return true
             }
             //tranche

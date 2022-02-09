@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,12 +19,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import fr.juju.myapplication.*
 
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
+import fr.juju.myapplication.adapter.AutresRapasHomeAdapter
 import fr.juju.myapplication.adapter.TagsAdapter
 import java.text.SimpleDateFormat
 import java.util.*
@@ -142,8 +140,21 @@ class HomeFragment
         }else {
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.visibility = View.GONE
         }
+        val recyclerAutres = view.findViewById<RecyclerView>(R.id.autresRepasRecylcer)
+        if (currentDays.autres.isNotEmpty()){
+            view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<ConstraintLayout>(R.id.autres)?.visibility = View.VISIBLE
+            var repasAutresList = arrayListOf<RepasModel>()
+            for(repas in currentDays.autres){
+                repasAutresList.add(repasList.filter { s->s.id == repas }[0])
+            }
+            recyclerAutres.adapter = AutresRapasHomeAdapter(context,repasAutresList, R.layout.item_home_autres_vertical)
+            recyclerAutres.layoutManager = LinearLayoutManager(context)
+        }else {
+            view?.findViewById<ConstraintLayout>(R.id.autres)?.visibility = View.GONE
+        }
 
-        if(currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None"){
+        if(currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()){
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
             view?.findViewById<TextView>(R.id.currentDays)?.text = "Rien de prévu aujourd’hui ! :)"
             view?.findViewById<ConstraintLayout>(R.id.vite_recette)?.setOnClickListener{

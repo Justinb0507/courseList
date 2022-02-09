@@ -50,6 +50,7 @@ class ResultResearchFragment(
             context.unprintSoir()
             context.unprintMidi()
             context.unprintApero()
+            context.unprintAutres()
             context.loadFragment(AddRepasFragment(context))
         }
 

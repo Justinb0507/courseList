@@ -288,6 +288,18 @@
             app:tint="@color/white" />
 
         <ImageView
+            android:id="@+id/icone_autres"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/autres"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <ImageView
             android:id="@+id/icone_apero"
             android:layout_width="25dp"
             android:layout_height="25dp"

@@ -223,7 +223,51 @@ class RecetteFragment(
                 }
             }
         }
+        if (time == "autres" && selectedDay != "None") {
+            view?.findViewById<ImageView>(R.id.icone_autres)?.visibility = View.VISIBLE
+            view?.findViewById<ConstraintLayout>(R.id.planning)?.visibility = View.VISIBLE
+            context.animationAutres()
+            context.unprintAutres()
+            context.nonAnimationAutres()
+            view.findViewById<ConstraintLayout>(R.id.planning).animate().alpha(1F).setDuration(150)
+            context.unprintApero()
+            context.unprintSoir()
+            context.unprintMidi()
+            view.findViewById<ConstraintLayout>(R.id.planning).setOnClickListener {
+                if (currentSemaine == "suivant") {
+                    if (ingredientList.filter { s -> s.id_repas == currentRepas.id }
+                            .filter { s -> s.name.contains("optionnel") }.isNotEmpty()) {
+                        IngredientOptionnelPopup(
+                            context,
+                            ingredientList.filter { s -> s.id_repas == currentRepas.id }
+                                .filter { s -> s.name.contains("optionnel") } as ArrayList<IngredientModel>,
+                            currentRepas,
+                            time,
+                            selectedDay).show()
+                    } else {
+                        addIngredientCourse(ingredientList.filter { s -> s.id_repas == currentRepas.id } as ArrayList<IngredientModel>)
+                        repoSuivant.setAutres(selectedDay, currentRepas.id)
+                        Toast.makeText(
+                            context,
+                            "Repas ajouté pour le $selectedDay $time!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        context.loadFragment(SemainierFragment(context, selectedDay, "suivant"))
+                        view?.findViewById<ImageView>(R.id.icone_midi)?.visibility = View.GONE
+                    }
+                } else {
+                    repo2.setAutres(selectedDay, currentRepas.id)
+                    Toast.makeText(
+                        context,
+                        "Repas ajouté pour le $selectedDay $time!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    context.loadFragment(SemainierFragment(context, selectedDay, "courant"))
+                    view?.findViewById<ImageView>(R.id.icone_autres)?.visibility = View.GONE
+                }
 
+            }
+        }
         view.findViewById<TextView>(R.id.ingredients).setOnClickListener {
             switcher("ingredient")
         }

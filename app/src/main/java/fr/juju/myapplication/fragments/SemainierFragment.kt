@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import fr.juju.myapplication.*
@@ -20,6 +21,7 @@ import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
 import fr.juju.myapplication.SemainierSuivantRepository.Singleton.semainierSuivantList
+import fr.juju.myapplication.adapter.AutresRapasSemainierAdapter
 import fr.juju.myapplication.adapter.TagsAdapter
 import java.text.SimpleDateFormat
 import java.util.*
@@ -88,7 +90,10 @@ class SemainierFragment(
             pastDay.add("vendredi")
             pastDay.add("samedi")
         }
-
+        val recyclerAutres = view.findViewById<RecyclerView>(R.id.autresRepasRecylcer)
+        var repoSemainier = SemainierRepository()
+        var repasAutresList = arrayListOf<RepasModel>()
+        var repoSemainierSuivant = SemainierSuivantRepository()
         if (currentSemaineInput == "suivant") {
             currentSemaine = semainierSuivantList
             suivant = true
@@ -182,8 +187,7 @@ class SemainierFragment(
             if (currentSemaine[0].midi != "None" && currentSemaine[0].soir == "None") {
                 view?.findViewById<ImageView>(R.id.Dimanche_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.ellipse_top))
-            }
-            else if (currentSemaine[0].midi == "None" && currentSemaine[0].soir != "None") {
+            } else if (currentSemaine[0].midi == "None" && currentSemaine[0].soir != "None") {
                 view?.findViewById<ImageView>(R.id.Dimanche_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.ellipse_bottom))
 
@@ -215,8 +219,7 @@ class SemainierFragment(
                 } else view?.findViewById<ImageView>(R.id.Lundi_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
 
-            }
-            else if (selectedDay == "mardi") {
+            } else if (selectedDay == "mardi") {
                 view.findViewById<TextView>(R.id.Mardi)?.setTypeface(null, Typeface.BOLD)
                 if (currentDays.midi != "None" && currentDays.soir == "None") {
                     view?.findViewById<ImageView>(R.id.Mardi_img)
@@ -236,8 +239,7 @@ class SemainierFragment(
                         )
                 } else view?.findViewById<ImageView>(R.id.Mardi_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
-            }
-            else if (selectedDay == "mercredi") {
+            } else if (selectedDay == "mercredi") {
                 view.findViewById<TextView>(R.id.Mercredi)?.setTypeface(null, Typeface.BOLD)
                 if (currentDays.midi != "None" && currentDays.soir == "None") {
                     view?.findViewById<ImageView>(R.id.Mercredi_img)
@@ -257,8 +259,7 @@ class SemainierFragment(
                         )
                 } else view?.findViewById<ImageView>(R.id.Mercredi_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
-            }
-            else if (selectedDay == "jeudi") {
+            } else if (selectedDay == "jeudi") {
                 view.findViewById<TextView>(R.id.Jeudi)?.setTypeface(null, Typeface.BOLD)
                 if (currentDays.midi != "None" && currentDays.soir == "None") {
                     view?.findViewById<ImageView>(R.id.Jeudi_img)
@@ -278,8 +279,7 @@ class SemainierFragment(
                         )
                 } else view?.findViewById<ImageView>(R.id.Jeudi_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
-            }
-            else if (selectedDay == "vendredi") {
+            } else if (selectedDay == "vendredi") {
                 view.findViewById<TextView>(R.id.Vendredi)?.setTypeface(null, Typeface.BOLD)
                 if (currentDays.midi != "None" && currentDays.soir == "None") {
                     view?.findViewById<ImageView>(R.id.Vendredi_img)
@@ -299,8 +299,7 @@ class SemainierFragment(
                         )
                 } else view?.findViewById<ImageView>(R.id.Vendredi_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
-            }
-            else if (selectedDay == "samedi") {
+            } else if (selectedDay == "samedi") {
                 view.findViewById<TextView>(R.id.Samedi)?.setTypeface(null, Typeface.BOLD)
                 if (currentDays.midi != "None" && currentDays.soir == "None") {
                     view?.findViewById<ImageView>(R.id.Samedi_img)
@@ -320,8 +319,7 @@ class SemainierFragment(
                         )
                 } else view?.findViewById<ImageView>(R.id.Samedi_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
-            }
-            else if (selectedDay == "dimanche") {
+            } else if (selectedDay == "dimanche") {
                 view.findViewById<TextView>(R.id.Dimanche)?.setTypeface(null, Typeface.BOLD)
                 if (currentDays.midi != "None" && currentDays.soir == "None") {
                     view?.findViewById<ImageView>(R.id.Dimanche_img)
@@ -342,7 +340,6 @@ class SemainierFragment(
                 } else view?.findViewById<ImageView>(R.id.Dimanche_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
             }
-
         }
         else {
             currentSemaine = semainierList
@@ -592,6 +589,19 @@ class SemainierFragment(
                         view.findViewById<ImageView>(R.id.Dimanche_img)
                     )
                 }
+                repoSemainierSuivant.updateData {
+                    currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
+
+                    if (currentDays.autres.isNotEmpty()) {
+                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility = android.view.View.GONE
+                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility = android.view.View.VISIBLE
+                    }else {
+                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility = android.view.View.GONE
+                    }
+                    if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
+                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility = android.view.View.VISIBLE
+                    }
+                }
             }
             else {
                 view.findViewById<ImageView>(R.id.echange).visibility = View.GONE
@@ -647,6 +657,20 @@ class SemainierFragment(
                         view.findViewById<TextView>(R.id.Dimanche),
                         view.findViewById<ImageView>(R.id.Dimanche_img)
                     )
+                }
+            }
+
+            repoSemainier.updateData {
+                currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
+
+                if (currentDays.autres.isNotEmpty()) {
+                    view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+                    view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.VISIBLE
+                }else {
+                    view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.GONE
+                }
+                if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
+                    view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
                 }
             }
         }
@@ -738,9 +762,69 @@ class SemainierFragment(
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.visibility = View.GONE
         }
 
-        if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None") {
+        if (currentDays.autres.isNotEmpty()) {
+            view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.VISIBLE
+            for (repas in currentDays.autres) {
+                repasAutresList.add(repasList.filter { s -> s.id == repas }[0])
+            }
+            if (suivant){
+                recyclerAutres.adapter = AutresRapasSemainierAdapter(
+                    context,
+                    repasAutresList,
+                    currentDays.id_semainier,
+                    "suivant",
+                    R.layout.item_semainier_autres_vertical
+                )
+                recyclerAutres.layoutManager = LinearLayoutManager(context)
+            }else {
+                recyclerAutres.adapter = AutresRapasSemainierAdapter(
+                    context,
+                    repasAutresList,
+                    currentDays.id_semainier,
+                    "courant",
+                    R.layout.item_semainier_autres_vertical
+                )
+                recyclerAutres.layoutManager = LinearLayoutManager(context)
+            }
+
+        } else {
+            view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.GONE
+        }
+
+        if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
         }
+
+    if(suivant) {
+            repoSemainierSuivant.updateData {
+                currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
+
+                if (currentDays.autres.isNotEmpty()) {
+                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility = android.view.View.GONE
+                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility = android.view.View.VISIBLE
+                }else {
+                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility = android.view.View.GONE
+                }
+                if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
+                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility = android.view.View.VISIBLE
+                }
+            }
+    }else {
+        repoSemainier.updateData {
+            currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
+
+            if (currentDays.autres.isNotEmpty()) {
+                view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+                view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.VISIBLE
+            }else {
+                view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.GONE
+            }
+            if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
+                view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
+            }
+        }
+    }
 
         view.findViewById<TextView>(R.id.Lundi).setOnClickListener {
             if (suivant == false) {
@@ -1014,6 +1098,7 @@ class SemainierFragment(
         view.findViewById<ConstraintLayout>(R.id.affect_repas_midi).visibility = View.GONE
         view.findViewById<ConstraintLayout>(R.id.affect_repas_apero).visibility = View.GONE
         view.findViewById<ConstraintLayout>(R.id.affect_repas_soir).visibility = View.GONE
+        view.findViewById<ConstraintLayout>(R.id.affect_repas_autres).visibility = View.GONE
 
         view.findViewById<ImageView>(R.id.affect_repas).setOnClickListener {
             enableEdit(view)
@@ -1059,11 +1144,25 @@ class SemainierFragment(
                 )
             )
         }
+        view.findViewById<ConstraintLayout>(R.id.affect_repas_autres).setOnClickListener {
+            context.printAutres()
+            if (suivant) {
+                context.loadFragment(FiltreRepasFragment(context, "autres", selectedDay, "suivant"))
+            } else context.loadFragment(
+                FiltreRepasFragment(
+                    context,
+                    "autres",
+                    selectedDay,
+                    "courant"
+                )
+            )
+        }
 
         val translate = AnimationUtils.loadAnimation(context, R.anim.translate_anim)
         view.findViewById<ConstraintLayout>(R.id.Midi).startAnimation(translate)
         view.findViewById<ConstraintLayout>(R.id.Soir).startAnimation(translate)
         view.findViewById<ConstraintLayout>(R.id.Apero).startAnimation(translate)
+        view.findViewById<ConstraintLayout>(R.id.Autres).startAnimation(translate)
         view.findViewById<ConstraintLayout>(R.id.NoRepas).startAnimation(translate)
         view.findViewById<TextView>(R.id.substyle).startAnimation(translate)
         view.findViewById<ImageView>(R.id.imageView5).startAnimation(translate)
@@ -1533,72 +1632,172 @@ class SemainierFragment(
 
         return view
     }
-    private fun echange(){
+
+    private fun echange() {
         var repo = SemainierRepository()
-        repo.setMidi("lundi",semainierSuivantList.filter { s->s.id_semainier == "lundi" }[0].midi)
-        repo.setMidi("mardi",semainierSuivantList.filter { s->s.id_semainier == "mardi" }[0].midi)
-        repo.setMidi("mercredi",semainierSuivantList.filter { s->s.id_semainier == "mercredi" }[0].midi)
-        repo.setMidi("jeudi",semainierSuivantList.filter { s->s.id_semainier == "jeudi" }[0].midi)
-        repo.setMidi("vendredi",semainierSuivantList.filter { s->s.id_semainier == "vendredi" }[0].midi)
-        repo.setMidi("samedi",semainierSuivantList.filter { s->s.id_semainier == "samedi" }[0].midi)
-        repo.setMidi("dimanche",semainierSuivantList.filter { s->s.id_semainier == "dimanche" }[0].midi)
+        repo.setMidi(
+            "lundi",
+            semainierSuivantList.filter { s -> s.id_semainier == "lundi" }[0].midi
+        )
+        repo.setMidi(
+            "mardi",
+            semainierSuivantList.filter { s -> s.id_semainier == "mardi" }[0].midi
+        )
+        repo.setMidi(
+            "mercredi",
+            semainierSuivantList.filter { s -> s.id_semainier == "mercredi" }[0].midi
+        )
+        repo.setMidi(
+            "jeudi",
+            semainierSuivantList.filter { s -> s.id_semainier == "jeudi" }[0].midi
+        )
+        repo.setMidi(
+            "vendredi",
+            semainierSuivantList.filter { s -> s.id_semainier == "vendredi" }[0].midi
+        )
+        repo.setMidi(
+            "samedi",
+            semainierSuivantList.filter { s -> s.id_semainier == "samedi" }[0].midi
+        )
+        repo.setMidi(
+            "dimanche",
+            semainierSuivantList.filter { s -> s.id_semainier == "dimanche" }[0].midi
+        )
 
-        repo.setApero("lundi",semainierSuivantList.filter { s->s.id_semainier == "lundi" }[0].apero)
-        repo.setApero("mardi",semainierSuivantList.filter { s->s.id_semainier == "mardi" }[0].apero)
-        repo.setApero("mercredi",semainierSuivantList.filter { s->s.id_semainier == "mercredi" }[0].apero)
-        repo.setApero("jeudi",semainierSuivantList.filter { s->s.id_semainier == "jeudi" }[0].apero)
-        repo.setApero("vendredi",semainierSuivantList.filter { s->s.id_semainier == "vendredi" }[0].apero)
-        repo.setApero("samedi",semainierSuivantList.filter { s->s.id_semainier == "samedi" }[0].apero)
-        repo.setApero("dimanche",semainierSuivantList.filter { s->s.id_semainier == "dimanche" }[0].apero)
+        repo.setApero(
+            "lundi",
+            semainierSuivantList.filter { s -> s.id_semainier == "lundi" }[0].apero
+        )
+        repo.setApero(
+            "mardi",
+            semainierSuivantList.filter { s -> s.id_semainier == "mardi" }[0].apero
+        )
+        repo.setApero(
+            "mercredi",
+            semainierSuivantList.filter { s -> s.id_semainier == "mercredi" }[0].apero
+        )
+        repo.setApero(
+            "jeudi",
+            semainierSuivantList.filter { s -> s.id_semainier == "jeudi" }[0].apero
+        )
+        repo.setApero(
+            "vendredi",
+            semainierSuivantList.filter { s -> s.id_semainier == "vendredi" }[0].apero
+        )
+        repo.setApero(
+            "samedi",
+            semainierSuivantList.filter { s -> s.id_semainier == "samedi" }[0].apero
+        )
+        repo.setApero(
+            "dimanche",
+            semainierSuivantList.filter { s -> s.id_semainier == "dimanche" }[0].apero
+        )
 
-        repo.setSoir("lundi",semainierSuivantList.filter { s->s.id_semainier == "lundi" }[0].soir)
-        repo.setSoir("mardi",semainierSuivantList.filter { s->s.id_semainier == "mardi" }[0].soir)
-        repo.setSoir("mercredi",semainierSuivantList.filter { s->s.id_semainier == "mercredi" }[0].soir)
-        repo.setSoir("jeudi",semainierSuivantList.filter { s->s.id_semainier == "jeudi" }[0].soir)
-        repo.setSoir("vendredi",semainierSuivantList.filter { s->s.id_semainier == "vendredi" }[0].soir)
-        repo.setSoir("samedi",semainierSuivantList.filter { s->s.id_semainier == "samedi" }[0].soir)
-        repo.setSoir("dimanche",semainierSuivantList.filter { s->s.id_semainier == "dimanche" }[0].soir)
+        repo.setSoir(
+            "lundi",
+            semainierSuivantList.filter { s -> s.id_semainier == "lundi" }[0].soir
+        )
+        repo.setSoir(
+            "mardi",
+            semainierSuivantList.filter { s -> s.id_semainier == "mardi" }[0].soir
+        )
+        repo.setSoir(
+            "mercredi",
+            semainierSuivantList.filter { s -> s.id_semainier == "mercredi" }[0].soir
+        )
+        repo.setSoir(
+            "jeudi",
+            semainierSuivantList.filter { s -> s.id_semainier == "jeudi" }[0].soir
+        )
+        repo.setSoir(
+            "vendredi",
+            semainierSuivantList.filter { s -> s.id_semainier == "vendredi" }[0].soir
+        )
+        repo.setSoir(
+            "samedi",
+            semainierSuivantList.filter { s -> s.id_semainier == "samedi" }[0].soir
+        )
+        repo.setSoir(
+            "dimanche",
+            semainierSuivantList.filter { s -> s.id_semainier == "dimanche" }[0].soir
+        )
+
+        repo.setAutres(
+            "lundi",
+            semainierSuivantList.filter { s -> s.id_semainier == "lundi" }[0].autres
+        )
+        repo.setAutres(
+            "mardi",
+            semainierSuivantList.filter { s -> s.id_semainier == "mardi" }[0].autres
+        )
+        repo.setAutres(
+            "mercredi",
+            semainierSuivantList.filter { s -> s.id_semainier == "mercredi" }[0].autres
+        )
+        repo.setAutres(
+            "jeudi",
+            semainierSuivantList.filter { s -> s.id_semainier == "jeudi" }[0].autres
+        )
+        repo.setAutres(
+            "vendredi",
+            semainierSuivantList.filter { s -> s.id_semainier == "vendredi" }[0].autres
+        )
+        repo.setAutres(
+            "samedi",
+            semainierSuivantList.filter { s -> s.id_semainier == "samedi" }[0].autres
+        )
+        repo.setAutres(
+            "dimanche",
+            semainierSuivantList.filter { s -> s.id_semainier == "dimanche" }[0].autres
+        )
 
         var repo2 = SemainierSuivantRepository()
         repo2.resetMidi("lundi")
         repo2.resetSoir("lundi")
         repo2.resetApero("lundi")
+        repo2.resetAutres("lundi")
 
         repo2.resetMidi("mardi")
         repo2.resetSoir("mardi")
         repo2.resetApero("mardi")
+        repo2.resetAutres("mardi")
 
         repo2.resetMidi("mercredi")
         repo2.resetSoir("mercredi")
         repo2.resetApero("mercredi")
+        repo2.resetAutres("mercredi")
 
         repo2.resetMidi("jeudi")
         repo2.resetSoir("jeudi")
         repo2.resetApero("jeudi")
+        repo2.resetAutres("jeudi")
 
         repo2.resetMidi("vendredi")
         repo2.resetSoir("vendredi")
         repo2.resetApero("vendredi")
+        repo2.resetAutres("vendredi")
 
         repo2.resetMidi("samedi")
         repo2.resetSoir("samedi")
         repo2.resetApero("samedi")
+        repo2.resetAutres("samedi")
 
         repo2.resetMidi("dimanche")
         repo2.resetSoir("dimanche")
         repo2.resetApero("dimanche")
+        repo2.resetAutres("dimanche")
 
-        if(suivant){
+        if (suivant) {
             reinitialisationSuivant()
-        }else reinitialisation()
+        } else reinitialisation()
         clearCourse()
         view?.findViewById<Switch>(R.id.toggleButton)?.performClick()
     }
 
-    private fun clearCourse(){
+    private fun clearCourse() {
         var repo = CourseRepository()
-        for(courseItem in CourseRepository.Singleton.courseList){
-            if(courseItem.ok == "true"){
+        for (courseItem in CourseRepository.Singleton.courseList) {
+            if (courseItem.ok == "true") {
                 repo.deleteCourseItem(courseItem)
             }
         }
@@ -1611,10 +1810,12 @@ class SemainierFragment(
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_midi)?.visibility = View.VISIBLE
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_apero)?.visibility = View.VISIBLE
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_soir)?.visibility = View.VISIBLE
+            view?.findViewById<ConstraintLayout>(R.id.affect_repas_autres)?.visibility = View.VISIBLE
             view?.findViewById<ScrollView>(R.id.scrollView)?.alpha = 0.25F
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.isEnabled = false
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.isEnabled = false
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.isEnabled = false
+            view?.findViewById<ConstraintLayout>(R.id.Autres)?.isEnabled = false
             view?.findViewById<ImageView>(R.id.Lundi_img)?.isEnabled = false
             view?.findViewById<ImageView>(R.id.Mardi_img)?.isEnabled = false
             view?.findViewById<ImageView>(R.id.Mercredi_img)?.isEnabled = false
@@ -1636,6 +1837,8 @@ class SemainierFragment(
                 ?.startAnimation(translateAnim)
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_soir)
                 ?.startAnimation(translateAnim)
+            view?.findViewById<ConstraintLayout>(R.id.affect_repas_autres)
+                ?.startAnimation(translateAnim)
             view?.findViewById<ImageView>(R.id.affect_repas)?.animate()?.rotation(45F)?.duration =
                 250
         } else {
@@ -1646,6 +1849,7 @@ class SemainierFragment(
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.isEnabled = true
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.isEnabled = true
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.isEnabled = true
+            view?.findViewById<ConstraintLayout>(R.id.Autres)?.isEnabled = true
             view?.findViewById<ImageView>(R.id.Lundi_img)?.isEnabled = true
             view?.findViewById<ImageView>(R.id.Mardi_img)?.isEnabled = true
             view?.findViewById<ImageView>(R.id.Mercredi_img)?.isEnabled = true
@@ -1663,6 +1867,7 @@ class SemainierFragment(
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_midi)?.visibility = View.GONE
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_apero)?.visibility = View.GONE
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_soir)?.visibility = View.GONE
+            view?.findViewById<ConstraintLayout>(R.id.affect_repas_autres)?.visibility = View.GONE
             view?.findViewById<ImageView>(R.id.affect_repas)?.animate()?.rotation(0F)?.duration =
                 250
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_midi)
@@ -1670,6 +1875,8 @@ class SemainierFragment(
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_apero)
                 ?.startAnimation(translateAntiAnim)
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_soir)
+                ?.startAnimation(translateAntiAnim)
+            view?.findViewById<ConstraintLayout>(R.id.affect_repas_autres)
                 ?.startAnimation(translateAntiAnim)
 
         }
@@ -2029,8 +2236,25 @@ class SemainierFragment(
         } else {
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.visibility = View.GONE
         }
-
-        if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None")
+        var repasAutresList = arrayListOf<RepasModel>()
+        if (currentDays.autres.isNotEmpty()) {
+            view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.VISIBLE
+            for (repas in currentDays.autres) {
+                repasAutresList.add(repasList.filter { s -> s.id == repas }[0])
+            }
+            view?.findViewById<RecyclerView>(R.id.autresRepasRecylcer)?.adapter = AutresRapasSemainierAdapter(
+                context,
+                repasAutresList,
+                currentDays.id_semainier,
+                "courant",
+                R.layout.item_semainier_autres_vertical
+            )
+            view?.findViewById<RecyclerView>(R.id.autresRepasRecylcer)?.layoutManager = LinearLayoutManager(context)
+        } else {
+            view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.GONE
+        }
+        if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty())
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
     }
 
@@ -2166,12 +2390,27 @@ class SemainierFragment(
         } else {
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.visibility = View.GONE
         }
-
-
-
-
-        if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None")
+        var repasAutresList = arrayListOf<RepasModel>()
+        if (currentDays.autres.isNotEmpty()) {
+            view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.VISIBLE
+            for (repas in currentDays.autres) {
+                repasAutresList.add(repasList.filter { s -> s.id == repas }[0])
+            }
+            view?.findViewById<RecyclerView>(R.id.autresRepasRecylcer)?.adapter = AutresRapasSemainierAdapter(
+                context,
+                repasAutresList,
+                currentDays.id_semainier,
+                "suivant",
+                R.layout.item_semainier_autres_vertical
+            )
+            view?.findViewById<RecyclerView>(R.id.autresRepasRecylcer)?.layoutManager = LinearLayoutManager(context)
+        } else {
+            view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.GONE
+        }
+        if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
+        }
     }
 
 

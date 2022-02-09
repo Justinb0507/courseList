@@ -49,6 +49,7 @@ override fun onCreateView(
         context.unprintSoir()
         context.unprintMidi()
         context.unprintApero()
+        context.unprintAutres()
         context.loadFragment(AddRepasFragment(context))
     }
     view.findViewById<ImageView>(R.id.dessert_rouge).alpha = 0F

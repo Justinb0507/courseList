@@ -53,6 +53,22 @@ class SemainierSuivantRepository {
 
         })    }
 
+    fun resetAutres(day_name: String){
+        var day = semainierSuivantList.filter { s->s.id_semainier == day_name }[0]
+        day.autres = arrayListOf()
+        databaseRef.child(day.id_semainier).setValue(day)
+    }
+    fun setAutres(selectedDay: String, id_repas: String){
+        var day = semainierSuivantList.filter { s->s.id_semainier == selectedDay }[0]
+        day.autres.add(id_repas)
+        databaseRef.child(selectedDay).setValue(day)
+    }
+    fun deleteAutres(selectedDay: String, id_repas: String){
+        var day = semainierSuivantList.filter { s->s.id_semainier == selectedDay }[0]
+        day.autres.remove(id_repas)
+        databaseRef.child(selectedDay).setValue(day)
+    }
+    
     fun resetMidi(day_name: String) {
         var day = semainierSuivantList.filter { s->s.id_semainier == day_name }[0]
         day.midi = "None"

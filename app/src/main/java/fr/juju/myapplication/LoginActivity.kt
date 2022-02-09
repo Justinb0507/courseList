@@ -91,36 +91,38 @@ class LoginActivity : AppCompatActivity() {
 
     // Hook Click Event
     fun performSignUp(v: View) {
-        if (validateInput()) {
+        /*if (validateInput()) {
             // Input is valid, here send data to your server
             val email = etEmail!!.text.toString()
             val password = etPassword!!.text.toString()
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    if(findViewById<CheckBox>(R.id.checkBox).isChecked){
-                        var preferences : SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
-                        var editor : SharedPreferences.Editor = preferences.edit()
-                        editor.putString("remember", "true")
-                        editor.apply()
-                    }
-                    else {
-                        var preferences : SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
-                        var editor : SharedPreferences.Editor = preferences.edit()
-                        editor.putString("remember", "false")
-                        editor.apply()
-                    }
-                    Toast.makeText(this,"Vous êtes connecté ! <3", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, SplashActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-                }
+
+            //AJOUTER L AUTHENTIFICATION ICI
             }
 
-        }
-    }
+        }*/
+        auth.signInWithEmailAndPassword("test@gmail.com", "cookeat").addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                if(findViewById<CheckBox>(R.id.checkBox).isChecked){
+                    var preferences : SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
+                    var editor : SharedPreferences.Editor = preferences.edit()
+                    editor.putString("remember", "true")
+                    editor.apply()
+                }
+                else {
+                    var preferences : SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
+                    var editor : SharedPreferences.Editor = preferences.edit()
+                    editor.putString("remember", "false")
+                    editor.apply()
+                }
+                Toast.makeText(this,"Vous êtes connecté ! <3", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, SplashActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                // If sign in fails, display a message to the user.
+                Log.w(TAG, "signInWithEmail:failure", task.exception)
+                Toast.makeText(baseContext, "Authentication failed.",
+                    Toast.LENGTH_SHORT).show()
+            }
+    }}
 }

@@ -174,8 +174,7 @@
             android:id="@+id/Apero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin"
-            >
+            android:layout_marginTop="@dimen/default_margin">
 
 
             <androidx.cardview.widget.CardView
@@ -410,6 +409,57 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/autres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/default_margin"
+                android:src="@drawable/autres"
+                app:layout_constraintBottom_toBottomOf="@+id/autresTitle"
+                app:layout_constraintEnd_toStartOf="@+id/autresTitle"
+                app:layout_constraintTop_toTopOf="@+id/autresTitle"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/autresTitle"
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Autres"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/autresRepasRecylcer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/autresTitle" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:background="@color/sun"
+                app:layout_constraintTop_toBottomOf="@+id/autresRepasRecylcer"
+                tools:layout_editor_absoluteX="20dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/NoRepas"

@@ -76,22 +76,22 @@ class RegisterActivity : AppCompatActivity() {
         val ingredients : MutableMap<String, IngredientModel> = mutableMapOf<String, IngredientModel>()
 
         val semainier : MutableMap<String, SemainierModel> = mutableMapOf<String, SemainierModel>(
-            "lundi" to  SemainierModel("None", "None", "None", "lundi"),
-            "mardi" to  SemainierModel("None", "None", "None", "mardi"),
-            "mercredi" to  SemainierModel("None", "None", "None", "mercredi"),
-            "jeudi" to  SemainierModel("None", "None", "None", "jeudi"),
-            "vendredi" to  SemainierModel("None", "None", "None", "vendredi"),
-            "samedi" to  SemainierModel("None", "None", "None", "samedi"),
-            "dimanche" to  SemainierModel("None", "None", "None", "dimanche")
+            "lundi" to  SemainierModel("None", "None", "None", arrayListOf<String>(), "lundi"),
+            "mardi" to  SemainierModel("None", "None", "None",arrayListOf<String>(), "mardi"),
+            "mercredi" to  SemainierModel("None", "None", "None",arrayListOf<String>(), "mercredi"),
+            "jeudi" to  SemainierModel("None", "None", "None",arrayListOf<String>(), "jeudi"),
+            "vendredi" to  SemainierModel("None", "None", "None",arrayListOf<String>(), "vendredi"),
+            "samedi" to  SemainierModel("None", "None", "None", arrayListOf<String>(),"samedi"),
+            "dimanche" to  SemainierModel("None", "None", "None",arrayListOf<String>(), "dimanche")
         )
         val semainierSuivant : MutableMap<String, SemainierModel> = mutableMapOf<String, SemainierModel>(
-            "lundi" to  SemainierModel("None", "None", "None", "lundi"),
-            "mardi" to  SemainierModel("None", "None", "None", "mardi"),
-            "mercredi" to  SemainierModel("None", "None", "None", "mercredi"),
-            "jeudi" to  SemainierModel("None", "None", "None", "jeudi"),
-            "vendredi" to  SemainierModel("None", "None", "None", "vendredi"),
-            "samedi" to  SemainierModel("None", "None", "None", "samedi"),
-            "dimanche" to  SemainierModel("None", "None", "None", "dimanche")
+            "lundi" to  SemainierModel("None", "None", "None",arrayListOf<String>(), "lundi"),
+            "mardi" to  SemainierModel("None", "None", "None",arrayListOf<String>(), "mardi"),
+            "mercredi" to  SemainierModel("None", "None", "None",arrayListOf<String>(), "mercredi"),
+            "jeudi" to  SemainierModel("None", "None", "None",arrayListOf<String>(), "jeudi"),
+            "vendredi" to  SemainierModel("None", "None", "None",arrayListOf<String>(), "vendredi"),
+            "samedi" to  SemainierModel("None", "None", "None",arrayListOf<String>(), "samedi"),
+            "dimanche" to  SemainierModel("None", "None", "None",arrayListOf<String>(), "dimanche")
         )
         val jsonObject = JSONTokener(
             """  {

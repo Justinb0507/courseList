@@ -235,17 +235,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <ImageView
+                        android:id="@+id/imageView16"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:src="@drawable/midi"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/white" />
+
                     <TextView
                         android:id="@+id/textView5"
                         style="@style/TitleTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/default_margin"
-                        android:layout_marginTop="@dimen/default_margin"
+                        android:layout_marginLeft="@dimen/default_margin"
                         android:text="Midi"
-                        android:textColor="@color/white"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                         android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView16"
+                        app:layout_constraintStart_toEndOf="@+id/imageView16"
+                        app:layout_constraintTop_toTopOf="@+id/imageView16" />
 
                     <ImageView
                         android:id="@+id/delete_midi"
@@ -264,7 +275,7 @@
                         android:layout_marginTop="@dimen/default_margin"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="4dp"
-                        app:layout_constraintStart_toStartOf="@+id/textView5"
+                        app:layout_constraintStart_toStartOf="@+id/imageView16"
                         app:layout_constraintTop_toBottomOf="@+id/textView5">
 
                         <ImageView
@@ -345,7 +356,7 @@
                         android:layout_marginTop="@dimen/default_margin"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="4dp"
-                        app:layout_constraintStart_toStartOf="@+id/textView4"
+                        app:layout_constraintStart_toStartOf="@+id/imageView17"
                         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
                         <ImageView
@@ -355,17 +366,28 @@
                             android:scaleType="centerCrop" />
                     </androidx.cardview.widget.CardView>
 
+                    <ImageView
+                        android:id="@+id/imageView17"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:src="@drawable/apero"
+                        app:tint="@color/white"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/textView4"
                         style="@style/TitleTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/default_margin"
-                        android:layout_marginTop="@dimen/default_margin"
                         android:text="Apéro"
+                        android:layout_marginLeft="@dimen/default_margin"
                         android:textColor="@color/white"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView17"
+                        app:layout_constraintStart_toEndOf="@+id/imageView17"
+                        app:layout_constraintTop_toTopOf="@+id/imageView17" />
 
                     <ImageView
                         android:id="@+id/delete_apero"
@@ -444,11 +466,10 @@
                         android:id="@+id/cardView3"
                         android:layout_width="150dp"
                         android:layout_height="100dp"
-                        android:layout_marginStart="@dimen/default_margin"
                         android:layout_marginTop="@dimen/default_margin"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="4dp"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imageView18"
                         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
                         <ImageView
@@ -458,17 +479,27 @@
                             android:scaleType="centerCrop" />
                     </androidx.cardview.widget.CardView>
 
+                    <ImageView
+                        android:id="@+id/imageView18"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:src="@drawable/lune"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/textView3"
                         style="@style/TitleTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/default_margin"
-                        android:layout_marginTop="@dimen/default_margin"
                         android:text="Soir"
                         android:textColor="@color/white"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView18"
+                        app:layout_constraintStart_toEndOf="@+id/imageView18"
+                        app:layout_constraintTop_toTopOf="@+id/imageView18" />
 
                     <ImageView
                         android:id="@+id/delete_soir"
@@ -537,6 +568,44 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/Autres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    >
+
+                    <ImageView
+                        android:id="@+id/imageView19"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:src="@drawable/autres"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:tint="@color/white"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/autresTitle"
+                        style="@style/TitleTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:text="Autres"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView19"
+                        app:layout_constraintStart_toEndOf="@+id/imageView19"
+                        app:layout_constraintTop_toTopOf="@+id/imageView19" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/autresRepasRecylcer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/autresTitle" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/NoRepas"
@@ -577,7 +646,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="134dp"
-        android:layout_height="219dp"
+        android:layout_height="250dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="40dp"
@@ -595,12 +664,44 @@
             />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/affect_repas_soir"
+            android:id="@+id/affect_repas_autres"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_corner_affect"
             app:layout_constraintBottom_toTopOf="@+id/affect_repas"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/autres"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/textView10"
+                style="@style/DefaultTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Autres"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintTop_toTopOf="@+id/imageView10" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/affect_repas_soir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_corner_affect"
+            app:layout_constraintBottom_toTopOf="@+id/affect_repas_autres"
             app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView

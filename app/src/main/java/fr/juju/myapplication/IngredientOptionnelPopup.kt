@@ -60,6 +60,9 @@ class IngredientOptionnelPopup(
                 }
                 repoSuivant.setSoir(selectedDay, currentRepas.id)
             }
+            if(time == "autres"){
+                repoSuivant.setAutres(selectedDay, currentRepas.id)
+            }
             Toast.makeText(context, "Repas ajouté pour le $selectedDay $time!", Toast.LENGTH_SHORT).show()
             context.loadFragment(SemainierFragment(context, selectedDay,"suivant" ))
             dismiss()

@@ -32,8 +32,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navigationView = findViewById<BottomNavigationView>(R.id.navigation_view)
-
-
         findViewById<ImageView>(R.id.imageView2).setOnClickListener {
             var preferences: SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
             var editor: SharedPreferences.Editor = preferences.edit()
@@ -49,12 +47,14 @@ class MainActivity : AppCompatActivity() {
         unprintSoir()
         unprintApero()
         unprintMidi()
+        unprintAutres()
         navigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.home_page -> {
                     unprintSoir()
                     unprintApero()
                     unprintMidi()
+                    unprintAutres()
                     loadFragmentHome(HomeFragment(this))
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
                     unprintSoir()
                     unprintApero()
                     unprintMidi()
+                    unprintAutres()
                     loadFragment(FiltreRepasFragment(this, "None", "None", "None"))
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                     unprintSoir()
                     unprintApero()
                     unprintMidi()
+                    unprintAutres()
                     loadFragment(SemainierFragment(this, "None", "None"))
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -77,6 +79,7 @@ class MainActivity : AppCompatActivity() {
                     unprintSoir()
                     unprintApero()
                     unprintMidi()
+                    unprintAutres()
                     loadFragment(CourseListeFragment(this))
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -130,6 +133,13 @@ class MainActivity : AppCompatActivity() {
     fun printSoir() {
         findViewById<ConstraintLayout>(R.id.toggle_soir).visibility = View.VISIBLE
         findViewById<ConstraintLayout>(R.id.toggle_soir).alpha = 1F
+    }
+    fun printAutres() {
+        findViewById<ConstraintLayout>(R.id.toggle_autres).visibility = View.VISIBLE
+        findViewById<ConstraintLayout>(R.id.toggle_autres).alpha = 1F
+    }
+    fun unprintAutres() {
+        findViewById<ConstraintLayout>(R.id.toggle_autres).visibility = View.GONE
     }
 
     fun unprintSoir() {
@@ -319,6 +329,65 @@ class MainActivity : AppCompatActivity() {
         ).setDuration(200)
         val scaleY = ObjectAnimator.ofFloat(
             findViewById<ConstraintLayout>(R.id.toggle_soir),
+            View.SCALE_Y,
+            4f,
+            1.0F
+        ).setDuration(200)
+
+        val set = AnimatorSet()
+        set.playTogether(scaleX, scaleY, translateX)
+
+        set.start()
+
+    }
+
+    fun animationAutres() {
+        val animation = AnimationUtils.loadAnimation(this, R.anim.transformation_button_animation)
+        val scaleX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_autres),
+            View.SCALE_X,
+            1.0f,
+            4F
+        ).setDuration(200)
+        val alpha =
+            ObjectAnimator.ofFloat(findViewById<ConstraintLayout>(R.id.toggle_autres), View.ALPHA, 0F)
+                .setDuration(150)
+        val translateX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_autres),
+            View.TRANSLATION_X,
+            1.0f,
+            -150f
+        ).setDuration(200)
+        val scaleY = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_autres),
+            View.SCALE_Y,
+            1.0f,
+            4f
+        ).setDuration(200)
+
+        val set = AnimatorSet()
+        set.playTogether(scaleX, scaleY, translateX, alpha)
+
+        set.start()
+
+    }
+
+    fun nonAnimationAutres() {
+        val animation = AnimationUtils.loadAnimation(this, R.anim.transformation_button_animation)
+        val scaleX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_autres),
+            View.SCALE_X,
+            4.0f,
+            1F
+        ).setDuration(200)
+        val translateX = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_autres),
+            View.TRANSLATION_X,
+            -150f,
+            1f
+        ).setDuration(200)
+        val scaleY = ObjectAnimator.ofFloat(
+            findViewById<ConstraintLayout>(R.id.toggle_autres),
             View.SCALE_Y,
             4f,
             1.0F

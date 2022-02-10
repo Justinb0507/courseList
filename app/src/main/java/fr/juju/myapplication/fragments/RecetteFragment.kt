@@ -82,6 +82,7 @@ class RecetteFragment(
         view?.findViewById<ImageView>(R.id.icone_soir)?.visibility = View.GONE
         view?.findViewById<ImageView>(R.id.icone_midi)?.visibility = View.GONE
         view?.findViewById<ImageView>(R.id.icone_apero)?.visibility = View.GONE
+        view?.findViewById<ImageView>(R.id.icone_autres)?.visibility = View.GONE
 
         if (time == "midi" && selectedDay != "None") {
             view?.findViewById<ImageView>(R.id.icone_midi)?.visibility = View.VISIBLE
@@ -92,6 +93,7 @@ class RecetteFragment(
             view.findViewById<ConstraintLayout>(R.id.planning).animate().alpha(1F).setDuration(150)
             context.unprintApero()
             context.unprintSoir()
+            context.unprintAutres()
             view.findViewById<ConstraintLayout>(R.id.planning).setOnClickListener {
                 if (currentSemaine == "suivant") {
                     if (ingredientList.filter { s -> s.id_repas == currentRepas.id }
@@ -139,6 +141,8 @@ class RecetteFragment(
             view.findViewById<ConstraintLayout>(R.id.planning).animate().alpha(1F).setDuration(150)
             context.unprintApero()
             context.unprintMidi()
+            context.unprintAutres()
+
             view.findViewById<ConstraintLayout>(R.id.planning).setOnClickListener {
                 if (currentSemaine == "suivant") {
                     if (ingredientList.filter { s -> s.id_repas == currentRepas.id }
@@ -186,6 +190,8 @@ class RecetteFragment(
             view.findViewById<ConstraintLayout>(R.id.planning).animate().alpha(1F).setDuration(150)
             context.unprintSoir()
             context.unprintMidi()
+            context.unprintAutres()
+
             view.findViewById<ConstraintLayout>(R.id.planning).setOnClickListener {
                 if (currentSemaine == "suivant") {
                     if (ingredientList.filter { s -> s.id_repas == currentRepas.id }

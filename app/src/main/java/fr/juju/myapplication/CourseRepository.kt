@@ -185,6 +185,20 @@ class CourseRepository {
                                     )
                                         .replace(" ", "").toInt()
                             }
+                            else if (oldItem.quantite.contains("cc")
+                            ) {
+                                value = oldItem.quantite.substring(
+                                    0,
+                                    oldItem.quantite.indexOf("cc")
+                                )
+                                    .replace(" ", "").toInt()
+                            } else if (oldItem.quantite.contains("cs")) {
+                                value = oldItem.quantite.substring(
+                                    0,
+                                    oldItem.quantite.indexOf("cs")
+                                )
+                                    .replace(" ", "").toInt()
+                            }
 
 //Traitement Sachet
                             else if (oldItem.quantite.contains("sachet") && !oldItem.quantite.contains(
@@ -419,6 +433,24 @@ class CourseRepository {
                                         .replace(" ", "").toInt()
                                 oldItem.quantite = ((value + newValue).toString()) + " sachets"
                             }
+                            else if (ingredient.quantite.contains("cc")
+                            ) {
+                                var newValue =
+                                    ingredient.quantite.substring(
+                                        0,
+                                        ingredient.quantite.indexOf("cc")
+                                    )
+                                        .replace(" ", "").toInt()
+                                oldItem.quantite = ((value + newValue).toString()) + " cc"
+                            } else if (ingredient.quantite.contains("cs")) {
+                                var newValue =
+                                    ingredient.quantite.substring(
+                                        0,
+                                        ingredient.quantite.indexOf("cs")
+                                    )
+                                        .replace(" ", "").toInt()
+                                oldItem.quantite = ((value + newValue).toString()) + " cs"
+                            }
 //tranche
                             else if (ingredient.quantite.contains("tranche") && !ingredient.quantite.contains(
                                     "tranches"
@@ -617,6 +649,21 @@ class CourseRepository {
                                     )
                                         .replace(" ", "").toInt()
                             }
+                            else if (oldItem.quantite.contains("cc")
+                            ) {
+                                value = oldItem.quantite.substring(
+                                    0,
+                                    oldItem.quantite.indexOf("cc")
+                                )
+                                    .replace(" ", "").toInt()
+                            } else if (oldItem.quantite.contains("cs")) {
+                                value = oldItem.quantite.substring(
+                                    0,
+                                    oldItem.quantite.indexOf("cs")
+                                )
+                                    .replace(" ", "").toInt()
+                            }
+
 
 //Traitement Sachet
                             else if (oldItem.quantite.contains("sachet") && !oldItem.quantite.contains(
@@ -916,6 +963,27 @@ class CourseRepository {
                                         .replace(" ", "").toInt()
                                 oldItem.quantite = ((value - newValue).toString()) + " pavés"
                             }
+                            else if (ingredient.quantite.contains("cs")
+                            ) {
+                                var newValue =
+                                    ingredient.quantite.substring(
+                                        0,
+                                        ingredient.quantite.indexOf("cs")
+                                    )
+                                        .replace(" ", "").toInt()
+
+                                oldItem.quantite = ((value - newValue).toString()) + " cs"
+
+                            }
+                            else if (ingredient.quantite.contains("cc")) {
+                                var newValue =
+                                    ingredient.quantite.substring(
+                                        0,
+                                        ingredient.quantite.indexOf("cc")
+                                    )
+                                        .replace(" ", "").toInt()
+                                oldItem.quantite = ((value - newValue).toString()) + " cc"
+                            }
 
                             if (oldItem.quantite[0].toString() == "0") {
                                 repo.deleteCourseItem(oldItem)
@@ -1005,6 +1073,16 @@ class CourseRepository {
             //tranche
             else if (uniteOld.replace(" ", "").contains("tranche")) {
                 if (uniteNew.replace(" ", "").contains("tranche"))
+                    return true
+            }
+            //cs
+            else if (uniteOld.replace(" ", "").equals("cs")) {
+                if (uniteNew.replace(" ", "").equals("cs"))
+                    return true
+            }
+            //cc
+            else if (uniteOld.replace(" ", "").equals("cc")) {
+                if (uniteNew.replace(" ", "").equals("cc"))
                     return true
             }
             //botte

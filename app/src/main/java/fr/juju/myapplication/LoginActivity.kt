@@ -1,5 +1,8 @@
 package fr.juju.myapplication
 
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.SharedPreferences
@@ -7,12 +10,11 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Toast
+import android.view.animation.AnimationUtils
+import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import org.json.JSONObject
@@ -21,34 +23,38 @@ import org.json.JSONTokener
 
 class LoginActivity : AppCompatActivity() {
     lateinit var etEmail: EditText
-    lateinit var  etPassword: EditText
+    lateinit var etPassword: EditText
     val MIN_PASSWORD_LENGTH = 6
     var auth = FirebaseAuth.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var preferences : SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
-        var checkbox : String? = preferences.getString("remember", "")
-        this.onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true){
+        var preferences: SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
+        var checkbox: String? = preferences.getString("remember", "")
+        this.onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 finish()
             }
         })
-        if (checkbox.equals("true")){
+        if (checkbox.equals("true")) {
             val intent = Intent(this, SplashActivity::class.java)
             startActivity(intent)
             finish()
-        } else if (checkbox.equals("false")){
+        } else if (checkbox.equals("false")) {
         }
 
         setContentView(R.layout.login_fragment)
-        findViewById<Button>(R.id.bt_signup).setOnClickListener{
+        findViewById<Button>(R.id.bt_signup).setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             finish()
         }
         viewInitializations()
+        val translate = AnimationUtils.loadAnimation(this, R.anim.translate_anim)
+        findViewById<ConstraintLayout>(R.id.constraint).startAnimation(translate)
+
+
 
     }
 
@@ -79,7 +85,8 @@ class LoginActivity : AppCompatActivity() {
 
         // checking minimum password Length
         if (etPassword.text.length < MIN_PASSWORD_LENGTH) {
-            etPassword.error = "Password Length must be more than " + MIN_PASSWORD_LENGTH + "characters"
+            etPassword.error =
+                "Password Length must be more than " + MIN_PASSWORD_LENGTH + "characters"
             return false
         }
         return true
@@ -91,38 +98,91 @@ class LoginActivity : AppCompatActivity() {
 
     // Hook Click Event
     fun performSignUp(v: View) {
-        /*if (validateInput()) {
+
+        val translateYImage = ObjectAnimator.ofFloat(
+            findViewById<ImageView>(R.id.imageView12),
+            View.TRANSLATION_Y,
+            0F,
+            1500F
+        ).setDuration(500)
+
+        val alphaImage = ObjectAnimator.ofFloat(
+            findViewById<ImageView>(R.id.imageView12),
+            View.ALPHA,
+            1F,
+            0F
+        ).setDuration(400)
+
+
+        val set = AnimatorSet()
+        set.playTogether(translateYImage,alphaImage)
+
+        set.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+                findViewById<EditText>(R.id.et_email).visibility = View.GONE
+                findViewById<ImageView>(R.id.image).visibility = View.GONE
+                findViewById<EditText>(R.id.et_password).visibility = View.GONE
+                findViewById<ImageView>(R.id.imageView13).visibility = View.GONE
+                findViewById<TextView>(R.id.go).visibility = View.GONE
+                findViewById<TextView>(R.id.textView11).visibility = View.GONE
+                findViewById<CheckBox>(R.id.checkBox).visibility = View.GONE
+                findViewById<Button>(R.id.bt_signup).visibility = View.GONE
+                findViewById<TextView>(R.id.tv_heading).visibility = View.GONE
+                findViewById<ImageView>(R.id.imageView20).animate().alpha(0F).setDuration(200)
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+                // ...
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                val intent = Intent(baseContext, SplashActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+                finish()
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+                // ...
+            }
+        })
+    if (validateInput()) {
             // Input is valid, here send data to your server
             val email = etEmail!!.text.toString()
             val password = etPassword!!.text.toString()
 
-            //AJOUTER L AUTHENTIFICATION ICI
-            }
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    if (findViewById<CheckBox>(R.id.checkBox).isChecked) {
+                        var preferences: SharedPreferences =
+                            getSharedPreferences("checkbox", MODE_PRIVATE)
+                        var editor: SharedPreferences.Editor = preferences.edit()
+                        editor.putString("remember", "true")
+                        editor.apply()
+                    } else {
+                        var preferences: SharedPreferences =
+                            getSharedPreferences("checkbox", MODE_PRIVATE)
+                        var editor: SharedPreferences.Editor = preferences.edit()
+                        editor.putString("remember", "false")
+                        editor.apply()
+                    }
+                   // val translate = AnimationUtils.loadAnimation(this, R.anim.translate_anim)
+                    //findViewById<ImageView>(R.id.imageView12).startAnimation(translate)
 
-        }*/
-        auth.signInWithEmailAndPassword("test@gmail.com", "cookeat").addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
-                if(findViewById<CheckBox>(R.id.checkBox).isChecked){
-                    var preferences : SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
-                    var editor : SharedPreferences.Editor = preferences.edit()
-                    editor.putString("remember", "true")
-                    editor.apply()
+                    set.start()
+                    Toast.makeText(this, "Vous êtes connecté ! <3", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-                else {
-                    var preferences : SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
-                    var editor : SharedPreferences.Editor = preferences.edit()
-                    editor.putString("remember", "false")
-                    editor.apply()
-                }
-                Toast.makeText(this,"Vous êtes connecté ! <3", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, SplashActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                // If sign in fails, display a message to the user.
-                Log.w(TAG, "signInWithEmail:failure", task.exception)
-                Toast.makeText(baseContext, "Authentication failed.",
-                    Toast.LENGTH_SHORT).show()
             }
-    }}
+        }
+
+    }
+
 }

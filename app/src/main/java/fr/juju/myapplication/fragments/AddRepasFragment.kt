@@ -1,9 +1,11 @@
 package fr.juju.myapplication.fragments
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.DialogInterface
 import android.view.inputmethod.InputMethodManager
 import android.content.Intent
 import android.net.Uri
@@ -13,6 +15,7 @@ import android.text.TextWatcher
 import android.view.*
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -51,7 +54,23 @@ class AddRepasFragment(
     ): View? {
         val view = inflater?.inflate(R.layout.fragment_add_repas, container, false)
         val listIngredientView = view.findViewById<RecyclerView>(R.id.list_ingredient)
-
+        context.onBackPressedDispatcher.addCallback(context, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                var builder = AlertDialog.Builder(context)
+                builder.setTitle("Ben ?")
+                builder.setMessage("Tu veux vraiment quitter la page ?")
+                builder.setPositiveButton("Oui", DialogInterface.OnClickListener { dialog, id ->
+                    context.hideKeyboard()
+                    context.loadFragment(FiltreRepasFragment(context, "None","None","None"))
+                    dialog.cancel()
+                })
+                builder.setNegativeButton("Non", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                })
+                var alert: AlertDialog = builder.create()
+                alert.show()
+            }
+        })
         listIngredientView.adapter = EditIngredientAdapter(context,listItem, R.layout.item_edit_ingredient_vertical)
         listIngredientView.layoutManager = LinearLayoutManager(context)
 

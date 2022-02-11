@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -776,7 +777,6 @@ class SemainierFragment(
                     "suivant",
                     R.layout.item_semainier_autres_vertical
                 )
-                recyclerAutres.layoutManager = LinearLayoutManager(context)
             }else {
                 recyclerAutres.adapter = AutresRapasSemainierAdapter(
                     context,
@@ -785,7 +785,6 @@ class SemainierFragment(
                     "courant",
                     R.layout.item_semainier_autres_vertical
                 )
-                recyclerAutres.layoutManager = LinearLayoutManager(context)
             }
 
         } else {
@@ -1629,7 +1628,6 @@ class SemainierFragment(
             alert.show()
         }
 
-
         return view
     }
 
@@ -1811,7 +1809,7 @@ class SemainierFragment(
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_apero)?.visibility = View.VISIBLE
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_soir)?.visibility = View.VISIBLE
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_autres)?.visibility = View.VISIBLE
-            view?.findViewById<ScrollView>(R.id.scrollView)?.alpha = 0.25F
+            view?.findViewById<NestedScrollView>(R.id.scrollView)?.alpha = 0.25F
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.isEnabled = false
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.isEnabled = false
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.isEnabled = false
@@ -1845,7 +1843,7 @@ class SemainierFragment(
             enable = false
             val translateAntiAnim =
                 AnimationUtils.loadAnimation(context, R.anim.translate_anti_anim_affect)
-            view?.findViewById<ScrollView>(R.id.scrollView)?.alpha = 1F
+            view?.findViewById<NestedScrollView>(R.id.scrollView)?.alpha = 1F
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.isEnabled = true
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.isEnabled = true
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.isEnabled = true

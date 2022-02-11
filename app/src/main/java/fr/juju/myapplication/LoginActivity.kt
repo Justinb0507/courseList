@@ -146,12 +146,12 @@ class LoginActivity : AppCompatActivity() {
                 // ...
             }
         })
-    if (validateInput()) {
+    //if (validateInput()) {
             // Input is valid, here send data to your server
             val email = etEmail!!.text.toString()
             val password = etPassword!!.text.toString()
 
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+            auth.signInWithEmailAndPassword("test@gmail.com", "cookeat").addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     if (findViewById<CheckBox>(R.id.checkBox).isChecked) {
                         var preferences: SharedPreferences =
@@ -181,7 +181,7 @@ class LoginActivity : AppCompatActivity() {
                     ).show()
                 }
             }
-        }
+        //}
 
     }
 

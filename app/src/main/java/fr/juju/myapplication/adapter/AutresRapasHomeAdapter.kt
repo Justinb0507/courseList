@@ -20,6 +20,7 @@ class AutresRapasHomeAdapter(
     private val autresRepas: ArrayList<RepasModel>,
     private val layoutId: Int
     ) : RecyclerView.Adapter<AutresRapasHomeAdapter.ViewHolder>()  {
+
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val container: ConstraintLayout = view.findViewById(R.id.autres)
         val name: TextView? = view.findViewById(R.id.nom)

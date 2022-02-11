@@ -55,7 +55,6 @@ class HomeFragment
 
         if (currentDays.midi != "None"){
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.visibility = View.VISIBLE
-            if(repasList.filter { s->s.id == currentDays.midi }.isNotEmpty()){
                 var currentRepasMidi = repasList.filter { s->s.id == currentDays.midi }[0]
                 view?.findViewById<ConstraintLayout>(R.id.Midi)?.setOnClickListener{
                     context.loadFragment(RecetteFragment(context, currentRepasMidi, "None", "None", "None"))
@@ -71,20 +70,13 @@ class HomeFragment
                 collectionRecyclerView.adapter = TagsAdapter(context, currentRepasMidi.tags, R.layout.item_tags_vertical)
                 collectionRecyclerView.layoutManager = LinearLayoutManager(context)
 
-            } else {
-                view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
-                view?.findViewById<TextView>(R.id.nomMidi)?.text  = currentDays.midi
-                view?.findViewById<TextView>(R.id.descriptionMidi)?.visibility = View.GONE
-                view.findViewById<RecyclerView>(R.id.tagListMidi)?.visibility = View.GONE
-                view.findViewById<CardView>(R.id.cardView2)?.visibility = View.GONE
             }
-        }else {
+        else {
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.visibility = View.GONE
             }
 
         if (currentDays.soir != "None"){
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.visibility = View.VISIBLE
-            if (repasList.filter { s->s.id == currentDays.soir }.isNotEmpty()){
                 var currentRepasSoir = repasList.filter { s->s.id == currentDays.soir }[0]
                 view?.findViewById<ConstraintLayout>(R.id.Soir)?.setOnClickListener{
                     context.loadFragment(RecetteFragment(context, currentRepasSoir, "None", "None", "None"))
@@ -99,21 +91,12 @@ class HomeFragment
                 val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tagListSoir)
                 collectionRecyclerView.adapter = TagsAdapter(context, currentRepasSoir.tags, R.layout.item_tags_vertical)
                 collectionRecyclerView.layoutManager = LinearLayoutManager(context)
-            } else {
-                view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
-                view?.findViewById<TextView>(R.id.nomSoir)?.text  = currentDays.soir
-                view?.findViewById<TextView>(R.id.descriptionSoir)?.visibility = View.GONE
-                view.findViewById<RecyclerView>(R.id.tagListSoir)?.visibility = View.GONE
-                view.findViewById<CardView>(R.id.cardView3)?.visibility = View.GONE
-            }
-
         }else {
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.visibility = View.GONE
         }
 
         if (currentDays.apero != "None"){
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.visibility = View.VISIBLE
-            if(repasList.filter { s->s.id == currentDays.apero }.isNotEmpty()){
                 var currentRepasApero = repasList.filter { s->s.id == currentDays.apero }[0]
                 view?.findViewById<ConstraintLayout>(R.id.Apero)?.setOnClickListener{
                     context.loadFragment(RecetteFragment(context, currentRepasApero, "None", "None", "None"))
@@ -129,17 +112,12 @@ class HomeFragment
                 val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tagListApero)
                 collectionRecyclerView.adapter = TagsAdapter(context, currentRepasApero.tags, R.layout.item_tags_vertical)
                 collectionRecyclerView.layoutManager = LinearLayoutManager(context)
-            } else {
-                view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
-                view?.findViewById<TextView>(R.id.nomApero)?.text  = currentDays.apero
-                view?.findViewById<TextView>(R.id.descriptionApero)?.visibility = View.GONE
-                view.findViewById<RecyclerView>(R.id.tagListApero)?.visibility = View.GONE
-                view.findViewById<CardView>(R.id.cardView4)?.visibility = View.GONE
-            }
 
-        }else {
+        }
+        else {
             view?.findViewById<ConstraintLayout>(R.id.Apero)?.visibility = View.GONE
         }
+
         val recyclerAutres = view.findViewById<RecyclerView>(R.id.autresRepasRecylcer)
         if (currentDays.autres.isNotEmpty()){
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
@@ -150,6 +128,7 @@ class HomeFragment
             }
             recyclerAutres.adapter = AutresRapasHomeAdapter(context,repasAutresList, R.layout.item_home_autres_vertical)
             recyclerAutres.layoutManager = LinearLayoutManager(context)
+
         }else {
             view?.findViewById<ConstraintLayout>(R.id.autres)?.visibility = View.GONE
         }
@@ -158,10 +137,12 @@ class HomeFragment
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
             view?.findViewById<TextView>(R.id.currentDays)?.text = "Rien de prévu aujourd’hui ! :)"
             view?.findViewById<ConstraintLayout>(R.id.vite_recette)?.setOnClickListener{
-                Toast.makeText(context, "Ben va falloir s'y mettre là hein...", Toast.LENGTH_SHORT).show()
+               context.loadFragment(RecetteFragment(context, repasList.filter{s->s.tags.contains("Plat")}.random(),"None","None","None"))
             }
 
         }
+
+
         view.findViewById<Button>(R.id.research).setOnClickListener{
             if(research(view.findViewById<EditText>(R.id.research_input).text.toString()).isNotEmpty()){
                 context.hideKeyboard()
@@ -187,7 +168,6 @@ class HomeFragment
                 set.start()
             }
         }
-
 
         view.findViewById<EditText>(R.id.research_input).addTextChangedListener(
             object : TextWatcher {
@@ -220,8 +200,8 @@ class HomeFragment
             view.findViewById<ImageView>(R.id.searchbar).animate().alpha(1F).setDuration(1)
         }
 
-        val translate = AnimationUtils.loadAnimation(context, R.anim.translate_anim)
-        view.findViewById<ConstraintLayout>(R.id.constraint).startAnimation(translate)
+        //val translate = AnimationUtils.loadAnimation(context, R.anim.translate_anim)
+     //   view.findViewById<ConstraintLayout>(R.id.constraint).startAnimation(translate)
 
 
         return view

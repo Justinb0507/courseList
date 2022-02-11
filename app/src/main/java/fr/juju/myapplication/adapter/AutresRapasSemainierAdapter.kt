@@ -23,6 +23,7 @@ class AutresRapasSemainierAdapter(
     private val currentSemaine: String,
     private val layoutId: Int
     ) : RecyclerView.Adapter<AutresRapasSemainierAdapter.ViewHolder>()  {
+
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val container: ConstraintLayout? = view.findViewById(R.id.autres)
         val name: TextView? = view.findViewById(R.id.nom)
@@ -48,6 +49,8 @@ class AutresRapasSemainierAdapter(
         }
         val collectionRecyclerView = holder.tagRescycler
         collectionRecyclerView?.adapter = TagsAdapter(context, currentRepas.tags, R.layout.item_tags_horizontal)
+        collectionRecyclerView?.layoutManager = LinearLayoutManager(context)
+
         holder.container?.setOnClickListener{
             context.loadFragment(RecetteFragment(context,currentRepas,"None","None","None"))
         }

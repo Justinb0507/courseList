@@ -1,12 +1,13 @@
 package fr.juju.myapplication
 
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -31,6 +32,55 @@ class RegisterActivity : AppCompatActivity() {
         })
         viewInitializations()
 
+        val translateYImage = ObjectAnimator.ofFloat(
+            findViewById<ImageView>(R.id.imageView12),
+            View.TRANSLATION_Y,
+            0F,
+            1500F
+        ).setDuration(500)
+
+        val alphaImage = ObjectAnimator.ofFloat(
+            findViewById<ImageView>(R.id.imageView12),
+            View.ALPHA,
+            1F,
+            0F
+        ).setDuration(400)
+
+
+        val set = AnimatorSet()
+        set.playTogether(translateYImage,alphaImage)
+
+        set.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+                findViewById<EditText>(R.id.et_email).visibility = View.GONE
+                findViewById<ImageView>(R.id.imageView15).visibility = View.GONE
+                findViewById<EditText>(R.id.et_password).visibility = View.GONE
+                findViewById<ImageView>(R.id.imageView13).visibility = View.GONE
+                findViewById<TextView>(R.id.textView12).visibility = View.GONE
+                findViewById<TextView>(R.id.textView11).visibility = View.GONE
+                findViewById<CheckBox>(R.id.checkBox).visibility = View.GONE
+                findViewById<Button>(R.id.bt_signup).visibility = View.GONE
+                findViewById<TextView>(R.id.tv_heading).visibility = View.GONE
+                findViewById<ImageView>(R.id.imageView20).animate().alpha(0F).setDuration(200)
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+                // ...
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                val intent = Intent(baseContext, SplashActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+                finish()
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+                // ...
+            }
+        })
+
+
         var auth: FirebaseAuth
         auth = Firebase.auth
         go.setOnClickListener{
@@ -44,9 +94,7 @@ class RegisterActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT).show()
                             databaseRef.reference.child(user.uid).setValue(newDBModel())
                         }
-                        val intent = Intent(this, SplashActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        set.start()
 
                     } else {
                         // If sign in fails, display a message to the user.

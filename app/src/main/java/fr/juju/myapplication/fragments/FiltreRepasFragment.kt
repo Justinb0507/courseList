@@ -20,9 +20,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import fr.juju.myapplication.*
 import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
 import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
@@ -52,6 +54,10 @@ override fun onCreateView(
         context.unprintAutres()
         context.loadFragment(AddRepasFragment(context))
     }
+    context.onBackPressedDispatcher.addCallback(context, object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            context.handleBack()
+        }})
     view.findViewById<ImageView>(R.id.dessert_rouge).alpha = 0F
     view.findViewById<ImageView>(R.id.plat_rouge).alpha = 0F
     view.findViewById<ImageView>(R.id.soupe_rouge).alpha = 0F

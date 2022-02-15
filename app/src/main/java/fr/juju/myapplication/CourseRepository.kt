@@ -185,6 +185,8 @@ class CourseRepository {
                                     )
                                         .replace(" ", "").toInt()
                             }
+
+
                             else if (oldItem.quantite.contains("cc")
                             ) {
                                 value = oldItem.quantite.substring(
@@ -214,6 +216,24 @@ class CourseRepository {
                                 value = oldItem.quantite.substring(
                                     0,
                                     oldItem.quantite.indexOf("sachets")
+                                )
+                                    .replace(" ", "").toInt()
+                            }
+
+//Traitement pincée
+                            else if (oldItem.quantite.contains("pincée") && !oldItem.quantite.contains(
+                                    "pincées"
+                                )
+                            ) {
+                                value = oldItem.quantite.substring(
+                                    0,
+                                    oldItem.quantite.indexOf("pincée")
+                                )
+                                    .replace(" ", "").toInt()
+                            } else if (oldItem.quantite.contains("pincées")) {
+                                value = oldItem.quantite.substring(
+                                    0,
+                                    oldItem.quantite.indexOf("pincées")
                                 )
                                     .replace(" ", "").toInt()
                             }
@@ -412,6 +432,26 @@ class CourseRepository {
                                 oldItem.quantite = ((value + newValue).toString()) + " petits pots"
                             }
 
+                            else if (ingredient.quantite.contains("pincée") && !ingredient.quantite.contains(
+                                    "pincées"
+                                )
+                            ) {
+                                var newValue =
+                                    ingredient.quantite.substring(
+                                        0,
+                                        ingredient.quantite.indexOf("pincée")
+                                    )
+                                        .replace(" ", "").toInt()
+                                oldItem.quantite = ((value + newValue).toString()) + " pincées"
+                            } else if (ingredient.quantite.contains("pincées")) {
+                                var newValue =
+                                    ingredient.quantite.substring(
+                                        0,
+                                        ingredient.quantite.indexOf("pincées")
+                                    )
+                                        .replace(" ", "").toInt()
+                                oldItem.quantite = ((value + newValue).toString()) + " pincées"
+                            }
 //Sachet
                             else if (ingredient.quantite.contains("sachet") && !ingredient.quantite.contains(
                                     "sachets"
@@ -682,6 +722,22 @@ class CourseRepository {
                                 )
                                     .replace(" ", "").toInt()
                             }
+                            else if (oldItem.quantite.contains("pincée") && !oldItem.quantite.contains(
+                                    "pincées"
+                                )
+                            ) {
+                                value = oldItem.quantite.substring(
+                                    0,
+                                    oldItem.quantite.indexOf("pincée")
+                                )
+                                    .replace(" ", "").toInt()
+                            } else if (oldItem.quantite.contains("pincées")) {
+                                value = oldItem.quantite.substring(
+                                    0,
+                                    oldItem.quantite.indexOf("pincées")
+                                )
+                                    .replace(" ", "").toInt()
+                            }
 //Traitement tranche
                             else if (oldItem.quantite.contains("tranche") && !oldItem.quantite.contains(
                                     "tranches"
@@ -897,6 +953,27 @@ class CourseRepository {
                                         .replace(" ", "").toInt()
                                 oldItem.quantite = ((value - newValue).toString()) + " sachets"
                             }
+
+                            else if (ingredient.quantite.contains("pincée") && !ingredient.quantite.contains(
+                                    "pincées"
+                                )
+                            ) {
+                                var newValue =
+                                    ingredient.quantite.substring(
+                                        0,
+                                        ingredient.quantite.indexOf("pincée")
+                                    )
+                                        .replace(" ", "").toInt()
+                                oldItem.quantite = ((value - newValue).toString()) + " pincées"
+                            } else if (ingredient.quantite.contains("pincées")) {
+                                var newValue =
+                                    ingredient.quantite.substring(
+                                        0,
+                                        ingredient.quantite.indexOf("pincées")
+                                    )
+                                        .replace(" ", "").toInt()
+                                oldItem.quantite = ((value - newValue).toString()) + " pincées"
+                            }
 //tranche
                             else if (ingredient.quantite.contains("tranche") && !ingredient.quantite.contains(
                                     "tranches"
@@ -1063,6 +1140,11 @@ class CourseRepository {
             //sachet
             else if (uniteOld.replace(" ", "").contains("sachet")) {
                 if (uniteNew.replace(" ", "").contains("sachet"))
+                    return true
+            }
+            //pincet
+            else if (uniteOld.replace(" ", "").contains("pincé")) {
+                if (uniteNew.replace(" ", "").contains("pincé"))
                     return true
             }
             //pavés

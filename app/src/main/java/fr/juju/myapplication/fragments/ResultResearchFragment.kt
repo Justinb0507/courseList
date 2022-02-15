@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
@@ -43,6 +45,10 @@ class ResultResearchFragment(
 
         val view = inflater?.inflate(R.layout.fragment_resultresearch, container, false)
         val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.repas_list)
+        context.onBackPressedDispatcher.addCallback(context, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                context.handleBack()
+            }})
         resultResearch.sortBy { s->s.name }
         collectionRecyclerView.adapter = RepasAdapter(context, resultResearch, R.layout.item_repas_vertical, time,selectedDay, currentSemaine)
         collectionRecyclerView.layoutManager = LinearLayoutManager(context)

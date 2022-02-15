@@ -11,9 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.ktx.Firebase
@@ -297,6 +299,12 @@ class CourseListeFragment (val context: MainActivity
                 }
             }
         )
+
+        context.onBackPressedDispatcher.addCallback(context, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                context.handleBack()
+            }})
+
         return view
     }
 
@@ -330,7 +338,7 @@ class CourseListeFragment (val context: MainActivity
     private fun clearCourse(){
         var repo = CourseRepository()
         for(courseItem in courseList){
-            if(courseItem.ajoutExterieur == "false"){
+            if(courseItem.ok == "true"){
                 repo.deleteCourseItem(courseItem)
             }
         }

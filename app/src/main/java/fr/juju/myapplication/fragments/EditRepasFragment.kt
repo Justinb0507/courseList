@@ -31,6 +31,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import android.view.ViewTreeObserver.OnScrollChangedListener
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.ItemTouchHelper
 
@@ -60,7 +61,23 @@ class EditRepasFragment(
         val listIngredientView = view.findViewById<RecyclerView>(R.id.list_ingredient)
         listIngredientView.adapter = EditIngredientAdapter(context, ingredients, R.layout.item_edit_ingredient_vertical)
         listIngredientView.layoutManager = LinearLayoutManager(context)
-
+        context.onBackPressedDispatcher.addCallback(context, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                var builder = AlertDialog.Builder(context)
+                builder.setTitle("Ben ?")
+                builder.setMessage("Tu veux vraiment quitter la page ?")
+                builder.setPositiveButton("Oui", DialogInterface.OnClickListener { dialog, id ->
+                    context.hideKeyboard()
+                    context.supportFragmentManager.popBackStack()
+                    dialog.cancel()
+                })
+                builder.setNegativeButton("Non", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                })
+                var alert: AlertDialog = builder.create()
+                alert.show()
+            }
+        })
 
         var simpleCallback = object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or(ItemTouchHelper.DOWN), 0){
             override fun onMove(

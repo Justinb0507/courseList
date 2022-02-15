@@ -52,6 +52,7 @@ class AddRepasFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater?.inflate(R.layout.fragment_add_repas, container, false)
         val listIngredientView = view.findViewById<RecyclerView>(R.id.list_ingredient)
         context.onBackPressedDispatcher.addCallback(context, object : OnBackPressedCallback(true) {
@@ -61,7 +62,7 @@ class AddRepasFragment(
                 builder.setMessage("Tu veux vraiment quitter la page ?")
                 builder.setPositiveButton("Oui", DialogInterface.OnClickListener { dialog, id ->
                     context.hideKeyboard()
-                    context.loadFragment(FiltreRepasFragment(context, "None","None","None"))
+                    context.supportFragmentManager.popBackStack()
                     dialog.cancel()
                 })
                 builder.setNegativeButton("Non", DialogInterface.OnClickListener { dialog, id ->

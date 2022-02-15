@@ -38,6 +38,40 @@ class CourseItemAdapter(
         var repo = CourseRepository()
         holder.name?.text = currentIngredient.name
         holder.quantite?.text = currentIngredient.quantite
+        holder.name?.setOnClickListener{
+            if(printToggle){
+                if(currentIngredient.ok == "false") {
+                    currentIngredient.ok = "true"
+                    holder.name?.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    holder.quantite?.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    holder.button?.isChecked = true
+                }
+                else {
+                    currentIngredient.ok = "false"
+                    holder.button?.isChecked = false
+                    holder.name?.paintFlags = 0
+                    holder.quantite?.paintFlags = 0
+                }
+                repo.updateCourseItem(currentIngredient)
+            }
+        }
+        holder.quantite?.setOnClickListener{
+            if(printToggle){
+                if(currentIngredient.ok == "false") {
+                    currentIngredient.ok = "true"
+                    holder.name?.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    holder.quantite?.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    holder.button?.isChecked = true
+                }
+                else {
+                    currentIngredient.ok = "false"
+                    holder.button?.isChecked = false
+                    holder.name?.paintFlags = 0
+                    holder.quantite?.paintFlags = 0
+                }
+                repo.updateCourseItem(currentIngredient)
+            }
+        }
 
         holder.button?.isChecked = currentIngredient.ok == "true"
         if(currentIngredient.ok == "true"){
@@ -60,6 +94,7 @@ class CourseItemAdapter(
 
             repo.updateCourseItem(currentIngredient)
         }
+
         holder.trash?.setOnClickListener{
 
             repo.deleteCourseItem(currentIngredient)

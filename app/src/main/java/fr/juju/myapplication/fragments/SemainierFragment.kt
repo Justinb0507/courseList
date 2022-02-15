@@ -11,9 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -51,6 +53,10 @@ class SemainierFragment(
 
         val view = inflater?.inflate(R.layout.fragment_semainier, container, false)
         view.clearAnimation()
+        context.onBackPressedDispatcher.addCallback(context, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                context.handleBack()
+            }})
         if (selectedDayInput == "None") {
             selectedDay = currentDay
         } else {
@@ -1719,6 +1725,13 @@ class SemainierFragment(
             "dimanche",
             semainierSuivantList.filter { s -> s.id_semainier == "dimanche" }[0].soir
         )
+
+        repo.resetAutres("lundi")
+        repo.resetAutres("mardi")
+        repo.resetAutres("mercredi")
+        repo.resetAutres("vendredi")
+        repo.resetAutres("samedi")
+        repo.resetAutres("dimanche")
 
         repo.setAutres(
             "lundi",

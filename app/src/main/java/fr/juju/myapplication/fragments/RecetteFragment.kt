@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -38,7 +40,10 @@ class RecetteFragment(
 
         val repo2 = SemainierRepository()
         val repoSuivant = SemainierSuivantRepository()
-
+        context.onBackPressedDispatcher.addCallback(context, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                context.handleBack()
+            }})
         val view = inflater?.inflate(R.layout.fragment_recette, container, false)
         view.findViewById<TextView>(R.id.name).text = currentRepas.name
         view.findViewById<TextView>(R.id.description).text = currentRepas.description

@@ -1299,6 +1299,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image13a6e228-b415-4365-9972-314f036d109c?alt=media&token=fa3fcf62-82f2-4df6-b923-ce0bef6c4b1f",
         "lien" : "",
         "name" : "Légumes farcis ",
+        "quantite" : "2 personnes",
         "recette" : "Couper tous les légumes, les faire cuire en mode ratatouille.\n\nlaisser certains légumes entier(mais creuser) pour être farcis \n\najouter les épices et sauce tomate si besoin\n\nen parallèle faire cuire le riz (1 portion de riz = 2 d'eau)\n\nune fois cuit, mettre le riz dans la poêle, mélanger. rajouter de la sauce tomate au besoin.\n\nmettre le mélange dans les légumes a farcir. saupoudrez de fromage.\n\nmettre eau four a 200° pendant 45min.\n\nmiam miam !\n",
         "tags" : [ "Végétarien ", "Plat" ]
       },
@@ -1309,8 +1310,20 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image14d4c8fe-7a8e-4bb8-8cbd-64ab29d178aa?alt=media&token=1d5a6144-2e6f-4683-bc04-1e8a0c28f166",
         "lien" : "",
         "name" : "Madeleine au coeur de chocolat au lait citron",
+        "quantite" : "2 personnes",
         "recette" : "1 : préchauffer le four à 240°\n\n2 : mélanger 120g de beurre pommade avec le sucre, incorporer les oeufs un par un, puis du zeste de citron\n\n3 : ajouter la farine et la levure chimique, et bien mélanger pour obtenir une pâte lisse\n\n4 : beurrer et fariner les moules à madeleines et les remplir au 2/3 de pâte\n\n5 : placer un éclat de chocolat au lait citron au centre de chaque madeleine\n\n6 : enfourner pendant 10min en baissant le four à 200°\n\n7 : démouler les madeleines et les laisser refroidir\n\n8 : faire fondre le chocolat restant au bain marie, avec le pinceau : étaler le chocolat sur la moitié de chaque madeleine et laisser figer.\n\ndégustez ❤️",
         "tags" : [ "Dessert" ]
+      },
+      "15856bc3-b132-4d3c-8bab-8e6fc709d015" : {
+        "description" : "",
+        "duree" : "",
+        "id" : "15856bc3-b132-4d3c-8bab-8e6fc709d015",
+        "imageUri" : "",
+        "lien" : "",
+        "name" : "Test",
+        "quantite" : "2 personnes",
+        "recette" : "",
+        "tags" : [ "Plat" ]
       },
       "218fd948-a38d-4bf5-a395-e94228c8e51d" : {
         "description" : "Un sushi déstructurer",
@@ -1319,6 +1332,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image218fd948-a38d-4bf5-a395-e94228c8e51d?alt=media&token=55b47d3e-f2b1-4152-97bb-b1ba6f94082c",
         "lien" : "",
         "name" : "Sushi bowl",
+        "quantite" : "2 personnes",
         "recette" : "Faire cuire le riz (1riz = 2 eau)\ntout mélanger dans un bowl!\n",
         "tags" : [ "Plat" ]
       },
@@ -1329,6 +1343,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image25b4e9e2-2a92-43b1-8097-c02aca3e9425?alt=media&token=7337f7cd-7240-424e-a7e7-0f1707081324",
         "lien" : "",
         "name" : "Samoussas roquefort butternut ",
+        "quantite" : "2 personnes",
         "recette" : "Faire revenir le butternut et l'oignon dans de l'huile et les épices. retirez toute l'eau\n\n\nle réduire en purée avec la crème et le yaourt\n\ncouper le roquefort en dés et remuer le tout.\n\nfaçonnez les samoussas.\n\nfaire cuire au four ou a la poêle avec de l'huile.\n\n au four c'est meilleur : 200° 10min-15min",
         "tags" : [ "Plat", "Apéro" ]
       },
@@ -1339,6 +1354,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image2b3b7821-a351-4083-84e7-8891d95ffbc9?alt=media&token=bb908ae8-66e5-49d1-8f83-98ad8776bfaf",
         "lien" : "",
         "name" : "Galette de brocolis ",
+        "quantite" : "2 personnes",
         "recette" : "Coupez le brocoli en morceaux et faire cuire 5min dans de l'eau bouillante salée. \n\négoutter et hacher.\n\nhachez l'ail\n\nbattez les oeufs dans un saladier\n\ntout mélanger, et réalisez les galettes.\n\nenfournez pour 15min",
         "tags" : [ "Végétarien ", "Apéro ", "Plat " ]
       },
@@ -1349,6 +1365,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image2d5b555f-043b-4c73-8955-aed99046b841?alt=media&token=8e1f25a6-ea97-45be-9703-2e4d613844c8",
         "lien" : "",
         "name" : "Salade de pâtes",
+        "quantite" : "2 personnes",
         "recette" : "1 : faire cuire les pâtes\n\n2 : tout coupé en dés ou en petit eheh\n\n3 : mélanger le tout avec huile vinaigre et une cuillère à soupe de mayonnaise",
         "tags" : [ "Plat" ]
       },
@@ -1359,6 +1376,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image2fecc7f5-c4f5-44e7-9c4c-f34296ed5180?alt=media&token=8740ee13-1792-4748-8ea8-ba03e714e34a",
         "lien" : "",
         "name" : "Samoussas poulet carottes",
+        "quantite" : "2 personnes",
         "recette" : "Couper le poulet et les carottes en petite morceaux.\n\nfaire cuire le poulet et les carottes.\nsalez la préparation\nplier les samoussas\n\ncuire au four ou à la poêle.\n\nau four c'est meilleur : 200° 10min",
         "tags" : [ "Plat", "Apéro" ]
       },
@@ -1369,8 +1387,20 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image3cd6f535-6bdd-48cf-9b1f-6d343347473a?alt=media&token=4b1b375c-997e-4371-917f-dc05c6009ebf",
         "lien" : "",
         "name" : "Risotto crevettes",
+        "quantite" : "2 personnes",
         "recette" : "Tout mettre dans l'autocuiseur et ne rien faire :)",
         "tags" : [ "Plat", "Facile" ]
+      },
+      "5f74fff5-ff1d-4de5-8048-205fad2e75b2" : {
+        "description" : "",
+        "duree" : "",
+        "id" : "5f74fff5-ff1d-4de5-8048-205fad2e75b2",
+        "imageUri" : "",
+        "lien" : "",
+        "name" : "Fdsfds",
+        "quantite" : "2 personnes",
+        "recette" : "",
+        "tags" : [ "Plat" ]
       },
       "7863c28f-5186-460d-95a6-f46fbfd1b6ba" : {
         "description" : "La base",
@@ -1379,6 +1409,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image7863c28f-5186-460d-95a6-f46fbfd1b6ba?alt=media&token=314b817b-02e5-42b4-b3ef-87a2a84c7b0b",
         "lien" : "",
         "name" : "Mojito",
+        "quantite" : "2 personnes",
         "recette" : "Fais toi plaiz tu sais faire :)",
         "tags" : [ "Cocktail", "Apero" ]
       },
@@ -1389,6 +1420,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image791978e3-839a-4bb6-b134-dcddf7200d99?alt=media&token=07a25abf-d40a-4946-a228-343566e71416",
         "lien" : "",
         "name" : "Semoule lentilles",
+        "quantite" : "2 personnes",
         "recette" : "Faire cuire la semoule et les lentilles, mélanger miam",
         "tags" : [ "Rapide", "Plat" ]
       },
@@ -1399,6 +1431,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image7d806748-f666-4db6-bcad-2f81fdec5374?alt=media&token=c1e62fd3-b687-4f92-bc62-2b644e78dc89",
         "lien" : "",
         "name" : "Taboulé épicé",
+        "quantite" : "2 personnes",
         "recette" : "Tout mélanger 😁",
         "tags" : [ "Plat" ]
       },
@@ -1409,6 +1442,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image861728ce-f15d-42da-ba6e-a92d461c81fd?alt=media&token=7bbf0e08-4b60-4ea3-be9a-8ec569c95f87",
         "lien" : "",
         "name" : "Tartelettes salées ",
+        "quantite" : "2 personnes",
         "recette" : "Tout couper, on peut précuire le légumes.\n\nmettre la pâte sur les emportes pièces, badigeonnez de sauce tomate, ou de pesto ou de crème fraîche ou n'importe quoi.\nmettre les légumes et le fromage.\n\ncuire 200° 40min\n\nmiam\n\n",
         "tags" : [ "Végétarien ", "Plat", "Restes " ]
       },
@@ -1419,6 +1453,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image8fc288f8-54bd-42f7-9e26-6c7017e25faa?alt=media&token=61fc1f1a-6b29-4967-891b-be640c7b3a6c",
         "lien" : "",
         "name" : "Tomates mozzarella",
+        "quantite" : "2 personnes",
         "recette" : "Couper tout, et rajouter des épices à ta convenance eheh",
         "tags" : [ "Plat", "Été" ]
       },
@@ -1429,6 +1464,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/image90a01e21-4491-453b-b003-370e6722dc4f?alt=media&token=6b343a37-ea06-4231-8597-a731607a4a53",
         "lien" : "",
         "name" : "Wok",
+        "quantite" : "2 personnes",
         "recette" : "(si nouilles au seitan : faire la marinade (2 c.s de soja + 1c.s de sirop d'érable), couper le seitan en petit cube, faire tremper.)\n\ncouper les légumes : \n- les poivrons en lamelles\n- les brocolis en petites branches\n- les champignons en lamelles\n- râper les carottes en lamelles\n(- les pousses de soja sont ok à mettre comme ça)\n\nfaites revenir dans une poêle, recouvrir pour cuire à la vapeur.\n\n(dans une autre poêle, faites cuire le poulet ou le seitan).\n\nune fois les légumes cuits, ajouter de la sauce soja (et la viande). laissez cuire 3-4min.\n\najoutez les nouilles, rajoutez de la sauce, couvrez pour cuire à la vapeur. laissez cuire 5min.\n\nmiam\n\n",
         "tags" : [ "Plat", "Asiatique" ]
       },
@@ -1439,8 +1475,20 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/imageacb9bef5-a446-4315-aa2f-ba10dcffc603?alt=media&token=eed53d29-5703-43c5-be9a-df7865fd214d",
         "lien" : "",
         "name" : "Hamburger maison",
+        "quantite" : "2 personnes",
         "recette" : "1 : faire griller le pain au four avec le cheddar dessus\n\n2 : faire des steaks à la main\n\n3 : quand tout est cuit, faire le burger\n\nhopla c'est prêt eheh",
         "tags" : [ "Plat", "Gros", "Burger" ]
+      },
+      "adfb73ec-3e3a-4be2-aa53-622f18a69380" : {
+        "description" : "",
+        "duree" : "",
+        "id" : "adfb73ec-3e3a-4be2-aa53-622f18a69380",
+        "imageUri" : "",
+        "lien" : "",
+        "name" : "Testdzqe",
+        "quantite" : "2 personnes",
+        "recette" : "",
+        "tags" : [ "Plat" ]
       },
       "b51f01ef-8e7e-4731-8dce-02d527c1479f" : {
         "description" : "Le plat qui met tout le monde d'accord",
@@ -1449,6 +1497,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/imageb51f01ef-8e7e-4731-8dce-02d527c1479f?alt=media&token=b3aab37d-139f-4e66-9e32-973c595e0012",
         "lien" : "",
         "name" : "Wraps poulet pané",
+        "quantite" : "2 personnes",
         "recette" : "Pané le poulet : farine oeuf chapelure.\ntout couper\nchauffer les wraps\net puis miam hein !",
         "tags" : [ "Plat", "Soirée", "Groupe" ]
       },
@@ -1459,8 +1508,30 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/imagec558c46b-c6ba-4b51-b43c-6caf92914f10?alt=media&token=ccea49ec-2e9a-4ade-9e51-85e6eb2cbcbf",
         "lien" : "",
         "name" : "Purée jambon maïs",
+        "quantite" : "2 personnes",
         "recette" : "Faire la purée et mélanger",
         "tags" : [ "Rapide", "Plat" ]
+      },
+      "c95343bd-9078-4a6b-bc21-5eba04188462" : {
+        "description" : "",
+        "duree" : "",
+        "id" : "c95343bd-9078-4a6b-bc21-5eba04188462",
+        "imageUri" : "",
+        "lien" : "",
+        "name" : "Test",
+        "quantite" : "2 personnes",
+        "recette" : "",
+        "tags" : [ "Plat" ]
+      },
+      "cd16add8-6caf-4c0b-aa4f-0fcfafb6c986" : {
+        "description" : "",
+        "duree" : "",
+        "id" : "cd16add8-6caf-4c0b-aa4f-0fcfafb6c986",
+        "imageUri" : "",
+        "lien" : "",
+        "quantite" : "2 personnes",
+        "name" : "Gfd",
+        "recette" : ""
       },
       "da89093a-2b0e-4b27-b3d2-51acb43f92c8" : {
         "description" : "Trop bon selon hélo",
@@ -1469,6 +1540,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/imageda89093a-2b0e-4b27-b3d2-51acb43f92c8?alt=media&token=c5906df5-4bfc-46e4-9281-090dfe8f392b",
         "lien" : "",
         "name" : "Salade chèvre chaud",
+        "quantite" : "2 personnes",
         "recette" : "Préchauffer le four à 180\n\n1 : tout mettre dedans le saladier\n\n2 : couper des tranches de pains, badigeonner d'huile d'olive et d'épices, mettre le fromage dessus, l'enfourner au four\n\nbon ap'\n",
         "tags" : [ "Plat" ]
       },
@@ -1480,6 +1552,7 @@ class RegisterActivity : AppCompatActivity() {
         "lien" : "",
         "name" : "Croque monsieur végé",
         "recette" : "200° pendant 10min",
+        "quantite" : "2 personnes",
         "tags" : [ "Végétarien ", "Apéro ", "Plat" ]
       },
       "e909b217-b4c7-4bd8-a3ce-3ed7cf0d539f" : {
@@ -1489,6 +1562,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/imagee909b217-b4c7-4bd8-a3ce-3ed7cf0d539f?alt=media&token=fc1a2d5f-7aac-481a-b900-3e0e2306263d",
         "lien" : "",
         "name" : "Raviole",
+        "quantite" : "2 personnes",
         "recette" : "Ben du coup... ouvrir le paquet...oui..et euh..cuire dans l'eau qui bout...voilaaaaa",
         "tags" : [ "Plat", "Rapide", "Flemme" ]
       },
@@ -1499,6 +1573,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/imageef1bd565-7bc7-4693-a1f1-54e24b2a99fd?alt=media&token=6c5b5a4e-10d0-4350-a059-ce51622a87b6",
         "lien" : "",
         "name" : "Croque monsieur ",
+        "quantite" : "2 personnes",
         "recette" : "200° au four 10min\n",
         "tags" : [ "Plat", "Apéro ", "Rapide" ]
       },
@@ -1509,6 +1584,7 @@ class RegisterActivity : AppCompatActivity() {
         "imageUri" : "https://firebasestorage.googleapis.com/v0/b/naturecollection-c9efc.appspot.com/o/imagef82e4ed6-6404-4bc1-95b7-831a71e100cc?alt=media&token=484b6ad0-47c3-40fe-a7d9-a93be26b6738",
         "lien" : "",
         "name" : "Crêpes",
+        "quantite" : "2 personnes",
         "recette" : "Pour 10 crêpes\n\ndans un saladier :\n- versez les oeufs (battus jusqu'à devenir blanc)\n- faites fondre le beurre et versez le\n- ajoutez le sucre\najoutez alternativement lait et farine dans le saladier\n- versez autant de rhum que nécessaire",
         "tags" : [ "Brunch", "Dessert", "Goûter" ]
       }
@@ -1648,6 +1724,7 @@ class RegisterActivity : AppCompatActivity() {
             val repasImage = jsonArray.getJSONObject(currentKey.toString()).getString("imageUri")
             // name
             val repasLien = jsonArray.getJSONObject(currentKey.toString()).getString("lien")
+            val repasQuantite = jsonArray.getJSONObject(currentKey.toString()).getString("quantite")
             // name
             val repasName = jsonArray.getJSONObject(currentKey.toString()).getString("name")
             val repasRecette= jsonArray.getJSONObject(currentKey.toString()).getString("recette")
@@ -1659,7 +1736,7 @@ class RegisterActivity : AppCompatActivity() {
             }
 
 
-            repas.put(currentKey, RepasModel(repasId, repasName,repasDescription,repasImage,repasLien,repasRecette, tagListArray, repasDuree))
+            repas.put(currentKey, RepasModel(repasId, repasName,repasDescription,repasImage,repasLien,repasRecette,repasQuantite, tagListArray, repasDuree))
         }
 
         return mutableMapOf<String, Any>(

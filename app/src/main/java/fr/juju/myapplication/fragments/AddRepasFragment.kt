@@ -33,6 +33,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.ItemTouchHelper
+import fr.juju.myapplication.RepasRepository.Singleton.repasList
 
 
 class AddRepasFragment(
@@ -218,6 +219,30 @@ class AddRepasFragment(
             }
         )
 
+        view.findViewById<EditText>(R.id.name_input).addTextChangedListener(
+            object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if (repasList.filter { s->s.name == view.findViewById<EditText>(R.id.name_input).text.toString()}.isNotEmpty()){
+                            view.findViewById<EditText>(R.id.name_input).error = "La plat existe déjà :)"
+                        }
+                    }
+
+
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Fires right before text is changing
+                }
+
+                override fun afterTextChanged(s: Editable) {
+
+
+                }
+            }
+        )
 
         //Set to linerarlayout to ingredients
         view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.GONE
@@ -313,60 +338,116 @@ class AddRepasFragment(
         }
     }
 
+    private fun validateInput(view : View) : Boolean{
+        if (view.findViewById<EditText>(R.id.name_input).text.isEmpty()){
+            view.findViewById<EditText>(R.id.name_input).error = "Renseignez un nom de plat :)"
+            view.findViewById<EditText>(R.id.name_input).requestFocus()
+            val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.name_input), InputMethodManager.SHOW_IMPLICIT)
+            return false
+        }
+        if (view.findViewById<EditText>(R.id.description_input).text.isEmpty()){
+            view.findViewById<EditText>(R.id.description_input).error = "Renseignez une description de plat :)"
+            view.findViewById<EditText>(R.id.description_input).requestFocus()
+            val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.description_input), InputMethodManager.SHOW_IMPLICIT)
+            return false
+        }
+        if (repas.tags.isEmpty()){
+            view.findViewById<EditText>(R.id.tag_input).error = "Renseignez au moins un tags de plat :)"
+            view.findViewById<EditText>(R.id.tag_input).requestFocus()
+            val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.tag_input), InputMethodManager.SHOW_IMPLICIT)
+            return false
+        }
+        if (view.findViewById<EditText>(R.id.duree).text.isEmpty()){
+            view.findViewById<EditText>(R.id.duree).error = "Renseignez une durée de plat :)"
+            view.findViewById<EditText>(R.id.duree).requestFocus()
+            val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.duree), InputMethodManager.SHOW_IMPLICIT)
+
+            return false
+        }
+        if (view.findViewById<EditText>(R.id.quantite_input).text.isEmpty()){
+            view.findViewById<EditText>(R.id.quantite_input).error = "Renseignez une quantité de plat :)"
+            view.findViewById<EditText>(R.id.quantite_input).requestFocus()
+            val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.quantite_input), InputMethodManager.SHOW_IMPLICIT)
+            return false
+        }
+        if (view.findViewById<EditText>(R.id.recette_input).text.isEmpty()){
+            view.findViewById<EditText>(R.id.recette_input).error = "Renseignez une recette de plat :)"
+            switcher("recette")
+            view.findViewById<EditText>(R.id.recette_input).requestFocus()
+            val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.recette_input), InputMethodManager.SHOW_IMPLICIT)
+            return false
+        }
+        return true
+    }
+
     private fun sendform(view : View) {
         val repo = RepasRepository()
         val repo2 = IngredientRepository()
+
         val name = view.findViewById<EditText>(R.id.name_input).text.toString()
         val description = view.findViewById<EditText>(R.id.description_input).text.toString()
         val lien = view.findViewById<EditText>(R.id.lien_input).text.toString()
         val recette = view.findViewById<EditText>(R.id.recette_input).text.toString()
         val duree = view.findViewById<EditText>(R.id.duree).text.toString()
+        val quantite = view.findViewById<EditText>(R.id.quantite_input).text.toString()
 
-        repas.id = randomId
+        if(validateInput(view)){
 
-        if (!name.isBlank()){
-            repas.name = name
-        }
-        if (!description.isBlank()){
-            repas.description = description
-        }
-        if (!lien.isBlank()){
-            repas.lien = lien
-        }
-        if (!recette.isBlank()){
-            repas.recette = recette
-        }
-        if (!duree.isBlank()){
-            repas.duree = duree
-        }
-
-        if (filePath != null){
-            uploadImage()
-        }else {
             repas.id = randomId
-            repo.updateRepas(repas)
-        }
 
-        for(ingredientRepo in ingredientList.filter { s->s.id_repas == repas.id }){
-            if(!listItem.contains(ingredientRepo)){
-                repo2.deleteIngredient(ingredientRepo)
+            if (!name.isBlank()){
+                repas.name = name
             }
-        }
-
-        for (ingredient in listItem) {
-            if(!ingredientList.contains(ingredient)){
-                repo2.insertIngredient(ingredient)
+            if (!description.isBlank()){
+                repas.description = description
             }
-        }
+            if (!lien.isBlank()){
+                repas.lien = lien
+            }
+            if (!recette.isBlank()){
+                repas.recette = recette
+            }
+            if (!duree.isBlank()){
+                repas.duree = duree
+            }
+            if (!quantite.isBlank()){
+                repas.quantite = quantite
+            }
 
-        listItem.forEachIndexed { index, ingredient ->
-            ingredient.rank = index
-            repo2.updateIngredient(ingredient)
-        }
-        context.loadFragment(RecetteFragment(context,repas, "None", "None", "None"))
+            if (filePath != null){
+                uploadImage()
+            }else {
+                repas.id = randomId
+                repo.updateRepas(repas)
+            }
 
-        IngredientPopup(context, listItem).show()
-        Toast.makeText(context, "Recette ajoutée !", Toast.LENGTH_SHORT).show()
+            for(ingredientRepo in ingredientList.filter { s->s.id_repas == repas.id }){
+                if(!listItem.contains(ingredientRepo)){
+                    repo2.deleteIngredient(ingredientRepo)
+                }
+            }
+
+            for (ingredient in listItem) {
+                if(!ingredientList.contains(ingredient)){
+                    repo2.insertIngredient(ingredient)
+                }
+            }
+
+            listItem.forEachIndexed { index, ingredient ->
+                ingredient.rank = index
+                repo2.updateIngredient(ingredient)
+            }
+            context.loadFragment(RecetteFragment(context,repas, "None", "None", "None"))
+
+            IngredientPopup(context, listItem).show()
+            Toast.makeText(context, "Recette ajoutée !", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun launchGallery() {

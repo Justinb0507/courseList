@@ -54,6 +54,7 @@ class IngredientRepository {
     }
 
     fun insertIngredient(ingredient: IngredientModel) {
+        ingredient.name = formattage(ingredient.name)
         databaseRef.child(ingredient.id).setValue(ingredient)
     }
 
@@ -73,6 +74,9 @@ class IngredientRepository {
             if (it.isLowerCase()) it.titlecase(
                 Locale.getDefault()
             ) else it.toString()
+        }
+        while (returnValue.get(returnValue.lastIndex).toString() == " "){
+            returnValue = returnValue.substring(0, returnValue.length-1)
         }
         return returnValue
     }

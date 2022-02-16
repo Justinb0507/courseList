@@ -94,6 +94,29 @@
                 android:text="45min"
                 app:layout_constraintBottom_toBottomOf="@+id/clock"
                 app:layout_constraintStart_toEndOf="@+id/clock" />
+            <ImageView
+                android:id="@+id/quantite_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginLeft="60dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/quantite"
+                app:layout_constraintBottom_toBottomOf="@+id/clock"
+                app:layout_constraintStart_toEndOf="@+id/duree"
+                app:layout_constraintTop_toTopOf="@+id/clock" />
+
+            <TextView
+                android:id="@+id/quantite"
+                style="@style/DefaultTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:text="2 personnes"
+                android:singleLine="true"
+                app:layout_constraintBottom_toBottomOf="@+id/quantite_icon"
+                app:layout_constraintStart_toEndOf="@+id/quantite_icon"
+                app:layout_constraintTop_toTopOf="@+id/quantite_icon" />
 
             <LinearLayout
                 android:id="@+id/linearLayout2"

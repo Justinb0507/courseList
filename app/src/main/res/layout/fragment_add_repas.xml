@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -33,14 +33,15 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/name_input"
                 style="@style/TitleTextStyle"
-                android:layout_width="wrap_content"
+                android:inputType="textCapWords"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="Nom de la recette"
                 android:layout_marginTop="@dimen/default_margin"
                 android:singleLine="true"
                 android:textAlignment="center"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/bleu_canard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/preview_image" />
@@ -48,9 +49,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/description_input"
                 style="@style/SubstitleTextStyle"
-                android:textColorHint="@color/white"
-                android:layout_width="365dp"
+                android:inputType="textCapSentences"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:textColorHint="@color/bleu_canard"
                 android:hint="Description de la recette"
                 android:layout_marginTop="@dimen/default_margin"
                 android:background="@null"
@@ -69,12 +71,37 @@
                 app:layout_constraintStart_toStartOf="@+id/imageView7"
                 app:layout_constraintTop_toBottomOf="@+id/lien_input" />
 
+            <ImageView
+                android:id="@+id/quantite_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginLeft="60dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/quantite"
+                app:layout_constraintBottom_toBottomOf="@+id/clock"
+                app:layout_constraintStart_toEndOf="@+id/duree"
+                app:layout_constraintTop_toTopOf="@+id/clock" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/quantite_input"
+                style="@style/DefaultTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:singleLine="true"
+                android:hint="2 personnes"
+                android:textColorHint="@color/bleu_canard"
+                app:layout_constraintBottom_toBottomOf="@+id/quantite_icon"
+                app:layout_constraintStart_toEndOf="@+id/quantite_icon"
+                app:layout_constraintTop_toTopOf="@+id/quantite_icon" />
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/duree"
                 style="@style/DefaultTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:background="@null"
                 android:singleLine="true"
                 android:hint="25min"
@@ -86,13 +113,14 @@
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
-                app:layout_constraintWidth_max="200dp"
                 android:layout_height="46dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginLeft="@dimen/default_margin"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@+id/description_input"
-                app:layout_constraintTop_toBottomOf="@+id/description_input">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description_input"
+                app:layout_constraintWidth_max="200dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tags"
@@ -112,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:maxHeight="70dp"
                 android:layout_marginLeft="5dp"
-                android:hint="tag"
+                android:hint="Tag"
                 android:background="@null"
                 android:paddingLeft="@dimen/default_margin"
                 android:textColorHint="@color/turquoise"
@@ -187,7 +215,7 @@
                 style="@style/DefaultTextStyle"
                 android:layout_width="308dp"
                 android:layout_height="30dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:autoLink="web"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -288,7 +316,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <Space
+                    <View
                         android:layout_width="200dp"
                         android:layout_height="150dp"
                         app:layout_constraintEnd_toEndOf="@+id/recette_input"

@@ -50,6 +50,9 @@ class RecetteFragment(
         view.findViewById<TextView>(R.id.lien).text = currentRepas.lien
         view.findViewById<TextView>(R.id.recette_display).text = currentRepas.recette
         view.findViewById<TextView>(R.id.duree).text = currentRepas.duree
+        view.findViewById<TextView>(R.id.quantite).text = currentRepas.quantite
+
+
         val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tags)
         collectionRecyclerView.adapter =
             TagsAdapter(context, currentRepas.tags, R.layout.item_tags_horizontal)

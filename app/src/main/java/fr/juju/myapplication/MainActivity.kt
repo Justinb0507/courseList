@@ -148,20 +148,38 @@ class MainActivity : AppCompatActivity() {
         var fragment = fm.getBackStackEntryAt(fm.backStackEntryCount - 2)
         if (fragment.name == "EditRepas" || fragment.name == "AddRepas") {
             var fragment2 = fm.getBackStackEntryAt(fm.backStackEntryCount - 4)
-            if (fragment2.name == "CourseListe") {
-                selectedCourse()
-            } else if (fragment2.name == "FiltreRepas") {
-                selectedRecettes()
-            } else if (fragment2.name == "Home") {
-                selectedHome()
-            } else if (fragment2.name == "Recette") {
-                selectedRecettes()
-            } else if (fragment2.name == "ResultResearch") {
-                selectedRecettes()
-            } else if (fragment2.name == "Semainier") {
-                selectedSemainier()
+            if (fragment2.name == "EditRepas" || fragment2.name == "AddRepas") {
+                var fragment3 = fm.getBackStackEntryAt(fm.backStackEntryCount - 5)
+                if (fragment3.name == "CourseListe") {
+                    selectedCourse()
+                } else if (fragment3.name == "FiltreRepas") {
+                    selectedRecettes()
+                } else if (fragment3.name == "Home") {
+                    selectedHome()
+                } else if (fragment3.name == "Recette") {
+                    selectedRecettes()
+                } else if (fragment3.name == "ResultResearch") {
+                    selectedRecettes()
+                } else if (fragment3.name == "Semainier") {
+                    selectedSemainier()
+                }
+                fm.popBackStack(fragment3.name, 0)
+            }else {
+                if (fragment2.name == "CourseListe") {
+                    selectedCourse()
+                } else if (fragment2.name == "FiltreRepas") {
+                    selectedRecettes()
+                } else if (fragment2.name == "Home") {
+                    selectedHome()
+                } else if (fragment2.name == "Recette") {
+                    selectedRecettes()
+                } else if (fragment2.name == "ResultResearch") {
+                    selectedRecettes()
+                } else if (fragment2.name == "Semainier") {
+                    selectedSemainier()
+                }
+                fm.popBackStack(fragment2.name, 0)
             }
-            fm.popBackStack(fragment2.name, 0)
         } else {
             if (fragment.name == "CourseListe") {
                 selectedCourse()
@@ -171,7 +189,7 @@ class MainActivity : AppCompatActivity() {
                 selectedHome()
             } else if (fragment.name == "Recette") {
                 selectedRecettes()
-            } else if (fragment.name == "ResultResearch=") {
+            } else if (fragment.name == "ResultResearch") {
                 selectedRecettes()
             } else if (fragment.name == "Semainier") {
                 selectedSemainier()

@@ -65,13 +65,16 @@ class RepasRepository {
                 Locale.getDefault()
             ) else it.toString()
         }
+        while (returnValue.get(returnValue.lastIndex).toString() == " "){
+            returnValue = returnValue.substring(0, returnValue.length-1)
+        }
         return returnValue
     }
 
     fun insertRepas(repas: RepasModel) {
         repas.name = formattage(repas.name)
         repas.description = formattage(repas.description)
-        repas.recette = formattage(repas.recette)
+
         var tags = arrayListOf<String>()
         for (tag in repas.tags){
             tags.add(formattage(tag))
@@ -86,7 +89,7 @@ class RepasRepository {
     fun updateRepas(repas: RepasModel) {
         repas.name = formattage(repas.name)
         repas.description = formattage(repas.description)
-        repas.recette = formattage(repas.recette)
+
         var tags = arrayListOf<String>()
         for (tag in repas.tags){
             tags.add(formattage(tag))

@@ -62,6 +62,8 @@ override fun onCreateView(
     view.findViewById<ImageView>(R.id.plat_rouge).alpha = 0F
     view.findViewById<ImageView>(R.id.soupe_rouge).alpha = 0F
     view.findViewById<ImageView>(R.id.apero_rouge).alpha = 0F
+    view.findViewById<ImageView>(R.id.cocktail_rouge).alpha = 0F
+    view.findViewById<ImageView>(R.id.entree_rouge).alpha = 0F
 
     view.findViewById<ImageView>(R.id.plat).setOnClickListener{
         context.hideKeyboard()
@@ -97,7 +99,6 @@ override fun onCreateView(
         }
 
     }
-
     view.findViewById<ImageView>(R.id.dessert).setOnClickListener{
         context.hideKeyboard()
         if (categorieFiltre("Dessert Desserts").isNotEmpty()){
@@ -198,6 +199,74 @@ override fun onCreateView(
             }.start()
 
         }
+    }
+    view.findViewById<ImageView>(R.id.cocktail).setOnClickListener{
+        context.hideKeyboard()
+        if (categorieFiltre("Cocktail Cocktails").isNotEmpty()){
+            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Cocktail Cocktails"), time, selectedDay, currentSemaine))
+        }
+        else {
+            view.findViewById<ImageView>(R.id.cocktail_rouge).alpha = 0.5F
+            view.findViewById<ImageView>(R.id.cocktail_rouge).animate().apply {
+                duration = 30
+                translationY(10F)
+                rotation(4F)
+            }.withEndAction {
+                view.findViewById<ImageView>(R.id.cocktail_rouge).animate().apply {
+                    duration = 30
+                    translationY(0F)
+                    rotation(0F)
+                }
+            }.start()
+
+            view.findViewById<ImageView>(R.id.cocktail).animate().apply {
+                duration = 30
+                translationY(10F)
+                rotation(4F)
+            }.withEndAction {
+                view.findViewById<ImageView>(R.id.cocktail).animate().apply {
+                    duration = 30
+                    translationY(0F)
+                    rotation(0F)
+                }
+            }.start()
+
+        }
+
+    }
+    view.findViewById<ImageView>(R.id.entree).setOnClickListener{
+        context.hideKeyboard()
+        if (categorieFiltre("Entrée Entrées").isNotEmpty()){
+            context.loadFragment(ResultResearchFragment(context, categorieFiltre("Entrée Entrées"), time, selectedDay, currentSemaine))
+        }
+        else {
+            view.findViewById<ImageView>(R.id.entree_rouge).alpha = 0.5F
+            view.findViewById<ImageView>(R.id.entree_rouge).animate().apply {
+                duration = 30
+                translationY(10F)
+                rotation(4F)
+            }.withEndAction {
+                view.findViewById<ImageView>(R.id.entree_rouge).animate().apply {
+                    duration = 30
+                    translationY(0F)
+                    rotation(0F)
+                }
+            }.start()
+
+            view.findViewById<ImageView>(R.id.entree).animate().apply {
+                duration = 30
+                translationY(10F)
+                rotation(4F)
+            }.withEndAction {
+                view.findViewById<ImageView>(R.id.entree).animate().apply {
+                    duration = 30
+                    translationY(0F)
+                    rotation(0F)
+                }
+            }.start()
+
+        }
+
     }
 
     view.findViewById<Button>(R.id.research).setOnClickListener{

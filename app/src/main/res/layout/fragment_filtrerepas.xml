@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,8 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="match_parent">
 
         <EditText
             android:id="@+id/research_input"
@@ -162,11 +161,57 @@
             app:layout_constraintTop_toTopOf="@+id/soupe"
             app:tint="@android:color/holo_red_dark" />
 
+        <ImageView
+            android:id="@+id/entree"
+            android:layout_width="172dp"
+            android:layout_height="255dp"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="@dimen/default_margin"
+            android:src="@drawable/entrees"
+            app:layout_constraintEnd_toEndOf="@+id/dessert"
+            app:layout_constraintTop_toBottomOf="@+id/apero" />
+
+        <ImageView
+            android:id="@+id/entree_rouge"
+            android:layout_width="172dp"
+            android:layout_height="255dp"
+            android:alpha="0.5"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="@dimen/default_margin"
+            android:src="@drawable/entrees"
+            app:layout_constraintEnd_toEndOf="@+id/dessert"
+            app:layout_constraintTop_toBottomOf="@+id/apero"
+            app:tint="@android:color/holo_red_dark" />
+
+        <ImageView
+            android:id="@+id/cocktail"
+            android:layout_width="172dp"
+            android:layout_height="255dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cocktail"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginLeft="@dimen/default_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/soupe" />
+
+        <ImageView
+            android:id="@+id/cocktail_rouge"
+            android:layout_width="172dp"
+            android:layout_height="255dp"
+            android:alpha="0.5"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cocktail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/soupe"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginLeft="@dimen/default_margin"
+            app:tint="@android:color/holo_red_dark" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-</RelativeLayout>
+</ScrollView>
 
 
 

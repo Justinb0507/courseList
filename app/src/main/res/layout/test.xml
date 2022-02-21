@@ -6,35 +6,36 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:background="@color/background">
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corner"
-
-        >
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/lune"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginTop="170dp"
+        android:layout_marginRight="@dimen/default_margin">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView13"
             style="@style/DefaultTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Soir"
-            android:layout_marginLeft="5dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+            android:background="@drawable/rounded_corner"
+            android:gravity="center"
+            android:text="Bienvenue sur la page du semainier !\nSur cette page, \ntu pourras retrouver ton planning de la semaine"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:rotation="-90"
+            android:background="@color/bleu_canard"
+            app:tint="@color/white"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+            app:layout_constraintEnd_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>

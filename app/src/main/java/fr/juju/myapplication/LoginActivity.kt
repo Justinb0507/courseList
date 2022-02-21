@@ -98,7 +98,6 @@ class LoginActivity : AppCompatActivity() {
 
     // Hook Click Event
     fun performSignUp(v: View) {
-
         val translateYImage = ObjectAnimator.ofFloat(
             findViewById<ImageView>(R.id.imageView12),
             View.TRANSLATION_Y,
@@ -146,12 +145,12 @@ class LoginActivity : AppCompatActivity() {
                 // ...
             }
         })
-    //if (validateInput()) {
+    if (validateInput()) {
             // Input is valid, here send data to your server
             val email = etEmail!!.text.toString()
             val password = etPassword!!.text.toString()
 
-            auth.signInWithEmailAndPassword("test@gmail.com", "cookeat").addOnCompleteListener(this) { task ->
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     if (findViewById<CheckBox>(R.id.checkBox).isChecked) {
                         var preferences: SharedPreferences =
@@ -181,7 +180,7 @@ class LoginActivity : AppCompatActivity() {
                     ).show()
                 }
             }
-        //}
+        }
 
     }
 

@@ -101,6 +101,7 @@ class SemainierFragment(
         var repoSemainier = SemainierRepository()
         var repasAutresList = arrayListOf<RepasModel>()
         var repoSemainierSuivant = SemainierSuivantRepository()
+
         if (currentSemaineInput == "suivant") {
             currentSemaine = semainierSuivantList
             suivant = true
@@ -2423,7 +2424,6 @@ class SemainierFragment(
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
         }
     }
-
 
     private fun deleteIngredientCourse(ingredients: ArrayList<IngredientModel>) {
         var repo = CourseRepository()

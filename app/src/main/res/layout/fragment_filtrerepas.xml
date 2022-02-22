@@ -126,18 +126,18 @@
             android:scaleType="centerCrop"
             android:src="@drawable/soupe"
             app:layout_constraintStart_toStartOf="@+id/plat"
-            app:layout_constraintTop_toBottomOf="@+id/plat" />
+            app:layout_constraintTop_toBottomOf="@+id/cocktail" />
 
         <ImageView
             android:id="@+id/soupe_rouge"
+            android:layout_marginTop="@dimen/default_margin"
             android:layout_width="172dp"
             android:layout_height="255dp"
-            android:layout_marginTop="@dimen/default_margin"
             android:alpha="0.5"
             android:scaleType="centerCrop"
             android:src="@drawable/soupe"
             app:layout_constraintStart_toStartOf="@+id/plat"
-            app:layout_constraintTop_toBottomOf="@+id/plat"
+            app:layout_constraintTop_toBottomOf="@+id/cocktail"
             app:tint="@android:color/holo_red_dark" />
 
         <ImageView
@@ -146,18 +146,20 @@
             android:layout_height="255dp"
             android:scaleType="centerCrop"
             android:src="@drawable/aperoimg"
+            android:layout_marginTop="@dimen/default_margin"
             app:layout_constraintEnd_toEndOf="@+id/dessert"
-            app:layout_constraintTop_toTopOf="@+id/soupe" />
+            app:layout_constraintTop_toBottomOf="@+id/dessert" />
 
         <ImageView
             android:id="@+id/apero_rouge"
             android:layout_width="172dp"
             android:layout_height="255dp"
+            android:layout_marginTop="@dimen/default_margin"
             android:alpha="0.5"
             android:scaleType="centerCrop"
             android:src="@drawable/aperoimg"
             app:layout_constraintEnd_toEndOf="@+id/dessert"
-            app:layout_constraintTop_toTopOf="@+id/soupe"
+            app:layout_constraintTop_toBottomOf="@+id/dessert"
             app:tint="@android:color/holo_red_dark" />
 
         <ImageView
@@ -186,24 +188,24 @@
             android:id="@+id/cocktail"
             android:layout_width="172dp"
             android:layout_height="255dp"
-            android:layout_marginLeft="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginLeft="@dimen/default_margin"
             android:scaleType="centerCrop"
             android:src="@drawable/cocktail"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/soupe" />
+            app:layout_constraintTop_toBottomOf="@+id/plat" />
 
         <ImageView
             android:id="@+id/cocktail_rouge"
             android:layout_width="172dp"
             android:layout_height="255dp"
-            android:layout_marginLeft="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginLeft="@dimen/default_margin"
             android:alpha="0.5"
             android:scaleType="centerCrop"
             android:src="@drawable/cocktail"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/soupe"
+            app:layout_constraintTop_toBottomOf="@+id/plat"
             app:tint="@android:color/holo_red_dark" />
 
         <View
@@ -212,7 +214,7 @@
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cocktail" />
+            app:layout_constraintTop_toBottomOf="@+id/soupe" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

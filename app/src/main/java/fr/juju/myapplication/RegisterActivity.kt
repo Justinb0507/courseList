@@ -6,10 +6,13 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
@@ -22,6 +25,9 @@ class RegisterActivity : AppCompatActivity() {
     lateinit var etPassword: EditText
     lateinit var signin: Button
     lateinit var go: TextView
+    lateinit var go2: ImageView
+    lateinit var etConfirmPassword: EditText
+    lateinit var cadenas: ImageView
     val MIN_PASSWORD_LENGTH = 6
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,55 +39,28 @@ class RegisterActivity : AppCompatActivity() {
             }
         })
         viewInitializations()
+        etConfirmPassword.setOnClickListener{
+            cadenas.clearColorFilter()
+        }
 
-        val translateYImage = ObjectAnimator.ofFloat(
-            findViewById<ImageView>(R.id.imageView12),
-            View.TRANSLATION_Y,
-            0F,
-            1500F
-        ).setDuration(500)
+        etConfirmPassword.addTextChangedListener(
+            object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    cadenas.clearColorFilter()
+                }
 
-        val alphaImage = ObjectAnimator.ofFloat(
-            findViewById<ImageView>(R.id.imageView12),
-            View.ALPHA,
-            1F,
-            0F
-        ).setDuration(400)
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
 
-
-        val set = AnimatorSet()
-        set.playTogether(translateYImage, alphaImage)
-
-        set.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {
-                findViewById<EditText>(R.id.et_email).visibility = View.GONE
-                findViewById<ImageView>(R.id.imageView15).visibility = View.GONE
-                findViewById<EditText>(R.id.et_password).visibility = View.GONE
-                findViewById<ImageView>(R.id.imageView13).visibility = View.GONE
-                findViewById<TextView>(R.id.textView12).visibility = View.GONE
-                findViewById<TextView>(R.id.textView11).visibility = View.GONE
-                findViewById<CheckBox>(R.id.checkBox).visibility = View.GONE
-                findViewById<Button>(R.id.bt_signup).visibility = View.GONE
-                findViewById<TextView>(R.id.tv_heading).visibility = View.GONE
-                findViewById<ImageView>(R.id.imageView20).animate().alpha(0F).setDuration(200)
+                override fun afterTextChanged(s: Editable) {
+                }
             }
-
-            override fun onAnimationRepeat(animation: Animator) {
-                // ...
-            }
-
-            override fun onAnimationEnd(animation: Animator) {
-                val intent = Intent(baseContext, SplashActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(0, 0)
-                finish()
-            }
-
-            override fun onAnimationCancel(animation: Animator) {
-                // ...
-            }
-        })
-
+        )
 
         var auth: FirebaseAuth
         auth = Firebase.auth
@@ -96,13 +75,20 @@ class RegisterActivity : AppCompatActivity() {
                             val user = auth.currentUser
                             val databaseRef = FirebaseDatabase.getInstance()
                             if (user != null) {
-                                Toast.makeText(
-                                    baseContext, "Bienvenue ! <3",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                databaseRef.reference.child(user.uid).setValue(newDBModel())
+                                user!!.sendEmailVerification()
+                                    .addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            databaseRef.reference.child(user.uid).setValue(newDBModel())
+                                            val intent = Intent(baseContext, LoginActivity::class.java)
+                                            val b = Bundle()
+                                            b.putString("emailInput", etEmail.text.toString())
+                                            intent.putExtras(b)
+                                            startActivity(intent)
+                                            overridePendingTransition(0, 0)
+                                            finish()
+                                        } else Toast.makeText(this, "Erreur lors de l'envoi de l'email", Toast.LENGTH_SHORT).show()
+                                    }
                             }
-                            set.start()
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -113,6 +99,9 @@ class RegisterActivity : AppCompatActivity() {
                         }
                     }
             }
+        }
+        go2.setOnClickListener{
+            go.performClick()
         }
         signin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
@@ -129,6 +118,16 @@ class RegisterActivity : AppCompatActivity() {
         }
         if (etPassword.text.toString() == "") {
             etPassword.error = "Please Enter Password"
+            return false
+        }
+        if (etConfirmPassword.text.toString() == "") {
+            etConfirmPassword.error = "Please Confirm Password"
+            return false
+        }
+
+        if (etPassword.text.toString() != etConfirmPassword.text.toString()) {
+            cadenas.setColorFilter(ContextCompat.getColor(this, android.R.color.holo_red_dark), android.graphics.PorterDuff.Mode.MULTIPLY)
+            etConfirmPassword.error = "Mot de passe incorrects"
             return false
         }
 
@@ -156,6 +155,9 @@ class RegisterActivity : AppCompatActivity() {
         etPassword = findViewById(R.id.et_password)
         signin = findViewById(R.id.bt_signup)
         go = findViewById(R.id.textView12)
+        go2 = findViewById(R.id.envoyer)
+        etConfirmPassword = findViewById(R.id.et_confirmPassword)
+        cadenas = findViewById(R.id.imageView14)
         // To show back button in actionbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -1667,7 +1669,7 @@ class RegisterActivity : AppCompatActivity() {
       "name" : "Mojito",
       "quantite" : "2 personnes",
       "recette" : "Fais toi plaiz tu sais faire :)",
-      "tags" : [ "Cocktail", "Apero" ]
+      "tags" : [ "Cocktail", "Apéro" ]
     },
     "791978e3-839a-4bb6-b134-dcddf7200d99" : {
       "description" : "Le repas de la hess",

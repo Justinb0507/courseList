@@ -16,7 +16,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import org.json.JSONObject
 import org.json.JSONTokener
 
@@ -24,6 +26,9 @@ import org.json.JSONTokener
 class LoginActivity : AppCompatActivity() {
     lateinit var etEmail: EditText
     lateinit var etPassword: EditText
+    lateinit var indication: TextView
+
+
     val MIN_PASSWORD_LENGTH = 6
     var auth = FirebaseAuth.getInstance()
 
@@ -51,16 +56,23 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
         viewInitializations()
+
         val translate = AnimationUtils.loadAnimation(this, R.anim.translate_anim)
         findViewById<ConstraintLayout>(R.id.constraint).startAnimation(translate)
-
-
 
     }
 
     fun viewInitializations() {
         etEmail = findViewById(R.id.et_email)
         etPassword = findViewById(R.id.et_password)
+        indication = findViewById(R.id.textView14)
+
+        val b = intent.extras
+        if (b != null) {
+            indication.visibility = View.VISIBLE
+            etEmail.setText(b.getString("emailInput"))
+        }
+        else indication.visibility = View.GONE
 
         // To show back button in actionbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -152,24 +164,26 @@ class LoginActivity : AppCompatActivity() {
 
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    if (findViewById<CheckBox>(R.id.checkBox).isChecked) {
-                        var preferences: SharedPreferences =
-                            getSharedPreferences("checkbox", MODE_PRIVATE)
-                        var editor: SharedPreferences.Editor = preferences.edit()
-                        editor.putString("remember", "true")
-                        editor.apply()
-                    } else {
-                        var preferences: SharedPreferences =
-                            getSharedPreferences("checkbox", MODE_PRIVATE)
-                        var editor: SharedPreferences.Editor = preferences.edit()
-                        editor.putString("remember", "false")
-                        editor.apply()
+                    val user = Firebase.auth.currentUser
+                    if(user?.isEmailVerified == true){
+                        if (findViewById<CheckBox>(R.id.checkBox).isChecked) {
+                            var preferences: SharedPreferences =
+                                getSharedPreferences("checkbox", MODE_PRIVATE)
+                            var editor: SharedPreferences.Editor = preferences.edit()
+                            editor.putString("remember", "true")
+                            editor.apply()
+                        } else {
+                            var preferences: SharedPreferences =
+                                getSharedPreferences("checkbox", MODE_PRIVATE)
+                            var editor: SharedPreferences.Editor = preferences.edit()
+                            editor.putString("remember", "false")
+                            editor.apply()
+                        }
+                        set.start()
+                        Toast.makeText(this, "Vous êtes connecté ! <3", Toast.LENGTH_SHORT).show()
+                    }else {
+                        Toast.makeText(this, "Email non vérifié ! Veuillez valider votre inscription en cliquant sur le lien envoyé par mail :)",Toast.LENGTH_LONG).show()
                     }
-                   // val translate = AnimationUtils.loadAnimation(this, R.anim.translate_anim)
-                    //findViewById<ImageView>(R.id.imageView12).startAnimation(translate)
-
-                    set.start()
-                    Toast.makeText(this, "Vous êtes connecté ! <3", Toast.LENGTH_SHORT).show()
 
                 } else {
                     // If sign in fails, display a message to the user.

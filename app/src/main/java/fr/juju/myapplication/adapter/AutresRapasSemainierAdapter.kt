@@ -25,7 +25,7 @@ class AutresRapasSemainierAdapter(
     ) : RecyclerView.Adapter<AutresRapasSemainierAdapter.ViewHolder>()  {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
-        val container: ConstraintLayout? = view.findViewById(R.id.autres)
+        val container: ConstraintLayout? = view.findViewById(R.id.container)
         val name: TextView? = view.findViewById(R.id.nom)
         val image: ImageView? = view.findViewById(R.id.image_item)
         val description : TextView? = view.findViewById(R.id.description)

@@ -37,14 +37,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         navigationView = findViewById<BottomNavigationView>(R.id.navigation_view)
         findViewById<ImageView>(R.id.imageView2).setOnClickListener {
-            var preferences: SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
-            var editor: SharedPreferences.Editor = preferences.edit()
-            editor.putString("remember", "false")
-            editor.apply()
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            loadFragment(UserFragment(this))
         }
 
         loadFragment(HomeFragment(this))
@@ -116,7 +109,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     fun loadFragment(fragment: Fragment) {
         //injecter le fragment dans notre boite fragment container
         val transaction = supportFragmentManager.beginTransaction()
@@ -137,6 +129,8 @@ class MainActivity : AppCompatActivity() {
             transaction.addToBackStack("ResultRecette")
         } else if (fragment is SemainierFragment) {
             transaction.addToBackStack("Semainier")
+        } else if (fragment is UserFragment) {
+            transaction.addToBackStack("User")
         } else transaction.addToBackStack(null)
 
         transaction.commit()

@@ -104,7 +104,7 @@
         android:background="#68C4C4C4"
         android:backgroundTint="#68C4C4C4"
         android:gravity="center"
-        android:hint="Password"
+        android:hint="Mot de passe"
         android:inputType="textPassword"
         android:padding="10dp"
         android:textColor="@color/black"
@@ -124,63 +124,61 @@
         app:layout_constraintStart_toStartOf="@+id/et_password"
         app:layout_constraintTop_toTopOf="@+id/et_password" />
 
-    <com.google.android.gms.common.SignInButton
-        android:visibility="gone"
-        android:id="@+id/sign_in_button"
+    <EditText
+        android:layout_marginTop="@dimen/default_margin"
+        android:id="@+id/et_confirmPassword"
+        style="@style/DefaultTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="@dimen/default_margin"
-        app:layout_constraintEnd_toEndOf="@+id/imageView14"
-        app:layout_constraintStart_toStartOf="@+id/imageView14"
-        app:layout_constraintTop_toBottomOf="@+id/imageView14" />
+        android:layout_marginRight="40dp"
+        android:background="#68C4C4C4"
+        android:backgroundTint="#68C4C4C4"
+        android:gravity="center"
+        android:hint="Confirmez le mot de passe"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_password" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/lock"
+        app:layout_constraintBottom_toBottomOf="@+id/et_confirmPassword"
+        app:layout_constraintStart_toStartOf="@+id/et_confirmPassword"
+        app:layout_constraintTop_toTopOf="@+id/et_confirmPassword" />
+
 
     <TextView
+        android:layout_marginTop="@dimen/default_margin"
         android:id="@+id/textView12"
-        style="@style/TitleTextStyle"
-        android:layout_width="150dp"
+        style="@style/DefaultTextStyle"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_corner_affect"
         android:gravity="center"
         android:padding="5dp"
-        android:text="Go !"
-        android:layout_marginTop="@dimen/default_margin"
+        android:text="Envoyer un mail de connexion !"
         app:layout_constraintEnd_toEndOf="@+id/et_password"
-        app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />
-
-    <TextView
-        android:id="@+id/textView11"
-        style="@style/DefaultTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:text="Vous souhaitez rester connecter ?"
-        android:textColor="@color/background"
         app:layout_constraintStart_toStartOf="@+id/et_password"
-        app:layout_constraintTop_toBottomOf="@+id/et_password" />
+        app:layout_constraintTop_toBottomOf="@+id/et_confirmPassword" />
 
     <ImageView
-        android:visibility="gone"
-        android:id="@+id/imageView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ou_registered"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="@+id/et_password"
-        app:layout_constraintStart_toStartOf="@+id/et_password"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/envoyer"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:buttonTint="@color/background"
-        app:layout_constraintBottom_toBottomOf="@+id/textView11"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toTopOf="@+id/textView11" />
-
+        android:layout_marginTop="@dimen/default_margin"
+        android:src="@drawable/telegram"
+        app:layout_constraintEnd_toEndOf="@+id/textView12"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <Button
         android:id="@+id/bt_signup"

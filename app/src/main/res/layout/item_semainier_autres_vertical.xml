@@ -28,9 +28,9 @@
 
     <ImageView
         android:id="@+id/delete"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginRight="@dimen/default_margin"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="10dp"
         android:src="@drawable/ic_baseline_close_24"
         app:layout_constraintBottom_toBottomOf="@+id/nom"
         app:layout_constraintEnd_toEndOf="parent"

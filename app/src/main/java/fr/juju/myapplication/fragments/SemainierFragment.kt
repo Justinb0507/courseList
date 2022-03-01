@@ -56,7 +56,8 @@ class SemainierFragment(
         context.onBackPressedDispatcher.addCallback(context, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 context.handleBack()
-            }})
+            }
+        })
         if (selectedDayInput == "None") {
             selectedDay = currentDay
         } else {
@@ -97,6 +98,7 @@ class SemainierFragment(
             pastDay.add("vendredi")
             pastDay.add("samedi")
         }
+        val titrePage = view.findViewById<TextView>(R.id.titrePage)
         val recyclerAutres = view.findViewById<RecyclerView>(R.id.autresRepasRecylcer)
         var repoSemainier = SemainierRepository()
         var repasAutresList = arrayListOf<RepasModel>()
@@ -105,6 +107,7 @@ class SemainierFragment(
         if (currentSemaineInput == "suivant") {
             currentSemaine = semainierSuivantList
             suivant = true
+            titrePage.setText("Planifier la semaine prochaine")
             currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
             view.findViewById<ImageView>(R.id.echange).visibility = View.VISIBLE
             view.findViewById<ImageView>(R.id.eye).visibility = View.GONE
@@ -348,10 +351,10 @@ class SemainierFragment(
                 } else view?.findViewById<ImageView>(R.id.Dimanche_img)
                     ?.setImageDrawable(this.getContext()?.getDrawable(R.drawable.radio_uncheck))
             }
-        }
-        else {
+        } else {
             currentSemaine = semainierList
             suivant = false
+            titrePage.setText("Repas de la semaine")
             currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
             view.findViewById<Switch>(R.id.toggleButton).isChecked = false
             view.findViewById<ImageView>(R.id.eye).visibility = View.VISIBLE
@@ -540,9 +543,9 @@ class SemainierFragment(
             }
         }
 
-
         view.findViewById<Switch>(R.id.toggleButton).setOnClickListener {
             if (view.findViewById<Switch>(R.id.toggleButton).isChecked) {
+                titrePage.setText("Planifier la semaine prochaine")
                 view.findViewById<ImageView>(R.id.echange).visibility = View.VISIBLE
                 view.findViewById<ImageView>(R.id.eye).visibility = View.GONE
                 view.findViewById<ImageView>(R.id.calendar).visibility = View.VISIBLE
@@ -601,17 +604,21 @@ class SemainierFragment(
                     currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
 
                     if (currentDays.autres.isNotEmpty()) {
-                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility = android.view.View.GONE
-                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility = android.view.View.VISIBLE
-                    }else {
-                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility = android.view.View.GONE
+                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility =
+                            android.view.View.GONE
+                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility =
+                            android.view.View.VISIBLE
+                    } else {
+                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility =
+                            android.view.View.GONE
                     }
                     if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
-                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility = android.view.View.VISIBLE
+                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility =
+                            android.view.View.VISIBLE
                     }
                 }
-            }
-            else {
+            } else {
+                titrePage.setText("Repas de la semaine")
                 view.findViewById<ImageView>(R.id.echange).visibility = View.GONE
                 view.findViewById<ImageView>(R.id.eye).visibility = View.VISIBLE
                 view.findViewById<ImageView>(R.id.calendar).visibility = View.GONE
@@ -674,7 +681,7 @@ class SemainierFragment(
                 if (currentDays.autres.isNotEmpty()) {
                     view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
                     view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.VISIBLE
-                }else {
+                } else {
                     view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.GONE
                 }
                 if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
@@ -776,7 +783,7 @@ class SemainierFragment(
             for (repas in currentDays.autres) {
                 repasAutresList.add(repasList.filter { s -> s.id == repas }[0])
             }
-            if (suivant){
+            if (suivant) {
                 recyclerAutres.adapter = AutresRapasSemainierAdapter(
                     context,
                     repasAutresList,
@@ -784,7 +791,7 @@ class SemainierFragment(
                     "suivant",
                     R.layout.item_semainier_autres_vertical
                 )
-            }else {
+            } else {
                 recyclerAutres.adapter = AutresRapasSemainierAdapter(
                     context,
                     repasAutresList,
@@ -802,35 +809,39 @@ class SemainierFragment(
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
         }
 
-    if(suivant) {
+        if (suivant) {
             repoSemainierSuivant.updateData {
                 currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
 
                 if (currentDays.autres.isNotEmpty()) {
-                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility = android.view.View.GONE
-                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility = android.view.View.VISIBLE
-                }else {
-                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility = android.view.View.GONE
+                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility =
+                        android.view.View.GONE
+                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility =
+                        android.view.View.VISIBLE
+                } else {
+                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility =
+                        android.view.View.GONE
                 }
                 if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
-                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility = android.view.View.VISIBLE
+                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility =
+                        android.view.View.VISIBLE
                 }
             }
-    }else {
-        repoSemainier.updateData {
-            currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
+        } else {
+            repoSemainier.updateData {
+                currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
 
-            if (currentDays.autres.isNotEmpty()) {
-                view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
-                view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.VISIBLE
-            }else {
-                view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.GONE
-            }
-            if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
-                view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
+                if (currentDays.autres.isNotEmpty()) {
+                    view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+                    view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.VISIBLE
+                } else {
+                    view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.GONE
+                }
+                if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
+                    view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
+                }
             }
         }
-    }
 
         view.findViewById<TextView>(R.id.Lundi).setOnClickListener {
             if (suivant == false) {
@@ -1109,7 +1120,6 @@ class SemainierFragment(
         view.findViewById<ImageView>(R.id.affect_repas).setOnClickListener {
             enableEdit(view)
         }
-
         view.findViewById<ConstraintLayout>(R.id.affect_repas_soir).setOnClickListener {
             context.printSoir()
             if (suivant) {
@@ -1822,7 +1832,8 @@ class SemainierFragment(
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_midi)?.visibility = View.VISIBLE
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_apero)?.visibility = View.VISIBLE
             view?.findViewById<ConstraintLayout>(R.id.affect_repas_soir)?.visibility = View.VISIBLE
-            view?.findViewById<ConstraintLayout>(R.id.affect_repas_autres)?.visibility = View.VISIBLE
+            view?.findViewById<ConstraintLayout>(R.id.affect_repas_autres)?.visibility =
+                View.VISIBLE
             view?.findViewById<NestedScrollView>(R.id.scrollView)?.alpha = 0.25F
             view?.findViewById<ConstraintLayout>(R.id.Midi)?.isEnabled = false
             view?.findViewById<ConstraintLayout>(R.id.Soir)?.isEnabled = false
@@ -2255,14 +2266,16 @@ class SemainierFragment(
             for (repas in currentDays.autres) {
                 repasAutresList.add(repasList.filter { s -> s.id == repas }[0])
             }
-            view?.findViewById<RecyclerView>(R.id.autresRepasRecylcer)?.adapter = AutresRapasSemainierAdapter(
-                context,
-                repasAutresList,
-                currentDays.id_semainier,
-                "courant",
-                R.layout.item_semainier_autres_vertical
-            )
-            view?.findViewById<RecyclerView>(R.id.autresRepasRecylcer)?.layoutManager = LinearLayoutManager(context)
+            view?.findViewById<RecyclerView>(R.id.autresRepasRecylcer)?.adapter =
+                AutresRapasSemainierAdapter(
+                    context,
+                    repasAutresList,
+                    currentDays.id_semainier,
+                    "courant",
+                    R.layout.item_semainier_autres_vertical
+                )
+            view?.findViewById<RecyclerView>(R.id.autresRepasRecylcer)?.layoutManager =
+                LinearLayoutManager(context)
         } else {
             view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.GONE
         }
@@ -2409,14 +2422,16 @@ class SemainierFragment(
             for (repas in currentDays.autres) {
                 repasAutresList.add(repasList.filter { s -> s.id == repas }[0])
             }
-            view?.findViewById<RecyclerView>(R.id.autresRepasRecylcer)?.adapter = AutresRapasSemainierAdapter(
-                context,
-                repasAutresList,
-                currentDays.id_semainier,
-                "suivant",
-                R.layout.item_semainier_autres_vertical
-            )
-            view?.findViewById<RecyclerView>(R.id.autresRepasRecylcer)?.layoutManager = LinearLayoutManager(context)
+            view?.findViewById<RecyclerView>(R.id.autresRepasRecylcer)?.adapter =
+                AutresRapasSemainierAdapter(
+                    context,
+                    repasAutresList,
+                    currentDays.id_semainier,
+                    "suivant",
+                    R.layout.item_semainier_autres_vertical
+                )
+            view?.findViewById<RecyclerView>(R.id.autresRepasRecylcer)?.layoutManager =
+                LinearLayoutManager(context)
         } else {
             view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.GONE
         }

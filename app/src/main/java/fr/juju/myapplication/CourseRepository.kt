@@ -187,17 +187,17 @@ class CourseRepository {
                             }
 
 
-                            else if (oldItem.quantite.contains("cc")
+                            else if (oldItem.quantite.contains("cac")
                             ) {
                                 value = oldItem.quantite.substring(
                                     0,
-                                    oldItem.quantite.indexOf("cc")
+                                    oldItem.quantite.indexOf("cac")
                                 )
                                     .replace(" ", "").toInt()
-                            } else if (oldItem.quantite.contains("cs")) {
+                            } else if (oldItem.quantite.contains("cas")) {
                                 value = oldItem.quantite.substring(
                                     0,
-                                    oldItem.quantite.indexOf("cs")
+                                    oldItem.quantite.indexOf("cas")
                                 )
                                     .replace(" ", "").toInt()
                             }
@@ -473,23 +473,23 @@ class CourseRepository {
                                         .replace(" ", "").toInt()
                                 oldItem.quantite = ((value + newValue).toString()) + " sachets"
                             }
-                            else if (ingredient.quantite.contains("cc")
+                            else if (ingredient.quantite.contains("cac")
                             ) {
                                 var newValue =
                                     ingredient.quantite.substring(
                                         0,
-                                        ingredient.quantite.indexOf("cc")
+                                        ingredient.quantite.indexOf("cac")
                                     )
                                         .replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " cc"
-                            } else if (ingredient.quantite.contains("cs")) {
+                                oldItem.quantite = ((value + newValue).toString()) + " cac"
+                            } else if (ingredient.quantite.contains("cas")) {
                                 var newValue =
                                     ingredient.quantite.substring(
                                         0,
-                                        ingredient.quantite.indexOf("cs")
+                                        ingredient.quantite.indexOf("cas")
                                     )
                                         .replace(" ", "").toInt()
-                                oldItem.quantite = ((value + newValue).toString()) + " cs"
+                                oldItem.quantite = ((value + newValue).toString()) + " cas"
                             }
 //tranche
                             else if (ingredient.quantite.contains("tranche") && !ingredient.quantite.contains(
@@ -689,17 +689,17 @@ class CourseRepository {
                                     )
                                         .replace(" ", "").toInt()
                             }
-                            else if (oldItem.quantite.contains("cc")
+                            else if (oldItem.quantite.contains("cac")
                             ) {
                                 value = oldItem.quantite.substring(
                                     0,
-                                    oldItem.quantite.indexOf("cc")
+                                    oldItem.quantite.indexOf("cac")
                                 )
                                     .replace(" ", "").toInt()
-                            } else if (oldItem.quantite.contains("cs")) {
+                            } else if (oldItem.quantite.contains("cas")) {
                                 value = oldItem.quantite.substring(
                                     0,
-                                    oldItem.quantite.indexOf("cs")
+                                    oldItem.quantite.indexOf("cas")
                                 )
                                     .replace(" ", "").toInt()
                             }
@@ -1040,26 +1040,26 @@ class CourseRepository {
                                         .replace(" ", "").toInt()
                                 oldItem.quantite = ((value - newValue).toString()) + " pavés"
                             }
-                            else if (ingredient.quantite.contains("cs")
+                            else if (ingredient.quantite.contains("cas")
                             ) {
                                 var newValue =
                                     ingredient.quantite.substring(
                                         0,
-                                        ingredient.quantite.indexOf("cs")
+                                        ingredient.quantite.indexOf("cas")
                                     )
                                         .replace(" ", "").toInt()
 
-                                oldItem.quantite = ((value - newValue).toString()) + " cs"
+                                oldItem.quantite = ((value - newValue).toString()) + " cas"
 
                             }
-                            else if (ingredient.quantite.contains("cc")) {
+                            else if (ingredient.quantite.contains("cac")) {
                                 var newValue =
                                     ingredient.quantite.substring(
                                         0,
-                                        ingredient.quantite.indexOf("cc")
+                                        ingredient.quantite.indexOf("cac")
                                     )
                                         .replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " cc"
+                                oldItem.quantite = ((value - newValue).toString()) + " cac"
                             }
 
                             if (oldItem.quantite[0].toString() == "0") {
@@ -1157,14 +1157,14 @@ class CourseRepository {
                 if (uniteNew.replace(" ", "").contains("tranche"))
                     return true
             }
-            //cs
-            else if (uniteOld.replace(" ", "").equals("cs")) {
-                if (uniteNew.replace(" ", "").equals("cs"))
+            //cas
+            else if (uniteOld.replace(" ", "").equals("cas")) {
+                if (uniteNew.replace(" ", "").equals("cas"))
                     return true
             }
-            //cc
-            else if (uniteOld.replace(" ", "").equals("cc")) {
-                if (uniteNew.replace(" ", "").equals("cc"))
+            //cac
+            else if (uniteOld.replace(" ", "").equals("cac")) {
+                if (uniteNew.replace(" ", "").equals("cac"))
                     return true
             }
             //botte

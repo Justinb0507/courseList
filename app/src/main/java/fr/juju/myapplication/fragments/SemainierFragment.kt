@@ -604,7 +604,7 @@ class SemainierFragment(
                     currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
 
                     if (currentDays.autres.isNotEmpty()) {
-                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility =
+                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.NoRepas)?.visibility =
                             android.view.View.GONE
                         view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility =
                             android.view.View.VISIBLE
@@ -613,8 +613,10 @@ class SemainierFragment(
                             android.view.View.GONE
                     }
                     if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
-                        view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility =
-                            android.view.View.VISIBLE
+                        view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                            View.GONE
+                        view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility =
+                            View.VISIBLE
                     }
                 }
             } else {
@@ -680,12 +682,16 @@ class SemainierFragment(
 
                 if (currentDays.autres.isNotEmpty()) {
                     view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+                    view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                        View.VISIBLE
                     view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.VISIBLE
                 } else {
                     view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.GONE
                 }
                 if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
                     view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
+                    view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                        View.GONE
                 }
             }
         }
@@ -705,6 +711,8 @@ class SemainierFragment(
                 )
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.VISIBLE
             view?.findViewById<TextView>(R.id.nomMidi)?.text = currentRepasMidi.name
             view?.findViewById<TextView>(R.id.descriptionMidi)?.text = currentRepasMidi.duree
             Glide.with(context)
@@ -733,6 +741,8 @@ class SemainierFragment(
                 )
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.VISIBLE
             view?.findViewById<TextView>(R.id.nomSoir)?.text = currentRepasSoir.name
             view?.findViewById<TextView>(R.id.descriptionSoir)?.text = currentRepasSoir.duree
             Glide.with(context)
@@ -762,6 +772,8 @@ class SemainierFragment(
                 )
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.VISIBLE
             view?.findViewById<TextView>(R.id.nomApero)?.text = currentRepasApero.name
             view?.findViewById<TextView>(R.id.descriptionApero)?.text = currentRepasApero.duree
             Glide.with(context)
@@ -779,6 +791,8 @@ class SemainierFragment(
 
         if (currentDays.autres.isNotEmpty()) {
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.VISIBLE
             view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.VISIBLE
             for (repas in currentDays.autres) {
                 repasAutresList.add(repasList.filter { s -> s.id == repas }[0])
@@ -807,6 +821,8 @@ class SemainierFragment(
 
         if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.GONE
         }
 
         if (suivant) {
@@ -814,7 +830,7 @@ class SemainierFragment(
                 currentDays = currentSemaine.filter { s -> s.id_semainier == selectedDay }[0]
 
                 if (currentDays.autres.isNotEmpty()) {
-                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility =
+                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.NoRepas)?.visibility =
                         android.view.View.GONE
                     view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.Autres)?.visibility =
                         android.view.View.VISIBLE
@@ -823,7 +839,7 @@ class SemainierFragment(
                         android.view.View.GONE
                 }
                 if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
-                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(fr.juju.myapplication.R.id.NoRepas)?.visibility =
+                    view?.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.NoRepas)?.visibility =
                         android.view.View.VISIBLE
                 }
             }
@@ -833,12 +849,16 @@ class SemainierFragment(
 
                 if (currentDays.autres.isNotEmpty()) {
                     view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+                    view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                        View.VISIBLE
                     view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.VISIBLE
                 } else {
                     view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.GONE
                 }
                 if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
                     view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
+                    view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                        View.GONE
                 }
             }
         }
@@ -2162,6 +2182,8 @@ class SemainierFragment(
                 )
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.VISIBLE
             view?.findViewById<TextView>(R.id.nomMidi)?.text = currentRepasMidi.name
             view?.findViewById<TextView>(R.id.descriptionMidi)?.text = currentRepasMidi.duree
             Glide.with(context).load(Uri.parse(currentRepasMidi.imageUri))
@@ -2200,6 +2222,8 @@ class SemainierFragment(
                 )
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.VISIBLE
             view?.findViewById<TextView>(R.id.nomSoir)?.text = currentRepasSoir.name
             view?.findViewById<TextView>(R.id.descriptionSoir)?.text = currentRepasSoir.duree
             Glide.with(context).load(Uri.parse(currentRepasSoir.imageUri))
@@ -2238,6 +2262,8 @@ class SemainierFragment(
                 )
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.VISIBLE
             view?.findViewById<TextView>(R.id.nomApero)?.text = currentRepasApero.name
             view?.findViewById<TextView>(R.id.descriptionApero)?.text = currentRepasApero.duree
             Glide.with(context).load(Uri.parse(currentRepasApero.imageUri))
@@ -2262,6 +2288,8 @@ class SemainierFragment(
         var repasAutresList = arrayListOf<RepasModel>()
         if (currentDays.autres.isNotEmpty()) {
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.VISIBLE
             view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.VISIBLE
             for (repas in currentDays.autres) {
                 repasAutresList.add(repasList.filter { s -> s.id == repas }[0])
@@ -2281,6 +2309,8 @@ class SemainierFragment(
         }
         if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty())
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
+        view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+            View.GONE
     }
 
     private fun switchSuivant(day: String, button: TextView?, img: ImageView?) {
@@ -2318,6 +2348,8 @@ class SemainierFragment(
                 )
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.VISIBLE
             view?.findViewById<TextView>(R.id.nomMidi)?.text = currentRepasMidi.name
             view?.findViewById<TextView>(R.id.descriptionMidi)?.text = currentRepasMidi.duree
             Glide.with(context).load(Uri.parse(currentRepasMidi.imageUri))
@@ -2356,6 +2388,8 @@ class SemainierFragment(
                 )
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.VISIBLE
             view?.findViewById<TextView>(R.id.nomSoir)?.text = currentRepasSoir.name
             view?.findViewById<TextView>(R.id.descriptionSoir)?.text = currentRepasSoir.duree
             Glide.with(context).load(Uri.parse(currentRepasSoir.imageUri))
@@ -2394,6 +2428,8 @@ class SemainierFragment(
                 )
             }
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.VISIBLE
             view?.findViewById<TextView>(R.id.nomApero)?.text = currentRepasApero.name
             view?.findViewById<TextView>(R.id.descriptionApero)?.text = currentRepasApero.duree
             Glide.with(context).load(Uri.parse(currentRepasApero.imageUri))
@@ -2418,6 +2454,8 @@ class SemainierFragment(
         var repasAutresList = arrayListOf<RepasModel>()
         if (currentDays.autres.isNotEmpty()) {
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.GONE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.VISIBLE
             view?.findViewById<ConstraintLayout>(R.id.Autres)?.visibility = View.VISIBLE
             for (repas in currentDays.autres) {
                 repasAutresList.add(repasList.filter { s -> s.id == repas }[0])
@@ -2437,6 +2475,8 @@ class SemainierFragment(
         }
         if (currentDays.midi == "None" && currentDays.soir == "None" && currentDays.apero == "None" && currentDays.autres.isEmpty()) {
             view?.findViewById<ConstraintLayout>(R.id.NoRepas)?.visibility = View.VISIBLE
+            view?.findViewById<View>(R.id.blankSpaces)?.visibility =
+                View.GONE
         }
     }
 

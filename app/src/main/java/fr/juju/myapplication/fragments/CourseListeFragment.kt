@@ -64,7 +64,8 @@ class CourseListeFragment (val context: MainActivity
             view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
             view.findViewById<ImageView>(R.id.open).visibility = View.GONE
             view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
-        }else {
+        }
+        else {
             view.findViewById<ImageView>(R.id.clearCourse).visibility = View.VISIBLE
             view.findViewById<Switch>(R.id.toggleButton).visibility = View.VISIBLE
             view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
@@ -131,7 +132,6 @@ class CourseListeFragment (val context: MainActivity
 
         var repo = CourseRepository()
         repo.updateData {
-
             categoryList.clear()
             for(item in courseList){
                 if (!categoryList.contains(item.categorie)){
@@ -141,6 +141,7 @@ class CourseListeFragment (val context: MainActivity
             categoryList = ArrayList(categoryList.sorted())
             if(courseList.isEmpty()){
                 context.hideKeyboard()
+                view.findViewById<ConstraintLayout>(R.id.linearLayout7).visibility = View.GONE
                 view.findViewById<ImageView>(R.id.clearCourse).visibility = View.GONE
                 view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.VISIBLE
                 view.findViewById<Switch>(R.id.toggleButton).visibility = View.GONE
@@ -150,6 +151,7 @@ class CourseListeFragment (val context: MainActivity
                 view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
             }else if(courseList.isNotEmpty() && view.findViewById<ConstraintLayout>(R.id.add_item).visibility == View.GONE)
             {
+                view.findViewById<ConstraintLayout>(R.id.linearLayout7).visibility = View.VISIBLE
                 view.findViewById<ImageView>(R.id.clearCourse).visibility = View.VISIBLE
                 view.findViewById<Switch>(R.id.toggleButton).visibility = View.VISIBLE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
@@ -158,6 +160,7 @@ class CourseListeFragment (val context: MainActivity
                 view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.GONE
             }else if(courseList.isNotEmpty() && view.findViewById<ConstraintLayout>(R.id.add_item).visibility == View.VISIBLE)
             {
+                view.findViewById<ConstraintLayout>(R.id.linearLayout7).visibility = View.VISIBLE
                 view.findViewById<ImageView>(R.id.clearCourse).visibility = View.VISIBLE
                 view.findViewById<Switch>(R.id.toggleButton).visibility = View.VISIBLE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.VISIBLE

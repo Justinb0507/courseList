@@ -134,6 +134,7 @@ class LoginActivity : AppCompatActivity() {
                 findViewById<ImageView>(R.id.image).visibility = View.GONE
                 findViewById<EditText>(R.id.et_password).visibility = View.GONE
                 findViewById<ImageView>(R.id.imageView13).visibility = View.GONE
+                findViewById<ImageView>(R.id.textView14).visibility = View.GONE
                 findViewById<TextView>(R.id.go).visibility = View.GONE
                 findViewById<TextView>(R.id.textView11).visibility = View.GONE
                 findViewById<CheckBox>(R.id.checkBox).visibility = View.GONE

@@ -15,6 +15,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -22,6 +23,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -126,7 +128,7 @@ class MainActivity : AppCompatActivity() {
         } else if (fragment is RecetteFragment) {
             transaction.addToBackStack("Recette")
         } else if (fragment is ResultResearchFragment) {
-            transaction.addToBackStack("ResultRecette")
+            transaction.addToBackStack("ResultResearch")
         } else if (fragment is SemainierFragment) {
             transaction.addToBackStack("Semainier")
         } else if (fragment is UserFragment) {
@@ -148,47 +150,60 @@ class MainActivity : AppCompatActivity() {
                     selectedCourse()
                 } else if (fragment3.name == "FiltreRepas") {
                     selectedRecettes()
+                    fm.popBackStack(fragment3.name, 0)
                 } else if (fragment3.name == "Home") {
                     selectedHome()
+                    fm.popBackStack(fragment3.name, 0)
                 } else if (fragment3.name == "Recette") {
                     selectedRecettes()
+                    fm.popBackStack(fragment3.name, 0)
                 } else if (fragment3.name == "ResultResearch") {
                     selectedRecettes()
+                    fm.popBackStack(fragment3.name, 0)
                 } else if (fragment3.name == "Semainier") {
-                    selectedSemainier()
+                    findViewById<BottomNavigationItemView>(R.id.calendar).performClick()
                 }
-                fm.popBackStack(fragment3.name, 0)
-            }else {
+            }
+            else {
                 if (fragment2.name == "CourseListe") {
                     selectedCourse()
+                    fm.popBackStack(fragment2.name, 0)
                 } else if (fragment2.name == "FiltreRepas") {
                     selectedRecettes()
+                    fm.popBackStack(fragment2.name, 0)
                 } else if (fragment2.name == "Home") {
                     selectedHome()
+                    fm.popBackStack(fragment2.name, 0)
                 } else if (fragment2.name == "Recette") {
                     selectedRecettes()
+                    fm.popBackStack(fragment2.name, 0)
                 } else if (fragment2.name == "ResultResearch") {
                     selectedRecettes()
+                    fm.popBackStack(fragment2.name, 0)
                 } else if (fragment2.name == "Semainier") {
-                    selectedSemainier()
+                    findViewById<BottomNavigationItemView>(R.id.calendar).performClick()
                 }
-                fm.popBackStack(fragment2.name, 0)
             }
-        } else {
+        }
+        else {
             if (fragment.name == "CourseListe") {
                 selectedCourse()
+                fm.popBackStack()
             } else if (fragment.name == "FiltreRepas") {
                 selectedRecettes()
+                fm.popBackStack()
             } else if (fragment.name == "Home") {
                 selectedHome()
+                fm.popBackStack()
             } else if (fragment.name == "Recette") {
                 selectedRecettes()
+                fm.popBackStack()
             } else if (fragment.name == "ResultResearch") {
                 selectedRecettes()
+                fm.popBackStack()
             } else if (fragment.name == "Semainier") {
-                selectedSemainier()
+                findViewById<BottomNavigationItemView>(R.id.calendar).performClick()
             }
-            fm.popBackStack()
         }
     }
 

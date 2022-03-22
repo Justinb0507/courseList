@@ -91,14 +91,11 @@ class CourseItemAdapter(
                 holder.name?.paintFlags = 0
                 holder.quantite?.paintFlags = 0
             }
-
             repo.updateCourseItem(currentIngredient)
         }
 
         holder.trash?.setOnClickListener{
-
             repo.deleteCourseItem(currentIngredient)
-
         }
 
         if(printToggle){

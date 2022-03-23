@@ -204,6 +204,7 @@ class MainActivity : AppCompatActivity() {
             } else if (fragment.name == "Semainier") {
                 findViewById<BottomNavigationItemView>(R.id.calendar).performClick()
             }
+            else fm.popBackStack()
         }
     }
 

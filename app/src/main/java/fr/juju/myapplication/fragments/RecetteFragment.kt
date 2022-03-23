@@ -69,7 +69,7 @@ class RecetteFragment(
 
         Glide.with(context)
             .load(currentRepas.imageUri)
-            .into(view.findViewById<ImageView>(R.id.image_item))
+            .into(view.findViewById(R.id.image_item))
 
 
         val repo = IngredientRepository()

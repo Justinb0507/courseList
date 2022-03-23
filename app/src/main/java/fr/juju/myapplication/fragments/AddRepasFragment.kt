@@ -425,7 +425,7 @@ class AddRepasFragment(
             }else {
                 repas.id = randomId
                 repo.updateRepas(repas)
-            }
+
 
             for(ingredientRepo in ingredientList.filter { s->s.id_repas == repas.id }){
                 if(!listItem.contains(ingredientRepo)){
@@ -447,6 +447,7 @@ class AddRepasFragment(
 
             IngredientPopup(context, listItem).show()
             Toast.makeText(context, "Recette ajoutée !", Toast.LENGTH_SHORT).show()
+        }
         }
     }
 
@@ -476,6 +477,7 @@ class AddRepasFragment(
 
     private fun uploadImage(){
         val repo = RepasRepository()
+        val repo2 = IngredientRepository()
         val progressDialog = ProgressDialog(context)
         progressDialog.setMessage("Uploading File...")
         progressDialog.setCancelable(false)
@@ -489,6 +491,27 @@ class AddRepasFragment(
             Firebase.storage.reference.child(fileName).downloadUrl.addOnSuccessListener {
                 repas.imageUri = it.toString()
                 repo.insertRepas(repas)
+            }.addOnCompleteListener{
+                for(ingredientRepo in ingredientList.filter { s->s.id_repas == repas.id }){
+                    if(!listItem.contains(ingredientRepo)){
+                        repo2.deleteIngredient(ingredientRepo)
+                    }
+                }
+
+                for (ingredient in listItem) {
+                    if(!ingredientList.contains(ingredient)){
+                        repo2.insertIngredient(ingredient)
+                    }
+                }
+
+                listItem.forEachIndexed { index, ingredient ->
+                    ingredient.rank = index
+                    repo2.updateIngredient(ingredient)
+                }
+                context.loadFragment(RecetteFragment(context,repas, "None", "None", "None"))
+
+                IngredientPopup(context, listItem).show()
+                Toast.makeText(context, "Recette ajoutée !", Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
                 Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
             }
@@ -497,9 +520,6 @@ class AddRepasFragment(
             if(progressDialog.isShowing) progressDialog.dismiss()
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
-
-
-
     }
 
 

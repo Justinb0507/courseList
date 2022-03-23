@@ -357,7 +357,9 @@ class EditRepasFragment(
 
             filePath = data.data
             try {
-                uploadedImage?.setImageURI(filePath)
+                Glide.with(context).load(filePath)
+                    .into(view!!.findViewById<ImageView>(R.id.image))
+
             } catch (e: IOException) {
                 Toast.makeText(context, "Failed to change image", Toast.LENGTH_SHORT).show()
             }

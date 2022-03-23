@@ -17,11 +17,13 @@
         <activity
             android:name=".RegisterActivity"
             android:exported="false"
-            android:theme="@style/LogAndRegTheme"/>
+            android:theme="@style/LogAndRegTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/LogAndRegTheme"
+            android:screenOrientation="portrait"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,11 +33,15 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:theme="@style/SplashscreenTheme"></activity>
+            android:theme="@style/SplashscreenTheme"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

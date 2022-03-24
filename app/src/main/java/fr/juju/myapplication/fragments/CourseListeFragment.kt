@@ -3,6 +3,7 @@ package fr.juju.myapplication.fragments
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.media.Image
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -44,6 +45,8 @@ class CourseListeFragment (val context: MainActivity
         var recyclerCourseList = view.findViewById<RecyclerView>(R.id.course_liste)
         var categoryList: ArrayList<String> = arrayListOf()
         view.findViewById<Switch>(R.id.toggleButton).isChecked = false
+        view.findViewById<ImageView>(R.id.edit_mode).visibility = View.VISIBLE
+        view.findViewById<ImageView>(R.id.course_mode).visibility = View.GONE
 
             categoryList.clear()
             for(item in courseList){
@@ -57,6 +60,8 @@ class CourseListeFragment (val context: MainActivity
         var afficheAdd = false
 
         if(courseList.isEmpty()){
+            view.findViewById<ImageView>(R.id.edit_mode).visibility = View.GONE
+            view.findViewById<ImageView>(R.id.course_mode).visibility = View.GONE
             view.findViewById<ImageView>(R.id.clearCourse).visibility = View.GONE
             view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.VISIBLE
             view.findViewById<Switch>(R.id.toggleButton).visibility = View.GONE
@@ -66,6 +71,8 @@ class CourseListeFragment (val context: MainActivity
             view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
         }
         else {
+            view.findViewById<ImageView>(R.id.edit_mode).visibility = View.VISIBLE
+            view.findViewById<ImageView>(R.id.course_mode).visibility = View.GONE
             view.findViewById<ImageView>(R.id.clearCourse).visibility = View.VISIBLE
             view.findViewById<Switch>(R.id.toggleButton).visibility = View.VISIBLE
             view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
@@ -101,6 +108,8 @@ class CourseListeFragment (val context: MainActivity
         view.findViewById<Switch>(R.id.toggleButton).setOnClickListener{
             context.hideKeyboard()
             if(view.findViewById<Switch>(R.id.toggleButton).isChecked){
+                view.findViewById<ImageView>(R.id.edit_mode).visibility = View.GONE
+                view.findViewById<ImageView>(R.id.course_mode).visibility = View.VISIBLE
                 view.findViewById<ImageView>(R.id.clearCourse).visibility = View.GONE
                 view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
@@ -112,6 +121,8 @@ class CourseListeFragment (val context: MainActivity
             }
             else {
                 view.findViewById<ImageView>(R.id.clearCourse).visibility = View.VISIBLE
+                view.findViewById<ImageView>(R.id.edit_mode).visibility = View.VISIBLE
+                view.findViewById<ImageView>(R.id.course_mode).visibility = View.GONE
                 if(afficheAdd){
                     view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
                     view.findViewById<ImageView>(R.id.open).setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
@@ -140,6 +151,8 @@ class CourseListeFragment (val context: MainActivity
             }
             categoryList = ArrayList(categoryList.sorted())
             if(courseList.isEmpty()){
+                view.findViewById<ImageView>(R.id.edit_mode).visibility = View.GONE
+                view.findViewById<ImageView>(R.id.course_mode).visibility = View.GONE
                 context.hideKeyboard()
                 view.findViewById<ConstraintLayout>(R.id.linearLayout7).visibility = View.GONE
                 view.findViewById<ImageView>(R.id.clearCourse).visibility = View.GONE
@@ -170,6 +183,8 @@ class CourseListeFragment (val context: MainActivity
             }
 
             if(view.findViewById<Switch>(R.id.toggleButton).isChecked && view.findViewById<Switch>(R.id.toggleButton).visibility == View.VISIBLE){
+                view.findViewById<ImageView>(R.id.edit_mode).visibility = View.GONE
+                view.findViewById<ImageView>(R.id.course_mode).visibility = View.VISIBLE
                 view.findViewById<ImageView>(R.id.clearCourse).visibility = View.GONE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
                 view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
@@ -180,6 +195,8 @@ class CourseListeFragment (val context: MainActivity
                 (recyclerCourseList.layoutManager as LinearLayoutManager).onRestoreInstanceState(saveState)
             }
             else if (!view.findViewById<Switch>(R.id.toggleButton).isChecked && view.findViewById<Switch>(R.id.toggleButton).visibility == View.VISIBLE) {
+                view.findViewById<ImageView>(R.id.edit_mode).visibility = View.VISIBLE
+                view.findViewById<ImageView>(R.id.course_mode).visibility = View.GONE
                 var saveState = (recyclerCourseList.layoutManager as LinearLayoutManager).onSaveInstanceState()
                 recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
                 recyclerCourseList.layoutManager = LinearLayoutManager(context)

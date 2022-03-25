@@ -68,12 +68,11 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="@dimen/default_margin"
-
                 android:src="@drawable/editer"
                 app:layout_constraintBottom_toBottomOf="@+id/clock"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/clock"
-                app:tint="@color/white" />
+                app:tint="@color/sun" />
 
 
             <ImageView

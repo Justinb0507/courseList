@@ -62,12 +62,12 @@
             android:id="@+id/add_recette"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="@dimen/default_margin"
             android:src="@drawable/plus"
+            android:layout_marginLeft="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/searchbar"
-            app:layout_constraintStart_toEndOf="@+id/research"
+            app:layout_constraintStart_toEndOf="@+id/searchbar"
             app:layout_constraintTop_toTopOf="@+id/searchbar"
-            app:tint="@color/bleu_canard" />
+            app:tint="@color/sun" />
 
 
         <ImageView

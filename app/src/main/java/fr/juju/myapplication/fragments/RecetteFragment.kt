@@ -47,7 +47,6 @@ class RecetteFragment(
         val view = inflater?.inflate(R.layout.fragment_recette, container, false)
         view.findViewById<TextView>(R.id.name).text = currentRepas.name
         view.findViewById<TextView>(R.id.description).text = currentRepas.description
-        view.findViewById<TextView>(R.id.lien).text = currentRepas.lien
         view.findViewById<TextView>(R.id.recette_display).text = currentRepas.recette
         view.findViewById<TextView>(R.id.duree).text = currentRepas.duree
         view.findViewById<TextView>(R.id.quantite).text = currentRepas.quantite
@@ -288,19 +287,6 @@ class RecetteFragment(
         view.findViewById<TextView>(R.id.recette).setOnClickListener {
             switcher("recette")
         }
-
-        if (currentRepas.lien.isEmpty()) {
-            view?.findViewById<ImageView>(R.id.imageView7)?.visibility = View.GONE
-            view?.findViewById<TextView>(R.id.lien)?.visibility = View.GONE
-            view?.findViewById<ImageView>(R.id.clock)
-                ?.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                    startToStart = view?.findViewById<LinearLayout>(R.id.linearLayout2)?.id!!
-                    topToBottom = view?.findViewById<LinearLayout>(R.id.linearLayout2)?.id!!
-                }
-
-        }
-
-
         return view
     }
 

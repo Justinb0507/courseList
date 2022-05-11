@@ -1965,7 +1965,6 @@ class RegisterActivity : AppCompatActivity() {
             // name
             val repasImage = jsonArray.getJSONObject(currentKey.toString()).getString("imageUri")
             // name
-            val repasLien = jsonArray.getJSONObject(currentKey.toString()).getString("lien")
             val repasQuantite = jsonArray.getJSONObject(currentKey.toString()).getString("quantite")
             // name
             val repasName = jsonArray.getJSONObject(currentKey.toString()).getString("name")
@@ -1985,7 +1984,6 @@ class RegisterActivity : AppCompatActivity() {
                     repasName,
                     repasDescription,
                     repasImage,
-                    repasLien,
                     repasRecette,
                     repasQuantite,
                     tagListArray,

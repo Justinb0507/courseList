@@ -392,7 +392,6 @@ class AddRepasFragment(
 
         val name = view.findViewById<EditText>(R.id.name_input).text.toString()
         val description = view.findViewById<EditText>(R.id.description_input).text.toString()
-        val lien = view.findViewById<EditText>(R.id.lien_input).text.toString()
         val recette = view.findViewById<EditText>(R.id.recette_input).text.toString()
         val duree = view.findViewById<EditText>(R.id.duree).text.toString()
         val quantite = view.findViewById<EditText>(R.id.quantite_input).text.toString()
@@ -406,9 +405,6 @@ class AddRepasFragment(
             }
             if (!description.isBlank()){
                 repas.description = description
-            }
-            if (!lien.isBlank()){
-                repas.lien = lien
             }
             if (!recette.isBlank()){
                 repas.recette = recette

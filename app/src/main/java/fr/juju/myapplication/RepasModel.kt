@@ -15,7 +15,6 @@ class RepasModel(
     var name:String = "",
     var description:String = "",
     var imageUri: String = "",
-    var lien:String = "",
     var recette:String = "",
     var quantite:String = "",
     var tags: ArrayList<String> = arrayListOf(),

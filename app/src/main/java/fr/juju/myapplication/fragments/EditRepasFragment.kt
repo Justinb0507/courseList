@@ -107,9 +107,7 @@ class EditRepasFragment(
 
         view.findViewById<EditText>(R.id.name_input).setText(currentRepas.name)
         view.findViewById<EditText>(R.id.description_input).setText(currentRepas.description)
-        if (currentRepas.lien != "") {
-            view.findViewById<EditText>(R.id.lien_input).setText(currentRepas.lien)
-        }
+
         view.findViewById<EditText>(R.id.recette_input).setText(currentRepas.recette)
         view.findViewById<EditText>(R.id.duree).setText(currentRepas.duree)
         view.findViewById<EditText>(R.id.quantite_input).setText(currentRepas.quantite)
@@ -398,7 +396,7 @@ class EditRepasFragment(
             filePath = data.data
             try {
                 Glide.with(context).load(filePath)
-                    .into(view!!.findViewById<ImageView>(R.id.image))
+                    .into(requireView().findViewById<ImageView>(R.id.image))
 
             } catch (e: IOException) {
                 Toast.makeText(context, "Failed to change image", Toast.LENGTH_SHORT).show()
@@ -574,7 +572,6 @@ class EditRepasFragment(
         val repo2 = IngredientRepository()
         val name = view.findViewById<EditText>(R.id.name_input).text.toString()
         val description = view.findViewById<EditText>(R.id.description_input).text.toString()
-        val lien = view.findViewById<EditText>(R.id.lien_input).text.toString()
         val recette = view.findViewById<EditText>(R.id.recette_input).text.toString()
         val duree = view.findViewById<EditText>(R.id.duree).text.toString()
         val quantite = view.findViewById<EditText>(R.id.quantite_input).text.toString()
@@ -586,9 +583,6 @@ class EditRepasFragment(
             }
             if (!description.isBlank()) {
                 currentRepas.description = description
-            }
-            if (!lien.isBlank()) {
-                currentRepas.lien = lien
             }
             if (!recette.isBlank()) {
                 currentRepas.recette = recette

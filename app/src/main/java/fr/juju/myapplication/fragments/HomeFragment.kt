@@ -145,9 +145,9 @@ class HomeFragment
 
 
         view.findViewById<Button>(R.id.research).setOnClickListener{
-            if(research(view.findViewById<EditText>(R.id.research_input).text.toString()).isNotEmpty()){
+            if(context.research(view.findViewById<EditText>(R.id.research_input).text.toString()).isNotEmpty()){
                 context.hideKeyboard()
-                context.loadFragment(ResultResearchFragment(context, research(view.findViewById<EditText>(R.id.research_input).text.toString()), "None",  "None",  "None"))
+                context.loadFragment(ResultResearchFragment(context, context.research(view.findViewById<EditText>(R.id.research_input).text.toString()), "None",  "None",  "None"))
             }
             else {
                 context.hideKeyboard()
@@ -208,99 +208,5 @@ class HomeFragment
         return view
     }
 
-    private fun research(parameter: String): ArrayList<RepasModel> {
-        val resultResearch = arrayListOf<RepasModel>()
-        var listResearch = arrayListOf<String>()
-
-        if (parameter.isNotEmpty()){
-            for (item in parameter.split(" ")){
-                var temp = item.lowercase(Locale.getDefault())
-                listResearch.add(temp)
-                temp = temp.replaceFirstChar {
-                    if (it.isLowerCase()) it.titlecase(
-                        Locale.getDefault()
-                    ) else it.toString()
-                }
-                listResearch.add(temp)
-            }
-        }
-
-        if (listResearch.isNotEmpty()) for (tag in listResearch) {
-
-            if (!repasList.filter { se -> se.name == tag }.isEmpty()) {
-                for (repas in repasList.filter { se -> se.name == tag }
-                    .sortedBy { s -> s.name }) {
-                    if (!resultResearch.contains(repas)) {
-                        resultResearch.add(repas)
-                    }
-                }
-            }
-
-            if (!repasList.filter { se -> se.tags.contains(tag) }.isEmpty()) {
-                for (repas in repasList.filter { se -> se.tags.contains(tag) }
-                    .sortedBy { s -> s.name }) {
-                    if (!resultResearch.contains(repas)) {
-                        resultResearch.add(repas)
-                    }
-                }
-            }
-
-            if (!IngredientRepository.Singleton.ingredientList.filter { se -> se.name == tag }.isEmpty()) {
-                for (ingredient in IngredientRepository.Singleton.ingredientList.filter { se -> se.name == tag }) {
-                    for (repas in repasList.filter { se -> se.id == ingredient.id_repas }) {
-                        if (!resultResearch.contains(repas)) {
-                            resultResearch.add(repas)
-                        }
-                    }
-                }
-            }
-
-            if (!CategorieRepository.Singleton.categorieList.filter { se -> se.name == tag }.isEmpty()) {
-                for (categorie in CategorieRepository.Singleton.categorieList.filter { se -> se.name == tag }) {
-                    for (ingredient in IngredientRepository.Singleton.ingredientList.filter { se -> se.id_categorie == categorie.id }) {
-                        for (repas in repasList.filter { se -> se.id == ingredient.id_repas }) {
-                            if (!resultResearch.contains(repas)) {
-                                resultResearch.add(repas)
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!repasList.filter { se -> se.name.contains(tag) }.isEmpty()) {
-                for (repas in repasList.filter { se -> se.name.contains(tag) }
-                    .sortedBy { s -> s.name }) {
-                    if (!resultResearch.contains(repas)) {
-                        resultResearch.add(repas)
-                    }
-                }
-            }
-            if (!IngredientRepository.Singleton.ingredientList.filter { se -> se.name.contains(tag) }.isEmpty()) {
-                for (ingredient in IngredientRepository.Singleton.ingredientList.filter { se -> se.name.contains(tag) }) {
-                    for (repas in repasList.filter { se -> se.id == ingredient.id_repas }) {
-                        if (!resultResearch.contains(repas)) {
-                            resultResearch.add(repas)
-                        }
-                    }
-                }
-            }
-
-            if (!CategorieRepository.Singleton.categorieList.filter { se -> se.name.contains(tag) }.isEmpty()) {
-                for (categorie in CategorieRepository.Singleton.categorieList.filter { se -> se.name.contains(tag) }) {
-                    for (ingredient in IngredientRepository.Singleton.ingredientList.filter { se -> se.id_categorie == categorie.id }) {
-                        for (repas in repasList.filter { se -> se.id == ingredient.id_repas }) {
-                            if (!resultResearch.contains(repas)) {
-                                resultResearch.add(repas)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-
-        return resultResearch
-
-    }
 
 }

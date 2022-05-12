@@ -16,7 +16,6 @@ class IngredientPopup(private val context: MainActivity, private val ingredients
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.ingredient_popup)
         val listIngredientView = findViewById<RecyclerView>(R.id.recycler)

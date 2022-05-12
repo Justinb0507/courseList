@@ -27,7 +27,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
+import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
+import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.fragments.*
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -484,5 +488,111 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun research(parameter: String): ArrayList<RepasModel> {
+
+        val resultResearch = arrayListOf<RepasModel>()
+        var listResearch = arrayListOf<String>()
+
+        if (parameter.isNotEmpty()){
+            for (item in parameter.split(" ")){
+                var temp = item.lowercase(Locale.getDefault())
+                listResearch.add(temp)
+                temp = temp.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(
+                        Locale.getDefault()
+                    ) else it.toString()
+                }
+                listResearch.add(temp)
+            }
+        }
+
+        if (parameter.isNotEmpty()){
+            if (!repasList.filter { se -> se.name.contains(parameter) }.isEmpty()) {
+                for (repas in repasList.filter { se -> se.name.contains(parameter) }
+                    .sortedBy { s -> s.name }) {
+                    if (!resultResearch.contains(repas)) {
+                        resultResearch.add(repas)
+                    }
+                }
+            }
+        }
+        
+        if (listResearch.isNotEmpty()) for (tag in listResearch) {
+
+            if (!repasList.filter { se -> se.name == tag }.isEmpty()) {
+                for (repas in repasList.filter { se -> se.name == tag }
+                    .sortedBy { s -> s.name }) {
+                    if (!resultResearch.contains(repas)) {
+                        resultResearch.add(repas)
+                    }
+                }
+            }
+
+            if (!repasList.filter { se -> se.tags.contains(tag) }.isEmpty()) {
+                for (repas in repasList.filter { se -> se.tags.contains(tag) }
+                    .sortedBy { s -> s.name }) {
+                    if (!resultResearch.contains(repas)) {
+                        resultResearch.add(repas)
+                    }
+                }
+            }
+
+            if (!ingredientList.filter { se -> se.name == tag }.isEmpty()) {
+                for (ingredient in ingredientList.filter { se -> se.name == tag }) {
+                    for (repas in repasList.filter { se -> se.id == ingredient.id_repas }) {
+                        if (!resultResearch.contains(repas)) {
+                            resultResearch.add(repas)
+                        }
+                    }
+                }
+            }
+
+            if (!categorieList.filter { se -> se.name == tag }.isEmpty()) {
+                for (categorie in categorieList.filter { se -> se.name == tag }) {
+                    for (ingredient in ingredientList.filter { se -> se.id_categorie == categorie.id }) {
+                        for (repas in repasList.filter { se -> se.id == ingredient.id_repas }) {
+                            if (!resultResearch.contains(repas)) {
+                                resultResearch.add(repas)
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!repasList.filter { se -> se.name.contains(tag) }.isEmpty()) {
+                for (repas in repasList.filter { se -> se.name.contains(tag) }
+                    .sortedBy { s -> s.name }) {
+                    if (!resultResearch.contains(repas)) {
+                        resultResearch.add(repas)
+                    }
+                }
+            }
+            if (!ingredientList.filter { se -> se.name.contains(tag) }.isEmpty()) {
+                for (ingredient in ingredientList.filter { se -> se.name.contains(tag) }) {
+                    for (repas in repasList.filter { se -> se.id == ingredient.id_repas }) {
+                        if (!resultResearch.contains(repas)) {
+                            resultResearch.add(repas)
+                        }
+                    }
+                }
+            }
+
+            if (!categorieList.filter { se -> se.name.contains(tag) }.isEmpty()) {
+                for (categorie in categorieList.filter { se -> se.name.contains(tag) }) {
+                    for (ingredient in ingredientList.filter { se -> se.id_categorie == categorie.id }) {
+                        for (repas in repasList.filter { se -> se.id == ingredient.id_repas }) {
+                            if (!resultResearch.contains(repas)) {
+                                resultResearch.add(repas)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        return resultResearch
+
+    }
 
 }

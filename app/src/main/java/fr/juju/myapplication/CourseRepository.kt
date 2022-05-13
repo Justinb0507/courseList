@@ -1,7 +1,5 @@
 package fr.juju.myapplication
 
-import android.util.Log
-import android.util.Log.INFO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -12,15 +10,12 @@ import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
 import fr.juju.myapplication.CourseRepository.Singleton.authUid
 import fr.juju.myapplication.CourseRepository.Singleton.courseList
 import fr.juju.myapplication.CourseRepository.Singleton.databaseRef
-import java.lang.Math.round
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.util.*
-import java.util.logging.Level.INFO
 import kotlin.collections.ArrayList
 import kotlin.math.ceil
 import kotlin.math.roundToInt
-import kotlin.math.roundToLong
 
 class CourseRepository {
     object Singleton {
@@ -100,7 +95,7 @@ class CourseRepository {
                         repo.updateCourseItem(CourseModel(
                             oldItem.id,
                             oldItem.name,
-                            calculQuantite(ingredient.quantite, oldItem.quantite) + " " + convertisseurUnite(getUnite(ingredient.quantite)),
+                            addQuantite(ingredient.quantite, oldItem.quantite) + " " + convertisseurUnite(getUnite(ingredient.quantite)),
                             oldItem.categorie,
                             oldItem.ok,
                             oldItem.ajoutExterieur
@@ -130,507 +125,46 @@ class CourseRepository {
         }
     }
 
-   /* fun deleteIngredientCourse(ingredients: ArrayList<IngredientModel>) {
+    fun deleteIngredientCourse(ingredients: ArrayList<IngredientModel>) {
         var repo = CourseRepository()
         for (ingredient in ingredients) {
-            var courseItem = CourseModel(
-                UUID.randomUUID().toString(),
-                ingredient.name,
-                ingredient.quantite,
-                if (ingredient.id_categorie != "None") categorieList.filter { s -> s.id == ingredient.id_categorie }[0].name else "Autres",
-                "false",
-                "false"
-            )
-
-            if (ingredient.quantite.contains("/")) {
-                var value3: String = ""
-                for (lettre in ingredient.quantite.substring(ingredient.quantite.indexOf("/"))
-                    .replace(" ", "")) {
-                    if (lettre.isDigit()) {
-                    } else {
-                        if (lettre.toString() != "/") {
-                            value3 = value3 + lettre
-                        }
+            if (courseList.filter { s -> s.name == ingredient.name }.isNotEmpty()) {
+                val oldItem = courseList.filter { s -> s.name == ingredient.name }[0]
+                if(isDigit(ingredient.quantite) && isDigit(oldItem.quantite)){
+                    if(ceil(getQuantite(oldItem.quantite) - getQuantite(ingredient.quantite)).roundToInt() != 0)
+                    {
+                        repo.updateCourseItem(CourseModel(
+                            oldItem.id,
+                            oldItem.name,
+                            ceil(getQuantite(oldItem.quantite) - getQuantite(ingredient.quantite)).roundToInt().toString(),
+                            oldItem.categorie,
+                            oldItem.ok,
+                            oldItem.ajoutExterieur
+                        ))
+                    } else deleteCourseItem(oldItem)
+                } else {
+                    if(checkUnite(ingredient, oldItem)){
+                        if(removeQuantite(ingredient.quantite, oldItem.quantite).toFloat() > 0) {
+                            repo.updateCourseItem(
+                                CourseModel(
+                                    oldItem.id,
+                                    oldItem.name,
+                                    removeQuantite(
+                                        ingredient.quantite,
+                                        oldItem.quantite
+                                    ) + " " + convertisseurUnite(getUnite(ingredient.quantite)),
+                                    oldItem.categorie,
+                                    oldItem.ok,
+                                    oldItem.ajoutExterieur
+                                )
+                            )
+                        } else deleteCourseItem(oldItem)
                     }
                 }
-                courseItem.quantite = "1  " + value3
-                ingredient.quantite = "1 " + value3
-            }
-
-
-            if (courseList.filter { s -> s.name == ingredient.name }.isNotEmpty()) {
-                var oldItemList = courseList.filter { s -> s.name == ingredient.name }
-                var isDigit = true
-                var isDigit2 = true
-                var value = 0
-               /* if (checkUnite(courseItem, oldItemList[0])) {
-                    for (oldItem in oldItemList) {
-                        if (checkUnite(courseItem, oldItem)) {
-                            for (lettre in oldItem.quantite) {
-                                if (!lettre.isDigit()) {
-                                    isDigit = false
-                                }
-                            }
-
-                            for (lettre in ingredient.quantite) {
-                                if (!lettre.isDigit()) {
-                                    isDigit2 = false
-                                }
-                            }
-
-                            if (isDigit && isDigit2) {
-                                oldItem.quantite =
-                                    (oldItem.quantite.toInt() - ingredient.quantite.toInt()).toString()
-                            }
-
-//Traitement ancienne valeur
-//Traitement Litres Cl Ml
-                            if (oldItem.quantite.contains("cl")) {
-                                value =
-                                    oldItem.quantite.substring(0, oldItem.quantite.indexOf("cl"))
-                                        .replace(" ", "").toInt()
-                            } else if (oldItem.quantite.contains("l") && !oldItem.quantite.contains(
-                                    "cl"
-                                ) && !oldItem.quantite.contains(
-                                    "ml"
-                                )
-                            ) {
-                                value = oldItem.quantite.substring(0, oldItem.quantite.indexOf("l"))
-                                    .replace(" ", "").toInt() * 100
-                            } else if (oldItem.quantite.contains("ml")) {
-                                if (oldItem.quantite.substring(0, oldItem.quantite.indexOf("ml"))
-                                        .replace(" ", "").toInt() / 10 < 1
-                                ) {
-                                    value = 1
-                                } else value =
-                                    oldItem.quantite.substring(0, oldItem.quantite.indexOf("ml"))
-                                        .replace(" ", "").toInt() / 10
-                            }
-
-//Traitements Grammes kg mg
-                            else if (oldItem.quantite.contains("g") && !oldItem.quantite.contains("kg") && !oldItem.quantite.contains(
-                                    "au jugé"
-                                ) && !oldItem.quantite.contains("mg")
-                            ) {
-                                value = oldItem.quantite.substring(0, oldItem.quantite.indexOf("g"))
-                                    .replace(" ", "").toInt()
-                            } else if (oldItem.quantite.contains("kg")) {
-                                value =
-                                    oldItem.quantite.substring(0, oldItem.quantite.indexOf("kg"))
-                                        .replace(" ", "").toInt() * 1000
-                            } else if (oldItem.quantite.contains("mg")) {
-                                if (oldItem.quantite.substring(0, oldItem.quantite.indexOf("mg"))
-                                        .replace(" ", "").toInt() / 1000 < 1
-                                ) {
-                                    value = 1
-                                } else value =
-                                    oldItem.quantite.substring(0, oldItem.quantite.indexOf("mg"))
-                                        .replace(" ", "").toInt() / 1000
-                            }
-
-//Traitement Petit pot
-                            else if (oldItem.quantite.contains("petit pot")) {
-                                value = oldItem.quantite.substring(
-                                    0,
-                                    oldItem.quantite.indexOf("petit pot")
-                                )
-                                    .replace(" ", "").toInt()
-                            } else if (oldItem.quantite.contains("petits pots")) {
-                                value =
-                                    oldItem.quantite.substring(
-                                        0,
-                                        oldItem.quantite.indexOf("petits pots")
-                                    )
-                                        .replace(" ", "").toInt()
-                            }
-                            else if (oldItem.quantite.contains("cac")
-                            ) {
-                                value = oldItem.quantite.substring(
-                                    0,
-                                    oldItem.quantite.indexOf("cac")
-                                )
-                                    .replace(" ", "").toInt()
-                            } else if (oldItem.quantite.contains("cas")) {
-                                value = oldItem.quantite.substring(
-                                    0,
-                                    oldItem.quantite.indexOf("cas")
-                                )
-                                    .replace(" ", "").toInt()
-                            }
-
-
-//Traitement Sachet
-                            else if (oldItem.quantite.contains("sachet") && !oldItem.quantite.contains(
-                                    "sachets"
-                                )
-                            ) {
-                                value = oldItem.quantite.substring(
-                                    0,
-                                    oldItem.quantite.indexOf("sachet")
-                                )
-                                    .replace(" ", "").toInt()
-                            } else if (oldItem.quantite.contains("sachets")) {
-                                value = oldItem.quantite.substring(
-                                    0,
-                                    oldItem.quantite.indexOf("sachets")
-                                )
-                                    .replace(" ", "").toInt()
-                            }
-                            else if (oldItem.quantite.contains("pincée") && !oldItem.quantite.contains(
-                                    "pincées"
-                                )
-                            ) {
-                                value = oldItem.quantite.substring(
-                                    0,
-                                    oldItem.quantite.indexOf("pincée")
-                                )
-                                    .replace(" ", "").toInt()
-                            } else if (oldItem.quantite.contains("pincées")) {
-                                value = oldItem.quantite.substring(
-                                    0,
-                                    oldItem.quantite.indexOf("pincées")
-                                )
-                                    .replace(" ", "").toInt()
-                            }
-//Traitement tranche
-                            else if (oldItem.quantite.contains("tranche") && !oldItem.quantite.contains(
-                                    "tranches"
-                                )
-                            ) {
-                                value = oldItem.quantite.substring(
-                                    0,
-                                    oldItem.quantite.indexOf("tranche")
-                                )
-                                    .replace(" ", "").toInt()
-                            } else if (oldItem.quantite.contains("tranches")) {
-                                value = oldItem.quantite.substring(
-                                    0,
-                                    oldItem.quantite.indexOf("tranches")
-                                )
-                                    .replace(" ", "").toInt()
-                            }
-//Traitement bottes
-                            else if (oldItem.quantite.contains("botte") && !oldItem.quantite.contains(
-                                    "bottes"
-                                )
-                            ) {
-                                value =
-                                    oldItem.quantite.substring(0, oldItem.quantite.indexOf("botte"))
-                                        .replace(" ", "").toInt()
-                            } else if (oldItem.quantite.contains("bottes")) {
-                                value = oldItem.quantite.substring(
-                                    0,
-                                    oldItem.quantite.indexOf("bottes")
-                                )
-                                    .replace(" ", "").toInt()
-                            }
-                            else if (oldItem.quantite.contains("pavé") && !oldItem.quantite.contains(
-                                    "pavés"
-                                )
-                            ) {
-                                value =
-                                    oldItem.quantite.substring(0, oldItem.quantite.indexOf("pavé"))
-                                        .replace(" ", "").toInt()
-                            } else if (oldItem.quantite.contains("pavés")) {
-                                value = oldItem.quantite.substring(
-                                    0,
-                                    oldItem.quantite.indexOf("pavés")
-                                )
-                                    .replace(" ", "").toInt()
-                            }
-
-
-//Traitement nouvelle valeur
-//Traitement cl l ml
-                            if (ingredient.quantite.contains("cl")) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("cl")
-                                    )
-                                        .replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " cl"
-                            } else if (ingredient.quantite.contains("l") && !ingredient.quantite.contains(
-                                    "cl"
-                                ) && !ingredient.quantite.contains(
-                                    "ml"
-                                )
-                            ) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("l")
-                                    )
-                                        .replace(" ", "").toInt() * 100
-                                oldItem.quantite = ((value - newValue).toString()) + " cl"
-                            } else if (ingredient.quantite.contains("ml")) {
-                                var newValue = 0
-                                if (ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("ml")
-                                    )
-                                        .replace(" ", "").toInt() / 10 < 1
-                                ) {
-                                    newValue = 1
-                                } else newValue = ingredient.quantite.substring(
-                                    0,
-                                    ingredient.quantite.indexOf("ml")
-                                )
-                                    .replace(" ", "").toInt() / 10
-
-                                oldItem.quantite = ((value - newValue).toString()) + " cl"
-                            }
-
-//Traitement kg g mg
-                            else if (ingredient.quantite.contains("kg")) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("kg")
-                                    )
-                                        .replace(" ", "").toInt() * 1000
-                                oldItem.quantite = ((value - newValue).toString()) + " g"
-                            } else if (ingredient.quantite.contains("g") && !ingredient.quantite.contains(
-                                    "kg"
-                                ) && !ingredient.quantite.contains(
-                                    "mg"
-                                ) && !ingredient.quantite.contains("au jugé")
-                            ) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("g")
-                                    )
-                                        .replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " g"
-                            } else if (ingredient.quantite.contains("mg")) {
-                                var newValue = 0
-                                if (ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("mg")
-                                    )
-                                        .replace(" ", "").toInt() / 1000 < 1
-                                ) {
-                                    newValue = 1
-                                } else newValue = ingredient.quantite.substring(
-                                    0,
-                                    ingredient.quantite.indexOf("mg")
-                                )
-                                    .replace(" ", "").toInt() / 1000
-                                oldItem.quantite = ((value - newValue).toString()) + " g"
-                            }
-
-
-//Au jugé
-                            else if (ingredient.quantite.contains("au jugé")) {
-                                if (oldItem.quantite.contains(" *")) {
-                                    value = oldItem.quantite.substring(
-                                        0,
-                                        oldItem.quantite.indexOf(" *")
-                                    )
-                                        .replace(" ", "").toInt() - 1
-                                    oldItem.quantite = value.toString() + " *" + " au jugé"
-                                } else
-                                    oldItem.quantite = "0 * " + oldItem.quantite
-                            }
-
-//Boites
-                            else if (ingredient.quantite.contains("boites")) {
-                                var newValue = ingredient.quantite.substring(
-                                    0,
-                                    ingredient.quantite.indexOf("boites")
-                                ).replace(" ", "").toInt()
-                                if (oldItem.quantite.contains(" boites")) {
-                                    value = oldItem.quantite.substring(
-                                        0,
-                                        oldItem.quantite.indexOf(" boites")
-                                    ).replace(" ", "").toInt()
-                                    oldItem.quantite = ((value - newValue).toString()) + " boites"
-                                } else value = oldItem.quantite.substring(
-                                    0,
-                                    oldItem.quantite.indexOf(" boite")
-                                ).replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " boites"
-                            } else if (ingredient.quantite.contains("boite")) {
-                                var newValue = ingredient.quantite.substring(
-                                    0,
-                                    ingredient.quantite.indexOf("boite")
-                                ).replace(" ", "").toInt()
-                                if (oldItem.quantite.contains(" boites")) {
-                                    value = oldItem.quantite.substring(
-                                        0,
-                                        oldItem.quantite.indexOf(" boites")
-                                    ).replace(" ", "").toInt()
-                                    oldItem.quantite = ((value - newValue).toString()) + " boites"
-                                } else value = oldItem.quantite.substring(
-                                    0,
-                                    oldItem.quantite.indexOf(" boite")
-                                ).replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " boites"
-                            }
-
-
-//Petit pots
-                            else if (ingredient.quantite.contains("petit pot")) {
-                                var newValue = ingredient.quantite.substring(
-                                    0,
-                                    ingredient.quantite.indexOf("petit pot")
-                                ).replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " petits pots"
-
-                            } else if (ingredient.quantite.contains("petits pots")) {
-                                var newValue = ingredient.quantite.substring(
-                                    0,
-                                    ingredient.quantite.indexOf("petit pots")
-                                ).replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " petits pots"
-                            }
-
-//Sachet
-                            else if (ingredient.quantite.contains("sachet") && !ingredient.quantite.contains(
-                                    "sachets"
-                                )
-                            ) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("sachet")
-                                    )
-                                        .replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " sachets"
-                            } else if (ingredient.quantite.contains("sachets")) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("sachets")
-                                    )
-                                        .replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " sachets"
-                            }
-
-                            else if (ingredient.quantite.contains("pincée") && !ingredient.quantite.contains(
-                                    "pincées"
-                                )
-                            ) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("pincée")
-                                    )
-                                        .replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " pincées"
-                            } else if (ingredient.quantite.contains("pincées")) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("pincées")
-                                    )
-                                        .replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " pincées"
-                            }
-//tranche
-                            else if (ingredient.quantite.contains("tranche") && !ingredient.quantite.contains(
-                                    "tranches"
-                                )
-                            ) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("tranche")
-                                    )
-                                        .replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " tranches"
-                            } else if (ingredient.quantite.contains("tranches")) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("tranches")
-                                    )
-                                        .replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " tranches"
-                            }
-
-//Botte
-                            else if (ingredient.quantite.contains("botte") && !ingredient.quantite.contains(
-                                    "bottes"
-                                )
-                            ) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("botte")
-                                    )
-                                        .replace(" ", "").toInt()
-
-                                oldItem.quantite = ((value - newValue).toString()) + " bottes"
-
-                            } else if (ingredient.quantite.contains("bottes")) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("bottes")
-                                    )
-                                        .replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " bottes"
-                            }
-
-                            else if (ingredient.quantite.contains("pavé") && !ingredient.quantite.contains(
-                                    "pavés"
-                                )
-                            ) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("pavé")
-                                    )
-                                        .replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " pavés"
-                            } else if (ingredient.quantite.contains("pavés")) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("pavés")
-                                    )
-                                        .replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " pavés"
-                            }
-                            else if (ingredient.quantite.contains("cas")
-                            ) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("cas")
-                                    )
-                                        .replace(" ", "").toInt()
-
-                                oldItem.quantite = ((value - newValue).toString()) + " cas"
-
-                            }
-                            else if (ingredient.quantite.contains("cac")) {
-                                var newValue =
-                                    ingredient.quantite.substring(
-                                        0,
-                                        ingredient.quantite.indexOf("cac")
-                                    )
-                                        .replace(" ", "").toInt()
-                                oldItem.quantite = ((value - newValue).toString()) + " cac"
-                            }
-
-                            if (oldItem.quantite[0].toString() == "0") {
-                                repo.deleteCourseItem(oldItem)
-                            } else repo.updateCourseItem(oldItem)
-
-                        }
-                    }
-                }*/
             }
         }
     }
 
-    fun deleteIngredientCourse(ingredients: ArrayList<IngredientModel>) {
-        var repo = CourseRepository()
-    }
-    */
     fun getQuantite(quantiteInput: String): Float {
         var quantite = ""
         for (lettre in quantiteInput) {
@@ -647,8 +181,19 @@ class CourseRepository {
         return quantite.toFloat()
     }
 
-    fun calculQuantite(quantiteInput1: String, quantiteInput2: String): String {
+    fun addQuantite(quantiteInput1: String, quantiteInput2: String): String {
         var value = (getQuantite(convertisseur(quantiteInput1).toString()) + getQuantite(convertisseur(quantiteInput2).toString()))
+        return if (value.toString().split('.')[1] == "0"){
+            value.toString().split('.')[0]
+        } else {
+            val df = DecimalFormat("#.#")
+            df.roundingMode = RoundingMode.CEILING
+            return df.format(value)
+        }
+    }
+
+    fun removeQuantite(newItem: String, oldItem: String): String {
+        var value = (getQuantite(convertisseur(oldItem).toString()) - getQuantite(convertisseur(newItem).toString()))
         return if (value.toString().split('.')[1] == "0"){
             value.toString().split('.')[0]
         } else {
@@ -713,7 +258,7 @@ class CourseRepository {
         else if (uniteInput.contains("botte")){
             uniteNew = "bottes"
         }
-        else if (uniteInput.contains("pavé")){
+        else if (uniteInput.contains("pavé") || uniteInput.contains("pave")){
             uniteNew = "pavés"
         }
         else if (uniteInput.contains("au jugé")){
@@ -800,8 +345,8 @@ class CourseRepository {
                     return true
             }
             //pavés
-            else if (uniteOld.replace(" ", "").contains("pavé")) {
-                if (uniteNew.replace(" ", "").contains("pavé"))
+            else if (uniteOld.replace(" ", "").contains("pavé") || uniteOld.replace(" ", "").contains("pave")) {
+                if (uniteNew.replace(" ", "").contains("pavé") || uniteNew.replace(" ", "").contains("pave"))
                     return true
             }
             //tranche

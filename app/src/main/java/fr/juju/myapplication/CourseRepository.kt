@@ -1,5 +1,6 @@
 package fr.juju.myapplication
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -16,6 +17,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.ceil
 import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 class CourseRepository {
     object Singleton {
@@ -85,21 +87,22 @@ class CourseRepository {
                     repo.updateCourseItem(CourseModel(
                         oldItem.id,
                         oldItem.name,
-                        ceil(getQuantite(ingredient.quantite) + getQuantite(oldItem.quantite)).roundToInt().toString(),
+                        (getQuantite(ingredient.quantite) + getQuantite(oldItem.quantite)).toString(),
                         oldItem.categorie,
                         oldItem.ok,
                         oldItem.ajoutExterieur
                     ))
                 } else {
-                    if(checkUnite(ingredient, oldItem)){
+                    if(checkUnite(ingredient.quantite, oldItem)){
                         repo.updateCourseItem(CourseModel(
                             oldItem.id,
                             oldItem.name,
-                            addQuantite(ingredient.quantite, oldItem.quantite) + " " + convertisseurUnite(getUnite(ingredient.quantite)),
+                            addQuantite(ingredient.quantite, oldItem.quantite).toString() + " " + convertisseurUnite(oldItem.quantite),
                             oldItem.categorie,
                             oldItem.ok,
                             oldItem.ajoutExterieur
                         ))
+
                     }
                     else {
                         repo.insertCourseItem(CourseModel(
@@ -125,25 +128,77 @@ class CourseRepository {
         }
     }
 
+    fun addItemCourse(item: CourseModel) {
+        var repo = CourseRepository()
+            if (courseList.filter { s -> s.name == item.name }.isNotEmpty()) {
+                val oldItem = courseList.filter { s -> s.name == item.name }[0]
+                if(isDigit(item.quantite) && isDigit(oldItem.quantite)){
+                    repo.updateCourseItem(CourseModel(
+                        oldItem.id,
+                        oldItem.name,
+                        (getQuantite(item.quantite) + getQuantite(oldItem.quantite)).toString(),
+                        oldItem.categorie,
+                        oldItem.ok,
+                        oldItem.ajoutExterieur
+                    ))
+                } else {
+                    if(checkUnite(item.quantite, oldItem)){
+                        repo.updateCourseItem(CourseModel(
+                            oldItem.id,
+                            oldItem.name,
+                            addQuantite(item.quantite, oldItem.quantite).toString() + " " + convertisseurUnite(getUnite(item.quantite)),
+                            oldItem.categorie,
+                            oldItem.ok,
+                            oldItem.ajoutExterieur
+                        ))
+                    }
+                    else {
+                        repo.insertCourseItem(CourseModel(
+                            UUID.randomUUID().toString(),
+                            item.name,
+                            item.quantite,
+                            if (item.categorie != "None") categorieList.filter { s -> s.id == item.categorie }[0].name else "Autres",
+                            "false",
+                            "false"
+                        ))
+                    }
+                }
+            } else {
+                repo.insertCourseItem(CourseModel(
+                    UUID.randomUUID().toString(),
+                    item.name,
+                    item.quantite,
+                    if (item.categorie != "None") categorieList.filter { s -> s.id == item.quantite }[0].name else "Autres",
+                    "false",
+                    "false"
+                ))
+        }
+    }
+
     fun deleteIngredientCourse(ingredients: ArrayList<IngredientModel>) {
         var repo = CourseRepository()
         for (ingredient in ingredients) {
             if (courseList.filter { s -> s.name == ingredient.name }.isNotEmpty()) {
                 val oldItem = courseList.filter { s -> s.name == ingredient.name }[0]
                 if(isDigit(ingredient.quantite) && isDigit(oldItem.quantite)){
-                    if(ceil(getQuantite(oldItem.quantite) - getQuantite(ingredient.quantite)).roundToInt() != 0)
+                    if(getQuantite(oldItem.quantite) - getQuantite(ingredient.quantite) > 0)
                     {
                         repo.updateCourseItem(CourseModel(
                             oldItem.id,
                             oldItem.name,
-                            ceil(getQuantite(oldItem.quantite) - getQuantite(ingredient.quantite)).roundToInt().toString(),
+                            (getQuantite(oldItem.quantite) - getQuantite(ingredient.quantite)).toString(),
                             oldItem.categorie,
                             oldItem.ok,
                             oldItem.ajoutExterieur
                         ))
                     } else deleteCourseItem(oldItem)
                 } else {
-                    if(checkUnite(ingredient, oldItem)){
+                    if(checkUnite(ingredient.quantite, oldItem)){
+                        var ingr = oldItem.quantite
+                        var ingre = getQuantite(convertisseur(oldItem.quantite).toString())
+                        Log.i("tag", " nouveau : $ingr")
+                        Log.i("tag", " ancien : $ingre")
+
                         if(removeQuantite(ingredient.quantite, oldItem.quantite).toFloat() > 0) {
                             repo.updateCourseItem(
                                 CourseModel(
@@ -152,7 +207,7 @@ class CourseRepository {
                                     removeQuantite(
                                         ingredient.quantite,
                                         oldItem.quantite
-                                    ) + " " + convertisseurUnite(getUnite(ingredient.quantite)),
+                                    ).toString() + " " + convertisseurUnite(getUnite(ingredient.quantite)),
                                     oldItem.categorie,
                                     oldItem.ok,
                                     oldItem.ajoutExterieur
@@ -169,7 +224,7 @@ class CourseRepository {
         var quantite = ""
         for (lettre in quantiteInput) {
             if (lettre.isDigit() || lettre==',' || lettre=='.' || lettre=='/') {
-                quantite = quantite + lettre
+                quantite += lettre
             }
         }
         if(quantite.contains(",")){
@@ -181,26 +236,12 @@ class CourseRepository {
         return quantite.toFloat()
     }
 
-    fun addQuantite(quantiteInput1: String, quantiteInput2: String): String {
-        var value = (getQuantite(convertisseur(quantiteInput1).toString()) + getQuantite(convertisseur(quantiteInput2).toString()))
-        return if (value.toString().split('.')[1] == "0"){
-            value.toString().split('.')[0]
-        } else {
-            val df = DecimalFormat("#.#")
-            df.roundingMode = RoundingMode.CEILING
-            return df.format(value)
-        }
+    fun addQuantite(quantiteInput1: String, quantiteInput2: String): Float {
+        return (convertisseur(quantiteInput1) + convertisseur(quantiteInput2))
     }
 
-    fun removeQuantite(newItem: String, oldItem: String): String {
-        var value = (getQuantite(convertisseur(oldItem).toString()) - getQuantite(convertisseur(newItem).toString()))
-        return if (value.toString().split('.')[1] == "0"){
-            value.toString().split('.')[0]
-        } else {
-            val df = DecimalFormat("#.#")
-            df.roundingMode = RoundingMode.CEILING
-            return df.format(value)
-        }
+    fun removeQuantite(newItem: String, oldItem: String): Float {
+        return convertisseur(oldItem) - convertisseur(newItem)
     }
 
     fun convertisseur(quantiteInput: String): Float {
@@ -208,27 +249,24 @@ class CourseRepository {
         var unite = getUnite(quantiteInput)
 
         //CL
-        if (unite.contains("cl")) {
-        }
-        else if (unite.contains("l") && !unite.contains("cl") && !unite.contains("ml")) {
+        if (unite.contains("l") && !unite.contains("cl") && !unite.contains("ml")) {
             value *= 100
         }
         else if (unite.contains("ml")) {
              value /= 10
         }
         //Grammes
-        else if (unite.contains("g") && !unite.contains("kg") && !unite.contains("au jugé") && !unite.contains("mg")
-        ) {
-        } else if (unite.contains("kg")) {
+        else if (unite.contains("kg")) {
             value *= 1000
-        } else if (unite.contains("mg")) {
+        } else if (unite == "mg") {
             value /= 1000
         }
-        return value
+
+        return String.format("%.3f", value).toFloat()
     }
 
     fun convertisseurUnite(uniteInput: String): String{
-        var uniteNew = ""
+        var uniteNew = getUnite(uniteInput)
         if (uniteInput.contains("cl") || (uniteInput.contains("l") && !uniteInput.contains("cl") && !uniteInput.contains("ml")) || (uniteInput.contains("ml"))) {
             uniteNew = "cl"
         }
@@ -270,7 +308,6 @@ class CourseRepository {
         else if (uniteInput.contains("conserve")){
             uniteNew = "conserves"
         }
-
         return uniteNew
     }
 
@@ -281,15 +318,16 @@ class CourseRepository {
                 unite = unite + lettre
             }
         }
-        return unite
+
+        return unite.replace(" ", "")
     }
 
     fun isDigit(quantite: String): Boolean{
         return getUnite(quantite) == ""
     }
 
-    fun checkUnite(ingredient: IngredientModel, oldItem: CourseModel): Boolean {
-            var uniteOld = getUnite(ingredient.quantite)
+    fun checkUnite(ingredient: String, oldItem: CourseModel): Boolean {
+            var uniteOld = getUnite(ingredient)
             var uniteNew = getUnite(oldItem.quantite)
 
              if (uniteOld.replace(" ", "") == "cl" || uniteOld.replace(

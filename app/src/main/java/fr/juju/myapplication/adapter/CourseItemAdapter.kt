@@ -12,6 +12,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.juju.myapplication.*
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class CourseItemAdapter(
     val context: MainActivity,
@@ -36,8 +38,18 @@ class CourseItemAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentIngredient = courseList[position]
         var repo = CourseRepository()
+        var quantite = repo.getQuantite(currentIngredient.quantite).toString()
+        var unite = repo.getUnite(currentIngredient.quantite)
         holder.name?.text = currentIngredient.name
-        holder.quantite?.text = currentIngredient.quantite
+            if (quantite.split( '.')[1] == "0"){
+                holder.quantite?.text = quantite.split('.')[0] + unite
+            } else {
+                val df = DecimalFormat("#.#")
+                df.roundingMode = RoundingMode.CEILING
+                holder.quantite?.text = df.format(quantite.toFloat()) + unite
+            }
+
+
         holder.name?.setOnClickListener{
             if(printToggle){
                 if(currentIngredient.ok == "false") {

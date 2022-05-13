@@ -92,9 +92,6 @@ class CourseListeFragment (val context: MainActivity
         view.findViewById<ImageView>(R.id.add_item_button).setOnClickListener{
             if(view.findViewById<EditText>(R.id.item).text.isNotEmpty()) {
                 addItem(view)
-                view.findViewById<EditText>(R.id.item).setText("")
-                view.findViewById<EditText>(R.id.quantite).setText("")
-                view.findViewById<AutoCompleteTextView>(R.id.categorie).setText("")
                 view.findViewById<EditText>(R.id.item).requestFocus()
             }
         }
@@ -331,8 +328,12 @@ class CourseListeFragment (val context: MainActivity
             "false",
             "true"
         )
-        if(courseList.filter{ s-> s.name == itemCourse.name}.isEmpty() && itemName != "" && itemName != " "&& itemName != "  " && quantite.isNotEmpty() && categorie.isNotEmpty()){
-            repo.insertCourseItem(itemCourse)
+
+        if(itemName != "" && itemName != " "&& itemName != "  " && quantite.isNotEmpty() && categorie.isNotEmpty()){
+            view.findViewById<EditText>(R.id.item).setText("")
+            view.findViewById<EditText>(R.id.quantite).setText("")
+            view.findViewById<AutoCompleteTextView>(R.id.categorie).setText("")
+            repo.addItemCourse(itemCourse)
         }
         Toast.makeText(context, "Vous avez ajouté $itemName dans la catégorie $categorie", Toast.LENGTH_SHORT).show()
 

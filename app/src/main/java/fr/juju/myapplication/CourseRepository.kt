@@ -319,6 +319,9 @@ class CourseRepository {
         else if (uniteInput.contains("gousse")){
             uniteNew = "gousses"
         }
+        else if (uniteInput.contains("conserve")){
+            uniteNew = "conserves"
+        }
         return uniteNew
     }
 
@@ -373,6 +376,11 @@ class CourseRepository {
                 if (uniteNew.replace(" ", "").contains("aujugé"))
                     return true
             }
+             //conserve
+             else if (uniteOld.replace(" ", "").contains("conserve")) {
+                 if (uniteNew.replace(" ", "").contains("conserve"))
+                     return true
+             }
             //boite
             else if (uniteOld.replace(" ", "").contains("boîte") || uniteOld.replace(" ", "").contains("boite")) {
                 if (uniteNew.replace(" ", "").contains("boîte") || uniteOld.replace(" ", "").contains("boite"))

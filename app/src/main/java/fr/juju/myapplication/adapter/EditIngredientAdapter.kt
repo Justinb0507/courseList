@@ -2,12 +2,11 @@ package fr.juju.myapplication.adapter
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import fr.juju.myapplication.IngredientModel
 import fr.juju.myapplication.MainActivity
@@ -32,7 +31,7 @@ class EditIngredientAdapter (val context: MainActivity, private val ingredientLi
         holder.name?.addTextChangedListener(
             object : TextWatcher {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    currentIngredient.name = holder.name?.text.toString()
+                    ingredientList[holder.adapterPosition].name = s.toString()
                 }
 
                 override fun beforeTextChanged(
@@ -45,36 +44,33 @@ class EditIngredientAdapter (val context: MainActivity, private val ingredientLi
                 }
 
                 override fun afterTextChanged(s: Editable) {
+                }
+            }
 
+        )
 
+        holder.quantite?.addTextChangedListener(
+            object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    ingredientList[holder.adapterPosition].quantite = s.toString()
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Fires right before text is changing
+                }
+
+                override fun afterTextChanged(s: Editable) {
                 }
             }
 
         )
         holder.quantite?.setText(currentIngredient.quantite)
-        holder.quantite?.addTextChangedListener(
-            object : TextWatcher {
-                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    currentIngredient.quantite = holder.quantite?.text.toString()
-                }
-
-                override fun beforeTextChanged(
-                    s: CharSequence,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                    // Fires right before text is changing
-                }
-
-                override fun afterTextChanged(s: Editable) {
-
-
-                }
-            }
-
-        )
-        holder.img?.setOnClickListener{
+        holder.img?.setOnClickListener {
             ingredientList.remove(currentIngredient)
             notifyDataSetChanged()
         }

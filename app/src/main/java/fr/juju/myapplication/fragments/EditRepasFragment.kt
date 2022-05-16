@@ -35,6 +35,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.google.firebase.auth.ktx.auth
 
 
 class EditRepasFragment(
@@ -122,6 +123,11 @@ class EditRepasFragment(
         }
 
         val repoSemainier = SemainierRepository()
+        val user = Firebase.auth.currentUser
+        if(user?.email == "justinb0507@gmail.com"){
+            view.findViewById<ImageView>(R.id.trash).visibility = View.VISIBLE
+        } else view.findViewById<ImageView>(R.id.trash).visibility = View.GONE
+
         view.findViewById<ImageView>(R.id.trash).setOnClickListener {
             var builder = AlertDialog.Builder(context)
             builder.setTitle("Oulaaaaaa !")

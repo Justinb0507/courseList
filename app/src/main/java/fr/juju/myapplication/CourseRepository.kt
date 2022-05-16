@@ -164,11 +164,17 @@ class CourseRepository {
                     }
                 }
             } else {
+
                 repo.insertCourseItem(CourseModel(
                     UUID.randomUUID().toString(),
                     item.name,
                     item.quantite,
-                    if (item.categorie != "None") categorieList.filter { s -> s.id == item.quantite }[0].name else "Autres",
+                    if (categorieList.filter { s -> s.id == item.categorie }.isNotEmpty()) {
+                        categorieList.filter { s -> s.id == item.categorie }[0].name
+                    } else if(item.categorie != "None"){
+                        item.categorie
+                    }
+                    else "Autres",
                     "false",
                     "false"
                 ))
@@ -233,7 +239,9 @@ class CourseRepository {
         if(quantite.contains("/")){
             quantite = ceil(quantite.split("/")[0].toFloat() / quantite.split("/")[1].toFloat()).toString()
         }
-        return quantite.toFloat()
+        if (quantite != "") {
+            return quantite.toFloat()
+        } else return 1f
     }
 
     fun addQuantite(quantiteInput1: String, quantiteInput2: String): Float {
@@ -270,7 +278,7 @@ class CourseRepository {
         if (uniteInput.contains("cl") || (uniteInput.contains("l") && !uniteInput.contains("cl") && !uniteInput.contains("ml")) || (uniteInput.contains("ml"))) {
             uniteNew = "cl"
         }
-        else if ((uniteInput.contains("g") && !uniteInput.contains("kg") && !uniteInput.contains("au jugé") && !uniteInput.contains("mg")) || (uniteInput.contains("kg")) || (uniteInput.contains("mg"))
+        else if ((uniteInput.contains("g") && !uniteInput.contains("gousse") && !uniteInput.contains("kg") && !uniteInput.contains("au jugé") && !uniteInput.contains("mg")) || (uniteInput.contains("kg")) || (uniteInput.contains("mg"))
         ) {
             uniteNew = "g"
         }
@@ -308,6 +316,9 @@ class CourseRepository {
         else if (uniteInput.contains("conserve")){
             uniteNew = "conserves"
         }
+        else if (uniteInput.contains("gousse")){
+            uniteNew = "gousses"
+        }
         return uniteNew
     }
 
@@ -318,8 +329,12 @@ class CourseRepository {
                 unite = unite + lettre
             }
         }
-
-        return unite.replace(" ", "")
+        if(unite.isNotEmpty() &&  unite[0] != ' '){
+            return unite
+        } else if (unite.isNotEmpty() && unite[0] == ' '){
+                return unite.drop(0)
+            }
+            else return unite
     }
 
     fun isDigit(quantite: String): Boolean{
@@ -363,6 +378,11 @@ class CourseRepository {
                 if (uniteNew.replace(" ", "").contains("boîte") || uniteOld.replace(" ", "").contains("boite"))
                     return true
             }
+             //gousse
+             else if (uniteOld.replace(" ", "").contains("gousse")) {
+                 if (uniteNew.replace(" ", "").contains("gousse"))
+                     return true
+             }
             //petits pots
             else if (uniteOld.replace(" ", "").contains("petitspots") || uniteOld.replace(" ", "")
                     .contains("petitpot")

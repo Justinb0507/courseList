@@ -42,11 +42,11 @@ class CourseItemAdapter(
         var unite = repo.getUnite(currentIngredient.quantite)
         holder.name?.text = currentIngredient.name
             if (quantite.split( '.')[1] == "0"){
-                holder.quantite?.text = quantite.split('.')[0] + unite
+                holder.quantite?.text = quantite.split('.')[0] + " " + unite
             } else {
                 val df = DecimalFormat("#.#")
                 df.roundingMode = RoundingMode.CEILING
-                holder.quantite?.text = df.format(quantite.toFloat()) + unite
+                holder.quantite?.text = df.format(quantite.toFloat()) + " " +  unite
             }
 
 

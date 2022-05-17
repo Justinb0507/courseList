@@ -124,10 +124,10 @@ class EditRepasFragment(
 
         val repoSemainier = SemainierRepository()
         val user = Firebase.auth.currentUser
-        if(user?.email == "justinb0507@gmail.com"){
+        /*if(user?.email == "justinb0507@gmail.com"){
             view.findViewById<ImageView>(R.id.trash).visibility = View.VISIBLE
         } else view.findViewById<ImageView>(R.id.trash).visibility = View.GONE
-
+*/
         view.findViewById<ImageView>(R.id.trash).setOnClickListener {
             var builder = AlertDialog.Builder(context)
             builder.setTitle("Oulaaaaaa !")
@@ -168,7 +168,6 @@ class EditRepasFragment(
         }
 
         var temp = false
-
         val addIngredientButton = view.findViewById<ImageView>(R.id.add_ingredient)
 
         view.findViewById<EditText>(R.id.quantite).addTextChangedListener(

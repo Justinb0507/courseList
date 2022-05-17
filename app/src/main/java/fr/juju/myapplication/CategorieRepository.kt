@@ -13,7 +13,6 @@ import java.util.*
 
 class CategorieRepository {
     object Singleton{
-
         private val BUCKET_URL: String = "gs://naturecollection-c9efc.appspot.com"
         //se connecter à notre espace de stockage
         val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BUCKET_URL)
@@ -46,16 +45,6 @@ class CategorieRepository {
             }
 
         })
-    }
-    private fun formattage(string: String): String {
-        var returnValue : String
-        returnValue = string.lowercase(Locale.getDefault())
-        returnValue = returnValue.replaceFirstChar {
-            if (it.isLowerCase()) it.titlecase(
-                Locale.getDefault()
-            ) else it.toString()
-        }
-        return returnValue
     }
 
 }

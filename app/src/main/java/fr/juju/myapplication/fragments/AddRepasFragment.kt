@@ -13,12 +13,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,16 +27,15 @@ import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
 import fr.juju.myapplication.adapter.*
 import java.io.IOException
 import java.util.*
-import kotlin.collections.ArrayList
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
 
 
 class AddRepasFragment(
     private val context: MainActivity
-)
-    : Fragment() {
+) : Fragment() {
 
     private var uploadedImage: ImageView? = null
     private val PICK_IMAGE_REQUEST = 71
@@ -47,6 +43,7 @@ class AddRepasFragment(
     private val randomId = UUID.randomUUID().toString()
     val listItem = arrayListOf<IngredientModel>()
     var repas = RepasModel()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,10 +70,12 @@ class AddRepasFragment(
                 alert.show()
             }
         })
-        listIngredientView.adapter = EditIngredientAdapter(context,listItem, R.layout.item_edit_ingredient_vertical)
+        listIngredientView.adapter =
+            EditIngredientAdapter(context, listItem, R.layout.item_edit_ingredient_vertical)
         listIngredientView.layoutManager = LinearLayoutManager(context)
 
-        var simpleCallback = object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or(ItemTouchHelper.DOWN), 0){
+        var simpleCallback = object :
+            ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or (ItemTouchHelper.DOWN), 0) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -99,17 +98,16 @@ class AddRepasFragment(
         itemTouchHelper.attachToRecyclerView(listIngredientView)
 
 
-
         //recup uploadilmage pour lui associer son composant
         uploadedImage = view.findViewById(R.id.preview_image)
         //recup le bouton pour charger l'image
         val pickupImage = view.findViewById<ImageView>(R.id.preview_image)
-        pickupImage.setOnClickListener{
+        pickupImage.setOnClickListener {
             launchGallery()
         }
 
 
-        view.findViewById<ImageView>(R.id.valid).setOnClickListener{
+        view.findViewById<ImageView>(R.id.valid).setOnClickListener {
             sendform(view)
         }
 
@@ -119,10 +117,12 @@ class AddRepasFragment(
         view.findViewById<EditText>(R.id.quantite).addTextChangedListener(
             object : TextWatcher {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    if(s.contains("\n")) {
-                        view.findViewById<EditText>(R.id.quantite).setText(s.toString().replace("\n",""))
+                    if (s.contains("\n")) {
+                        view.findViewById<EditText>(R.id.quantite)
+                            .setText(s.toString().replace("\n", ""))
                         addIngredientButton.performClick()
-                    }}
+                    }
+                }
 
                 override fun beforeTextChanged(
                     s: CharSequence,
@@ -143,10 +143,12 @@ class AddRepasFragment(
         view.findViewById<EditText>(R.id.ingredient).addTextChangedListener(
             object : TextWatcher {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    if(s.contains("\n")) {
-                        view.findViewById<EditText>(R.id.ingredient).setText(s.toString().replace("\n",""))
+                    if (s.contains("\n")) {
+                        view.findViewById<EditText>(R.id.ingredient)
+                            .setText(s.toString().replace("\n", ""))
                         view.findViewById<EditText>(R.id.quantite).requestFocus()
-                    }}
+                    }
+                }
 
                 override fun beforeTextChanged(
                     s: CharSequence,
@@ -166,13 +168,14 @@ class AddRepasFragment(
 
 
 
-        addIngredientButton.setOnClickListener{
-            if(view.findViewById<EditText>(R.id.ingredient).text.isNotEmpty()) {
+        addIngredientButton.setOnClickListener {
+            if (view.findViewById<EditText>(R.id.ingredient).text.isNotEmpty()) {
                 addIngredient(view)
                 view.findViewById<EditText>(R.id.ingredient).setText("")
                 view.findViewById<EditText>(R.id.quantite).setText("")
                 view.findViewById<EditText>(R.id.ingredient).requestFocus()
-                listIngredientView.adapter = EditIngredientAdapter(context,listItem, R.layout.item_edit_ingredient_vertical)
+                listIngredientView.adapter =
+                    EditIngredientAdapter(context, listItem, R.layout.item_edit_ingredient_vertical)
                 listIngredientView.scrollToPosition(1500)
                 temp = false
             }
@@ -180,17 +183,23 @@ class AddRepasFragment(
             view.findViewById<EditText>(R.id.quantite).visibility = View.VISIBLE
             addIngredientButton.animate().translationX(+790F).setDuration(150)
             view.findViewById<EditText>(R.id.ingredient).requestFocus()
-            val showMe = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            showMe.showSoftInput(view.findViewById<EditText>(R.id.ingredient), InputMethodManager.SHOW_IMPLICIT)
+            val showMe =
+                context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(
+                view.findViewById<EditText>(R.id.ingredient),
+                InputMethodManager.SHOW_IMPLICIT
+            )
 
         }
         val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tags)
-        collectionRecyclerView.adapter = EditTagsAdapter(context, repas.tags, R.layout.item_edit_tags_horizontal)
+        collectionRecyclerView.adapter =
+            EditTagsAdapter(context, repas.tags, R.layout.item_edit_tags_horizontal)
         val add_tagButton = view.findViewById<ImageView>(R.id.add_tag)
-        add_tagButton.setOnClickListener{
-            if(view.findViewById<EditText>(R.id.tag_input).text.isNotEmpty()){
+        add_tagButton.setOnClickListener {
+            if (view.findViewById<EditText>(R.id.tag_input).text.isNotEmpty()) {
                 add_tag(view)
-                collectionRecyclerView.adapter = EditTagsAdapter(context, repas.tags, R.layout.item_edit_tags_horizontal)
+                collectionRecyclerView.adapter =
+                    EditTagsAdapter(context, repas.tags, R.layout.item_edit_tags_horizontal)
                 view.findViewById<EditText>(R.id.tag_input).setText("")
                 view.findViewById<EditText>(R.id.tag_input).requestFocus()
             }
@@ -198,10 +207,12 @@ class AddRepasFragment(
         view.findViewById<EditText>(R.id.tag_input).addTextChangedListener(
             object : TextWatcher {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    if(s.contains("\n")) {
-                        view.findViewById<EditText>(R.id.tag_input).setText(s.toString().replace("\n",""))
+                    if (s.contains("\n")) {
+                        view.findViewById<EditText>(R.id.tag_input)
+                            .setText(s.toString().replace("\n", ""))
                         add_tagButton.performClick()
-                    }}
+                    }
+                }
 
                 override fun beforeTextChanged(
                     s: CharSequence,
@@ -222,10 +233,12 @@ class AddRepasFragment(
         view.findViewById<EditText>(R.id.name_input).addTextChangedListener(
             object : TextWatcher {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    if (repasList.filter { s->s.name == view.findViewById<EditText>(R.id.name_input).text.toString()}.isNotEmpty()){
-                            view.findViewById<EditText>(R.id.name_input).error = "La plat existe déjà :)"
-                        }
+                    if (repasList.filter { s -> s.name == view.findViewById<EditText>(R.id.name_input).text.toString() }
+                            .isNotEmpty()) {
+                        view.findViewById<EditText>(R.id.name_input).error =
+                            "La plat existe déjà :)"
                     }
+                }
 
 
                 override fun beforeTextChanged(
@@ -248,14 +261,18 @@ class AddRepasFragment(
         view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.GONE
         view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.INVISIBLE
 
-        view.findViewById<TextView>(R.id.ingredients).setOnClickListener{
+        view.findViewById<TextView>(R.id.ingredients).setOnClickListener {
             switcher("ingredient")
         }
-        view.findViewById<TextView>(R.id.recette).setOnClickListener{
+        view.findViewById<TextView>(R.id.recette).setOnClickListener {
             switcher("recette")
             view.findViewById<EditText>(R.id.recette_input).requestFocus()
-            val showMe = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            showMe.showSoftInput(view.findViewById<EditText>(R.id.recette_input), InputMethodManager.SHOW_IMPLICIT)
+            val showMe =
+                context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(
+                view.findViewById<EditText>(R.id.recette_input),
+                InputMethodManager.SHOW_IMPLICIT
+            )
         }
 
         var scrollView = view.findViewById<ScrollView>(R.id.scrollView)
@@ -280,30 +297,35 @@ class AddRepasFragment(
     }
 
     private fun add_tag(view: View?) {
-        var tag_input =  view?.findViewById<EditText>(R.id.tag_input)?.text.toString()
+        var tag_input = view?.findViewById<EditText>(R.id.tag_input)?.text.toString()
         tag_input = tag_input.lowercase(Locale.getDefault())
-        tag_input = tag_input.replaceFirstChar { if (it.isLowerCase()) it.titlecase(
-            Locale.getDefault()) else it.toString() }
+        tag_input = tag_input.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
+        }
 
-        if(repas.tags.filter{s-> s == tag_input}.isEmpty() && tag_input != "" && tag_input != " "&& tag_input != "  "){
+        if (repas.tags.filter { s -> s == tag_input }
+                .isEmpty() && tag_input != "" && tag_input != " " && tag_input != "  ") {
             repas.tags.add(tag_input)
         }
     }
 
     fun getPositionIngredient(ingredient: IngredientModel): Int {
-        for (i in ingredientList.indices){
-            if (ingredientList[i].name == ingredient.name || ingredientList[i].name == ingredient.name+"s"){
+        for (i in ingredientList.indices) {
+            if (ingredientList[i].name == ingredient.name || ingredientList[i].name == ingredient.name + "s") {
                 return i
             }
         }
         return -1
     }
 
-    private fun addIngredient(view : View){
-        var repasIngredient =  view.findViewById<EditText>(R.id.ingredient).text.toString()
+    private fun addIngredient(view: View) {
+        var repasIngredient = view.findViewById<EditText>(R.id.ingredient).text.toString()
         var quantite = view.findViewById<EditText>(R.id.quantite).text.toString()
         repasIngredient = repasIngredient.lowercase(Locale.getDefault())
-        repasIngredient = repasIngredient.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+        repasIngredient =
+            repasIngredient.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
         var ingredient = IngredientModel(
             UUID.randomUUID().toString(),
             repasIngredient,
@@ -312,25 +334,25 @@ class AddRepasFragment(
             quantite
         )
 
-        if(getPositionIngredient(ingredient) != -1){
+        if (getPositionIngredient(ingredient) != -1) {
             ingredient.id_categorie = ingredientList[getPositionIngredient(ingredient)].id_categorie
             ingredient.name = ingredientList[getPositionIngredient(ingredient)].name
         }
 
-        if(listItem.filter{s-> s.name == ingredient.name}.isEmpty() && repasIngredient != "" && repasIngredient != " "&& repasIngredient != "  " && quantite.isNotEmpty()){
+        if (listItem.filter { s -> s.name == ingredient.name }
+                .isEmpty() && repasIngredient != "" && repasIngredient != " " && repasIngredient != "  " && quantite.isNotEmpty()) {
             listItem.add(ingredient)
         }
 
     }
 
-    private fun switcher(switch: String){
-        if(switch == "ingredient"){
+    private fun switcher(switch: String) {
+        if (switch == "ingredient") {
             view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.GONE
             view?.findViewById<ConstraintLayout>(R.id.ingredientCard)?.visibility = View.VISIBLE
             view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.INVISIBLE
             view?.findViewById<View>(R.id.ingredient_soulignage)?.visibility = View.VISIBLE
-        }
-        else if(switch == "recette"){
+        } else if (switch == "recette") {
             view?.findViewById<ConstraintLayout>(R.id.recetteCard)?.visibility = View.VISIBLE
             view?.findViewById<ConstraintLayout>(R.id.ingredientCard)?.visibility = View.GONE
             view?.findViewById<View>(R.id.recette_soulignage)?.visibility = View.VISIBLE
@@ -338,55 +360,77 @@ class AddRepasFragment(
         }
     }
 
-    private fun validateInput(view : View) : Boolean{
-        if (view.findViewById<EditText>(R.id.name_input).text.isEmpty()){
+    private fun validateInput(view: View): Boolean {
+        if (view.findViewById<EditText>(R.id.name_input).text.isEmpty()) {
             view.findViewById<EditText>(R.id.name_input).error = "Renseignez un nom de plat :)"
             view.findViewById<EditText>(R.id.name_input).requestFocus()
             val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            showMe.showSoftInput(view.findViewById<EditText>(R.id.name_input), InputMethodManager.SHOW_IMPLICIT)
+            showMe.showSoftInput(
+                view.findViewById<EditText>(R.id.name_input),
+                InputMethodManager.SHOW_IMPLICIT
+            )
             return false
         }
-        if (view.findViewById<EditText>(R.id.description_input).text.isEmpty()){
-            view.findViewById<EditText>(R.id.description_input).error = "Renseignez une description de plat :)"
+        if (view.findViewById<EditText>(R.id.description_input).text.isEmpty()) {
+            view.findViewById<EditText>(R.id.description_input).error =
+                "Renseignez une description de plat :)"
             view.findViewById<EditText>(R.id.description_input).requestFocus()
             val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            showMe.showSoftInput(view.findViewById<EditText>(R.id.description_input), InputMethodManager.SHOW_IMPLICIT)
+            showMe.showSoftInput(
+                view.findViewById<EditText>(R.id.description_input),
+                InputMethodManager.SHOW_IMPLICIT
+            )
             return false
         }
-        if (repas.tags.isEmpty()){
-            view.findViewById<EditText>(R.id.tag_input).error = "Renseignez au moins un tags de plat :)"
+        if (repas.tags.isEmpty()) {
+            view.findViewById<EditText>(R.id.tag_input).error =
+                "Renseignez au moins un tags de plat :)"
             view.findViewById<EditText>(R.id.tag_input).requestFocus()
             val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            showMe.showSoftInput(view.findViewById<EditText>(R.id.tag_input), InputMethodManager.SHOW_IMPLICIT)
+            showMe.showSoftInput(
+                view.findViewById<EditText>(R.id.tag_input),
+                InputMethodManager.SHOW_IMPLICIT
+            )
             return false
         }
-        if (view.findViewById<EditText>(R.id.duree).text.isEmpty()){
+        if (view.findViewById<EditText>(R.id.duree).text.isEmpty()) {
             view.findViewById<EditText>(R.id.duree).error = "Renseignez une durée de plat :)"
             view.findViewById<EditText>(R.id.duree).requestFocus()
             val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            showMe.showSoftInput(view.findViewById<EditText>(R.id.duree), InputMethodManager.SHOW_IMPLICIT)
+            showMe.showSoftInput(
+                view.findViewById<EditText>(R.id.duree),
+                InputMethodManager.SHOW_IMPLICIT
+            )
 
             return false
         }
-        if (view.findViewById<EditText>(R.id.quantite_input).text.isEmpty()){
-            view.findViewById<EditText>(R.id.quantite_input).error = "Renseignez une quantité de plat :)"
+        if (view.findViewById<EditText>(R.id.quantite_input).text.isEmpty()) {
+            view.findViewById<EditText>(R.id.quantite_input).error =
+                "Renseignez une quantité de plat :)"
             view.findViewById<EditText>(R.id.quantite_input).requestFocus()
             val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            showMe.showSoftInput(view.findViewById<EditText>(R.id.quantite_input), InputMethodManager.SHOW_IMPLICIT)
+            showMe.showSoftInput(
+                view.findViewById<EditText>(R.id.quantite_input),
+                InputMethodManager.SHOW_IMPLICIT
+            )
             return false
         }
-        if (view.findViewById<EditText>(R.id.recette_input).text.isEmpty()){
-            view.findViewById<EditText>(R.id.recette_input).error = "Renseignez une recette de plat :)"
+        if (view.findViewById<EditText>(R.id.recette_input).text.isEmpty()) {
+            view.findViewById<EditText>(R.id.recette_input).error =
+                "Renseignez une recette de plat :)"
             switcher("recette")
             view.findViewById<EditText>(R.id.recette_input).requestFocus()
             val showMe = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            showMe.showSoftInput(view.findViewById<EditText>(R.id.recette_input), InputMethodManager.SHOW_IMPLICIT)
+            showMe.showSoftInput(
+                view.findViewById<EditText>(R.id.recette_input),
+                InputMethodManager.SHOW_IMPLICIT
+            )
             return false
         }
         return true
     }
 
-    private fun sendform(view : View) {
+    private fun sendform(view: View) {
         val repo = RepasRepository()
         val repo2 = IngredientRepository()
 
@@ -396,55 +440,69 @@ class AddRepasFragment(
         val duree = view.findViewById<EditText>(R.id.duree).text.toString()
         val quantite = view.findViewById<EditText>(R.id.quantite_input).text.toString()
 
-        if(validateInput(view)){
-
+        if (validateInput(view)) {
             repas.id = randomId
-
-            if (!name.isBlank()){
+            if (!name.isBlank()) {
                 repas.name = name
             }
-            if (!description.isBlank()){
+            if (!description.isBlank()) {
                 repas.description = description
             }
-            if (!recette.isBlank()){
+            if (!recette.isBlank()) {
                 repas.recette = recette
             }
-            if (!duree.isBlank()){
+            if (!duree.isBlank()) {
                 repas.duree = duree
             }
-            if (!quantite.isBlank()){
+            if (!quantite.isBlank()) {
                 repas.quantite = quantite
             }
-
-            if (filePath != null){
+            if (filePath != null) {
                 uploadImage()
-            }else {
+            } else {
                 repas.id = randomId
                 repo.updateRepas(repas)
 
-
-            for(ingredientRepo in ingredientList.filter { s->s.id_repas == repas.id }){
-                if(!listItem.contains(ingredientRepo)){
-                    repo2.deleteIngredient(ingredientRepo)
+                for (ingredientRepo in ingredientList.filter { s -> s.id_repas == repas.id }) {
+                    if (!listItem.contains(ingredientRepo)) {
+                        repo2.deleteIngredient(ingredientRepo)
+                    }
                 }
-            }
 
-            for (ingredient in listItem) {
-                if(!ingredientList.contains(ingredient)){
-                    repo2.insertIngredient(ingredient)
+                for (ingredient in listItem) {
+                    if (!ingredientList.contains(ingredient)) {
+                        repo2.insertIngredient(ingredient)
+                    }
                 }
-            }
 
-            listItem.forEachIndexed { index, ingredient ->
-                ingredient.rank = index
-                repo2.updateIngredient(ingredient)
-            }
-            context.loadFragment(RecetteFragment(context,repas, "None", "None", "None"))
+                listItem.forEachIndexed { index, ingredient ->
+                    ingredient.rank = index
+                    repo2.updateIngredient(ingredient)
+                }
 
-            IngredientPopup(context, listItem).show()
-            Toast.makeText(context, "Recette ajoutée !", Toast.LENGTH_SHORT).show()
+                context.loadFragment(RecetteFragment(context, repas, "None", "None", "None"))
+                IngredientPopup(context, listItem).show()
+                Toast.makeText(context, "Recette ajoutée !", Toast.LENGTH_SHORT).show()
+            }
         }
-        }
+    }
+
+    private fun addRepasBddCo() {
+        val repo = RepasCommunRepository()
+        repo.insertRepasCommun(
+            RepasCommunModel(
+                repas.id,
+                repas.name,
+                Firebase.auth.currentUser?.email.toString(),
+                repas.description,
+                repas.imageUri,
+                repas.recette,
+                repas.quantite,
+                repas.tags,
+                repas.duree,
+                listItem
+            )
+        )
     }
 
     private fun launchGallery() {
@@ -457,7 +515,7 @@ class AddRepasFragment(
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            if(data == null || data.data == null){
+            if (data == null || data.data == null) {
                 return
             }
 
@@ -470,8 +528,7 @@ class AddRepasFragment(
         }
     }
 
-
-    private fun uploadImage(){
+    private fun uploadImage() {
         val repo = RepasRepository()
         val repo2 = IngredientRepository()
         val progressDialog = ProgressDialog(context)
@@ -483,19 +540,19 @@ class AddRepasFragment(
         val storageReference = FirebaseStorage.getInstance().getReference(fileName)
         storageReference.putFile(filePath!!).addOnSuccessListener {
             Toast.makeText(context, "Image saved to DB", Toast.LENGTH_SHORT).show()
-            if(progressDialog.isShowing) progressDialog.dismiss()
+            if (progressDialog.isShowing) progressDialog.dismiss()
             Firebase.storage.reference.child(fileName).downloadUrl.addOnSuccessListener {
                 repas.imageUri = it.toString()
                 repo.insertRepas(repas)
-            }.addOnCompleteListener{
-                for(ingredientRepo in ingredientList.filter { s->s.id_repas == repas.id }){
-                    if(!listItem.contains(ingredientRepo)){
+            }.addOnCompleteListener {
+                for (ingredientRepo in ingredientList.filter { s -> s.id_repas == repas.id }) {
+                    if (!listItem.contains(ingredientRepo)) {
                         repo2.deleteIngredient(ingredientRepo)
                     }
                 }
 
                 for (ingredient in listItem) {
-                    if(!ingredientList.contains(ingredient)){
+                    if (!ingredientList.contains(ingredient)) {
                         repo2.insertIngredient(ingredient)
                     }
                 }
@@ -504,20 +561,19 @@ class AddRepasFragment(
                     ingredient.rank = index
                     repo2.updateIngredient(ingredient)
                 }
-                context.loadFragment(RecetteFragment(context,repas, "None", "None", "None"))
+                context.loadFragment(RecetteFragment(context, repas, "None", "None", "None"))
 
                 IngredientPopup(context, listItem).show()
+                addRepasBddCo()
                 Toast.makeText(context, "Recette ajoutée !", Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
                 Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()
             }
 
-        }.addOnFailureListener{
-            if(progressDialog.isShowing) progressDialog.dismiss()
+        }.addOnFailureListener {
+            if (progressDialog.isShowing) progressDialog.dismiss()
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 
 }

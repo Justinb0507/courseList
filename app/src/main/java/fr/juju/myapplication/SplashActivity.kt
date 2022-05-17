@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.json.JSONObject
 import org.json.JSONTokener
 
@@ -27,6 +29,8 @@ class SplashActivity : AppCompatActivity() {
         repo5.removeLink()
         val repo6 = SemainierSuivantRepository()
         repo6.removeLink()
+        val repo7 = RepasCommunRepository()
+        repo7.removeLink()
 
         repo.updateData  {  }
         repo2.updateData {  }
@@ -34,6 +38,8 @@ class SplashActivity : AppCompatActivity() {
         repo4.updateData {  }
         repo5.updateData {  }
         repo6.updateData {  }
+        repo7.updateData {  }
+
         findViewById<ImageView>(R.id.logo).alpha = 0f
         findViewById<TextView>(R.id.designedBy).alpha = 0f
         findViewById<TextView>(R.id.designedBy).animate().setDuration(2000).alpha(1f)

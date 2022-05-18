@@ -32,6 +32,7 @@ import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.fragments.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -45,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.imageView2).setOnClickListener {
             loadFragment(UserFragment(this))
         }
-
         loadFragment(HomeFragment(this))
         unprintSoir()
         unprintApero()
@@ -121,8 +121,10 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.fragment_container, fragment).setReorderingAllowed(true)
         if (fragment is AddRepasFragment) {
             transaction.addToBackStack("AddRepas")
+        } else if (fragment is AddRepasCommunFragment) {
+            transaction.addToBackStack("AddRepasCommun")
         } else if (fragment is EditRepasFragment) {
-            transaction.addToBackStack("EditRepas")
+                transaction.addToBackStack("EditRepas")
         } else if (fragment is CourseListeFragment) {
             transaction.addToBackStack("CourseListe")
         } else if (fragment is FiltreRepasFragment) {
@@ -146,9 +148,9 @@ class MainActivity : AppCompatActivity() {
     fun handleBack() {
         val fm: FragmentManager = supportFragmentManager
         var fragment = fm.getBackStackEntryAt(fm.backStackEntryCount - 2)
-        if (fragment.name == "EditRepas" || fragment.name == "AddRepas") {
+        if (fragment.name == "EditRepas" || fragment.name == "AddRepas" || fragment.name == "AddRepasCommun") {
             var fragment2 = fm.getBackStackEntryAt(fm.backStackEntryCount - 4)
-            if (fragment2.name == "EditRepas" || fragment2.name == "AddRepas") {
+            if (fragment2.name == "EditRepas" || fragment2.name == "AddRepas" || fragment.name == "AddRepasCommun") {
                 var fragment3 = fm.getBackStackEntryAt(fm.backStackEntryCount - 5)
                 if (fragment3.name == "CourseListe") {
                     selectedCourse()

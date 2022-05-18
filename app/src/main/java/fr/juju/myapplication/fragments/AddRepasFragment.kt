@@ -479,30 +479,16 @@ class AddRepasFragment(
                     ingredient.rank = index
                     repo2.updateIngredient(ingredient)
                 }
+                val repo = RepasCommunRepository()
+                if(view.findViewById<CheckBox>(R.id.share).isChecked){
+                    repo.addRepasBddCo(repas, listItem)
+                }
 
                 context.loadFragment(RecetteFragment(context, repas, "None", "None", "None"))
                 IngredientPopup(context, listItem).show()
                 Toast.makeText(context, "Recette ajoutée !", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun addRepasBddCo() {
-        val repo = RepasCommunRepository()
-        repo.insertRepasCommun(
-            RepasCommunModel(
-                repas.id,
-                repas.name,
-                Firebase.auth.currentUser?.email.toString(),
-                repas.description,
-                repas.imageUri,
-                repas.recette,
-                repas.quantite,
-                repas.tags,
-                repas.duree,
-                listItem
-            )
-        )
     }
 
     private fun launchGallery() {
@@ -564,7 +550,10 @@ class AddRepasFragment(
                 context.loadFragment(RecetteFragment(context, repas, "None", "None", "None"))
 
                 IngredientPopup(context, listItem).show()
-                addRepasBddCo()
+                val repo = RepasCommunRepository()
+                if(view?.findViewById<CheckBox>(R.id.share)?.isChecked == true){
+                    repo.addRepasBddCo(repas, listItem)
+                }
                 Toast.makeText(context, "Recette ajoutée !", Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
                 Toast.makeText(context, "Failed to get URI", Toast.LENGTH_SHORT).show()

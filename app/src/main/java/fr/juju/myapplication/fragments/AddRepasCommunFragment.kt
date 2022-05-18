@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import fr.juju.myapplication.*
 import fr.juju.myapplication.RepasCommunRepository.Singleton.repasCommunList
+import fr.juju.myapplication.adapter.RepasCommunAdapter
 
 class AddRepasCommunFragment (val context: MainActivity
 ) : Fragment() {
@@ -20,27 +22,11 @@ class AddRepasCommunFragment (val context: MainActivity
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater?.inflate(R.layout.add_repas_commun_fragment, container, false)
-
+        val recyclerView = view.findViewById<RecyclerView>(R.id.RepasCommunRecyclerView)
+        val auth = FirebaseAuth.getInstance().currentUser
+        recyclerView.adapter = RepasCommunAdapter(context, repasCommunList.filter { s->s.createur != auth?.email }, R.layout.item_repas_vertical)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         return view
     }
 
-    fun retrieveData(){
-        val repo = RepasRepository()
-        val repo2 = IngredientRepository()
-        repo.insertRepas(
-            RepasModel(
-                repasCommunList[0].id,
-                repasCommunList[0].name,
-                repasCommunList[0].description,
-                repasCommunList[0].imageUri,
-                repasCommunList[0].recette,
-                repasCommunList[0].quantite,
-                repasCommunList[0].tags,
-                repasCommunList[0].duree
-        ))
-        for(ingredient in  repasCommunList[0].ingredientsList){
-            repo2.insertIngredient(ingredient)
-        }
-        Toast.makeText(context,"Repas ajouté :" + repasCommunList[0].name, Toast.LENGTH_SHORT).show()
-    }
 }

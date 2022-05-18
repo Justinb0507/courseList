@@ -97,6 +97,28 @@
                 android:src="@drawable/clock"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout2"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+            <TextView
+                android:id="@+id/textView17"
+                style="@style/DefaultTextStyle"
+                android:gravity="center"
+                android:layout_width="319dp"
+                android:layout_height="44dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:text="Partager avec les autres utilisateurs"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quantite_icon" />
+
+            <CheckBox
+                android:id="@+id/share"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:buttonTint="@color/white"
+                android:checked="true"
+                app:layout_constraintBottom_toBottomOf="@+id/textView17"
+                app:layout_constraintStart_toEndOf="@+id/textView17"
+                app:layout_constraintTop_toTopOf="@+id/textView17"
+                />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/duree"
@@ -188,15 +210,15 @@
 
 
             <TextView
+                android:layout_marginTop="@dimen/default_margin"
                 android:id="@+id/ingredients"
                 style="@style/TitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/default_margin"
-                android:layout_marginTop="@dimen/default_margin"
                 android:text="Ingrédients"
                 app:layout_constraintStart_toStartOf="@+id/clock"
-                app:layout_constraintTop_toBottomOf="@+id/clock" />
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
             <View
                 android:id="@+id/ingredient_soulignage"

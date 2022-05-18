@@ -18,6 +18,7 @@ class RepasModel(
     var recette:String = "",
     var quantite:String = "",
     var tags: ArrayList<String> = arrayListOf(),
-    var duree: String = ""
+    var duree: String = "",
+    var share: Boolean = true
 )
 

@@ -1,225 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/research_input"
+                    android:layout_width="234dp"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:background="@null"
+                    android:fontFamily="@font/montserratalternateslight"
+                    android:hint="De quoi as-tu envie ?"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/turquoise"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/searchbar"
+                    app:layout_constraintStart_toStartOf="@+id/searchbar" />
+
+                <Button
+                    android:id="@+id/research"
+                    android:layout_width="38dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="@+id/searchbar"
+                    app:layout_constraintEnd_toEndOf="@+id/searchbar"
+                    app:layout_constraintTop_toTopOf="@+id/searchbar" />
+
+                <ImageView
+                    android:id="@+id/searchbar"
+                    android:layout_width="325dp"
+                    android:layout_height="44dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/searchbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/searchbar_red"
+                    android:layout_width="305dp"
+                    android:layout_height="44dp"
+                    android:alpha="0"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/searchbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@android:color/holo_red_dark" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <ImageView
+                android:layout_marginTop="@dimen/default_margin"
+                android:id="@+id/plat"
+                android:layout_width="172dp"
+                android:layout_height="255dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:scaleType="centerCrop"
+                android:src="@drawable/plat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+            <ImageView
+                android:id="@+id/plat_rouge"
+                android:layout_width="172dp"
+                android:layout_height="255dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:alpha="0.5"
+                android:scaleType="centerCrop"
+                android:src="@drawable/plat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/plat"
+                app:tint="@android:color/holo_red_dark" />
+
+
+            <ImageView
+                android:id="@+id/dessert"
+                android:layout_width="172dp"
+                android:layout_height="255dp"
+                android:layout_marginRight="@dimen/default_margin"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dessert"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/plat" />
+
+            <ImageView
+                android:id="@+id/dessert_rouge"
+                android:layout_width="172dp"
+                android:layout_height="255dp"
+                android:layout_marginRight="@dimen/default_margin"
+                android:alpha="0.5"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dessert"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/plat"
+                app:tint="@android:color/holo_red_dark" />
+
+
+            <ImageView
+                android:id="@+id/soupe"
+                android:layout_width="172dp"
+                android:layout_height="255dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:scaleType="centerCrop"
+                android:src="@drawable/soupe"
+                app:layout_constraintStart_toStartOf="@+id/plat"
+                app:layout_constraintTop_toBottomOf="@+id/cocktail" />
+
+            <ImageView
+                android:id="@+id/soupe_rouge"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_width="172dp"
+                android:layout_height="255dp"
+                android:alpha="0.5"
+                android:scaleType="centerCrop"
+                android:src="@drawable/soupe"
+                app:layout_constraintStart_toStartOf="@+id/plat"
+                app:layout_constraintTop_toBottomOf="@+id/cocktail"
+                app:tint="@android:color/holo_red_dark" />
+
+            <ImageView
+                android:id="@+id/apero"
+                android:layout_width="172dp"
+                android:layout_height="255dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/aperoimg"
+                android:layout_marginTop="@dimen/default_margin"
+                app:layout_constraintEnd_toEndOf="@+id/dessert"
+                app:layout_constraintTop_toBottomOf="@+id/dessert" />
+
+            <ImageView
+                android:id="@+id/apero_rouge"
+                android:layout_width="172dp"
+                android:layout_height="255dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:alpha="0.5"
+                android:scaleType="centerCrop"
+                android:src="@drawable/aperoimg"
+                app:layout_constraintEnd_toEndOf="@+id/dessert"
+                app:layout_constraintTop_toBottomOf="@+id/dessert"
+                app:tint="@android:color/holo_red_dark" />
+
+            <ImageView
+                android:id="@+id/entree"
+                android:layout_width="172dp"
+                android:layout_height="255dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:scaleType="centerCrop"
+                android:src="@drawable/entrees"
+                app:layout_constraintEnd_toEndOf="@+id/dessert"
+                app:layout_constraintTop_toBottomOf="@+id/apero" />
+
+            <ImageView
+                android:id="@+id/entree_rouge"
+                android:layout_width="172dp"
+                android:layout_height="255dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:alpha="0.5"
+                android:scaleType="centerCrop"
+                android:src="@drawable/entrees"
+                app:layout_constraintEnd_toEndOf="@+id/dessert"
+                app:layout_constraintTop_toBottomOf="@+id/apero"
+                app:tint="@android:color/holo_red_dark" />
+
+            <ImageView
+                android:id="@+id/cocktail"
+                android:layout_width="172dp"
+                android:layout_height="255dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cocktail"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plat" />
+
+            <ImageView
+                android:id="@+id/cocktail_rouge"
+                android:layout_width="172dp"
+                android:layout_height="255dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:alpha="0.5"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cocktail"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plat"
+                app:tint="@android:color/holo_red_dark" />
+
+            <View
+                android:layout_width="150dp"
+                android:layout_height="20dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/soupe" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <EditText
-            android:id="@+id/research_input"
-            android:layout_width="234dp"
-            android:layout_height="42dp"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:background="@null"
-            android:fontFamily="@font/montserratalternateslight"
-            android:hint="De quoi as-tu envie ?"
-            android:maxLines="1"
-            android:textColor="@color/white"
-            android:textColorHint="@color/turquoise"
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="@+id/searchbar"
-            app:layout_constraintStart_toStartOf="@+id/searchbar" />
-
-        <Button
-            android:id="@+id/research"
-            android:layout_width="38dp"
-            android:layout_height="40dp"
-            android:layout_marginRight="12dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/searchbar"
-            app:layout_constraintEnd_toEndOf="@+id/searchbar"
-            app:layout_constraintTop_toTopOf="@+id/searchbar" />
-
-        <ImageView
-            android:id="@+id/searchbar"
-            android:layout_width="305dp"
-            android:layout_height="44dp"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:scaleType="centerCrop"
-            android:src="@drawable/searchbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/searchbar_red"
-            android:layout_width="305dp"
-            android:layout_height="44dp"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:alpha="0"
-            android:scaleType="centerCrop"
-            android:src="@drawable/searchbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@android:color/holo_red_dark" />
+        android:layout_width="269dp"
+        android:layout_height="156dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
             android:id="@+id/add_recette"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/plus"
-            android:layout_marginLeft="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/searchbar"
-            app:layout_constraintStart_toEndOf="@+id/searchbar"
-            app:layout_constraintTop_toTopOf="@+id/searchbar"
-            app:tint="@color/sun" />
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="7dp"
+            android:src="@drawable/plus_orange_background"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_recette_bdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_corner_affect"
+            app:layout_constraintBottom_toTopOf="@+id/add_recette"
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
-            android:id="@+id/plat"
-            android:layout_width="172dp"
-            android:layout_height="255dp"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
-            android:scaleType="centerCrop"
-            android:src="@drawable/plat"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchbar" />
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/autres"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
 
-        <ImageView
-            android:id="@+id/plat_rouge"
-            android:layout_width="172dp"
-            android:layout_height="255dp"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
-            android:alpha="0.5"
-            android:scaleType="centerCrop"
-            android:src="@drawable/plat"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchbar"
-            app:tint="@android:color/holo_red_dark" />
+            <TextView
+                android:id="@+id/textView10"
+                style="@style/DefaultTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Recette de la communauté"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintTop_toTopOf="@+id/imageView10" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/dessert"
-            android:layout_width="172dp"
-            android:layout_height="255dp"
-            android:layout_marginRight="@dimen/default_margin"
-            android:scaleType="centerCrop"
-            android:src="@drawable/dessert"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/plat" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_recette_perso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_corner_affect"
+            app:layout_constraintBottom_toTopOf="@+id/add_recette_bdd"
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
-            android:id="@+id/dessert_rouge"
-            android:layout_width="172dp"
-            android:layout_height="255dp"
-            android:layout_marginRight="@dimen/default_margin"
-            android:alpha="0.5"
-            android:scaleType="centerCrop"
-            android:src="@drawable/dessert"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/plat"
-            app:tint="@android:color/holo_red_dark" />
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/lune"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
 
+            <TextView
+                android:id="@+id/textView"
+                style="@style/DefaultTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Votre propre recette"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
-        <ImageView
-            android:id="@+id/soupe"
-            android:layout_width="172dp"
-            android:layout_height="255dp"
-            android:layout_marginTop="@dimen/default_margin"
-            android:scaleType="centerCrop"
-            android:src="@drawable/soupe"
-            app:layout_constraintStart_toStartOf="@+id/plat"
-            app:layout_constraintTop_toBottomOf="@+id/cocktail" />
-
-        <ImageView
-            android:id="@+id/soupe_rouge"
-            android:layout_marginTop="@dimen/default_margin"
-            android:layout_width="172dp"
-            android:layout_height="255dp"
-            android:alpha="0.5"
-            android:scaleType="centerCrop"
-            android:src="@drawable/soupe"
-            app:layout_constraintStart_toStartOf="@+id/plat"
-            app:layout_constraintTop_toBottomOf="@+id/cocktail"
-            app:tint="@android:color/holo_red_dark" />
-
-        <ImageView
-            android:id="@+id/apero"
-            android:layout_width="172dp"
-            android:layout_height="255dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/aperoimg"
-            android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintEnd_toEndOf="@+id/dessert"
-            app:layout_constraintTop_toBottomOf="@+id/dessert" />
-
-        <ImageView
-            android:id="@+id/apero_rouge"
-            android:layout_width="172dp"
-            android:layout_height="255dp"
-            android:layout_marginTop="@dimen/default_margin"
-            android:alpha="0.5"
-            android:scaleType="centerCrop"
-            android:src="@drawable/aperoimg"
-            app:layout_constraintEnd_toEndOf="@+id/dessert"
-            app:layout_constraintTop_toBottomOf="@+id/dessert"
-            app:tint="@android:color/holo_red_dark" />
-
-        <ImageView
-            android:id="@+id/entree"
-            android:layout_width="172dp"
-            android:layout_height="255dp"
-            android:layout_marginTop="@dimen/default_margin"
-            android:scaleType="centerCrop"
-            android:src="@drawable/entrees"
-            app:layout_constraintEnd_toEndOf="@+id/dessert"
-            app:layout_constraintTop_toBottomOf="@+id/apero" />
-
-        <ImageView
-            android:id="@+id/entree_rouge"
-            android:layout_width="172dp"
-            android:layout_height="255dp"
-            android:layout_marginTop="@dimen/default_margin"
-            android:alpha="0.5"
-            android:scaleType="centerCrop"
-            android:src="@drawable/entrees"
-            app:layout_constraintEnd_toEndOf="@+id/dessert"
-            app:layout_constraintTop_toBottomOf="@+id/apero"
-            app:tint="@android:color/holo_red_dark" />
-
-        <ImageView
-            android:id="@+id/cocktail"
-            android:layout_width="172dp"
-            android:layout_height="255dp"
-            android:layout_marginTop="@dimen/default_margin"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:scaleType="centerCrop"
-            android:src="@drawable/cocktail"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/plat" />
-
-        <ImageView
-            android:id="@+id/cocktail_rouge"
-            android:layout_width="172dp"
-            android:layout_height="255dp"
-            android:layout_marginTop="@dimen/default_margin"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:alpha="0.5"
-            android:scaleType="centerCrop"
-            android:src="@drawable/cocktail"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/plat"
-            app:tint="@android:color/holo_red_dark" />
-
-        <View
-            android:layout_width="150dp"
-            android:layout_height="20dp"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/soupe" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 

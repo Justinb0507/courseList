@@ -16,13 +16,11 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import fr.juju.myapplication.*
@@ -39,6 +37,8 @@ class FiltreRepasFragment(
     val currentSemaine: String
 ) : Fragment(){
 
+    var enable: Boolean = false
+
 @SuppressLint("ResourceAsColor")
 override fun onCreateView(
     inflater: LayoutInflater,
@@ -47,13 +47,30 @@ override fun onCreateView(
 ): View? {
 
     val view = inflater?.inflate(R.layout.fragment_filtrerepas, container, false)
-    view.findViewById<ImageView>(R.id.add_recette).setOnClickListener{
+    view.clearAnimation()
+
+    view?.findViewById<ConstraintLayout>(R.id.add_recette_bdd)?.visibility = View.GONE
+    view?.findViewById<ConstraintLayout>(R.id.add_recette_perso)?.visibility = View.GONE
+    view.findViewById<ConstraintLayout>(R.id.add_recette_perso).setOnClickListener{
         context.unprintSoir()
         context.unprintMidi()
         context.unprintApero()
         context.unprintAutres()
         context.loadFragment(AddRepasFragment(context))
     }
+    view.findViewById<ConstraintLayout>(R.id.add_recette_bdd).setOnClickListener{
+        context.unprintSoir()
+        context.unprintMidi()
+        context.unprintApero()
+        context.unprintAutres()
+        context.loadFragment(AddRepasCommunFragment(context))
+    }
+
+    view.findViewById<ImageView>(R.id.add_recette).setOnClickListener{
+        addRecette(view)
+    }
+
+
     context.onBackPressedDispatcher.addCallback(context, object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             context.handleBack()
@@ -458,5 +475,59 @@ override fun onCreateView(
             }
         return resultResearch
     }
+
+    @SuppressLint("CutPasteId")
+    private fun addRecette(view: View?) {
+        if (!enable) {
+            enable = true
+            view?.findViewById<ConstraintLayout>(R.id.add_recette_bdd)?.visibility = View.VISIBLE
+            view?.findViewById<ConstraintLayout>(R.id.add_recette_perso)?.visibility = View.VISIBLE
+            view?.findViewById<ScrollView>(R.id.scrollview)?.alpha = 0.25F
+            view?.findViewById<ImageView>(R.id.plat)?.isEnabled = false
+            view?.findViewById<ImageView>(R.id.dessert)?.isEnabled = false
+            view?.findViewById<ImageView>(R.id.cocktail)?.isEnabled = false
+            view?.findViewById<ImageView>(R.id.apero)?.isEnabled = false
+            view?.findViewById<ImageView>(R.id.soupe)?.isEnabled = false
+            view?.findViewById<ImageView>(R.id.entree)?.isEnabled = false
+            view?.findViewById<EditText>(R.id.research_input)?.isEnabled = false
+            view?.findViewById<Button>(R.id.research)?.isEnabled = false
+            view?.findViewById<ImageView>(R.id.searchbar)?.isEnabled = false
+
+            val translateAnim = AnimationUtils.loadAnimation(context, R.anim.translate_anim_affect)
+            view?.findViewById<ConstraintLayout>(R.id.add_recette_bdd)
+                ?.startAnimation(translateAnim)
+            view?.findViewById<ConstraintLayout>(R.id.add_recette_perso)
+                ?.startAnimation(translateAnim)
+            view?.findViewById<ImageView>(R.id.add_recette)?.animate()?.rotation(45F)?.duration =
+                250
+        } else {
+            enable = false
+            val translateAntiAnim =
+                AnimationUtils.loadAnimation(context, R.anim.translate_anti_anim_affect)
+
+            view?.findViewById<ScrollView>(R.id.scrollview)?.alpha = 1F
+            view?.findViewById<ImageView>(R.id.plat)?.isEnabled = true
+            view?.findViewById<ImageView>(R.id.dessert)?.isEnabled = true
+            view?.findViewById<ImageView>(R.id.cocktail)?.isEnabled = true
+            view?.findViewById<ImageView>(R.id.apero)?.isEnabled = true
+            view?.findViewById<ImageView>(R.id.soupe)?.isEnabled = true
+            view?.findViewById<ImageView>(R.id.entree)?.isEnabled = true
+            view?.findViewById<EditText>(R.id.research_input)?.isEnabled = true
+            view?.findViewById<Button>(R.id.research)?.isEnabled = true
+            view?.findViewById<ImageView>(R.id.searchbar)?.isEnabled = true
+            view?.findViewById<ConstraintLayout>(R.id.add_recette_bdd)?.visibility = View.GONE
+            view?.findViewById<ConstraintLayout>(R.id.add_recette_perso)?.visibility = View.GONE
+            view?.findViewById<ImageView>(R.id.add_recette)?.animate()?.rotation(0F)?.duration =
+                250
+            view?.findViewById<ConstraintLayout>(R.id.add_recette_bdd)
+                ?.startAnimation(translateAntiAnim)
+            view?.findViewById<ConstraintLayout>(R.id.add_recette_perso)
+                ?.startAnimation(translateAntiAnim)
+        }
+
+
+    }
+
+
 
 }

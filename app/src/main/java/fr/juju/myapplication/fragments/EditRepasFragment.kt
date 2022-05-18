@@ -36,6 +36,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.firebase.auth.ktx.auth
+import fr.juju.myapplication.RepasCommunRepository.Singleton.repasCommunList
+import fr.juju.myapplication.SemainierRepository.Singleton.authUid
+import fr.juju.myapplication.adapter.RepasCommunAdapter
 
 
 class EditRepasFragment(
@@ -108,6 +111,7 @@ class EditRepasFragment(
 
         view.findViewById<EditText>(R.id.name_input).setText(currentRepas.name)
         view.findViewById<EditText>(R.id.description_input).setText(currentRepas.description)
+        view.findViewById<CheckBox>(R.id.share).isChecked = currentRepas.share
 
         view.findViewById<EditText>(R.id.recette_input).setText(currentRepas.recette)
         view.findViewById<EditText>(R.id.duree).setText(currentRepas.duree)
@@ -124,10 +128,10 @@ class EditRepasFragment(
 
         val repoSemainier = SemainierRepository()
         val user = Firebase.auth.currentUser
-        /*if(user?.email == "justinb0507@gmail.com"){
+        if(user?.email == "justinb0507@gmail.com" || user?.email == "boulanghien.justin@gmail.com"){
             view.findViewById<ImageView>(R.id.trash).visibility = View.VISIBLE
         } else view.findViewById<ImageView>(R.id.trash).visibility = View.GONE
-*/
+
         view.findViewById<ImageView>(R.id.trash).setOnClickListener {
             var builder = AlertDialog.Builder(context)
             builder.setTitle("Oulaaaaaa !")
@@ -442,6 +446,16 @@ class EditRepasFragment(
                 }
 
                 IngredientPopup(context, ingredients).show()
+                if(repasCommunList.filter { s->s.id == currentRepas.id }.isNotEmpty() && currentRepas.share){
+                    if(repasCommunList.filter { s->s.id == currentRepas.id }[0].createur ==  Firebase.auth.currentUser?.email.toString()){
+                        RepasCommunRepository().editRepasBddCo(currentRepas,ingredients)
+                    }
+                } else if(repasCommunList.filter { s->s.id == currentRepas.id }.isNotEmpty() && !currentRepas.share){
+                    RepasCommunRepository().deleteRepasCommun(currentRepas.id)
+                } else {
+                    RepasCommunRepository().addRepasBddCo(currentRepas,ingredients)
+                }
+
                 context.loadFragment(RecetteFragment(context, currentRepas, "None", "None", "None"))
                 Toast.makeText(context, "Repas modifié !", Toast.LENGTH_SHORT).show()
 
@@ -454,8 +468,6 @@ class EditRepasFragment(
             if (progressDialog.isShowing) progressDialog.dismiss()
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
-
-
     }
 
     fun getPositionIngredient(ingredient: IngredientModel): Int {
@@ -580,9 +592,9 @@ class EditRepasFragment(
         val recette = view.findViewById<EditText>(R.id.recette_input).text.toString()
         val duree = view.findViewById<EditText>(R.id.duree).text.toString()
         val quantite = view.findViewById<EditText>(R.id.quantite_input).text.toString()
+        currentRepas.share = view.findViewById<CheckBox>(R.id.share).isChecked
 
         if (validateInput(view)) {
-
             if (!name.isBlank()) {
                 currentRepas.name = name
             }
@@ -617,13 +629,19 @@ class EditRepasFragment(
                     ingredient.rank = index
                     repo2.updateIngredient(ingredient)
                 }
-
                 IngredientPopup(context, ingredients).show()
+                if(repasCommunList.filter { s->s.id == currentRepas.id }.isNotEmpty() && currentRepas.share){
+                    if(repasCommunList.filter { s->s.id == currentRepas.id }[0].createur ==  Firebase.auth.currentUser?.email.toString()){
+                        RepasCommunRepository().editRepasBddCo(currentRepas,ingredients)
+                    }
+                } else if(repasCommunList.filter { s->s.id == currentRepas.id }.isNotEmpty() && !currentRepas.share){
+                    RepasCommunRepository().deleteRepasCommun(currentRepas.id)
+                } else {
+                    RepasCommunRepository().addRepasBddCo(currentRepas,ingredients)
+                }
                 context.loadFragment(RecetteFragment(context, currentRepas, "None", "None", "None"))
                 Toast.makeText(context, "Repas modifié !", Toast.LENGTH_SHORT).show()
             }
         }
-
-
     }
 }

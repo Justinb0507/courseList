@@ -442,6 +442,8 @@ class AddRepasFragment(
 
         if (validateInput(view)) {
             repas.id = randomId
+            repas.createur = Firebase.auth.currentUser?.email.toString()
+
             if (!name.isBlank()) {
                 repas.name = name
             }

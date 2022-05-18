@@ -50,17 +50,29 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/name_input"
                 style="@style/TitleTextStyle"
-                android:layout_width="wrap_content"
+                android:inputType="textCapWords"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
                 android:background="@null"
+                android:hint="Nom de la recette"
+                android:layout_marginTop="@dimen/default_margin"
                 android:singleLine="true"
                 android:textAlignment="center"
-                android:hint="Titre de la recette"
                 android:textColorHint="@color/bleu_canard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+            <ImageView
+                android:id="@+id/communaute"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/monde"
+                android:layout_marginRight="@dimen/default_margin"
+                app:layout_constraintBottom_toBottomOf="@+id/name_input"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/name_input"
+                app:tint="@color/white" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/description_input"

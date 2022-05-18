@@ -29,6 +29,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
 import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
+import fr.juju.myapplication.RepasCommunRepository.Singleton.repasCommunList
 import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.fragments.*
 import java.util.*

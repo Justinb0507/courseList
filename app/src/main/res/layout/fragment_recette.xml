@@ -51,6 +51,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
+            <ImageView
+                android:id="@+id/communaute"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/monde"
+                android:layout_marginRight="@dimen/default_margin"
+                app:layout_constraintBottom_toBottomOf="@+id/name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/name"
+                app:tint="@color/white" />
+
             <TextView
                 android:id="@+id/description"
                 style="@style/SubstitleTextStyle"

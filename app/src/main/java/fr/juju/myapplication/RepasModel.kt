@@ -19,6 +19,7 @@ class RepasModel(
     var quantite:String = "",
     var tags: ArrayList<String> = arrayListOf(),
     var duree: String = "",
+    var createur: String = "",
     var share: Boolean = true
 )
 

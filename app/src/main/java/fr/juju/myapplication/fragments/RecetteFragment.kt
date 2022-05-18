@@ -13,6 +13,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import fr.juju.myapplication.*
 import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
 import fr.juju.myapplication.CourseRepository.Singleton.courseList
@@ -51,6 +53,11 @@ class RecetteFragment(
         view.findViewById<TextView>(R.id.duree).text = currentRepas.duree
         view.findViewById<TextView>(R.id.quantite).text = currentRepas.quantite
 
+        if(currentRepas.createur == Firebase.auth.currentUser?.email){
+            view.findViewById<ImageView>(R.id.communaute).visibility = View.GONE
+        } else {
+            view.findViewById<ImageView>(R.id.communaute).visibility = View.VISIBLE
+        }
 
         val collectionRecyclerView = view.findViewById<RecyclerView>(R.id.tags)
         collectionRecyclerView.adapter =

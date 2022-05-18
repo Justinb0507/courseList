@@ -74,7 +74,7 @@ class RepasCommunRepository {
             RepasCommunModel(
                 repas.id,
                 repas.name,
-                Firebase.auth.currentUser?.email.toString(),
+                repas.createur,
                 repas.description,
                 repas.imageUri,
                 repas.recette,
@@ -98,7 +98,9 @@ class RepasCommunRepository {
                 repasCommun.recette,
                 repasCommun.quantite,
                 repasCommun.tags,
-                repasCommun.duree
+                repasCommun.duree,
+                repasCommun.createur,
+                true
             ))
         for(ingredient in  repasCommun.ingredientsList){
             repo2.insertIngredient(ingredient)

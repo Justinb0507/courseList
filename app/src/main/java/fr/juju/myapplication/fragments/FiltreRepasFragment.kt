@@ -66,6 +66,10 @@ override fun onCreateView(
         context.loadFragment(AddRepasCommunFragment(context))
     }
 
+    if(time != "None"){
+        view.findViewById<ConstraintLayout>(R.id.conteneur_add).visibility = View.GONE
+        }
+
     view.findViewById<ImageView>(R.id.add_recette).setOnClickListener{
         addRecette(view)
     }
@@ -75,6 +79,7 @@ override fun onCreateView(
         override fun handleOnBackPressed() {
             context.handleBack()
         }})
+
     view.findViewById<ImageView>(R.id.dessert_rouge).alpha = 0F
     view.findViewById<ImageView>(R.id.plat_rouge).alpha = 0F
     view.findViewById<ImageView>(R.id.soupe_rouge).alpha = 0F

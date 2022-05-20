@@ -6,7 +6,8 @@
     android:background="@color/background"
     android:layout_marginRight="@dimen/default_margin"
     android:layout_marginLeft="@dimen/default_margin"
-    android:layout_marginTop="@dimen/default_margin">
+    android:layout_marginTop="@dimen/default_margin"
+    android:id="@+id/conteneur_repas">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"

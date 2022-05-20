@@ -74,13 +74,6 @@ class RepasRepository {
     fun insertRepas(repas: RepasModel) {
         repas.name = formattage(repas.name)
         repas.description = formattage(repas.description)
-
-        var tags = arrayListOf<String>()
-        for (tag in repas.tags){
-            tags.add(formattage(tag))
-        }
-        repas.tags.clear()
-        repas.tags = tags
         databaseRef.child(repas.id).setValue(repas)
     }
     fun deleteRepas(repas: RepasModel) {
@@ -89,13 +82,6 @@ class RepasRepository {
     fun updateRepas(repas: RepasModel) {
         repas.name = formattage(repas.name)
         repas.description = formattage(repas.description)
-
-        var tags = arrayListOf<String>()
-        for (tag in repas.tags){
-            tags.add(formattage(tag))
-        }
-        repas.tags.clear()
-        repas.tags = tags
         databaseRef.child(repas.id).setValue(repas)
     }
 

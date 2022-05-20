@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import fr.juju.myapplication.*
 import fr.juju.myapplication.RepasCommunRepository.Singleton.repasCommunList
+import fr.juju.myapplication.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.adapter.RepasCommunAdapter
 
 class AddRepasCommunFragment (val context: MainActivity
@@ -24,7 +25,13 @@ class AddRepasCommunFragment (val context: MainActivity
         val view = inflater?.inflate(R.layout.add_repas_commun_fragment, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.RepasCommunRecyclerView)
         val auth = FirebaseAuth.getInstance().currentUser
-        recyclerView.adapter = RepasCommunAdapter(context, repasCommunList.filter { s->s.createur != auth?.email }, R.layout.item_repas_vertical)
+        var liste = arrayListOf<RepasCommunModel>()
+        for (repas in repasCommunList.filter { s->s.createur != auth?.email }){
+            if(repasList.filter{ s->s.id == repas.id}.isEmpty()){
+                liste.add(repas)
+            }
+        }
+        recyclerView.adapter = RepasCommunAdapter(context, liste, R.layout.item_repas_vertical)
         recyclerView.layoutManager = LinearLayoutManager(context)
         return view
     }

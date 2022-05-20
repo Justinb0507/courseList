@@ -222,6 +222,7 @@
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/conteneur_add"
         android:layout_width="269dp"
         android:layout_height="156dp"
         android:layout_alignParentEnd="true"

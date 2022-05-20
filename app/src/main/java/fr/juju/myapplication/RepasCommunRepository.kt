@@ -89,22 +89,25 @@ class RepasCommunRepository {
     fun retrieveData(repasCommun: RepasCommunModel){
         val repo = RepasRepository()
         val repo2 = IngredientRepository()
-        repo.insertRepas(
-            RepasModel(
-                repasCommun.id,
-                repasCommun.name,
-                repasCommun.description,
-                repasCommun.imageUri,
-                repasCommun.recette,
-                repasCommun.quantite,
-                repasCommun.tags,
-                repasCommun.duree,
-                repasCommun.createur,
-                true
-            ))
+        repo.insertRepas(createRepasModel(repasCommun))
         for(ingredient in  repasCommun.ingredientsList){
             repo2.insertIngredient(ingredient)
         }
+    }
+
+    fun createRepasModel(repasCommun: RepasCommunModel): RepasModel {
+        return RepasModel(
+            repasCommun.id,
+            repasCommun.name,
+            repasCommun.description,
+            repasCommun.imageUri,
+            repasCommun.recette,
+            repasCommun.quantite,
+            repasCommun.tags,
+            repasCommun.duree,
+            repasCommun.createur,
+            true
+        )
     }
 
 }

@@ -33,12 +33,10 @@ import kotlin.collections.ArrayList
 import android.view.ViewTreeObserver.OnScrollChangedListener
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.firebase.auth.ktx.auth
 import fr.juju.myapplication.RepasCommunRepository.Singleton.repasCommunList
-import fr.juju.myapplication.SemainierRepository.Singleton.authUid
-import fr.juju.myapplication.adapter.RepasCommunAdapter
+
 
 
 class EditRepasFragment(
@@ -147,7 +145,6 @@ class EditRepasFragment(
             builder.setTitle("Oulaaaaaa !")
             builder.setMessage("Tu veux vraiment supprimer la recette ?")
             builder.setPositiveButton("Oui", DialogInterface.OnClickListener { dialog, id ->
-
                 repo.deleteRepas(currentRepas)
                 for (ingredient in ingredientList.filter { s -> s.id_repas == currentRepas.id } as ArrayList<IngredientModel>) {
                     repo2.deleteIngredient(ingredient)
@@ -161,16 +158,7 @@ class EditRepasFragment(
                 for (day in semainierList.filter { s -> s.apero == currentRepas.id } as ArrayList<SemainierModel>) {
                     repoSemainier.resetApero(day.id_semainier)
                 }
-                val storageRef = Firebase.storage.reference.child("image${currentRepas.id}")
-                storageRef.delete().addOnSuccessListener {
-                    Toast.makeText(context, "Recette supprimée !", Toast.LENGTH_SHORT).show()
-                }.addOnFailureListener {
-                    Toast.makeText(
-                        context,
-                        "Image non trouvée  mais recette supprimée !",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                Toast.makeText(context, "Recette supprimée !", Toast.LENGTH_SHORT).show()
                 context.loadFragment(FiltreRepasFragment(context, "None", "None", "None"))
                 dialog.cancel()
             })

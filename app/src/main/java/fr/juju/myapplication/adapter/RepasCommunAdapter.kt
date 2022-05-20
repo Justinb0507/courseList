@@ -5,12 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import fr.juju.myapplication.MainActivity
-import fr.juju.myapplication.R
-import fr.juju.myapplication.RepasCommunModel
-import fr.juju.myapplication.RepasModel
+import fr.juju.myapplication.*
+import fr.juju.myapplication.fragments.FiltreRepasFragment
 import fr.juju.myapplication.fragments.RecetteFragment
 
 class RepasCommunAdapter(
@@ -23,6 +22,7 @@ class RepasCommunAdapter(
         val name: TextView? = view.findViewById(R.id.name)
         val time: TextView?  =  view.findViewById(R.id.time)
         val recycler: RecyclerView = view.findViewById(R.id.tagList)
+        val conteneur: ConstraintLayout = view.findViewById(R.id.conteneur_repas)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,10 +37,14 @@ class RepasCommunAdapter(
         Glide.with(context)
             .load(currentRepas.imageUri)
             .into(holder.imageUri)
-
         holder.name?.text = currentRepas.name
         holder.time?.text = currentRepas.duree
-        holder.recycler?.adapter = TagsAdapter(context, currentRepas.tags, R.layout.item_tags_horizontal)
+        holder.recycler.adapter = TagsAdapter(context, currentRepas.tags, R.layout.item_tags_horizontal)
+
+        holder.conteneur.setOnClickListener{
+            RepasCommunRepository().retrieveData(currentRepas)
+            context.loadFragment(FiltreRepasFragment(context,"None","None","None"))
+        }
     }
 
     override fun getItemCount(): Int {

@@ -1,16 +1,12 @@
-package fr.juju.myapplication
+package fr.juju.myapplication.activity
 
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.widget.ImageView
 import android.widget.TextView
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import org.json.JSONObject
-import org.json.JSONTokener
+import fr.juju.myapplication.R
+import fr.juju.myapplication.repository.*
 
 
 class SplashActivity : AppCompatActivity() {

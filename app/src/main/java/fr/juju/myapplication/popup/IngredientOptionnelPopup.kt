@@ -1,4 +1,4 @@
-package fr.juju.myapplication
+package fr.juju.myapplication.popup
 
 import android.app.Dialog
 import android.os.Bundle
@@ -7,13 +7,16 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
-import fr.juju.myapplication.CourseRepository.Singleton.courseList
-import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
-import fr.juju.myapplication.SemainierSuivantRepository.Singleton.semainierSuivantList
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.R
+import fr.juju.myapplication.repository.IngredientRepository.Singleton.ingredientList
+import fr.juju.myapplication.repository.SemainierSuivantRepository.Singleton.semainierSuivantList
 import fr.juju.myapplication.adapter.PopupIngredientOptionnelAdapter
 import fr.juju.myapplication.fragments.SemainierFragment
-import java.util.*
+import fr.juju.myapplication.model.IngredientModel
+import fr.juju.myapplication.model.RepasModel
+import fr.juju.myapplication.repository.CourseRepository
+import fr.juju.myapplication.repository.SemainierSuivantRepository
 import kotlin.collections.ArrayList
 
 
@@ -32,7 +35,9 @@ class IngredientOptionnelPopup(
         //setCanceledOnTouchOutside(false)
         setContentView(R.layout.ingredient_optionnel_popup)
         val listIngredientView = findViewById<RecyclerView>(R.id.recycler)
-        listIngredientView.adapter = PopupIngredientOptionnelAdapter(context,ingredients, R.layout.item_ingredient_optionnel_popup)
+        listIngredientView.adapter = PopupIngredientOptionnelAdapter(context,ingredients,
+            R.layout.item_ingredient_optionnel_popup
+        )
         listIngredientView.layoutManager = LinearLayoutManager(context)
         setupCloseButton()
         setupValidButton()

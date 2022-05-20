@@ -1,4 +1,4 @@
-package fr.juju.myapplication
+package fr.juju.myapplication.model
 
 class SemainierModel (
     var midi:String = "None",

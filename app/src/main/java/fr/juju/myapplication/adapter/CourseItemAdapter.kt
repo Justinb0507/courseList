@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
-import android.widget.RadioButton
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.juju.myapplication.*
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.model.CourseModel
+import fr.juju.myapplication.repository.CourseRepository
 import java.math.RoundingMode
 import java.text.DecimalFormat
 

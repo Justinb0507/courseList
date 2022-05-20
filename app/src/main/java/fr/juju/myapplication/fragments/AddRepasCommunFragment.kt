@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import fr.juju.myapplication.*
-import fr.juju.myapplication.RepasCommunRepository.Singleton.repasCommunList
-import fr.juju.myapplication.RepasRepository.Singleton.repasList
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.repository.RepasCommunRepository.Singleton.repasCommunList
+import fr.juju.myapplication.repository.RepasRepository.Singleton.repasList
 import fr.juju.myapplication.adapter.RepasCommunAdapter
+import fr.juju.myapplication.model.RepasCommunModel
 
 class AddRepasCommunFragment (val context: MainActivity
 ) : Fragment() {

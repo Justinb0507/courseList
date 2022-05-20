@@ -1,5 +1,6 @@
-package fr.juju.myapplication
+package fr.juju.myapplication.model
 
+import fr.juju.myapplication.model.IngredientModel
 import java.util.*
 import kotlin.collections.ArrayList
 

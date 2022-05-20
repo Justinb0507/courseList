@@ -1,4 +1,4 @@
-package fr.juju.myapplication
+package fr.juju.myapplication.model
 
 import android.net.Uri
 import android.view.View

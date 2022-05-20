@@ -1,16 +1,16 @@
-package fr.juju.myapplication
+package fr.juju.myapplication.repository
 
-import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
-import fr.juju.myapplication.RepasCommunRepository.Singleton.databaseRef
-import fr.juju.myapplication.RepasCommunRepository.Singleton.repasCommunList
+import fr.juju.myapplication.model.RepasCommunModel
+import fr.juju.myapplication.repository.RepasCommunRepository.Singleton.databaseRef
+import fr.juju.myapplication.repository.RepasCommunRepository.Singleton.repasCommunList
+import fr.juju.myapplication.model.IngredientModel
+import fr.juju.myapplication.model.RepasModel
 
 class RepasCommunRepository {
     object Singleton{

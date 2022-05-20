@@ -7,22 +7,25 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import fr.juju.myapplication.*
-import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
-import fr.juju.myapplication.CourseRepository.Singleton.courseList
-import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
-import fr.juju.myapplication.SemainierSuivantRepository.Singleton.semainierSuivantList
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.repository.IngredientRepository.Singleton.ingredientList
+import fr.juju.myapplication.repository.SemainierSuivantRepository.Singleton.semainierSuivantList
 import fr.juju.myapplication.adapter.IngredientAdapter
 import fr.juju.myapplication.adapter.TagsAdapter
-import java.util.*
+import fr.juju.myapplication.model.IngredientModel
+import fr.juju.myapplication.model.RepasModel
+import fr.juju.myapplication.popup.IngredientOptionnelPopup
+import fr.juju.myapplication.repository.CourseRepository
+import fr.juju.myapplication.repository.IngredientRepository
+import fr.juju.myapplication.repository.SemainierRepository
+import fr.juju.myapplication.repository.SemainierSuivantRepository
 import kotlin.collections.ArrayList
 
 

@@ -1,4 +1,4 @@
-package fr.juju.myapplication
+package fr.juju.myapplication.activity
 
 import android.animation.Animator
 import android.animation.AnimatorSet
@@ -17,10 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
-import org.json.JSONObject
-import org.json.JSONTokener
+import fr.juju.myapplication.R
 
 
 class LoginActivity : AppCompatActivity() {

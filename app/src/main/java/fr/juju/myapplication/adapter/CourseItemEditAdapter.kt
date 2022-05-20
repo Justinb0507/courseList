@@ -8,9 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.juju.myapplication.*
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.model.CourseModel
+import fr.juju.myapplication.repository.CourseRepository
 
 class CourseItemEditAdapter(
     val context: MainActivity,

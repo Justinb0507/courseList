@@ -7,25 +7,24 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import fr.juju.myapplication.*
+import fr.juju.myapplication.activity.MainActivity
 
-import fr.juju.myapplication.RepasRepository.Singleton.repasList
-import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
+import fr.juju.myapplication.repository.RepasRepository.Singleton.repasList
+import fr.juju.myapplication.repository.SemainierRepository.Singleton.semainierList
 import fr.juju.myapplication.adapter.AutresRapasHomeAdapter
 import fr.juju.myapplication.adapter.TagsAdapter
+import fr.juju.myapplication.model.RepasModel
 import java.text.SimpleDateFormat
 import java.util.*
 

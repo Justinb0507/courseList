@@ -1,16 +1,15 @@
 package fr.juju.myapplication.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.juju.myapplication.*
-import java.util.*
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.model.CourseModel
 import kotlin.collections.ArrayList
 
 class CourseCategoryAdapter(

@@ -23,14 +23,20 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import fr.juju.myapplication.*
-import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
+import fr.juju.myapplication.repository.IngredientRepository.Singleton.ingredientList
 import fr.juju.myapplication.adapter.*
 import java.io.IOException
 import java.util.*
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import fr.juju.myapplication.RepasRepository.Singleton.repasList
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.repository.RepasRepository.Singleton.repasList
+import fr.juju.myapplication.model.IngredientModel
+import fr.juju.myapplication.model.RepasModel
+import fr.juju.myapplication.popup.IngredientPopup
+import fr.juju.myapplication.repository.IngredientRepository
+import fr.juju.myapplication.repository.RepasCommunRepository
+import fr.juju.myapplication.repository.RepasRepository
 
 
 class AddRepasFragment(

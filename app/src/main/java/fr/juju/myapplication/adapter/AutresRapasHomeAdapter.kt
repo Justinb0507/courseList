@@ -10,9 +10,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import fr.juju.myapplication.MainActivity
+import fr.juju.myapplication.activity.MainActivity
 import fr.juju.myapplication.R
-import fr.juju.myapplication.RepasModel
+import fr.juju.myapplication.model.RepasModel
 import fr.juju.myapplication.fragments.RecetteFragment
 
 class AutresRapasHomeAdapter(

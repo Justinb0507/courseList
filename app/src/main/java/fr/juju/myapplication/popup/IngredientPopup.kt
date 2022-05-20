@@ -1,4 +1,4 @@
-package fr.juju.myapplication
+package fr.juju.myapplication.popup
 
 import android.app.Dialog
 import android.os.Bundle
@@ -7,8 +7,10 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.R
 import fr.juju.myapplication.adapter.PopupIngredientAdapter
+import fr.juju.myapplication.model.IngredientModel
 
 
 class IngredientPopup(private val context: MainActivity, private val ingredientsInput: ArrayList<IngredientModel>)
@@ -31,7 +33,9 @@ class IngredientPopup(private val context: MainActivity, private val ingredients
             }
         }
 
-        listIngredientView.adapter = PopupIngredientAdapter(context,ingredients, R.layout.item_edit_ingredient_categorie)
+        listIngredientView.adapter = PopupIngredientAdapter(context,ingredients,
+            R.layout.item_edit_ingredient_categorie
+        )
         listIngredientView.layoutManager = LinearLayoutManager(context)
         setupCloseButton()
         setupValidButton()

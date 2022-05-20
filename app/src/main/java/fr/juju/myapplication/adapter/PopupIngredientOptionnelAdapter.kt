@@ -7,9 +7,9 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.juju.myapplication.*
-import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
-import fr.juju.myapplication.CourseRepository.Singleton.courseList
-import java.util.*
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.model.IngredientModel
+import fr.juju.myapplication.repository.CourseRepository
 import kotlin.collections.ArrayList
 
 class PopupIngredientOptionnelAdapter (val context: MainActivity, private val ingredients: ArrayList<IngredientModel>, private val layoutId:Int) : RecyclerView.Adapter<PopupIngredientOptionnelAdapter.ViewHolder>() {

@@ -3,7 +3,6 @@ package fr.juju.myapplication.fragments
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
-import android.media.Image
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,21 +13,16 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import fr.juju.myapplication.*
-import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
-import fr.juju.myapplication.CourseRepository.Singleton.courseList
-import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
-import fr.juju.myapplication.RepasRepository.Singleton.repasList
-import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.repository.CategorieRepository.Singleton.categorieList
+import fr.juju.myapplication.repository.CourseRepository.Singleton.courseList
 import fr.juju.myapplication.adapter.CourseCategoryAdapter
-import org.w3c.dom.Text
+import fr.juju.myapplication.model.CourseModel
+import fr.juju.myapplication.repository.CourseRepository
 import java.util.*
 import kotlin.collections.ArrayList
 

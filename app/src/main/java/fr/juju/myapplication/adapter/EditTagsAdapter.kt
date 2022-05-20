@@ -3,12 +3,9 @@ package fr.juju.myapplication.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import fr.juju.myapplication.IngredientModel
-import fr.juju.myapplication.MainActivity
+import fr.juju.myapplication.activity.MainActivity
 import fr.juju.myapplication.R
 import android.view.View.OnLongClickListener
 

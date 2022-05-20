@@ -3,13 +3,11 @@ package fr.juju.myapplication.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ListAdapter
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.juju.myapplication.*
-import fr.juju.myapplication.fragments.AddRepasFragment
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.model.IngredientModel
 
 class IngredientAdapter (val context: MainActivity, private val ingredientList: List<IngredientModel>, private val layoutId:Int) : RecyclerView.Adapter<IngredientAdapter.ViewHolder>(){
 

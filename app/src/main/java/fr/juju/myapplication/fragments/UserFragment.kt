@@ -12,12 +12,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.toColor
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -25,14 +22,13 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.google.firebase.auth.FirebaseAuth
-import fr.juju.myapplication.LoginActivity
-import fr.juju.myapplication.MainActivity
+import fr.juju.myapplication.activity.LoginActivity
+import fr.juju.myapplication.activity.MainActivity
 import fr.juju.myapplication.R
 import java.util.ArrayList
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
-import fr.juju.myapplication.RepasRepository.Singleton.repasList
-import org.w3c.dom.Text
+import fr.juju.myapplication.repository.CategorieRepository.Singleton.categorieList
+import fr.juju.myapplication.repository.RepasRepository.Singleton.repasList
 
 
 class UserFragment (val context: MainActivity)  : Fragment(), OnChartValueSelectedListener  {

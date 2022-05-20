@@ -2,14 +2,13 @@ package fr.juju.myapplication.adapter
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import fr.juju.myapplication.IngredientModel
-import fr.juju.myapplication.MainActivity
+import fr.juju.myapplication.model.IngredientModel
+import fr.juju.myapplication.activity.MainActivity
 import fr.juju.myapplication.R
 
 class EditIngredientAdapter (val context: MainActivity, private val ingredientList: ArrayList<IngredientModel>, private val layoutId:Int) : RecyclerView.Adapter<EditIngredientAdapter.ViewHolder>(){

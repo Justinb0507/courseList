@@ -1,4 +1,4 @@
-package fr.juju.myapplication
+package fr.juju.myapplication.repository
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -6,9 +6,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
-import fr.juju.myapplication.RepasRepository.Singleton.authUid
-import fr.juju.myapplication.RepasRepository.Singleton.databaseRef
-import fr.juju.myapplication.RepasRepository.Singleton.repasList
+import fr.juju.myapplication.repository.RepasRepository.Singleton.authUid
+import fr.juju.myapplication.repository.RepasRepository.Singleton.databaseRef
+import fr.juju.myapplication.repository.RepasRepository.Singleton.repasList
+import fr.juju.myapplication.model.RepasModel
 import java.util.*
 
 class RepasRepository {

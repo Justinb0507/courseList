@@ -1,4 +1,4 @@
-package fr.juju.myapplication
+package fr.juju.myapplication.repository
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
@@ -7,17 +7,15 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
-import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
-import fr.juju.myapplication.CourseRepository.Singleton.authUid
-import fr.juju.myapplication.CourseRepository.Singleton.courseList
-import fr.juju.myapplication.CourseRepository.Singleton.databaseRef
-import java.math.RoundingMode
-import java.text.DecimalFormat
+import fr.juju.myapplication.repository.CategorieRepository.Singleton.categorieList
+import fr.juju.myapplication.repository.CourseRepository.Singleton.authUid
+import fr.juju.myapplication.repository.CourseRepository.Singleton.courseList
+import fr.juju.myapplication.repository.CourseRepository.Singleton.databaseRef
+import fr.juju.myapplication.model.CourseModel
+import fr.juju.myapplication.model.IngredientModel
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.ceil
-import kotlin.math.roundToInt
-import kotlin.math.roundToLong
 
 class CourseRepository {
     object Singleton {
@@ -84,46 +82,54 @@ class CourseRepository {
             if (courseList.filter { s -> s.name == ingredient.name }.isNotEmpty()) {
                 val oldItem = courseList.filter { s -> s.name == ingredient.name }[0]
                 if(isDigit(ingredient.quantite) && isDigit(oldItem.quantite)){
-                    repo.updateCourseItem(CourseModel(
+                    repo.updateCourseItem(
+                        CourseModel(
                         oldItem.id,
                         oldItem.name,
                         (getQuantite(ingredient.quantite) + getQuantite(oldItem.quantite)).toString(),
                         oldItem.categorie,
                         oldItem.ok,
                         oldItem.ajoutExterieur
-                    ))
+                    )
+                    )
                 } else {
                     if(checkUnite(ingredient.quantite, oldItem)){
-                        repo.updateCourseItem(CourseModel(
+                        repo.updateCourseItem(
+                            CourseModel(
                             oldItem.id,
                             oldItem.name,
                             addQuantite(ingredient.quantite, oldItem.quantite).toString() + " " + convertisseurUnite(oldItem.quantite),
                             oldItem.categorie,
                             oldItem.ok,
                             oldItem.ajoutExterieur
-                        ))
+                        )
+                        )
 
                     }
                     else {
-                        repo.insertCourseItem(CourseModel(
+                        repo.insertCourseItem(
+                            CourseModel(
                             UUID.randomUUID().toString(),
                             ingredient.name,
                             ingredient.quantite,
                             if (ingredient.id_categorie != "None") categorieList.filter { s -> s.id == ingredient.id_categorie }[0].name else "Autres",
                             "false",
                             "false"
-                        ))
+                        )
+                        )
                     }
                 }
             } else {
-                repo.insertCourseItem(CourseModel(
+                repo.insertCourseItem(
+                    CourseModel(
                     UUID.randomUUID().toString(),
                     ingredient.name,
                     ingredient.quantite,
                     if (ingredient.id_categorie != "None") categorieList.filter { s -> s.id == ingredient.id_categorie }[0].name else "Autres",
                     "false",
                     "false"
-                ))
+                )
+                )
             }
         }
     }
@@ -133,39 +139,46 @@ class CourseRepository {
             if (courseList.filter { s -> s.name == item.name }.isNotEmpty()) {
                 val oldItem = courseList.filter { s -> s.name == item.name }[0]
                 if(isDigit(item.quantite) && isDigit(oldItem.quantite)){
-                    repo.updateCourseItem(CourseModel(
+                    repo.updateCourseItem(
+                        CourseModel(
                         oldItem.id,
                         oldItem.name,
                         (getQuantite(item.quantite) + getQuantite(oldItem.quantite)).toString(),
                         oldItem.categorie,
                         oldItem.ok,
                         oldItem.ajoutExterieur
-                    ))
+                    )
+                    )
                 } else {
                     if(checkUnite(item.quantite, oldItem)){
-                        repo.updateCourseItem(CourseModel(
+                        repo.updateCourseItem(
+                            CourseModel(
                             oldItem.id,
                             oldItem.name,
                             addQuantite(item.quantite, oldItem.quantite).toString() + " " + convertisseurUnite(getUnite(item.quantite)),
                             oldItem.categorie,
                             oldItem.ok,
                             oldItem.ajoutExterieur
-                        ))
+                        )
+                        )
                     }
                     else {
-                        repo.insertCourseItem(CourseModel(
+                        repo.insertCourseItem(
+                            CourseModel(
                             UUID.randomUUID().toString(),
                             item.name,
                             item.quantite,
                             if (item.categorie != "None") categorieList.filter { s -> s.id == item.categorie }[0].name else "Autres",
                             "false",
                             "false"
-                        ))
+                        )
+                        )
                     }
                 }
             } else {
 
-                repo.insertCourseItem(CourseModel(
+                repo.insertCourseItem(
+                    CourseModel(
                     UUID.randomUUID().toString(),
                     item.name,
                     item.quantite,
@@ -177,7 +190,8 @@ class CourseRepository {
                     else "Autres",
                     "false",
                     "false"
-                ))
+                )
+                )
         }
     }
 
@@ -189,14 +203,16 @@ class CourseRepository {
                 if(isDigit(ingredient.quantite) && isDigit(oldItem.quantite)){
                     if(getQuantite(oldItem.quantite) - getQuantite(ingredient.quantite) > 0)
                     {
-                        repo.updateCourseItem(CourseModel(
+                        repo.updateCourseItem(
+                            CourseModel(
                             oldItem.id,
                             oldItem.name,
                             (getQuantite(oldItem.quantite) - getQuantite(ingredient.quantite)).toString(),
                             oldItem.categorie,
                             oldItem.ok,
                             oldItem.ajoutExterieur
-                        ))
+                        )
+                        )
                     } else deleteCourseItem(oldItem)
                 } else {
                     if(checkUnite(ingredient.quantite, oldItem)){

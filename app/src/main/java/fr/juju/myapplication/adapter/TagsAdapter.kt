@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import fr.juju.myapplication.MainActivity
+import fr.juju.myapplication.activity.MainActivity
 import fr.juju.myapplication.R
 
 class TagsAdapter (val context: MainActivity, private val tags: List<String>, private val layoutId:Int) : RecyclerView.Adapter<TagsAdapter.ViewHolder>() {

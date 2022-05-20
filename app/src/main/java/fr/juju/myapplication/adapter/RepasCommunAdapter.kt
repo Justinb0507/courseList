@@ -9,8 +9,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import fr.juju.myapplication.*
+import fr.juju.myapplication.activity.MainActivity
 import fr.juju.myapplication.fragments.FiltreRepasFragment
-import fr.juju.myapplication.fragments.RecetteFragment
+import fr.juju.myapplication.model.RepasCommunModel
+import fr.juju.myapplication.repository.RepasCommunRepository
 
 class RepasCommunAdapter(
     val context: MainActivity,

@@ -1,7 +1,5 @@
 package fr.juju.myapplication.fragments
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.ProgressDialog
@@ -14,7 +12,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
 import android.widget.*
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +21,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import fr.juju.myapplication.*
-import fr.juju.myapplication.SemainierRepository.Singleton.semainierList
+import fr.juju.myapplication.repository.SemainierRepository.Singleton.semainierList
 import fr.juju.myapplication.adapter.EditIngredientAdapter
 import fr.juju.myapplication.adapter.EditTagsAdapter
 import java.io.IOException
@@ -35,8 +32,16 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.firebase.auth.ktx.auth
-import fr.juju.myapplication.RepasCommunRepository.Singleton.repasCommunList
-
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.repository.RepasCommunRepository.Singleton.repasCommunList
+import fr.juju.myapplication.model.IngredientModel
+import fr.juju.myapplication.model.RepasModel
+import fr.juju.myapplication.model.SemainierModel
+import fr.juju.myapplication.popup.IngredientPopup
+import fr.juju.myapplication.repository.IngredientRepository
+import fr.juju.myapplication.repository.RepasCommunRepository
+import fr.juju.myapplication.repository.RepasRepository
+import fr.juju.myapplication.repository.SemainierRepository
 
 
 class EditRepasFragment(

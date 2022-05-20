@@ -1,15 +1,11 @@
-package fr.juju.myapplication
+package fr.juju.myapplication.activity
 
-import android.animation.Animator
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
-import android.view.View
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
@@ -17,6 +13,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import fr.juju.myapplication.R
+import fr.juju.myapplication.model.CategorieModel
+import fr.juju.myapplication.model.IngredientModel
+import fr.juju.myapplication.model.RepasModel
+import fr.juju.myapplication.model.SemainierModel
 import org.json.JSONObject
 import org.json.JSONTokener
 

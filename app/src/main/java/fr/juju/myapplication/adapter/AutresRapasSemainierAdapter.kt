@@ -12,9 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import fr.juju.myapplication.*
-import fr.juju.myapplication.IngredientRepository.Singleton.ingredientList
-import fr.juju.myapplication.SemainierSuivantRepository.Singleton.semainierSuivantList
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.repository.IngredientRepository.Singleton.ingredientList
 import fr.juju.myapplication.fragments.RecetteFragment
+import fr.juju.myapplication.model.IngredientModel
+import fr.juju.myapplication.model.RepasModel
+import fr.juju.myapplication.repository.CourseRepository
+import fr.juju.myapplication.repository.SemainierRepository
+import fr.juju.myapplication.repository.SemainierSuivantRepository
 
 class AutresRapasSemainierAdapter(
     val context: MainActivity,

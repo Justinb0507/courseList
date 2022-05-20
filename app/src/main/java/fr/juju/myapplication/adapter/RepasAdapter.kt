@@ -1,6 +1,5 @@
 package fr.juju.myapplication.adapter
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
@@ -8,11 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import fr.juju.myapplication.*
+import fr.juju.myapplication.activity.MainActivity
 import fr.juju.myapplication.fragments.RecetteFragment
+import fr.juju.myapplication.model.RepasModel
 
 
 class RepasAdapter(

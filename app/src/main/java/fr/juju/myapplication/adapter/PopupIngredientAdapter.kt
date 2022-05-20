@@ -9,7 +9,10 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.juju.myapplication.*
-import fr.juju.myapplication.CategorieRepository.Singleton.categorieList
+import fr.juju.myapplication.activity.MainActivity
+import fr.juju.myapplication.repository.CategorieRepository.Singleton.categorieList
+import fr.juju.myapplication.model.IngredientModel
+import fr.juju.myapplication.repository.IngredientRepository
 
 class PopupIngredientAdapter(val context: MainActivity, private val ingredients: ArrayList<IngredientModel>, private val layoutId:Int) : RecyclerView.Adapter<PopupIngredientAdapter.ViewHolder>() {
 

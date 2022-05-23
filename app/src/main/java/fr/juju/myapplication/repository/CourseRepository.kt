@@ -216,12 +216,7 @@ class CourseRepository {
                     } else deleteCourseItem(oldItem)
                 } else {
                     if(checkUnite(ingredient.quantite, oldItem)){
-                        var ingr = oldItem.quantite
-                        var ingre = getQuantite(convertisseur(oldItem.quantite).toString())
-                        Log.i("tag", " nouveau : $ingr")
-                        Log.i("tag", " ancien : $ingre")
-
-                        if(removeQuantite(ingredient.quantite, oldItem.quantite).toFloat() > 0) {
+                      if(removeQuantite(ingredient.quantite, oldItem.quantite) > 0) {
                             repo.updateCourseItem(
                                 CourseModel(
                                     oldItem.id,
@@ -286,7 +281,7 @@ class CourseRepository {
             value /= 1000
         }
 
-        return String.format("%.3f", value).toFloat()
+        return value
     }
 
     fun convertisseurUnite(uniteInput: String): String{
@@ -301,7 +296,9 @@ class CourseRepository {
         else if (uniteInput.contains("petit pot") || uniteInput.contains("petits pots") || uniteInput.contains("petits pot") || uniteInput.contains("petit pots") || uniteInput.contains("petit pôt") || uniteInput.contains("petits pôts") || uniteInput.contains("petits pôt") || uniteInput.contains("petit pôts")) {
             uniteNew = "petits pots"
         }
-
+        else if (uniteInput.contains("gros pot") || uniteInput.contains("gros pots") || uniteInput.contains("gros pôt") || uniteInput.contains("gros pôts")) {
+            uniteNew = "gros pots"
+        }
         else if (uniteInput.contains("cac") || uniteInput == "cc") {
             uniteNew = "cac"
         }
@@ -337,6 +334,12 @@ class CourseRepository {
         }
         else if (uniteInput.contains("conserve")){
             uniteNew = "conserves"
+        }
+        else if (uniteInput.contains("un peu")){
+            uniteNew = "un peu"
+        }
+        else if (uniteInput.contains("paquet")){
+            uniteNew = "paquet"
         }
         return uniteNew
     }
@@ -392,6 +395,11 @@ class CourseRepository {
                 if (uniteNew.replace(" ", "").contains("aujugé"))
                     return true
             }
+             //un peu
+             else if (uniteOld.replace(" ", "").contains("unpeu")) {
+                 if (uniteNew.replace(" ", "").contains("unpeu"))
+                     return true
+             }
              //conserve
              else if (uniteOld.replace(" ", "").contains("conserve")) {
                  if (uniteNew.replace(" ", "").contains("conserve"))
@@ -416,6 +424,14 @@ class CourseRepository {
                 )
                     return true
             }
+             else if (uniteOld.replace(" ", "").contains("grospot") || uniteOld.replace(" ", "")
+                     .contains("grospôt")
+             ) {
+                 if (uniteNew.replace(" ", "").contains("grospot") || uniteNew.replace(" ", "")
+                         .contains("grospôt")
+                 )
+                     return true
+             }
             //sachet
             else if (uniteOld.replace(" ", "").contains("sachet")) {
                 if (uniteNew.replace(" ", "").contains("sachet"))
@@ -437,13 +453,13 @@ class CourseRepository {
                     return true
             }
             //cas
-            else if (uniteOld.replace(" ", "").equals("cas")) {
-                if (uniteNew.replace(" ", "").equals("cas"))
+            else if (uniteOld.replace(" ", "").equals("cas") || uniteOld.replace(" ", "").equals("cs")) {
+                if (uniteNew.replace(" ", "").equals("cas") || uniteNew.replace(" ", "").equals("cs"))
                     return true
             }
             //cac
-            else if (uniteOld.replace(" ", "").equals("cac")) {
-                if (uniteNew.replace(" ", "").equals("cac"))
+            else if (uniteOld.replace(" ", "").equals("cac") || uniteOld.replace(" ", "").equals("cc")) {
+                if (uniteNew.replace(" ", "").equals("cac") || uniteNew.replace(" ", "").equals("cc"))
                     return true
             }
             //botte

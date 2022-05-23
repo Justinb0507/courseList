@@ -35,7 +35,7 @@ class CourseListeFragment (val context: MainActivity
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater?.inflate(R.layout.course_liste_fragment, container, false)
+        val view = inflater?.inflate(R.layout.fragment_course_liste, container, false)
         var recyclerCourseList = view.findViewById<RecyclerView>(R.id.course_liste)
         var categoryList: ArrayList<String> = arrayListOf()
         view.findViewById<Switch>(R.id.toggleButton).isChecked = false

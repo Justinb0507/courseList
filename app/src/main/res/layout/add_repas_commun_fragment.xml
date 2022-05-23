@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RepasCommunRecyclerView"
         android:layout_width="match_parent"
@@ -13,5 +15,47 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ok"
+        android:layout_width="287dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/sun"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Vite une recette !"
+        app:layout_constraintBottom_toBottomOf="@+id/RepasCommunRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/default_margin">
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            app:tint="@color/white"
+            android:src="@drawable/plus_bleu_canard"
+            app:layout_constraintBottom_toBottomOf="@+id/ok"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ok" />
+
+        <TextView
+            android:id="@+id/textView7"
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:text="Ajouter les recettes !"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView10"
+            app:layout_constraintTop_toTopOf="@+id/imageView10" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

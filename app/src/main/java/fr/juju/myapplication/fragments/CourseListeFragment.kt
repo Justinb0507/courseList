@@ -21,14 +21,15 @@ import fr.juju.myapplication.activity.MainActivity
 import fr.juju.myapplication.repository.CategorieRepository.Singleton.categorieList
 import fr.juju.myapplication.repository.CourseRepository.Singleton.courseList
 import fr.juju.myapplication.adapter.CourseCategoryAdapter
+import fr.juju.myapplication.adapter.CategorieSelectAdapter
 import fr.juju.myapplication.model.CourseModel
 import fr.juju.myapplication.repository.CourseRepository
+import fr.juju.myapplication.repository.IngredientRepository.Singleton.ingredientList
 import java.util.*
 import kotlin.collections.ArrayList
 
 class CourseListeFragment (val context: MainActivity
 ) : Fragment()  {
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,13 +59,11 @@ class CourseListeFragment (val context: MainActivity
             view.findViewById<ImageView>(R.id.commencer).visibility = View.VISIBLE
             view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
             view.findViewById<ImageView>(R.id.open).visibility = View.GONE
-            view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
         }
         else {
             view.findViewById<ImageView>(R.id.clearCourse).visibility = View.VISIBLE
             view.findViewById<Switch>(R.id.toggleButton).visibility = View.VISIBLE
             view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
-            view.findViewById<TextView>(R.id.add_text).visibility = View.VISIBLE
             view.findViewById<ImageView>(R.id.open).visibility = View.VISIBLE
             view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.GONE
         }
@@ -83,7 +82,14 @@ class CourseListeFragment (val context: MainActivity
             showMe.showSoftInput(view.findViewById<EditText>(R.id.item), InputMethodManager.SHOW_IMPLICIT)
         }
 
-        view.findViewById<ImageView>(R.id.add_item_button).setOnClickListener{
+        view.findViewById<ImageView>(R.id.close).setOnClickListener{
+            context.hideKeyboard()
+            afficheAdd = false
+            view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
+            view.findViewById<ImageView>(R.id.open).visibility = View.VISIBLE
+        }
+
+        view.findViewById<TextView>(R.id.add_item_button).setOnClickListener{
             if(view.findViewById<EditText>(R.id.item).text.isNotEmpty()) {
                 addItem(view)
                 view.findViewById<EditText>(R.id.item).requestFocus()
@@ -94,8 +100,7 @@ class CourseListeFragment (val context: MainActivity
             context.hideKeyboard()
             if(view.findViewById<Switch>(R.id.toggleButton).isChecked){
                 view.findViewById<ImageView>(R.id.clearCourse).visibility = View.GONE
-                view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
-                view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
+                    view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
                 view.findViewById<ImageView>(R.id.open).visibility = View.GONE
                 view.findViewById<ImageView>(R.id.commencer).visibility = View.VISIBLE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
@@ -105,17 +110,12 @@ class CourseListeFragment (val context: MainActivity
             else {
                 view.findViewById<ImageView>(R.id.clearCourse).visibility = View.VISIBLE
                 if(afficheAdd){
-                    view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
-                    view.findViewById<ImageView>(R.id.open).setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
+                    view.findViewById<ImageView>(R.id.open).visibility = View.GONE
                     view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.VISIBLE
-                    view.findViewById<ImageView>(R.id.open).visibility = View.VISIBLE
                 }else{
-                    view.findViewById<TextView>(R.id.add_text).visibility = View.VISIBLE
-                    view.findViewById<ImageView>(R.id.open).setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
-                    view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
                     view.findViewById<ImageView>(R.id.open).visibility = View.VISIBLE
+                    view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
                 }
-
                 recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, false, R.layout.item_course_vertical)
                 recyclerCourseList.layoutManager = LinearLayoutManager(context)
             }
@@ -140,15 +140,13 @@ class CourseListeFragment (val context: MainActivity
                 view.findViewById<ImageView>(R.id.commencer).visibility = View.VISIBLE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
                 view.findViewById<ImageView>(R.id.open).visibility = View.GONE
-                view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
-            }else if(courseList.isNotEmpty() && view.findViewById<ConstraintLayout>(R.id.add_item).visibility == View.GONE)
+                }else if(courseList.isNotEmpty() && view.findViewById<ConstraintLayout>(R.id.add_item).visibility == View.GONE)
             {
                 view.findViewById<ConstraintLayout>(R.id.linearLayout7).visibility = View.VISIBLE
                 view.findViewById<ImageView>(R.id.clearCourse).visibility = View.VISIBLE
                 view.findViewById<Switch>(R.id.toggleButton).visibility = View.VISIBLE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
-                view.findViewById<TextView>(R.id.add_text).visibility = View.VISIBLE
-                view.findViewById<ImageView>(R.id.open).visibility = View.VISIBLE
+                    view.findViewById<ImageView>(R.id.open).visibility = View.VISIBLE
                 view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.GONE
             }else if(courseList.isNotEmpty() && view.findViewById<ConstraintLayout>(R.id.add_item).visibility == View.VISIBLE)
             {
@@ -156,16 +154,14 @@ class CourseListeFragment (val context: MainActivity
                 view.findViewById<ImageView>(R.id.clearCourse).visibility = View.VISIBLE
                 view.findViewById<Switch>(R.id.toggleButton).visibility = View.VISIBLE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.VISIBLE
-                view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
-                view.findViewById<ImageView>(R.id.open).visibility = View.VISIBLE
+                    view.findViewById<ImageView>(R.id.open).visibility = View.GONE
                 view.findViewById<ConstraintLayout>(R.id.NoRepas).visibility = View.GONE
             }
 
             if(view.findViewById<Switch>(R.id.toggleButton).isChecked && view.findViewById<Switch>(R.id.toggleButton).visibility == View.VISIBLE){
                 view.findViewById<ImageView>(R.id.clearCourse).visibility = View.GONE
                 view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
-                view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
-                view.findViewById<ImageView>(R.id.open).visibility = View.GONE
+                    view.findViewById<ImageView>(R.id.open).visibility = View.GONE
                 var saveState = (recyclerCourseList.layoutManager as LinearLayoutManager).onSaveInstanceState()
                 recyclerCourseList.adapter = CourseCategoryAdapter(context, courseList, categoryList, true, R.layout.item_course_vertical)
                 recyclerCourseList.layoutManager = LinearLayoutManager(context)
@@ -182,21 +178,13 @@ class CourseListeFragment (val context: MainActivity
         view.findViewById<ImageView>(R.id.open).setOnClickListener{
             afficheAdd = !afficheAdd
             view.findViewById<EditText>(R.id.item).setText("")
+            view.findViewById<EditText>(R.id.item).requestFocus()
+            val showMe = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            showMe.showSoftInput(view.findViewById<EditText>(R.id.item), InputMethodManager.SHOW_IMPLICIT)
             view.findViewById<EditText>(R.id.quantite).setText("")
             view.findViewById<AutoCompleteTextView>(R.id.categorie).setText("")
-            if (view.findViewById<TextView>(R.id.add_text).visibility == View.GONE){
-                context.hideKeyboard()
-                view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.GONE
-                view.findViewById<TextView>(R.id.add_text).visibility = View.VISIBLE
-                view.findViewById<ImageView>(R.id.open).setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
-            } else {
-                view.findViewById<ImageView>(R.id.open).setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
-                view.findViewById<TextView>(R.id.add_text).visibility = View.GONE
-                view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.VISIBLE
-                view.findViewById<EditText>(R.id.item).requestFocus()
-                val showMe = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                showMe.showSoftInput(view.findViewById<EditText>(R.id.item), InputMethodManager.SHOW_IMPLICIT)
-            }
+            view.findViewById<ConstraintLayout>(R.id.add_item).visibility = View.VISIBLE
+            view.findViewById<ImageView>(R.id.open).visibility = View.GONE
         }
 
         view.findViewById<ImageView>(R.id.clearCourse).setOnClickListener {
@@ -229,7 +217,7 @@ class CourseListeFragment (val context: MainActivity
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                     if(s.contains("\n")) {
                         view.findViewById<AutoCompleteTextView>(R.id.categorie).setText(s.toString().replace("\n",""))
-                        view.findViewById<ImageView>(R.id.add_item_button).performClick()
+                        view.findViewById<TextView>(R.id.add_item_button).performClick()
                     }}
 
                 override fun beforeTextChanged(
@@ -271,9 +259,47 @@ class CourseListeFragment (val context: MainActivity
             }
         )
 
+        val suggest = view.findViewById<RecyclerView>(R.id.suggestCategorie)
+        var listeCat = arrayListOf<String>()
+
         view.findViewById<EditText>(R.id.item).addTextChangedListener(
             object : TextWatcher {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if(s.length >= 3 && ingredientList.filter { g->g.name.contains(s.toString()) }.filter { t->t.id_categorie != "None" }.isNotEmpty()){
+                        if(categorieList.filter { f->f.id == ingredientList.filter { g->g.name.contains(s.toString()) }.filter { t->t.id_categorie != "None" }[0].id_categorie }.isNotEmpty()){
+                            for(item in ingredientList.filter { g->g.name.contains(s.toString()) }.filter { t->t.id_categorie != "None" }){
+                                for(cat in categorieList.filter { f->f.id == item.id_categorie }){
+                                    if(!listeCat.contains(cat.name)){
+                                        listeCat.add(cat.name)
+                                        suggest.adapter = CategorieSelectAdapter(
+                                            context,
+                                            listeCat,
+                                            view.findViewById<EditText>(R.id.categorie),
+                                            R.layout.item_tags_horizontal
+                                        )
+                                    }
+                                }
+                            }
+                            view.findViewById<AutoCompleteTextView>(R.id.categorie).setText(categorieList.filter { f->f.id == ingredientList.filter { g->g.name.contains(s.toString()) }.filter { t->t.id_categorie != "None" }[0].id_categorie }[0].name)
+                        }
+                    }
+                    else if(s.length >= 3 && ingredientList.filter { g->g.name.contains(s.toString()) }.filter { t->t.id_categorie != "None" }.isEmpty()){
+                        listeCat.clear()
+                        listeCat.add("Autres")
+                        suggest.adapter = CategorieSelectAdapter(
+                            context,
+                            listeCat,
+                            view.findViewById<EditText>(R.id.categorie),
+                            R.layout.item_tags_horizontal
+                        )
+                        view.findViewById<AutoCompleteTextView>(R.id.categorie).setText("Autres")
+
+                    }
+                    else if(s.length < 3 || ingredientList.filter { g->g.name.contains(s.toString()) }.filter { t->t.id_categorie != "None" }.isEmpty()){
+                        listeCat.clear()
+                        suggest.adapter = CategorieSelectAdapter(context,listeCat, view.findViewById<EditText>(R.id.categorie), R.layout.item_tags_horizontal)
+                        view.findViewById<AutoCompleteTextView>(R.id.categorie).setText("")
+                    }
                     if(s.contains("\n")) {
                         view.findViewById<EditText>(R.id.item).setText(s.toString().replace("\n",""))
                         view.findViewById<EditText>(R.id.quantite).requestFocus()
@@ -294,6 +320,8 @@ class CourseListeFragment (val context: MainActivity
                 }
             }
         )
+
+
 
         context.onBackPressedDispatcher.addCallback(context, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -328,8 +356,9 @@ class CourseListeFragment (val context: MainActivity
             view.findViewById<EditText>(R.id.quantite).setText("")
             view.findViewById<AutoCompleteTextView>(R.id.categorie).setText("")
             repo.addItemCourse(itemCourse)
+            Toast.makeText(context, "Vous avez ajouté $itemName dans la catégorie $categorie", Toast.LENGTH_SHORT).show()
+
         }
-        Toast.makeText(context, "Vous avez ajouté $itemName dans la catégorie $categorie", Toast.LENGTH_SHORT).show()
 
     }
 
@@ -342,5 +371,4 @@ class CourseListeFragment (val context: MainActivity
             }
         }
     }
-
 }

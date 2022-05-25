@@ -1,213 +1,250 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:orientation="vertical"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/constraint"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Switch
-            android:id="@+id/toggleButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/default_margin"
-            android:scaleX="1.25"
-            android:scaleY="1.25"
-            android:theme="@style/SCBSwitch"
-            app:layout_constraintBottom_toBottomOf="@+id/title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/title"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <TextView
-            android:id="@+id/title"
-            style="@style/TitleTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mes courses"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/add_item"
+            android:id="@+id/constraintLayout6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
-            android:layout_marginRight="@dimen/default_margin"
-            android:background="@drawable/rounded_corner_course"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_text">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/quantite"
-                style="@style/DefaultTextStyle"
-                android:layout_width="70dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:ellipsize="end"
-                android:hint="Quantité"
-                android:maxLines="1"
-                android:textColorHint="@color/turquoise"
-                app:layout_constraintBottom_toBottomOf="@+id/item"
-                app:layout_constraintStart_toEndOf="@+id/item"
-                app:layout_constraintTop_toTopOf="@+id/item" />
+            <Switch
+                android:id="@+id/toggleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/default_margin"
+                android:scaleX="1.25"
+                android:scaleY="1.25"
+                android:theme="@style/SCBSwitch"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/item"
-                style="@style/DefaultTextStyle"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:ellipsize="end"
-                android:hint="Nom du produit"
-                android:maxLines="1"
-                android:textColorHint="@color/turquoise"
+            <TextView
+                android:id="@+id/title"
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mes courses"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <AutoCompleteTextView
-                android:id="@+id/categorie"
-                style="@style/DefaultTextStyle"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:ellipsize="end"
-                android:hint="Categorie"
-                android:maxLines="1"
-                android:textColorHint="@color/turquoise"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/quantite"
-                app:layout_constraintTop_toTopOf="@+id/quantite" />
-
-            <ImageView
-                android:id="@+id/add_item_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/plus_bleu_canard"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/categorie"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/sun" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/add_text"
-            style="@style/DefaultTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin"
-            android:text="Ajouter un produit !"
-            android:textColor="@color/sun"
-            app:layout_constraintEnd_toEndOf="@+id/title"
-            app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
-
-        <ImageView
-            android:id="@+id/open"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-            app:layout_constraintEnd_toEndOf="@+id/add_item"
-            app:layout_constraintStart_toStartOf="@+id/add_item"
-            app:layout_constraintTop_toBottomOf="@+id/add_item"
-            app:tint="@color/sun" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/linearLayout7"
+                android:id="@+id/add_item"
+                android:layout_marginTop="@dimen/default_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:background="@drawable/rounded_corner_course"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/course_liste"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/quantite"
+                    style="@style/DefaultTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
+                    android:layout_height="50dp"
+                    android:ellipsize="end"
+                    android:hint="Quantité"
+                    android:maxLines="1"
+                    android:textColorHint="@color/turquoise"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/item"
+                    app:layout_constraintTop_toBottomOf="@+id/item" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/item"
+                    style="@style/DefaultTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:ellipsize="end"
+                    android:hint="Nom du produit"
+                    android:maxLines="1"
+                    android:textColorHint="@color/turquoise"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <AutoCompleteTextView
+                    android:id="@+id/categorie"
+                    style="@style/DefaultTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:ellipsize="end"
+                    android:hint="Categorie"
+                    android:maxLines="1"
+                    android:textColorHint="@color/turquoise"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/quantite"
+                    app:layout_constraintTop_toBottomOf="@+id/quantite" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/suggestCategorie"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="32dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/categorie"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <TextView
+                    android:id="@+id/add_item_button"
+                    style="@style/DefaultTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:background="@drawable/rounded_corner_affect"
+                    android:gravity="center"
+                    android:onClick="performSignUp"
+                    android:padding="5dp"
+                    android:text="Ajouter le produit"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/suggestCategorie" />
+
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_item_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/add_item_button"
+                    app:layout_constraintTop_toTopOf="@+id/add_item_button" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/linearLayout7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/course_liste"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/clearCourse"
+                    android:layout_width="307dp"
+                    android:layout_height="47dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/delete_course" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/NoRepas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@+id/nestedScrollView2">
+
             <ImageView
-                android:id="@+id/clearCourse"
-                android:layout_width="307dp"
-                android:layout_height="47dp"
-                android:layout_marginTop="40dp"
-                android:layout_gravity="center"
+                android:id="@+id/imageView5"
+                android:layout_width="315dp"
+                android:layout_height="136dp"
+                android:layout_marginTop="80dp"
+                android:src="@drawable/nocourse"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView8"
+                style="@style/SubstitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:fontFamily="@font/montserratalternateslight"
+                android:text="Rien de prévu pour le moment !"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+            <ImageView
+                android:id="@+id/commencer"
+                android:layout_width="333dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="120dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/delete_course" />
+                android:src="@drawable/ic_commencer_une_liste"
+                app:layout_constraintEnd_toEndOf="@+id/textView8"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </androidx.core.widget.NestedScrollView>
-
-
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/NoRepas"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
-        android:visibility="visible">
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_gravity="bottom|end">
 
         <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="315dp"
-            android:layout_height="136dp"
-            android:src="@drawable/nocourse"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView8"
-            style="@style/SubstitleTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin"
-            android:fontFamily="@font/montserratalternateslight"
-            android:text="Rien de prévu pour le moment !"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
-
-        <ImageView
-            android:id="@+id/commencer"
-            android:layout_width="333dp"
+            android:id="@+id/open"
+            android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginTop="120dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/ic_commencer_une_liste"
-            app:layout_constraintEnd_toEndOf="@+id/textView8"
-            app:layout_constraintStart_toStartOf="@+id/textView8"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            android:layout_margin="7dp"
+            android:src="@drawable/plus_orange_background"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-</LinearLayout>

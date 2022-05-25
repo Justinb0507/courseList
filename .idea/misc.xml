@@ -26,6 +26,7 @@
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/course_selected.xml" value="0.1" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.1606837606837607" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.1606837606837607" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/ic_baseline_keyboard_arrow_up_24.xml" value="0.1015" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/ic_baseline_radio_button_unchecked_24.xml" value="0.12368421052631579" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/ic_mask_popup.xml" value="0.1606837606837607" />
@@ -36,6 +37,7 @@
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/rounded_corner.xml" value="0.11381578947368422" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/rounded_corner_affect.xml" value="0.1" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/drawable/toggle_selector.xml" value="0.1606837606837607" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/_copy.xml" value="0.22" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/activity_gallery.xml" value="0.25" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/activity_login.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/activity_main.xml" value="0.14666666666666667" />
@@ -50,6 +52,7 @@
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_add_repas.xml" value="0.22" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_advanced_research.xml" value="0.14743589743589744" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_collection.xml" value="0.1346153846153846" />
+        <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_course_liste.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_edit_repas.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_filtrerepas.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/jboulang/AndroidStudioProjects/CourseList/app/src/main/res/layout/fragment_home.xml" value="0.15898617511520738" />

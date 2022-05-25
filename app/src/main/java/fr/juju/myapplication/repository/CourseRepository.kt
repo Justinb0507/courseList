@@ -168,7 +168,11 @@ class CourseRepository {
                             UUID.randomUUID().toString(),
                             item.name,
                             item.quantite,
-                            if (item.categorie != "None") categorieList.filter { s -> s.id == item.categorie }[0].name else "Autres",
+                            if (item.categorie != "None" && categorieList.filter { s -> s.id == item.categorie }.isNotEmpty()){
+                                categorieList.filter { s -> s.id == item.categorie }[0].name
+                            } else if(item.categorie != "None" && categorieList.filter { s -> s.id == item.categorie }.isEmpty()) {
+                                item.categorie
+                            } else "Autres",
                             "false",
                             "false"
                         )

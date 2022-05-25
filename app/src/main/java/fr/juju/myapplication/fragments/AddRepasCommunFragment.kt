@@ -21,12 +21,11 @@ import fr.juju.myapplication.repository.RepasCommunRepository
 
 class AddRepasCommunFragment (val context: MainActivity
 ) : Fragment() {
+
     class MultipleSelectRepas(
         var repas: RepasCommunModel,
         var selected: Boolean
     )
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

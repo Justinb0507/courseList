@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -19,7 +20,8 @@ import fr.juju.myapplication.adapter.RepasCommunAdapter
 import fr.juju.myapplication.model.RepasCommunModel
 import fr.juju.myapplication.repository.RepasCommunRepository
 
-class AddRepasCommunFragment (val context: MainActivity
+class AddRepasCommunFragment(
+    val context: MainActivity
 ) : Fragment() {
 
     class MultipleSelectRepas(
@@ -36,24 +38,39 @@ class AddRepasCommunFragment (val context: MainActivity
         val recyclerView = view.findViewById<RecyclerView>(R.id.RepasCommunRecyclerView)
         val auth = FirebaseAuth.getInstance().currentUser
         var liste = arrayListOf<MultipleSelectRepas>()
-        for (repas in repasCommunList.filter { s->s.createur != auth?.email }){
-            if(repasList.filter{ s->s.id == repas.id}.isEmpty()){
+        var empty = false
+        for (repas in repasCommunList.filter { s -> s.createur != auth?.email }) {
+            if (repasList.filter { s -> s.id == repas.id }.isEmpty()) {
                 liste.add(MultipleSelectRepas(repas, false))
+                view.findViewById<ConstraintLayout>(R.id.ok).visibility = View.VISIBLE
+                view.findViewById<ConstraintLayout>(R.id.NoRepasCommun).visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+                empty = true
             }
         }
+        if (!empty) {
+            view.findViewById<ConstraintLayout>(R.id.ok).visibility = View.GONE
+            view.findViewById<ConstraintLayout>(R.id.NoRepasCommun).visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+        }
+
         recyclerView.adapter = RepasCommunAdapter(context, liste, R.layout.item_repas_vertical)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         var compteur = 0
-        view.findViewById<ConstraintLayout>(R.id.ok).setOnClickListener{
-            for(repas in liste){
-                if(repas.selected){
+        view.findViewById<ConstraintLayout>(R.id.ok).setOnClickListener {
+            for (repas in liste) {
+                if (repas.selected) {
                     RepasCommunRepository().retrieveData(repas.repas)
-                    compteur+=1
+                    compteur += 1
                 }
             }
-            Toast.makeText(context, "Vous avez ajouté " + compteur.toString() + " à votre livre de recette !", Toast.LENGTH_SHORT).show()
-            context.loadFragment(FiltreRepasFragment(context,"None","None","None"))
+            Toast.makeText(
+                context,
+                "Vous avez ajouté " + compteur.toString() + " à votre livre de recette !",
+                Toast.LENGTH_SHORT
+            ).show()
+            context.loadFragment(FiltreRepasFragment(context, "None", "None", "None"))
         }
         return view
     }
